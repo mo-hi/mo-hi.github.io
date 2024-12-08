@@ -109,7 +109,7 @@ class clsTest {
         thead.append(this._tableRow('th', ['no.', 'name', 'result', 'message']))
 
         for (let i = 0; i< this.cases.length; i++) {
-            tbody.append(this._tableRow('td', [i].concat(this.cases[i])))}
+            tbody.append(this._tableRow('td', [i+1].concat(this.cases[i])))}
 
         table.append(thead)
         table.append(tbody)

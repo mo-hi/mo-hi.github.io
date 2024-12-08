@@ -1,6 +1,8 @@
 function testCases(myTest) {
     testcase_Equal_True(myTest)
     testcase_Equal_False(myTest)
+    testcase_OnePlusOne(myTest)
+    testcase_OnePlusOne_False(myTest)
 }
 
 function testcase_Equal_True(myTest) {
@@ -9,7 +11,6 @@ function testcase_Equal_True(myTest) {
     myTest.Equal(1,1,fname)
     myTest.Equal([1,2,3],[1,2,3],fname)
     myTest.Equal({"A":[1,2,3], "B":{"a":1, "b":2}, "C":"Text", "D":123, "E": true}, {"A":[1,2,3], "B":{"a":1, "b":2}, "C":"Text", "D":123, "E": true},fname)
-
 }
 
 function testcase_Equal_False(myTest) {
@@ -20,3 +21,16 @@ function testcase_Equal_False(myTest) {
     myTest.Equal({"A":[1,2,3], "B":{"a":1, "b":2}, "C":"Text", "D":123, "E": true}, {"A":[1,2,0], "B":{"a":1, "b":2}, "C":"Text", "D":123, "E": true},fname)
     myTest.Equal({"A":[1,2,3], "B":{"a":1, "b":2}, "C":"Text", "D":123, "E": true}, {"A":[1,2,322], "B":{"a":333, "b":2}, "C":"Text", "D":123, "E": true},fname)
 }
+
+function testcase_OnePlusOne(myTest) {
+    let fname = arguments.callee.name;
+    
+    myTest.Equal(OnePlusOne(),2,fname)
+}
+
+function testcase_OnePlusOne_False(myTest) {
+    let fname = arguments.callee.name;
+    
+    myTest.Equal(OnePlusOne(),1,fname)
+}
+
