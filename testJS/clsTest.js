@@ -90,7 +90,12 @@ class clsTest {
                 margin: 5px;
                 padding: 5px;
                 padding-right: 20px;
-            }`;
+            }
+            td.failed {
+            background-color: #CC0000;
+            color: #e2d6d6;
+            }
+            `;
 
         style.appendChild(document.createTextNode(css));
         return style
