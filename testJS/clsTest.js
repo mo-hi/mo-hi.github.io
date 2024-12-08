@@ -31,7 +31,7 @@ class clsTest {
     }
 
 // ##################################################################################
-// # Checker                                                                        #
+// # Checker helper                                                                 #
 // ##################################################################################
 
     _t(variable) {
@@ -72,7 +72,55 @@ class clsTest {
 // ##################################################################################
 
     PrintResult(targetDiv) {
-        document.getElementById(targetDiv).innerHTML = String(this.cases).replace(/,,/g, '<br>').replace(/ ,/g, '<br>')
+        document.head.appendChild(this._style());   
+        // document.getElementById(targetDiv).innerHTML = String(this.cases).replace(/,,/g, '<br>').replace(/ ,/g, '<br>')
+        document.getElementById(targetDiv).append(this._table())
     }
         
+    _style() {
+        let style = document.createElement('style');
+        let css = `
+            body {
+                background-color: #222;
+                color: #ddd;
+            }
+            table, th, td {
+                border: 1px solid #444;
+                border-collapse: collapse;
+                margin: 5px;
+                padding: 5px;
+                padding-right: 20px;
+            }`;
+
+        style.appendChild(document.createTextNode(css));
+        return style
+    }
+
+    _table() {
+        let table = document.createElement('table')
+        let thead = document.createElement('thead')
+        let tbody = document.createElement('tbody');
+
+        thead.append(this._tableRow('th', ['no.', 'name', 'result', 'message']))
+
+        for (let i = 0; i< this.cases.length; i++) {
+            tbody.append(this._tableRow('td', [i].concat(this.cases[i])))}
+
+        table.append(thead)
+        table.append(tbody)
+
+        return table
+    }
+
+    _tableRow(tx, arr) {
+        let row = document.createElement('tr')
+
+        for (let item of arr) {
+            let cell = document.createElement(tx)
+            if (item == 'failed') cell.classList.add('failed')
+            cell.innerHTML = item
+            row.append(cell)}
+        
+        return row
+    }
 }
