@@ -13,4 +13,5 @@ function testcase_Proto_Depth(myTest) {
     myTest.Equal([1,[2, [[1,[2, [4]],3]]],3].depth(5),5,fname)
     myTest.Equal([1,[2, [[1,[2, [4]],3]]],3].depth(4),4,fname)
     myTest.Equal([1,[2, [[1,[2, [4]],3]]],3].depth(1),1,fname)
+    myTest.Equal([1,[2, [3, [4, [5, [6, [7, [8, [9, [10, [11]]]]]]]]]]].depth(),9,fname)    // deault max value
 }

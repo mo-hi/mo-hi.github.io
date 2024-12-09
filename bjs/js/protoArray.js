@@ -1,6 +1,6 @@
 Object.defineProperties(Array.prototype, {
     depth: {
-        value: function(iterations = 99) {
+        value: function(iterations = 9) {
 
             function recursiveDepth(arr) {
                 if (!Array.isArray(arr)) return 0
