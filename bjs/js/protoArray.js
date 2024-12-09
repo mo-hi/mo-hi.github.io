@@ -17,4 +17,3 @@ Object.defineProperties(Array.prototype, {
         }
     }
 });
-
