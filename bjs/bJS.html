@@ -65,6 +65,16 @@
                 let b = [1, [2], 3].depth() <comment>// b = 2 </comment><br>
                 let b = [1, [2, [3]]].depth() <comment>// b = 3 </comment><br>
             </codeblock>
+        </p><br>
+        <p>
+            <c>[...].count(item)</c> returns the number of occurances in an array. 
+            <codeblock>
+                let b = [1, 2, 3].count(3)                      <comment>// b = 1</comment><br>    
+                let b = [1, 2, 3, 3, 4].count(3)                <comment>// b = 2</comment><br>
+                let b = ["1", "2", "3", "3", "4"].count(3)      <comment>// b = 0</comment><br>
+                let b = ["1", "2", "3", "3", "4"].count("3")    <comment>// b = 2</comment><br>
+                let b = ["1", "2", "3", "34"].count("3")        <comment>// b = 1</comment><br>
+            </codeblock>
         </p>
     </wrapper>
 </body>

@@ -17,3 +17,15 @@ Object.defineProperties(Array.prototype, {
         }
     }
 });
+
+Object.defineProperties(Array.prototype, {
+    count: {
+        value: function(searchItem) {
+            var ret = 0;
+            for(let item of this)
+                // if (Array.isArray(item)) continue
+                if (searchItem===item) ret++;
+            return ret;
+        }
+    }
+});
