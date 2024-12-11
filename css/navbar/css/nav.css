@@ -1,0 +1,61 @@
+/* css derived from https://www.w3schools.com/css/css_navbar.asp */
+
+
+/* COLORS */
+/* Default color sheme. Change here or in 'navColors.css' 'navColors.css' stlye will overwrite the colors here if placed after nav.css in the html */
+nav                                 {background-color: #38444d;}
+nav > a, nav > drop a               {color: white;}
+nav > a:hover,  nav > drop a:hover  {background-color: red;}
+nav > drop > down                   {background-color: #f9f9f9;}
+nav > drop > down a                 {color: black;}
+nav > drop > down a:hover           {background-color: #f1f1f1;}
+
+/* LOGIC */
+nav {
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    display: block;
+    list-style-type: none;
+    margin-top: -8px;
+    margin-left: -8px;
+    padding: 0;
+    overflow: hidden;
+    width: calc(100% + 16px)
+  }
+  
+nav > a, nav > drop {
+    float: left;
+    position: static;
+  }
+  
+nav > a, nav > drop a {
+    position: static;
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+nav > drop > a::after {
+    content: " \25BC";
+  }
+  
+  
+nav > drop > down {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+  }
+  
+nav > drop > down a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+nav > drop:hover down {
+    display: block;
+  }

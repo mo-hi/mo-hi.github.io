@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>CSS: nav</title>
+    <link rel="stylesheet" href="css/navColors.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;
+            padding: 0; 
+            background-color: #f0f0f0;
+        }
+
+        /* For screens smaller than 600px */
+        @media (max-width: 500px) {
+        body {
+            width: 400px;
+        }
+        }
+
+        /* For screens larger than 600px */
+        @media (min-width: 501px) {
+        body  {
+            width: 800px;
+        }
+        }
+
+        pp {
+            /* text-align: center; */
+            color: #444;
+            font-size: 22px;
+
+        }
+
+        p {
+            /* text-align: center; */
+            color: #444;
+            font-size: 18px;
+        }
+
+        c {
+            color: rgb(20, 77, 220);
+            background-color: #dddddd;
+            padding: 2px;
+            font-family: monospace;
+        }
+
+        codeblock {
+            display: block;
+            background-color: #dddddd;
+            padding: 2px;
+            font-family: monospace;line-height: 18pt;
+            margin-top: 10px
+        }
+        comment {
+            color: green !important;
+        }
+
+
+    </style>
+</head>
+<body>  
+    <nav>
+        <a href="" onclick="">Home</a>
+        <a href="" onclick="">Edit</a>
+        <drop>
+            <a href="">Stuff</a>
+            <down>
+                <a href="" onclick="">Link 1</a>
+                <a href="" onclick="">Link 2</a>
+                <a href="" onclick="">Link 3</a>
+            </down>
+        </drop>
+        <a href="" onclick="">Articles</a>
+        <drop>
+            <a href="">More</a>
+            <down>
+                <a href="" onclick="">Link 1</a>
+                <a href="" onclick="">Link 2</a>
+                <a href="" onclick="">Link 3</a>
+            </down>
+        </drop>
+    </nav>
+    
+    <h3>nav.css</h3>
+    <p><b>nav.css</b> let's you create navbars / menubars on top of your html page in a intuitive way (at least that's what I aimed for).
+        Div tag classes are not used, instead made-up html elements, like 'drop' and 'down' are used. No javascript, pure css.</p>
+        <p>The above navbar is created with just the following html:</p>
+    <codeblock><pre>
+    &lt;nav&gt;
+        &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
+        &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
+        &lt;drop&gt;
+            &lt;a href=""&gt;Stuff&lt;/a&gt;
+            &lt;down&gt;
+                &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
+                &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
+                &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
+            &lt;/down&gt;
+        &lt;/drop&gt;
+        &lt;a href="" onclick=""&gt;Articles&lt;/a&gt;
+        &lt;drop&gt;
+            &lt;a href=""&gt;More&lt;/a&gt;
+            &lt;down&gt;
+                &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
+                &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
+                &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
+            &lt;/down&gt;
+        &lt;/drop&gt;
+    &lt;/nav&gt;</pre>
+    </codeblock>
+    <p>To use this way of defining a navbar / menubar, just insert the folllwoing css in your html page</p>
+    <codeblock><pre>
+    &lt;link rel="stylesheet" href="css/nav.css"&gt;</pre>
+    </codeblock>
+    <p>Done. There's nothing more to do. But you may want to have your own color scheme. </p>
+    <p>If you want to put your custom color scheme, then create your own css based on <a href="https://github.com/mo-hi/mo-hi.github.io">navColors</a> and place if below the nav.css. For example:
+    </p>
+    <codeblock><pre>
+    &lt;link rel="stylesheet" href="css/nav.css"&gt;
+    &lt;link rel="stylesheet" href="css/navColors.css"&gt;</pre>
+    </codeblock>
+    
+    <p><span style='font-size:30px;color:orange'>&#9888;</span> Be aware that the navbar from nsv.css is not 'fixed', i. e. if you scroll down on your page, 
+        then the navbar will scroll up with the rest of the page (as it also happend with the navbar of this page when you read this text). 
+        I don't know a solution to make this naxbar fixed without losing the drop down feature and not using javasript.
+        If you know, then let me know</p>
+    <p><a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a></p>
+    </body>
+</html>
