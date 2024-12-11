@@ -1,0 +1,37 @@
+body {
+    width: 800px;
+    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+pp {
+    /* text-align: center; */
+    color: #444;
+    font-size: 22px;
+
+}
+
+p {
+    /* text-align: center; */
+    color: #444;
+    font-size: 18px;
+}
+
+c {
+    color: rgb(20, 77, 220);
+    background-color: #dddddd;
+    padding: 2px;
+    font-family: monospace;
+}
+codeblock {
+    display: block;
+    background-color: #dddddd;
+    padding: 2px;
+    font-family: monospace;line-height: 18pt;
+    margin-top: 10px
+}
+comment {
+    color: green !important;
+}

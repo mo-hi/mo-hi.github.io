@@ -3,39 +3,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
-    <title>CSS: nav</title>
-    <link rel="stylesheet" href="css/navColors.css">
+    <title>CSS: nav fix position </title>
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="../paper.css">
+    <link rel="stylesheet" href="../fixed.css">
     <link rel="stylesheet" href="../responsive.css">
 </head>
-<body class="resp">   
-    <nav>
-        <a href="" onclick="">Home</a>
-        <a href="" onclick="">Edit</a>
-        <drop>
-            <a href="">Stuff</a>
-            <down>
-                <a href="" onclick="">Link 1</a>
-                <a href="" onclick="">Link 2</a>
-                <a href="" onclick="">Link 3</a>
-            </down>
-        </drop>
-        <a href="" onclick="">Articles</a>
-        <drop>
-            <a href="">More</a>
-            <down>
-                <a href="" onclick="">Link 1</a>
-                <a href="" onclick="">Link 2</a>
-                <a href="" onclick="">Link 3</a>
-            </down>
-        </drop>
-    </nav>
-    
-
-    <h2>nav.css</h2>
-    <p><b>nav.css</b> let's you create navbars / menubars on top of your html page in a intuitive way (at least that's what I aimed for).
+<body class="resp">  
+    <fixed class="resp">
+        <nav>
+            <a href="" onclick="">Home</a>
+            <a href="" onclick="">Edit</a>
+            <drop>
+                <a href="">Stuff</a>
+                <down>
+                    <a href="" onclick="">Link 1</a>
+                    <a href="" onclick="">Link 2</a>
+                    <a href="" onclick="">Link 3</a>
+                </down>
+            </drop>
+            <a href="" onclick="">Articles</a>
+            <drop>
+                <a href="">More</a>
+                <down>
+                    <a href="" onclick="">Link 1</a>
+                    <a href="" onclick="">Link 2</a>
+                    <a href="" onclick="">Link 3</a>
+                </down>
+            </drop>
+        </nav>
+    </fixed>
+    <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
+    <h2 class="mt-36">nav.css</h2>
+    <p ><b>nav.css</b> let's you create navbars / menubars on top of your html page in a intuitive way (at least that's what I aimed for).
     Div tag classes are not used, instead made-up html elements, like 'drop' and 'down' are used. No javascript, pure css.</p>
+    <p>In combination with <c>position:fixed</c> in a wrapping element, the navbar becomes fixed without losing its functionalty, i. e. it will keep its position and be visible
+    even when you scroll down the page. Still pure css  </p>
     <p>The above navbar is created with just the following html:</p>
     <codeblock><pre>
     &lt;nav&gt;
@@ -60,21 +63,28 @@
         &lt;/drop&gt;
     &lt;/nav&gt;</pre>
     </codeblock>
+    <p> Put inside a wrapper with a made-up tag <c>&lt;fixed&gt;</c>, defined in <a href="https://github.com/mo-hi/mo-hi.github.io">fixed.css</a></p>
+    <codeblock><pre>
+    &lt;fixed class="resp"&gt;
+        &lt;nav&gt;
+            ...
+        &lt;/nav&gt;
+    &lt;/fixed&gt;</pre>
+    </codeblock>
     <p>To use this way of defining a navbar / menubar, just insert the folllwoing css in your html page</p>
     <codeblock><pre>
-    &lt;link rel="stylesheet" href="css/nav.css"&gt;</pre>
+    &lt;link rel="stylesheet" href="css/nav.css"&gt;
+    &lt;link rel="stylesheet" href="css/YourColors.css"&gt;
+    &lt;link rel="stylesheet" href="css/YourPositionAndWidth.css"&gt;</pre>
     </codeblock>
+    <p>Together with your custom css for fixed position and width.</p>
     <p>Done. There's nothing more to do. But you may want to have your own color scheme. </p>
     <p>If you want to put your custom color scheme, then create your own css based on <a href="https://github.com/mo-hi/mo-hi.github.io">navColors</a> and place if below the nav.css. For example:
     </p>
     <codeblock><pre>
     &lt;link rel="stylesheet" href="css/nav.css"&gt;
-    &lt;link rel="stylesheet" href="css/YourColors.css"&gt;</pre>
+    &lt;link rel="stylesheet" href="../fixed.css""&gt;</pre>
     </codeblock>
-    
-    <p><span style='font-size:30px;color:orange'>&#9888;</span> Be aware that this navbar not 'fixed', i. e. if you scroll down on your page, 
-        then the navbar will scroll up with the rest of the page.
-        If you want the navbar to be fixed, then use the <a href="https://github.com/mo-hi/mo-hi.github.io">nav fix position</a></p>
     <p><a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a></p>
     </body>
 </html>

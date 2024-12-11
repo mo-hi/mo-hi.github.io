@@ -2,7 +2,7 @@
 
 
 /* COLORS */
-/* Default color sheme. Change here or in 'navColors.css' 'navColors.css' stlye will overwrite the colors here if placed after nav.css in the html */
+/* This is the default color sheme. CopyPaste this part and fill it with your preferred color scheme. Then place your custom css after the nav.css in the html */
 nav                                 {background-color: #38444d;}
 nav > a, nav > drop a               {color: white;}
 nav > a:hover,  nav > drop a:hover  {background-color: red;}
@@ -10,18 +10,18 @@ nav > drop > down                   {background-color: #f9f9f9;}
 nav > drop > down a                 {color: black;}
 nav > drop > down a:hover           {background-color: #f1f1f1;}
 
+
 /* LOGIC */
 nav {
     /* position: fixed; */
-    top: 0;
-    left: 0;
     display: block;
     list-style-type: none;
     margin-top: -8px;
     margin-left: -8px;
     padding: 0;
     overflow: hidden;
-    width: calc(100% + 16px)
+    width: calc(100% + 16px);
+    /* height: 50px */
   }
   
 nav > a, nav > drop {

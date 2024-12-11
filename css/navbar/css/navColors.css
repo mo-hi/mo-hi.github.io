@@ -1,9 +1,0 @@
-/* COLORS */
-/* Place this css after the nav.css in your html to apply your custom color sheme */
-
-nav                                 {background-color: #38444d;}
-nav > a, nav > drop a               {color: white;}
-nav > a:hover,  nav > drop a:hover  {background-color: rgb(51, 255, 0);}
-nav > drop > down                   {background-color: #f9f9f9;}
-nav > drop > down a                 {color: black;}
-nav > drop > down a:hover           {background-color: #f1f1f1;}
