@@ -1,3 +1,7 @@
+// ####################################################################################################
+// #                                            protoArray                                            #
+// ####################################################################################################
+
 Object.defineProperties(Array.prototype, {
     depth: {
         value: function(iterations = 9) {
@@ -28,4 +32,33 @@ Object.defineProperties(Array.prototype, {
             return ret;
         }
     }
+});
+
+// ####################################################################################################
+// #                                           protoString                                            #
+// ####################################################################################################
+
+Object.defineProperties(String.prototype, {
+    until: {
+        value: function(n) {
+            if (n == '') {return this.substring(0)}     // return this will return the wrong data type 'String()'. Equvivalent to String(this)
+
+            let idx = this.indexOf(n)
+            if (idx == -1) { 
+                return this.substring(0)}
+            return this.substring(0,idx)
+        }
+    } 
+});
+
+Object.defineProperties(String.prototype, {
+    digits: {
+        value: function(min, max) {
+            if (min == undefined) min = 1
+            if (max == undefined) max = ''
+            const regex = new RegExp(`\\b\\d{${min},${max}}\\b`, 'g');
+            const matches = this.match(regex);
+            return matches || [];
+          }
+        }
 });
