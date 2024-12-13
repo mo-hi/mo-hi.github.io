@@ -15,21 +15,21 @@
             <a href="" onclick="">Home</a>
             <a href="" onclick="">Edit</a>
             <drop>
-                <a href="">Stuff</a>
-                <downH>
+                <a onclick="toggleDown(this)">Stuff</a>
+                <down>
                     <a href="" onclick="">Link 1</a>
                     <a href="" onclick="">Link 2</a>
                     <a href="" onclick="">Link 3</a>
-                </downH>
+                </down>
             </drop>
             <a href="" onclick="">Articles</a>
             <drop>
-                <a href="">More</a>
-                <downH>
+                <a onclick="toggleDown(this)">More</a>
+                <down>
                     <a href="" onclick="">Link 1</a>
                     <a href="" onclick="">Link 2</a>
                     <a href="" onclick="">Link 3</a>
-                </downH>
+                </down>
             </drop>
         </nav>
     </fixed>
@@ -45,7 +45,7 @@
         &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
         &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
         &lt;drop&gt;
-            &lt;a href=""&gt;Stuff&lt;/a&gt;
+            &lt;a onclick="toggleDown(this)"&gt;Stuff&lt;/a&gt;
             &lt;down&gt;
                 &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
                 &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
@@ -54,7 +54,7 @@
         &lt;/drop&gt;
         &lt;a href="" onclick=""&gt;Articles&lt;/a&gt;
         &lt;drop&gt;
-            &lt;a href=""&gt;More&lt;/a&gt;
+            &lt;a onclick="toggleDown(this)"&gt;More&lt;/a&gt;
             &lt;down&gt;
                 &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
                 &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
@@ -63,6 +63,9 @@
         &lt;/drop&gt;
     &lt;/nav&gt;</pre>
     </codeblock>
+    <p> Be aware that you can use each 'a' element either as link (href) or to call a function (onclick). If you use it to call a function you must remove the 'href=""' part, 
+        otherwise the function call won't work.
+    </p>
     <p> Put inside a wrapper with a made-up tag <c>&lt;fixed&gt;</c>, defined in <a href="https://github.com/mo-hi/mo-hi.github.io">fixed.css</a></p>
     <codeblock><pre>
     &lt;fixed class="resp"&gt;
@@ -87,4 +90,5 @@
     </codeblock>
     <p><a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a></p>
     </body>
+    <script src="js/nav.js"></script>
 </html>
