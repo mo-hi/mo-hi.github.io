@@ -2,6 +2,13 @@ let num1, num2, operator;
 let maxNumber = 10
 let userAnswer = "";
 
+function SetPlus10() {SetMaxNumber(10)}
+function SetPlus20() {SetMaxNumber(20)}
+function SetPlus100() {SetMaxNumber(100)}
+function SetPlus1000() {SetMaxNumber(1000)}
+
+
+
 function SetMaxNumber(n) {
     maxNumber = n
     generateProblem()
@@ -9,7 +16,7 @@ function SetMaxNumber(n) {
 
 function generateProblem() {
   num1 = Math.floor(Math.random() * maxNumber);
-  num2 = Math.floor(Math.random() * maxNumber);
+  num2 = Math.floor(Math.random() * (maxNumber-num1));
   operator = "+"; // For now, just addition
 
   document.getElementById("problem").innerHTML = num1 + " " + operator + " " + num2;
