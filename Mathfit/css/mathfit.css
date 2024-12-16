@@ -8,10 +8,16 @@ body {
   margin-bottom: 20px;
 }
 
-#problem, #result, #equal{
+#problem, #result, #equal, #check{
     font-size: 2em;
     margin-bottom: 20px;
   }
+
+  #check{
+    font-size: 1.5em;
+    height: 50px;
+  }
+  
   #result {
   transition: background-color 0.3s ease; /* For smooth transition */
 }

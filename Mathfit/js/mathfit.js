@@ -1,9 +1,15 @@
 let num1, num2, operator;
+let maxNumber = 10
 let userAnswer = "";
 
+function SetMaxNumber(n) {
+    maxNumber = n
+    generateProblem()
+}
+
 function generateProblem() {
-  num1 = Math.floor(Math.random() * 10);
-  num2 = Math.floor(Math.random() * 10);
+  num1 = Math.floor(Math.random() * maxNumber);
+  num2 = Math.floor(Math.random() * maxNumber);
   operator = "+"; // For now, just addition
 
   document.getElementById("problem").innerHTML = num1 + " " + operator + " " + num2;
@@ -12,6 +18,10 @@ function generateProblem() {
 }
 
 function appendToResult(number) {
+    if (document.getElementById("check").innerHTML == 'Leider Falsch') {
+        userAnswer = "";
+        document.getElementById("check").innerHTML = ''
+        clearCheck()}
     userAnswer += number;
     const resultDiv = document.getElementById("result");
     resultDiv.textContent = userAnswer;
@@ -23,9 +33,19 @@ function appendToResult(number) {
     }, 300); // Remove the highlight after 300ms (0.3 seconds)
 }
 
+function clearr(divID){
+    document.getElementById(divID).innerHTML = "";
+}
+
 function clearResult(){
     userAnswer = "";
-    document.getElementById("result").textContent = "";
+    clearr("result")
+}
+
+function clearCheck(){
+    let check = document.getElementById("check")
+    check.innerHTML = ""
+    check.classList.remove("correct", "incorrect");
 }
 
 function checkAnswer() {
@@ -36,11 +56,21 @@ function checkAnswer() {
             break;
         // Add cases for -, *, / later
     }
+
+    let check = document.getElementById("check")
+    clearCheck()
+
     if (parseInt(userAnswer) === correctAnswer) {
-        alert("Correct!");
-        generateProblem();
+        check.classList.add("correct")
+        check.innerHTML = 'Korrekt!'
+        setTimeout(() => {
+            generateProblem();
+            clearr('check')
+        }, 1000); 
+        
     } else {
-        alert("Try again!");
+        check.classList.add("incorrect")
+        check.innerHTML = 'Leider Falsch'
     }
 }
 

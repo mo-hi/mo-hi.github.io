@@ -13,28 +13,19 @@
     <link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css">
     <link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css">
     <link rel="stylesheet" href="css/mathfit.css">
+    <link rel="stylesheet" href="css/feedback.css">
 </head>
 <body class="wr-800-400">
 
 <!--- 02_nav-->
 <nav class="wr-800-400">
     <a href="" onclick="">Home</a>
-    <a href="" onclick="">Edit</a>
     <drop>
-        <a href="">Stuff</a>
+        <a onclick="SetMaxNumber('10')">Plus</a>
         <downH>
-            <a href="" onclick="">Link 1</a>
-            <a href="" onclick="">Link 2</a>
-            <a href="" onclick="">Link 3</a>
-        </downH>
-    </drop>
-    <a href="" onclick="">Articles</a>
-    <drop>
-        <a href="">More</a>
-        <downH>
-            <a href="" onclick="">Link 1</a>
-            <a href="" onclick="">Link 2</a>
-            <a href="" onclick="">Link 3</a>
+            <a onclick="SetMaxNumber('10')">1 bis 10</a>
+            <a onclick="SetMaxNumber('20')">1 bis 20</a>
+            <a onclick="SetMaxNumber('30')">1 bis 100</a>
         </downH>
     </drop>
 </nav>
@@ -47,8 +38,9 @@
 <div class="flexC gap-20 ">
     <div id="problem"></div>
     <div id="equal"> = </div>
-    <div id="result">?</div>
+    <div id="result"></div>
 </div>
+<div id="check"></div>
 
 
 <div id="number-pad">
