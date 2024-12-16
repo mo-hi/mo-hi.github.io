@@ -5,12 +5,13 @@
     <meta name="author" content="Mario Hamidi">
     <title>CSS: nav fix position </title>
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/navColors.css">
+    <link rel="stylesheet" href="../css/basis.css">
     <link rel="stylesheet" href="../css/paper.css">
-    <link rel="stylesheet" href="../css/fixed.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/width.css">
 </head>
-<body class="resp">  
-    <fixed class="resp">
+<body class="wr-800-400">  
+    <div class="fixed wr-800-400">
         <nav>
             <a href="" onclick="">Home</a>
             <a href="" onclick="">Edit</a>
@@ -32,63 +33,63 @@
                 </down>
             </drop>
         </nav>
-    </fixed>
+    </div>
     <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
-    <h2 class="mt-36">nav.css</h2>
-    <p ><b>nav.css</b> let's you create navbars / menubars on top of your html page in a intuitive way (at least that's what I aimed for).
-    Div tag classes are not used, instead made-up html elements, like 'drop' and 'down' are used. No javascript, pure css.</p>
-    <p>In combination with <c>position:fixed</c> in a wrapping element, the navbar becomes fixed without losing its functionalty, i. e. it will keep its position and be visible
-    even when you scroll down the page. Still pure css  </p>
-    <p>The above navbar is created with just the following html:</p>
-    <codeblock><pre>
-    &lt;nav&gt;
-        &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
-        &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
-        &lt;drop&gt;
-            &lt;a onclick="toggleDown(this)"&gt;Stuff&lt;/a&gt;
-            &lt;down&gt;
-                &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-            &lt;/down&gt;
-        &lt;/drop&gt;
-        &lt;a href="" onclick=""&gt;Articles&lt;/a&gt;
-        &lt;drop&gt;
-            &lt;a onclick="toggleDown(this)"&gt;More&lt;/a&gt;
-            &lt;down&gt;
-                &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-            &lt;/down&gt;
-        &lt;/drop&gt;
-    &lt;/nav&gt;</pre>
-    </codeblock>
-    <p> Be aware that you can use each 'a' element either as link (href) or to call a function (onclick). If you use it to call a function you must remove the 'href=""' part, 
-        otherwise the function call won't work.
+
+    <div class="flex h-46 mt-30">
+        <h2>nav.css</h2>
+        <h2X> (with fixed position and click behavior)</h2X>
+    </div>
+    <div id = 'id-start'><!-- filled via script--></div> 
+
+    <p>
+        The navbar of this page is an enhancement of <a href="https://github.com/mo-hi/mo-hi.github.io" >nav</a> with fixed position to the top and 
+        with the menu dropping down via onclick behavior instead of hover. 
+        It is created with the following html:
     </p>
-    <p> Put inside a wrapper with a made-up tag <c>&lt;fixed&gt;</c>, defined in <a href="https://github.com/mo-hi/mo-hi.github.io">fixed.css</a></p>
     <codeblock><pre>
-    &lt;fixed class="resp"&gt;
+    &lt;div class="position-fixed fullWidth"&gt;
         &lt;nav&gt;
-            ...
+            &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
+            &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
+            &lt;drop&gt;
+                &lt;a onclick="toggleDown(this)"&gt;Stuff&lt;/a&gt;
+                &lt;down&gt;
+                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
+                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
+                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
+                &lt;/down&gt;
+            &lt;/drop&gt;
+            &lt;a href="" onclick=""&gt;Articles&lt;/a&gt;
+            &lt;drop&gt;
+                &lt;a onclick="toggleDown(this)"&gt;More&lt;/a&gt;
+                &lt;down&gt;
+                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
+                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
+                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
+                &lt;/down&gt;
+            &lt;/drop&gt;
         &lt;/nav&gt;
-    &lt;/fixed&gt;</pre>
+    &lt;/div&gt;</pre>
     </codeblock>
-    <p>To use this way of defining a navbar / menubar, just insert the folllwoing css in your html page</p>
-    <codeblock><pre>
-    &lt;link rel="stylesheet" href="css/nav.css"&gt;
-    &lt;link rel="stylesheet" href="css/YourColors.css"&gt;
-    &lt;link rel="stylesheet" href="css/YourPositionAndWidth.css"&gt;</pre>
-    </codeblock>
-    <p>Together with your custom css for fixed position and width.</p>
-    <p>Done. There's nothing more to do. But you may want to have your own color scheme. </p>
-    <p>If you want to put your custom color scheme, then create your own css based on <a href="https://github.com/mo-hi/mo-hi.github.io">navColors</a> and place if below the nav.css. For example:
-    </p>
-    <codeblock><pre>
-    &lt;link rel="stylesheet" href="css/nav.css"&gt;
-    &lt;link rel="stylesheet" href="../fixed.css"&gt;</pre>
-    </codeblock>
-    <p><a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a></p>
+    <div id = 'id-fixed'><!-- filled via script--></div> 
+
+    <div id = 'id-click'><!-- filled via script--></div> 
+
+    <p>The logic behind the css is based on the <a href="https://www.w3schools.com/">https://www.w3schools.com/</a> article about hover dropdown.</p>
+    <br>
+    <div class="flexBW mb-40">
+        <a href="nav fixed.html">< nav fixed</a>
+        <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a>
+        <a href="nav fixed click multipart.html"> nav fixed click multipart></a>
+    </div>
     </body>
     <script src="js/nav.js"></script>
+
+    <script src="js/text.js"></script>
+    <script>
+        let ids = ["id-start", "id-fixed", "id-click"]
+        for (id of ids) {
+            document.getElementById(id).innerHTML = textBlocks[id]}
+    </script>
 </html>

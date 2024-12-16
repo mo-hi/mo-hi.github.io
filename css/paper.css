@@ -1,9 +1,19 @@
 body {
-    width: 800px;
     font-family: Arial, sans-serif;
-    margin: 20px auto;
+    margin: 0px auto;
     padding: 0;
     background-color: #f0f0f0;
+}
+
+h2X {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 10px;      /* h2: 0px */
+    margin-inline-end: 0px;
+    font-weight: normal;            /* h2: bold */
+    unicode-bidi: isolate;
 }
 
 pp {
@@ -16,7 +26,7 @@ pp {
 p {
     /* text-align: center; */
     color: #444;
-    font-size: 18px;
+    /* font-size: 18px; */
 }
 
 c {

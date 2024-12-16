@@ -3,12 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
-    <title>CSS: nav</title>
+    <title>nav css</title>
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/navColors.css">
+    <link rel="stylesheet" href="../css/basis.css">
     <link rel="stylesheet" href="../css/paper.css">
-    <link rel="stylesheet" href="../css/fixed.css">
+    <link rel="stylesheet" href="../css/width.css">
 </head>
-<body class="resp">   
+<body class="wr-800-400">   
     <nav>
         <a href="" onclick="">Home</a>
         <a href="" onclick="">Edit</a>
@@ -33,9 +35,11 @@
     
 
     <h2>nav.css</h2>
-    <p><b>nav.css</b> let's you create navbars / menubars on top of your html page in a intuitive way (at least that's what I aimed for).
-    Div tag classes are not used, instead made-up html elements, like 'drop' and 'down' are used. No javascript, pure css.</p>
-    <p>The above navbar is created with just the following html:</p>
+    <div id = 'id-start'><!-- filled via script--></div> 
+
+    <p>
+        The navbar of this page for example is created with the following html.
+    </p>
     <codeblock><pre>
     &lt;nav&gt;
         &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
@@ -59,22 +63,23 @@
         &lt;/drop&gt;
     &lt;/nav&gt;</pre>
     </codeblock>
-    <p>To use this way of defining a navbar / menubar, just insert the folllwoing css in your html page</p>
-    <codeblock><pre>
-    &lt;link rel="stylesheet" href="css/nav.css"&gt;</pre>
-    </codeblock>
-    <p>Done. There's nothing more to do. But you may want to have your own color scheme. </p>
-    <p>If you want to put your custom color scheme, then create your own css based on <a href="https://github.com/mo-hi/mo-hi.github.io">navColors</a> and place if below the nav.css. For example:
-    </p>
-    <codeblock><pre>
-    &lt;link rel="stylesheet" href="css/nav.css"&gt;
-    &lt;link rel="stylesheet" href="css/YourColors.css"&gt;</pre>
-    </codeblock>
     
     <p><span style='font-size:30px;color:orange'>&#9888;</span> Be aware that this navbar not 'fixed', i. e. if you scroll down on your page, 
         then the navbar will scroll up with the rest of the page.
         If you want the navbar to be fixed, then use the <a href="https://github.com/mo-hi/mo-hi.github.io">nav fix position</a></p>
     <p>The logic behind the css is based on the <a href="https://www.w3schools.com/">https://www.w3schools.com/</a> article about hover dropdown.</p>
-    <p><a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a></p>
+    
+    <br>
+    <div class="flexBW mb-40">
+        <a href="">|</a>
+        <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a>
+        <a href="nav fixed.html"> nav.css (with fixed position) ></a>
+    </div>
     </body>
+    <script src="js/text.js"></script>
+    <script>
+        let ids = ["id-start"]
+        for (id of ids) {
+            document.getElementById(id).innerHTML = textBlocks[id]}
+    </script>
 </html>

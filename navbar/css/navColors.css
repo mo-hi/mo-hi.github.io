@@ -1,0 +1,7 @@
+nav                                             {background-color: #38444d;}
+nav > a, nav > drop a                           {color: white;}
+nav > a:hover,  nav > drop a:hover              {background-color: red;}
+nav > drop > downH, nav > drop > down           {background-color: #f9f9f9;}
+nav > drop > downH a, nav > drop > down a       {color: black;}
+nav > drop > downH a:hover                      {background-color: #f1f1f1;}
+nav > info                                      {color: rgb(191, 223, 238);}

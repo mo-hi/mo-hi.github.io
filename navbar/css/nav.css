@@ -1,27 +1,8 @@
-/* css derived from https://www.w3schools.com/css/css_navbar.asp */
-
-
-/* COLORS */
-/* This is the default color sheme. CopyPaste this part and fill it with your preferred color scheme. Then place your custom css after the nav.css in the html */
-nav                                             {background-color: #38444d;}
-nav > a, nav > drop a                           {color: white;}
-nav > a:hover,  nav > drop a:hover              {background-color: red;}
-nav > drop > downH, nav > drop > down           {background-color: #f9f9f9;}
-nav > drop > downH a, nav > drop > down a       {color: black;}
-nav > drop > downH a:hover                      {background-color: #f1f1f1;}
-
-
-/* LOGIC */
 nav {
-    /* position: fixed; */
     display: block;
     list-style-type: none;
-    margin-top: -8px;
-    margin-left: -8px;
     padding: 0;
     overflow: hidden;
-    width: calc(100% + 16px);
-    /* height: 50px */
   }
   
 nav > a, nav > drop {
@@ -59,3 +40,10 @@ nav > drop > down a, nav > drop > downH a {
 nav > drop:hover downH {
     display: block;
   }
+
+nav > info {
+  position: static;
+  display: inline-block;
+  text-align: center;
+  padding: 14px 16px;
+}
