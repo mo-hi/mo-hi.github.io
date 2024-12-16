@@ -23,8 +23,10 @@
     <drop>
         <a onclick="toggleDown(this)">Plus</a>
         <down>
+            <a onclick="SetPlus5(); closeDown()">1 bis 5</a>
             <a onclick="SetPlus10(); closeDown()">1 bis 10</a>
             <a onclick="SetPlus20(); closeDown()">1 bis 20</a>
+            <a onclick="SetPlus50(); closeDown()">1 bis 50</a>
             <a onclick="SetPlus100(); closeDown()">1 bis 100</a>
             <a onclick="SetPlus1000(); closeDown()">1 bis 1000</a>
         </down>
@@ -32,7 +34,7 @@
 </nav>
 
 <!--- 03_content-->
-<h1>MathFit</h1>
+<h1>Mathe Fit</h1>
 <div id="aufgabe"  class="mt-50">
     Aufgabe 1
 </div>
@@ -45,16 +47,16 @@
 
 
 <div id="number-pad">
-    <div class="number-block" onclick="appendToResult(0)">0</div>
-    <div class="number-block" onclick="appendToResult(1)">1</div>
-    <div class="number-block" onclick="appendToResult(2)">2</div>
-    <div class="number-block" onclick="appendToResult(3)">3</div>
-    <div class="number-block" onclick="appendToResult(4)">4</div>
-    <div class="number-block" onclick="appendToResult(5)">5</div>
-    <div class="number-block" onclick="appendToResult(6)">6</div>
-    <div class="number-block" onclick="appendToResult(7)">7</div>
-    <div class="number-block" onclick="appendToResult(8)">8</div>
-    <div class="number-block" onclick="appendToResult(9)">9</div>
+    <div id="num0" class="number-block" onclick="appendToResult(0)">0</div>
+    <div id="num1" class="number-block" onclick="appendToResult(1)">1</div>
+    <div id="num2" class="number-block" onclick="appendToResult(2)">2</div>
+    <div id="num3" class="number-block" onclick="appendToResult(3)">3</div>
+    <div id="num4" class="number-block" onclick="appendToResult(4)">4</div>
+    <div id="num5" class="number-block" onclick="appendToResult(5)">5</div>
+    <div id="num6" class="number-block" onclick="appendToResult(6)">6</div>
+    <div id="num7" class="number-block" onclick="appendToResult(7)">7</div>
+    <div id="num8" class="number-block" onclick="appendToResult(8)">8</div>
+    <div id="num9" class="number-block" onclick="appendToResult(9)">9</div>
 </div>
 <button class="action-button red" onclick="clearResult()">X</button>
 <button class="action-button green" onclick="checkAnswer()">&#10004;</button>

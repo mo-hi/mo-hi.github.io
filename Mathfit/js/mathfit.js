@@ -2,14 +2,24 @@ let num1, num2, operator;
 let maxNumber = 10
 let userAnswer = "";
 
+function SetPlus5() {
+    SetMaxNumber(5)
+    for (let id of ['num6', 'num7', 'num8', 'num9']) {
+        document.getElementById(id).style.display = 'none'
+    }
+    }
 function SetPlus10() {SetMaxNumber(10)}
 function SetPlus20() {SetMaxNumber(20)}
+function SetPlus50() {SetMaxNumber(50)}
 function SetPlus100() {SetMaxNumber(100)}
 function SetPlus1000() {SetMaxNumber(1000)}
 
 
 
 function SetMaxNumber(n) {
+    for (let id of ['num6', 'num7', 'num8', 'num9']) {
+        document.getElementById(id).style.display = 'inline-block'
+    }
     maxNumber = n
     generateProblem()
 }
