@@ -18,8 +18,7 @@ function SetPlus1000() {SetMaxNumber(1000)}
 
 function SetMaxNumber(n) {
     for (let id of ['num6', 'num7', 'num8', 'num9']) {
-        document.getElementById(id).style.display = 'inline-block'
-    }
+        document.getElementById(id).style.display = 'inline-block'}
     maxNumber = n
     generateProblem()
 }
