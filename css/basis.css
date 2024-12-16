@@ -1,7 +1,10 @@
 .fixed      {position: fixed;}
 .flex       {display: flex;}
 .flexBW     {display: flex;justify-content: space-between}
+.flexC      {display: flex;justify-content: center;}
 .flexR      {display: flex;justify-content: flex-end;}
+
+.gap-20     {gap: 20px;}
 
 .top-0      {top: 0;}
 .left-0     {left: 0;}
