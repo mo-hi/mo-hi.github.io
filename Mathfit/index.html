@@ -17,6 +17,7 @@
 </head>
 <body class="wr-800-400">
 
+
 <!--- 02_nav-->
 <nav class="wr-800-400">
     <a href="" onclick="">Home</a>
@@ -31,6 +32,15 @@
             <a onclick="SetPlus1000(); closeDown()">1 bis 1000</a>
         </down>
     </drop>
+    <drop>
+        <a onclick="toggleDown(this)">Minus</a>
+        <down>
+            <a onclick="SetMinus10(); closeDown()">1 bis 10</a>
+            <a onclick="SetMinus20(); closeDown()">1 bis 20</a>
+            <a onclick="SetMinus50(); closeDown()">1 bis 50</a>
+            <a onclick="SetMinus100(); closeDown()">1 bis 100</a>
+            <a onclick="SetMinus1000(); closeDown()">1 bis 1000</a>
+        </down>
 </nav>
 
 <!--- 03_content-->
@@ -60,6 +70,7 @@
 </div>
 <button class="action-button red mr-32" onclick="clearResult()">X</button>
 <button class="action-button green ml-32" onclick="checkAnswer()">&#10004;</button>
+
 
 <!--- 09_end-->
 </body>

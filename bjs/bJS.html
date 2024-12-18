@@ -5,44 +5,37 @@
     <meta name="author" content="Mario Hamidi">
     <title>B JS</title>
     <link rel="stylesheet" href="../css/paper.css">
+    <link rel="stylesheet" href="../css/width.css">
 </head>
-<body>
+<body class="wr-800-400">
     <h1>bJS</h1>
-    <pp>This is B(asis) JS. A javascript class providing new functions you don't want to miss</pp>
+    <pp>This is B(asis) JS. A javascript class providing additional functionaly to javascript data types</pp>
     <p>To use <b>b JS</b> in your project, just add the following script reference to your project:</p>
     <codeblock>
         &lt;script src="https://mo-hi.github.io/bjs/js/b.js"&gt; &lt;/script&gt;
     </codeblock>
     <p>That's it. There's nothing more to do. Enjoy! <a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a></p>
     <h1>Functions</h1>
-    <wrapper>
-        <h2>Lists / Arrays [...] </h2>
-        <p>
-            In javascript there are plenty of functions that can be appplied to Arrays/Lists, see 
-            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" target="#">Javascript Arrry</a>.
-            <br><b>b JS</b> adds some more functions to that:
-        </p>
-        <p>
-            <c>[...].depth</c> returns the max depth of an array. 
-            This function uses recursion. Per default recursions are limited to 9, hence it
-            will return a max value of 9 even if the depth of the array is higher. You can pass 
-            a new limit for the max recursion level.
-            <codeblock>
-                let b = [1, 2, 3].depth()   <comment>// b = 1 </comment><br>
-                let b = [1, [2], 3].depth() <comment>// b = 2 </comment><br>
-                let b = [1, [2, [3]]].depth() <comment>// b = 3 </comment><br>
-            </codeblock>
-        </p><br>
-        <p>
-            <c>[...].count(item)</c> returns the number of occurances of an item in an array. 
-            <codeblock>
-                let b = [1, 2, 3].count(3)                      <comment>// b = 1</comment><br>    
-                let b = [1, 2, 3, 3, 4].count(3)                <comment>// b = 2</comment><br>
-                let b = ["1", "2", "3", "3", "4"].count(3)      <comment>// b = 0</comment><br>
-                let b = ["1", "2", "3", "3", "4"].count("3")    <comment>// b = 2</comment><br>
-                let b = ["1", "2", "3", "34"].count("3")        <comment>// b = 1</comment><br>
-            </codeblock>
-        </p>
-    </wrapper>
+    <div id="id-docstrings">
+
+    </div>
 </body>
+<script src="docstrings.js"></script>
+<script >
+    let targetdiv = document.getElementById(id="id-docstrings")
+    let docstrings = FromFile_docstrings_js
+
+    WrtieDataToDiv(targetdiv, docstrings)
+
+    function WrtieDataToDiv(targetdiv, data) {
+        data.forEach(item => {
+            let keys = Object.keys(item)
+            keys.forEach(key => {
+                let div = document.createElement(key)
+                div.innerHTML = item[key]
+                targetdiv.appendChild(div)
+            })
+        })
+    }
+</script>
 </html>

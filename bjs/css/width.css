@@ -1,0 +1,13 @@
+/* For screens smaller than 600px */
+@media (max-width: 500px) {
+    .wr-800-400 {
+        width: 400px;
+    }
+    }
+    
+/* For screens larger than 600px */
+@media (min-width: 501px) {
+    .wr-800-400  {
+        width: 800px;
+    }
+    }

@@ -1,5 +1,6 @@
-let num1, num2, operator;
-let maxNumber = 10
+let num1, num2
+let operator = "+"
+let maxNumber = 11
 let userAnswer = "";
 
 function SetPlus5() {
@@ -14,19 +15,36 @@ function SetPlus50() {SetMaxNumber(50)}
 function SetPlus100() {SetMaxNumber(100)}
 function SetPlus1000() {SetMaxNumber(1000)}
 
+function SetMinus10() {SetMaxNumber(10, "-")}
+function SetMinus20() {SetMaxNumber(20, "-")}
+function SetMinus50() {SetMaxNumber(50, "-")}
+function SetMinus100() {SetMaxNumber(100, "-")}
+function SetMinus1000() {SetMaxNumber(1000, "-")}
 
 
-function SetMaxNumber(n) {
+
+function SetMaxNumber(n, op = "+") {
     for (let id of ['num6', 'num7', 'num8', 'num9']) {
         document.getElementById(id).style.display = 'inline-block'}
-    maxNumber = n
+    operator = op
+    maxNumber = n + 1
     generateProblem()
 }
 
 function generateProblem() {
-  num1 = Math.floor(Math.random() * maxNumber);
-  num2 = Math.floor(Math.random() * (maxNumber-num1));
-  operator = "+"; // For now, just addition
+    switch (operator) {
+        case "+":
+            num1 = Math.floor(Math.random() * maxNumber);
+            num2 = Math.floor(Math.random() * (maxNumber-num1));
+            break;
+        case "-":
+            for (let x = 0; x<100; x++) {
+                num1 = Math.floor(Math.random() * maxNumber);
+                num2 = Math.floor(Math.random() * maxNumber);
+                if (num1 > num2) break
+                }
+            break;
+    }
 
   document.getElementById("problem").innerHTML = num1 + " " + operator + " " + num2;
   userAnswer = "";
@@ -70,7 +88,8 @@ function checkAnswer() {
         case "+":
             correctAnswer = num1 + num2;
             break;
-        // Add cases for -, *, / later
+        case "-":
+            correctAnswer = num1 - num2;
     }
 
     let check = document.getElementById("check")

@@ -1,5 +1,6 @@
 function testCases_ProtoString(myTest) {
     testcase_ProtoString_Until(myTest)
+    testcase_ProtoString_After(myTest)
     testcase_ProtoString_Digits(myTest)
 }
 
@@ -9,6 +10,14 @@ function testcase_ProtoString_Until(myTest) {
     myTest.Equal(true, true,'---------------------')
     let text = 'Hallo Welt'
     myTest.Equal(text.until(' '), 'Hallo', fname)  
+}
+
+function testcase_ProtoString_After(myTest) {
+    let fname = arguments.callee.name;
+    
+    myTest.Equal(true, true,'---------------------')
+    let text = 'Hallo Welt'
+    myTest.Equal(text.after(' '), 'Welt', fname)  
 }
 
 function testcase_ProtoString_Digits(myTest) {
