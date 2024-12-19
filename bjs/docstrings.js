@@ -2,11 +2,19 @@ const FromFile_docstrings_js = [
     {
         "h2": "Array",
         "h3": "[...].depth()",
-        "p": "<c>.depth (limit_Iterations)</c> returns the max depth of an array.\nAs this function uses recursion you can limit the level of recusions, default limit is 9."
+        "p": "<c>.depth (limit_Recursions)</c> returns the max depth of an array.\nAs this function uses recursion you can limit the level of recursions, default limit is 9."
     },
     {
         "h3": "[...].count()",
         "p": "<c>.count (item)</c> returns the number of occurances of an item in an array. Identity is checked with the '===' operator."
+    },
+    {
+        "h3": "[...].replace()",
+        "p": "<c>.replace (re, place, wholeItem = false, recursion = 0)</c> replaces the string for each of its items, according to the inputs 're' and 'place'. \nIt will only be applied to elements of the ego array which are of type string. \nWhen the optional parameter wholeItem is set to true, then the complete element string must be equal to 're'. \nThis function uses recursion, which is limited to 100 iterations."
+    },
+    {
+        "h3": "[...].prepost()",
+        "p": "<c>.prepost (prefix, postfix)</c> adds to the string of each of its items a 'prefix' and a 'postfix'.\nIt will only be applied to elements of the ego array which are of type string."
     },
     {
         "h2": "DOMTables",

@@ -20,7 +20,12 @@ pp {
     /* text-align: center; */
     color: #444;
     font-size: 22px;
+}
 
+p.big {
+    /* text-align: center; */
+    color: #444;
+    font-size: 22px;
 }
 
 p {
@@ -35,6 +40,7 @@ c {
     padding: 2px;
     font-family: monospace;
 }
+
 codeblock {
     display: block;
     background-color: #dddddd;

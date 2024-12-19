@@ -6,20 +6,34 @@
     <title>B JS</title>
     <link rel="stylesheet" href="../css/paper.css">
     <link rel="stylesheet" href="../css/width.css">
+    <link rel="stylesheet" href="../css/basis.css">
 </head>
 <body class="wr-800-400">
-    <h1>bJS</h1>
-    <pp>This is B(asis) JS. A javascript class providing additional functionaly to javascript data types</pp>
-    <p>To use <b>b JS</b> in your project, just add the following script reference to your project:</p>
+    <div class="h-30"></div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <h1>b.JS</h1>
+    <p class="big">
+        b.JS is a javascript class providing additional functionaly to javascript data types
+        like arrays, string and to html dom elements. To use b.JS in your project, just add the following script reference to your project:
+    </p>
+
     <codeblock>
-        &lt;script src="https://mo-hi.github.io/bjs/js/b.js"&gt; &lt;/script&gt;
+        (-script src="https://mo-hi.github.io/bjs/js/b.js"-) (-/script-)
     </codeblock>
-    <p>That's it. There's nothing more to do. Enjoy! <a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a></p>
-    <h1>Functions</h1>
+
+    <p>
+        That's it. Enjoy! <a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a>
+    </p>
+
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <h1>Prototype Functions</h1>
     <div id="id-docstrings">
 
     </div>
 </body>
+
+
+<script src="js/b.js"></script>
 <script src="docstrings.js"></script>
 <script >
     let targetdiv = document.getElementById(id="id-docstrings")
@@ -27,6 +41,10 @@
 
     WrtieDataToDiv(targetdiv, docstrings)
 
+    DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
+    DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])
+
+    // functions
     function WrtieDataToDiv(targetdiv, data) {
         data.forEach(item => {
             let keys = Object.keys(item)
@@ -37,5 +55,6 @@
             })
         })
     }
+
 </script>
 </html>

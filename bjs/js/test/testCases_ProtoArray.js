@@ -1,6 +1,8 @@
 function testCases_ProtoArray(myTest) {
-    testcase_ProtoArray_Depth(myTest);
+    testcase_ProtoArray_Depth(myTest)
     testcase_ProtoArray_Count(myTest)
+    testcase_ProtoArray_Replace(myTest)
+    testcase_ProtoArray_PrePost(myTest)
 }
 
 function testcase_ProtoArray_Depth(myTest) {
@@ -27,4 +29,27 @@ function testcase_ProtoArray_Count(myTest) {
     myTest.Equal(["1", "2", "3", "3", "4"].count(3),0,fname)
     myTest.Equal(["1", "2", "3", "3", "4"].count("3"),2,fname)
     myTest.Equal(["1", "2", "3", "34"].count("3"),1,fname)
+}
+
+
+function testcase_ProtoArray_Replace(myTest) {
+    let fname = arguments.callee.name;
+    
+    myTest.Equal(true, true,'---------------------')  
+    myTest.Equal(["1", "2", "3", "3", "4"].replace("3", "9"), ["1", "2", "9", "9", "4"], fname)
+    myTest.Equal(["1", "2", "33", "3", "4"].replace("3", "9"), ["1", "2", "99", "9", "4"], fname)
+    myTest.Equal(["1", "2", "33", "3", "4"].replace("3", "9", true), ["1", "2", "33", "9", "4"], fname)
+    myTest.Equal(["1", "2", "33", "3", "4"].replace("3", "9", true), ["1", "2", "33", "9", "4"], fname)
+
+    let longString = '3'.repeat(110)
+    let expectedString = '9'.repeat(100) + '3'.repeat(10)
+    myTest.Equal(["1", longString, "4"].replace("3", "9"), ["1", expectedString, "4"], fname + '_recursion')
+}
+
+function testcase_ProtoArray_PrePost(myTest) {
+    let fname = arguments.callee.name;
+    
+    myTest.Equal(true, true,'---------------------')  
+
+    myTest.Equal(["1", "2", "3"].prepost("Das ist die ", "."), ["Das ist die 1.", "Das ist die 2.", "Das ist die 3."], fname)
 }

@@ -22,26 +22,57 @@ function typOf(variable, extendedInfo = false) {
 
     assert(false, String(variable))
 }
+
+function wenn(condition, trueValue, falseValue) {
+    return condition ? trueValue : falseValue;}
+// ####################################################################################################
+// region DOM                                                                                             #
+// ####################################################################################################
+
+function DOM_Replace(re, place, tags) {
+    if (re == undefined || place == undefined) return -1
+    if (typOf(re) != typOf(place)) return -1
+    if (!['str', 'list'].includes(typOf(re))) return -1
+    if (tags == undefined) tags = ['div', 'a', 'p', 'th', 'td']
+
+    if (typOf(re) == 'str') {
+        re = [re]
+        place = [place]}
+ 
+    _DOM_Replacer(re, place, tags)
+  }
+
+
+  function _DOM_Replacer(re, place, tags) {
+    tags.forEach(tag => {
+        let elements = document.querySelectorAll(tag);
+        elements.forEach(element => {
+            for (let i = 0; i<re.length; i++) {
+                element.innerHTML = [element.innerHTML].replace(re[i],place[i])[0]
+            }
+        })
+    })
+  }
 // ####################################################################################################
 // region Array                                                                                      #
 // ####################################################################################################
 
 /** 
 returns the max depth of an array.
-As this function uses recursion you can limit the level of recusions, default limit is 9.
+As this function uses recursion you can limit the level of recursions, default limit is 9.
 */
 Object.defineProperties(Array.prototype, {
     depth: {
-        value: function(limit_Iterations) {
+        value: function(limit_Recursions) {
 
             function recursiveDepth(arr) {
-                if (limit_Iterations == undefined) limit_Iterations = 9
+                if (limit_Recursions == undefined) limit_Recursions = 9
                 if (!Array.isArray(arr)) return 0
                 let ret = 0;
                 for (let item of arr) {
                     ret = Math.max(ret, recursiveDepth(item));
-                    if (ret >= limit_Iterations) {
-                        ret = limit_Iterations-1
+                    if (ret >= limit_Recursions) {
+                        ret = limit_Recursions-1
                         break}}
                 return ret + 1
             }
@@ -66,6 +97,48 @@ Object.defineProperties(Array.prototype, {
     }
 });
 
+/** 
+replaces the string for each of its items, according to the inputs 're' and 'place'. 
+It will only be applied to elements of the ego array which are of type string. 
+When the optional parameter wholeItem is set to true, then the complete element string must be equal to 're'. 
+This function uses recursion, which is limited to 100 iterations.
+*/
+Object.defineProperties(Array.prototype, {
+    replace: {
+        value: function(re, place, wholeItem = false, recursion = 0) {
+            let ret = []; let tmp = ''
+            for (let item of this) {
+                if (typOf(item) != 'str') continue
+                if (wholeItem) {
+                    tmp = wenn(item == re, place, item)
+                } else {
+                    tmp = item.replace(re,place)
+                    if (tmp.includes(re) && recursion < 99) tmp = [tmp].replace(re,place, wholeItem, recursion+1)[0]
+                }
+                ret.push(tmp)
+            }
+            return ret    
+        }
+    } 
+});
+
+/** 
+adds to the string of each of its items a 'prefix' and a 'postfix'.
+It will only be applied to elements of the ego array which are of type string. 
+*/
+Object.defineProperties(Array.prototype, {
+    prepost: {
+        value: function(prefix, postfix) {
+            if (prefix == undefined) prefix = ''
+            if (postfix == undefined) postfix = ''
+            let ret = []
+            for (let item of this) {
+                if (typOf(item) != 'str') continue
+                ret.push(prefix + item + postfix)}
+            return ret    
+        }
+    } 
+});
 // ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################
