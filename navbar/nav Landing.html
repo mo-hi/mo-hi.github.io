@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>nav.css</title>
+    <link rel="stylesheet" href="../css/paper.css">
+    <link rel="stylesheet" href="../css/width.css">
+    <link rel="stylesheet" href="../css/basis.css">
+</head>
+<body class="wr-800-400">
+    <div class="h-30"></div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <h2>nav.css</h2>
+    <div id = 'id-start'><!-- filled via script--></div>
+    
+    <div id = 'id-start'>
+        <h2>Example applications</h2>
+        <p>
+            The navbar can be used in different forms, all using the same css reference. Some forms require (very little) javascript.
+        </p>
+    </div> 
+
+    <div id = 'id-landing'>
+        <p>
+            <a href="nav.html" class="big">basic</a>: The dropdown is realized by hovering over the menu. In this example the navbar is not fixed
+        </p>
+
+        <p>
+            <a href="nav fixed.html" class="big">fixed position</a>:  Navbar with fixed position and 'hover' dropdown.
+        </p>
+
+        <p>
+            <a href="nav fixed click.html" class="big">click down</a>: Navbar with fixed position and the dropdown is realized by clicking on the parent menu item.
+        </p>
+
+        <p>
+            <a href="nav fixed click multipart.html" class="big">click down</a>: Navbar with fixed position and 'click' dropdown. This navbar has three sections, a left menu and a right 
+            menu, where both work the same way. In the middle there's a part where information can be shown to the user.
+        </p>
+
+    </div> 
+</body>
+
+<script src="js/text.js"></script>
+<script>
+    let ids = ["id-start"]
+    for (id of ids) {
+        document.getElementById(id).innerHTML = textBlocks[id]}
+</script>
+</html>

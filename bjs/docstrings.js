@@ -17,6 +17,14 @@ const FromFile_docstrings_js = [
         "p": "<c>.prepost (prefix, postfix)</c> adds to the string of each of its items a 'prefix' and a 'postfix'.\nIt will only be applied to elements of the ego array which are of type string."
     },
     {
+        "h3": "[...].keyValues()",
+        "p": "<c>.keyValues (key)</c> returns a list/array with th values to the provided 'key' for all dictionary items of the ego array.\nIt will only be applied to elements of the ego array which are of type dictionary/object."
+    },
+    {
+        "h3": "[...].removeDuplicates()",
+        "p": "<c>.removeDuplicates ()</c> returns a reduced list/array of the ego array, where all elements the occur multiple times are removed."
+    },
+    {
         "h2": "DOMTables",
         "h3": "div.bSetHeaders()",
         "p": "<c>.bSetHeaders (liste)</c> sets the table headers innerHTML. The headers must be provided as list/array (hence liste)\nThe length of liste must equal to the table cols length."

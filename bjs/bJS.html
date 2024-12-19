@@ -27,17 +27,21 @@
 
     <!-- ----------------------------------------------------------------------------------------- -->
     <h1>Prototype Functions</h1>
+
     <div id="id-docstrings">
 
     </div>
 </body>
-
 
 <script src="js/b.js"></script>
 <script src="docstrings.js"></script>
 <script >
     let targetdiv = document.getElementById(id="id-docstrings")
     let docstrings = FromFile_docstrings_js
+
+    let tocIDs = docstrings.keyValues('h2').removeDuplicates()
+    let ul = ToC(tocIDs); ul.className = 'horizontal'
+    targetdiv.appendChild(ul)
 
     WrtieDataToDiv(targetdiv, docstrings)
 
@@ -50,10 +54,23 @@
             let keys = Object.keys(item)
             keys.forEach(key => {
                 let div = document.createElement(key)
+                if (key == 'h2') div.id = item[key]
                 div.innerHTML = item[key]
                 targetdiv.appendChild(div)
             })
         })
+    }
+
+    function ToC(listofIDs) {
+        let ul = document.createElement('ul')
+        listofIDs.forEach(id => {
+            let li = document.createElement('li')
+            let a = document.createElement('a')
+            a.href = '#' + id; a.innerHTML = id
+            li.appendChild(a)
+            ul.appendChild(li)
+        })
+        return ul
     }
 
 </script>

@@ -5,11 +5,32 @@ body {
     background-color: #f0f0f0;
 }
 
+a, a:visited {
+    color: rgb(0, 0, 238);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+a.big {
+    font-weight: bold;
+  }
+
 h2X {
     display: block;
     font-size: 1.5em;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
+    margin-inline-start: 10px;      /* h2: 0px */
+    margin-inline-end: 0px;
+    font-weight: normal;            /* h2: bold */
+    unicode-bidi: isolate;
+}
+
+h3X {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
     margin-inline-start: 10px;      /* h2: 0px */
     margin-inline-end: 0px;
     font-weight: normal;            /* h2: bold */
@@ -51,3 +72,16 @@ codeblock {
 comment {
     color: green !important;
 }
+
+ul.horizontal {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    padding-inline-start:0px;
+    font-size: 1.5em;
+  }
+  
+ul.horizontal li {
+    display: inline-block;
+    padding-right:20px;
+  }

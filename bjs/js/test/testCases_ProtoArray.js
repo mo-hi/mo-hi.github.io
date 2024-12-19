@@ -3,6 +3,8 @@ function testCases_ProtoArray(myTest) {
     testcase_ProtoArray_Count(myTest)
     testcase_ProtoArray_Replace(myTest)
     testcase_ProtoArray_PrePost(myTest)
+    testcase_ProtoArray_keyValues(myTest)
+    testcase_ProtoArray_removeDuplicates(myTest)
 }
 
 function testcase_ProtoArray_Depth(myTest) {
@@ -50,6 +52,25 @@ function testcase_ProtoArray_PrePost(myTest) {
     let fname = arguments.callee.name;
     
     myTest.Equal(true, true,'---------------------')  
-
     myTest.Equal(["1", "2", "3"].prepost("Das ist die ", "."), ["Das ist die 1.", "Das ist die 2.", "Das ist die 3."], fname)
+}
+
+function testcase_ProtoArray_keyValues(myTest) {
+    let fname = arguments.callee.name;
+    
+    let data = [
+        {'A': 'Hallo', 'B': 123},
+        {'A': 'liebe', 'B': 456, 'C': "foo"}, 
+        {'A': 'Welt', 'B': 789, 'C': "bar"}
+    ]
+    myTest.Equal(true, true,'---------------------')  
+    myTest.Equal(data.keyValues("A"), ['Hallo', 'liebe', 'Welt'], fname)
+    myTest.Equal(data.keyValues("C"), ['foo', 'bar'], fname)
+}
+
+function testcase_ProtoArray_removeDuplicates(myTest) {
+    let fname = arguments.callee.name;
+
+    myTest.Equal(true, true,'---------------------')  
+    myTest.Equal(["1", "2", "3", "3", "4"].removeDuplicates(), ["1", "2", "3", "4"], fname)
 }

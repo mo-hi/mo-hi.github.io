@@ -139,6 +139,45 @@ Object.defineProperties(Array.prototype, {
         }
     } 
 });
+
+/** 
+returns a list/array with th values to the provided 'key' for all dictionary items of the ego array.
+It will only be applied to elements of the ego array which are of type dictionary/object.
+*/
+Object.defineProperties(Array.prototype, {
+    keyValues: {
+        value: function(key) {
+            if (key == undefined) return
+            
+            let ret = []
+            for (let item of this) {
+                if (typOf(item) != 'dict') continue
+                if (!Object.keys(item).includes(key)) continue
+                ret.push(item[key])}
+            return ret    
+        }
+    } 
+});
+
+/** 
+returns a reduced list/array of the ego array, where all elements the occur multiple times are removed.
+*/
+Object.defineProperties(Array.prototype, {
+    removeDuplicates: {
+        value: function() {
+            let ret = []
+            for (let item of this) {
+                if (ret.includes(item)) continue
+                ret.push(item)}
+            return ret    
+        }
+    } 
+});
+// ####################################################################################################
+// region Dict                                                                                       #
+// ####################################################################################################
+
+
 // ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################
