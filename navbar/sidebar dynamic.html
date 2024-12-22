@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>sidebar css</title>
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="../css/basis.css">
+    <link rel="stylesheet" href="../css/paper.css">
+    <link rel="stylesheet" href="../css/width.css">
+</head>
+<body class="wr-800-400">
+    <div class="h-30"></div>
+    <!-- ----------------------------------------------------------------------------------------- -->   
+    <main>
+        <h2>nav.css</h2>
+        <h2x>(dynamic sidebar)</h2x>
+        <section>
+            <h3>About</h3>
+            <p id = 'id-start'><!-- filled via script--></p> 
+        </section>
+
+        <section>
+            <h3>nav.css as sidebar with dynamic content</h3>
+            <p>
+                In its basic form, the only difference to make a navbar to a sidebar
+                is to wrap the  html inside a &lt;ul&gt; tag (instead of &lt;nav&gt;) and to use  
+                &lt;li&gt; tags (instead of &lt;a&gt;) for the sidebar items. Hence The sidear is intended to call functions and not intended
+                to be used for links. 
+            </p> 
+            
+                In this version, the sidebar is created based on data. In your html project you have to call 
+                <c>nav_AutoFillSidebar("id-sidebar", sidebarData)</c> when the page loads with two parameters: 
+                The target divID (in This example'id-sidebar') and the actual data, from which the sidebar will be build
+                (in this example 'sidebarData'). For example:
+            </p>
+            <codeblock><pre style="margin-left: -12ch">
+                &lt;script&gt;
+                    nav_AutoFillSidebar("id-sidebar", sidebarData)
+                &lt;/script&gt;</pre>
+            </codeblock><br>
+            <p>
+                Here' how the result will look like:
+            </p>
+            <p>
+                <table class="w-100">
+                    <tr>
+                        <td class="w-30 pt-20 top">
+                            <ul id="id-sidebar" class="sidebar sidebar-auto-fill">
+                                <!-- filled via script-->
+                            </ul>
+                        </td>
+                        <td class="top w-70"><codeblock><pre style="margin-left: -24ch">
+                        const sidebarData = [
+                            { name: "Australia" },
+                            {
+                                name: "Europe",
+                                children: [
+                                    {
+                                    name: "Germany",
+                                    children: [
+                                        {
+                                        name: "Bavaria",
+                                        children: [
+                                            {
+                                            name: "Munich",
+                                            children: [
+                                                { name: "Schwabing" },
+                                                { name: "Neuhausen" },
+                                                { name: "Feldmoching" },
+                                            ],
+                                            },
+                                            { name: "Regensburg" },
+                                            { name: "Rosenheim" },
+                                        ],
+                                        },
+                                        { name: "Saxony" },
+                                        { name: "NRW" },
+                                    ],
+                                    },
+                                    { name: "France" },
+                                    { name: "Italy" },
+                                ],
+                                },
+                                { name: "Zoomania" },
+                          ];</pre>
+                        </codeblock>
+                        </td>
+                    </tr>
+                </table>
+            </p>
+        </section>
+
+        <br>
+        <hr>
+        <section>
+            <p id="id-end"><!-- filled via script--></p>
+        </section>
+    </main>
+    
+<br>
+
+</body>
+    <script src="js/nav.js"></script>
+    <script src="js/text.js"></script>
+    <script src="js/sideData.js"></script>
+    <script>
+        let ids = ["id-start", "id-end"]
+        for (id of ids) {
+            document.getElementById(id).innerHTML = textBlocks[id]}
+
+        nav_AutoFillSidebar("id-sidebar", sidebarData)
+    </script>
+</html>
