@@ -35,16 +35,28 @@
         </p>
 
         <p>
-            <a href="nav fixed click multipart.html" class="big">click down</a>: Navbar with fixed position and 'click' dropdown. This navbar has three sections, a left menu and a right 
+            <a href="nav fixed click multipart.html" class="big">multipart</a>: Navbar with fixed position and 'click' dropdown. This navbar has three sections, a left menu and a right 
             menu, where both work the same way. In the middle there's a part where information can be shown to the user.
         </p>
+
+        <p>
+            <a href="sidebar.html" class="big">sidebar</a>: A sidebat based on the same same css and js of nav.css.
+            Instead of the &lt;nav&gt; tag, the sidebar is wrapped inside a &lt;ul&gt; element. The remaining structure is the same.
+            
+        </p>
+
+        <br>
+        <hr>
+        <section>
+            <p id="id-end"><!-- filled via script--></p>
+        </section>
 
     </div> 
 </body>
 
 <script src="js/text.js"></script>
 <script>
-    let ids = ["id-start"]
+    let ids = ["id-start", "id-end"]
     for (id of ids) {
         document.getElementById(id).innerHTML = textBlocks[id]}
 </script>

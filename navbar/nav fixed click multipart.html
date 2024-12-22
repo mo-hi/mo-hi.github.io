@@ -43,12 +43,13 @@
     </div>
     <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     
-    <div class="flex h-46 mt-30">
+    <main class="paper">
         <h2>nav.css</h2>
-        <h2X> (with fixed position, click behavior and three sections)</h2X>
-    </div>
-    <div id = 'id-start'><!-- filled via script--></div> 
-
+        <h2X>(with fixed position, click behavior and three sections)</h2X>
+        <div id = 'id-start'><!-- filled via script--></div> 
+    
+    </main>
+    
     <p>
         The navbar of this page is an enhancement of <a href="https://github.com/mo-hi/mo-hi.github.io" >nav</a> with fixed position to the top and 
         with the menu dropping down via onclick behavior instead of hover. In also comes with three nav sections, a left section, a right section and
@@ -89,19 +90,17 @@
 
     <div id = 'id-click'><!-- filled via script--></div> 
 
-    <p>The logic behind the css is based on the <a href="https://www.w3schools.com/">https://www.w3schools.com/</a> article about hover dropdown.</p>
     <br>
-    <div class="flexBW mb-40">
-        <a href="nav fixed.html">< nav fixed</a>
-        <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a>
-        <a href="nav fixed click multipart.html"> nav fixed click multipart></a>
-    </div>
+    <hr>
+    <section>
+        <p id="id-end"><!-- filled via script--></p>
+    </section>
     </body>
     <script src="js/nav.js"></script>
 
     <script src="js/text.js"></script>
     <script>
-        let ids = ["id-start", "id-fixed"]
+        let ids = ["id-start", "id-fixed", "id-end"]
         for (id of ids) {
             document.getElementById(id).innerHTML = textBlocks[id]}
     </script>

@@ -35,56 +35,66 @@
         </nav>
     </div>
     <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
-    <div class="flex h-46 mt-30">
-        <h2>nav.css</h2>
-        <h2X> (with fixed position)</h2X>
+    <main>
+        <section>
+            <h2>nav.css</h2>
+            <h2X> (with fixed position)</h2X>
+            <p id = 'id-start'><!-- filled via script--></p> 
+        </section>
+
+        <section>
+            <p>
+                The navbar of this page is an enhancement of <a href="https://github.com/mo-hi/mo-hi.github.io" >nav</a> with fixed position to the top and 
+                created with the following html:
+            </p>
+            <codeblock><pre>
+            &lt;div class="position-fixed fullWidth"&gt;
+                &lt;nav&gt;
+                    &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
+                    &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
+                    &lt;drop&gt;
+                        &lt;a href=""&gt;Stuff&lt;/a&gt;
+                        &lt;down&gt;
+                            &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
+                            &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
+                            &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
+                        &lt;/down&gt;
+                    &lt;/drop&gt;
+                    &lt;a href="" onclick=""&gt;Articles&lt;/a&gt;
+                    &lt;drop&gt;
+                        &lt;a href=""&gt;More&lt;/a&gt;
+                        &lt;down&gt;
+                            &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
+                            &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
+                            &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
+                        &lt;/down&gt;
+                    &lt;/drop&gt;
+                &lt;/nav&gt;
+            &lt;/div&gt;</pre>
+            </codeblock>
+        </section>
+        
+        <section>
+            <p id="id-fixed"><!-- filled via script--></p>
+        </section>
+
+        <br>
+        <hr>
+        <section>
+            <p id="id-end"><!-- filled via script--></p>
+        </section>
+    </main>
+
     </div>
     
-    <div id = 'id-start'><!-- filled via script--></div> 
-
-    <p>
-        The navbar of this page is an enhancement of <a href="https://github.com/mo-hi/mo-hi.github.io" >nav</a> with fixed position to the top and 
-        created with the following html:
-    </p>
-    <codeblock><pre>
-    &lt;div class="position-fixed fullWidth"&gt;
-        &lt;nav&gt;
-            &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
-            &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
-            &lt;drop&gt;
-                &lt;a href=""&gt;Stuff&lt;/a&gt;
-                &lt;down&gt;
-                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-                &lt;/down&gt;
-            &lt;/drop&gt;
-            &lt;a href="" onclick=""&gt;Articles&lt;/a&gt;
-            &lt;drop&gt;
-                &lt;a href=""&gt;More&lt;/a&gt;
-                &lt;down&gt;
-                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-                &lt;/down&gt;
-            &lt;/drop&gt;
-        &lt;/nav&gt;
-    &lt;/div&gt;</pre>
-    </codeblock>
     
-    <div id = 'id-fixed'><!-- filled via script--></div> 
 
-    <p>The logic behind the css is based on the <a href="https://www.w3schools.com/">https://www.w3schools.com/</a> article about hover dropdown.</p>
-    <br>
-    <div class="flexBW mb-40">
-        <a href="nav.html">< nav.css </a>
-        <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a>
-        <a href="nav fixed click.html"> nav.css (with fixed position and click behavior)></a>
-    </div>
+    
+
     </body>
     <script src="js/text.js"></script>
     <script>
-        let ids = ["id-start", "id-fixed"]
+        let ids = ["id-start", "id-fixed", "id-end"]
         for (id of ids) {
             document.getElementById(id).innerHTML = textBlocks[id]}
     </script>

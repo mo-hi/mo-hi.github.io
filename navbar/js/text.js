@@ -1,7 +1,7 @@
 const textBlocks = {
     'id-start': '\
     <p>\
-        <b>nav.css</b> lets you create intuitive navigation bars/menubars at the top of your HTML page using pure CSS.\
+        <b>nav.css</b> lets you create navigation bars/menubars at the top of your HTML page and sidebars using CSS and Javascript.\
         It avoids using generic div tags and instead employs custom HTML elements like &lt;drop&gt; and &lt;down&gt; for a more semantic approach.\
     </p>\
     <p>\
@@ -14,7 +14,7 @@ const textBlocks = {
     </codeblock>\
     <br>\
     <p>\
-        In your HTML, you can create your personalized navbar, where the menu items are represented by &lt;a&gt; elements.\
+        In your HTML, you can create your personalized navbar or sidebar, where the menu items are represented by &lt;a&gt; elements (or &lt;li&gt elements in case of a sidebar).\
         Use each &lt;a&gt; element either as link (href) or to call a function (onclick) and remove the other attribute. If you use an &lt;a&gt; element to call a function and keep the href attribute\
         then the function call wont work.\
     </p>',
@@ -40,5 +40,11 @@ const textBlocks = {
     function wenn(condition, trueValue, falseValue) {\n\
         return condition ? trueValue : falseValue;}</pre>\
     </codeblock>\
+    ',
+
+    'id-end': '\
+                Created with articles from <a href="https://www.w3schools.com/" class="mr-20">https://www.w3schools.com/</a> | \n\
+                Back to <a href="nav Landing.html" class="mr-20"> nav Landing </a>  | \n\
+                Link to <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a> \n\
     '
 }

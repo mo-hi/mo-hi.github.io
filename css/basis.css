@@ -9,6 +9,8 @@
 .top-0      {top: 0;}
 .left-0     {left: 0;}
 
+td.top      {vertical-align: top; }
+
 /* MARGINS  */
 .mt-1       {margin-top: 1px !important;}
 .mt-2       {margin-top: 2px !important;}
@@ -413,3 +415,6 @@
 .mr-98      {margin-right: 98px !important;}
 .mr-99      {margin-right: 99px !important;}
 .mr-100     {margin-right: 100px !important;}
+
+.pt-10      {padding-top: 10px !important;}
+.pt-20      {padding-top: 20px !important;}

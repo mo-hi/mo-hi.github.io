@@ -5,7 +5,7 @@ body {
     background-color: #f0f0f0;
 }
 
-a, a:visited {
+.paper a, .paper  a:visited {
     color: rgb(0, 0, 238);
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -15,16 +15,15 @@ a.big {
     font-weight: bold;
   }
 
+h2 {
+    display: inline-block; 
+  }
 h2X {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 10px;      /* h2: 0px */
-    margin-inline-end: 0px;
-    font-weight: normal;            /* h2: bold */
-    unicode-bidi: isolate;
-}
+    font-size: 1.3em;
+    display: inline-block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+  }
 
 h3X {
     display: block;

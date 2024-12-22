@@ -9,77 +9,121 @@
     <link rel="stylesheet" href="../css/paper.css">
     <link rel="stylesheet" href="../css/width.css">
 </head>
-<body class="wr-800-400">   
-    <h2>Tree View</h2>
-    <p>A tree view represents a hierarchical view of information, where each item can have a number of subitems.</p>
-    <p>Click on the arrow(s) to open or close the tree branches.</p>
+<body class="wr-800-400">
+    <div class="h-30"></div>
+    <!-- ----------------------------------------------------------------------------------------- -->   
+    <main>
+        <h2>nav.css</h2>
+        <h2x>(sidebar)</h2x>
+        <section>
+            <h3>About</h3>
+            <p id = 'id-start'><!-- filled via script--></p> 
+        </section>
+
+        <section>
+            <h3>nav.css as sidebar</h3>
+            <p>
+                In its basic form, the only difference to make a navbar to a sidebar
+                is to wrap the  html inside a &lt;ul&gt; tag (instead of &lt;nav&gt;) and to use  
+                &lt;li&gt; tags (instead of &lt;a&gt;) for the sidebar items. Hence The sidear is intended to call functions and not intended
+                to be used for links. Here's an example sidebar:
+            </p> 
+            <p>
+                <table>
+                    <tr>
+                        <td class="w-40 pt-20 top">
+                            <ul class="sidebar">
+                                <li onclick="">Australia</li>
+                                <drop>
+                                    <li onclick="toggleDown(this)">Europe</li>
+                                    <down>
+                                        <drop>
+                                            <li onclick="toggleDown(this)">Germany</li>
+                                            <down>
+                                                <drop>
+                                                    <li onclick="toggleDown(this)">Bavaria</li>
+                                                    <down>
+                                                        <drop>
+                                                            <li onclick="toggleDown(this)">Munich</li>
+                                                            <down>
+                                                                <li onclick="">Schwabing</li>
+                                                                <li onclick="">Neuhausen</li>
+                                                                <li onclick="">Feldmoching</li>
+                                                            </down>
+                                                        </drop>
+                                                        <li onclick="">Regensburg</li>
+                                                        <li onclick="">Rosenheim</li>
+                                                    </down>
+                                                </drop>
+                                                <li onclick="">Saxony</li>
+                                                <li onclick="">NRW</li>
+                                            </down>
+                                        </drop>
+                                        <li onclick="">France</li>
+                                        <li onclick="">Italy</li>
+                                    </down>
+                                </drop>
+                                <li onclick="">Zoomania</li>
+                            </ul>
+                        </td>
+                        <td class="top"><codeblock><pre>
+&lt;ul class="sidebar"&gt;
+&lt;li onclick=""&gt;Australia&lt;/li&gt;
+&lt;drop&gt;
+    &lt;li onclick="toggleDown(this)"&gt;Europe&lt;/li&gt;
+    &lt;down&gt;
+        &lt;drop&gt;
+            &lt;li onclick="toggleDown(this)"&gt;Germany&lt;/li&gt;
+            &lt;down&gt;
+                &lt;drop&gt;
+                    &lt;li onclick="toggleDown(this)"&gt;Bavaria&lt;/li&gt;
+                    &lt;down&gt;
+                        &lt;drop&gt;
+                            &lt;li onclick="toggleDown(this)"&gt;Munich&lt;/li&gt;
+                            &lt;down&gt;
+                                &lt;li onclick=""&gt;Schwabing&lt;/li&gt;
+                                &lt;li onclick=""&gt;Neuhausen&lt;/li&gt;
+                                &lt;li onclick=""&gt;Feldmoching&lt;/li&gt;
+                            &lt;/down&gt;
+                        &lt;/drop&gt;
+                        &lt;li onclick=""&gt;Regensburg&lt;/li&gt;
+                        &lt;li onclick=""&gt;Rosenheim&lt;/li&gt;
+                    &lt;/down&gt;
+                &lt;/drop&gt;
+                &lt;li onclick=""&gt;Saxony&lt;/li&gt;
+                &lt;li onclick=""&gt;NRW&lt;/li&gt;
+            &lt;/down&gt;
+        &lt;/drop&gt;
+        &lt;li onclick=""&gt;France&lt;/li&gt;
+        &lt;li onclick=""&gt;Italy&lt;/li&gt;
+    &lt;/down&gt;
+&lt;/drop&gt;
+&lt;li onclick=""&gt;Zoomania&lt;/li&gt;
+&lt;/ul&gt;</pre>
+                        </codeblock>
+                        </td>
+                    </tr>
+                </table>
+            </p>
+        </section>
+
+        <br>
+        <hr>
+        <section>
+            <p id="id-end"><!-- filled via script--></p>
+        </section>
+    </main>
     
-    <ul class="sidebar">
-        <li onclick="">Australia</li>
-        <drop>
-            <li onclick="toggleDown(this)">Europe</li>
-            <down>
-                <drop>
-                    <li onclick="toggleDown(this)">Germany</li>
-                    <down>
-                        <drop>
-                            <li onclick="toggleDown(this)">Bavaria</li>
-                            <down>
-                                <drop>
-                                    <li onclick="toggleDown(this)">Munich</li>
-                                    <down>
-                                        <li onclick="">Schwabing</li>
-                                        <li onclick="">Neuhausen</li>
-                                        <li onclick="">Feldmoching</li>
-                                    </down>
-                                </drop>
-                                <li onclick="">Regensburg</li>
-                                <li onclick="">Rosenheim</li>
-                            </down>
-                        </drop>
-                        <drop>
-                            <li onclick="toggleDown(this)">Saxony</li>
-                            <down>
-                                <drop>
-                                    <li onclick="toggleDown(this)">Munich</li>
-                                    <down>
-                                        <li onclick="">Schwabing</li>
-                                        <li onclick="">Neuhausen</li>
-                                        <li onclick="">Feldmoching</li>
-                                    </down>
-                                </drop>
-                                <li onclick="">Regensburg</li>
-                                <li onclick="">Rosenheim</li>
-                            </down>
-                        </drop>
-                        <drop>
-                            <li onclick="toggleDown(this)">NRW</li>
-                            <down>
-                                <drop>
-                                    <li onclick="toggleDown(this)">Munich</li>
-                                    <down>
-                                        <li onclick="">Schwabing</li>
-                                        <li onclick="">Neuhausen</li>
-                                        <li onclick="">Feldmoching</li>
-                                    </down>
-                                </drop>
-                                <li onclick="">Regensburg</li>
-                                <li onclick="">Rosenheim</li>
-                            </down>
-                        </drop>
-                    </down>
-                </drop>
-                <li onclick="">France</li>
-                <li onclick="">Italy</li>
-            </down>
-        </drop>
-    </ul>
+
 
 <br>
 
-<div class="flexBW mb-40">
-    <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a>
-</div>
 </body>
     <script src="js/nav.js"></script>
+    <script src="js/text.js"></script>
+    <script>
+        let ids = ["id-start", "id-end"]
+        for (id of ids) {
+            document.getElementById(id).innerHTML = textBlocks[id]}
+    </script>
 </html>
