@@ -174,10 +174,32 @@ Object.defineProperties(Array.prototype, {
     } 
 });
 // ####################################################################################################
-// region Dict                                                                                       #
+// region Dictionary                                                                                 #
 // ####################################################################################################
 
+/**
+returns an array of the object's own keys.
+ */
+Object.defineProperties(Object.prototype, {
+    keys: {
+        value: function() {
+              return Object.keys(this)
+            }  
+    } 
+}); 
 
+
+/**
+returns true if the dictionary contains the specified key, returns false if not.
+Is a short version of 'Object.keys(this).includes(key)'
+*/
+Object.defineProperties(Object.prototype, {
+    includes: {
+        value: function(key) {
+              return Object.keys(this).includes(key)
+            }  
+    } 
+}); 
 // ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################

@@ -5,3 +5,5 @@ nav > drop > downH, nav > drop > down           {background-color: #f9f9f9;}
 nav > drop > downH a, nav > drop > down a       {color: black;}
 nav > drop > downH a:hover                      {background-color: #f1f1f1;}
 nav > info                                      {color: rgb(191, 223, 238);}
+
+.sidebar li                                     {background-color: aqua;}

@@ -40,7 +40,9 @@
                 &lt;/script&gt;</pre>
             </codeblock><br>
             <p>
-                Here' how the result will look like:
+                Here' how the result will look like. You can click on the items to see the effect.
+                When you click on "Australia" the sidebar will change to a different data set, starting with "Asia".
+                When you click on "Asia" the sidebar will change back to the original data set:
             </p>
             <p>
                 <table class="w-100">
@@ -50,40 +52,40 @@
                                 <!-- filled via script-->
                             </ul>
                         </td>
-                        <td class="top w-70"><codeblock><pre style="margin-left: -24ch">
-                        const sidebarData = [
-                            { name: "Australia" },
-                            {
-                                name: "Europe",
-                                children: [
-                                    {
-                                    name: "Germany",
-                                    children: [
-                                        {
-                                        name: "Bavaria",
-                                        children: [
-                                            {
-                                            name: "Munich",
-                                            children: [
-                                                { name: "Schwabing" },
-                                                { name: "Neuhausen" },
-                                                { name: "Feldmoching" },
-                                            ],
-                                            },
-                                            { name: "Regensburg" },
-                                            { name: "Rosenheim" },
-                                        ],
-                                        },
-                                        { name: "Saxony" },
-                                        { name: "NRW" },
-                                    ],
-                                    },
-                                    { name: "France" },
-                                    { name: "Italy" },
-                                ],
-                                },
-                                { name: "Zoomania" },
-                          ];</pre>
+                        <td class="top w-70"><codeblock><pre>
+const sidebarData = [
+    { name: "Australia" },
+    {
+        name: "Europe",
+        children: [
+            {
+            name: "Germany",
+            children: [
+                {
+                name: "Bavaria",
+                children: [
+                    {
+                    name: "Munich",
+                    children: [
+                        { name: "Schwabing" },
+                        { name: "Neuhausen" },
+                        { name: "Feldmoching" },
+                    ],
+                    },
+                    { name: "Regensburg" },
+                    { name: "Rosenheim" },
+                ],
+                },
+                { name: "Saxony" },
+                { name: "NRW" },
+            ],
+            },
+            { name: "France" },
+            { name: "Italy" },
+        ],
+        },
+        { name: "Zoomania" },
+    ];</pre>
                         </codeblock>
                         </td>
                     </tr>
@@ -101,14 +103,30 @@
 <br>
 
 </body>
+    <script src="../bJS/js/b.js"></script>
     <script src="js/nav.js"></script>
     <script src="js/text.js"></script>
     <script src="js/sideData.js"></script>
+    <script src="js/sideData copy.js"></script>
     <script>
         let ids = ["id-start", "id-end"]
         for (id of ids) {
             document.getElementById(id).innerHTML = textBlocks[id]}
+        
+        nav_AutoFillSidebar("id-sidebar", sidebarData, foo)
 
-        nav_AutoFillSidebar("id-sidebar", sidebarData)
+        function foo(event) {
+            let li= null
+            if (event instanceof PointerEvent) li = event.target;
+            if (event instanceof HTMLElement) li = event;
+            console.log(li.innerHTML)
+
+            if (li.innerHTML.includes("Australia")) {
+                nav_AutoFillSidebar("id-sidebar", sidebarDataCopy, foo)
+            }
+            if (li.innerHTML.includes("Asia")) {
+                nav_AutoFillSidebar("id-sidebar", sidebarData, foo)
+            }
+        }
     </script>
 </html>

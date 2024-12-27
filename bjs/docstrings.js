@@ -25,6 +25,15 @@ const FromFile_docstrings_js = [
         "p": "<c>.removeDuplicates ()</c> returns a reduced list/array of the ego array, where all elements the occur multiple times are removed."
     },
     {
+        "h2": "Dictionary",
+        "h3": "div.keys()",
+        "p": "<c>.keys ()</c> returns an array of the object's own keys."
+    },
+    {
+        "h3": "div.includes()",
+        "p": "<c>.includes (key)</c> returns true if the dictionary contains the specified key, returns false if not.\nIs a short version of 'Object.keys(this).includes(key)'"
+    },
+    {
         "h2": "DOMTables",
         "h3": "div.bSetHeaders()",
         "p": "<c>.bSetHeaders (liste)</c> sets the table headers innerHTML. The headers must be provided as list/array (hence liste)\nThe length of liste must equal to the table cols length."

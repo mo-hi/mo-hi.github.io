@@ -55,6 +55,7 @@ nav > info {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  z-index: 1;
 }
 
 .sidebar a {
@@ -82,4 +83,20 @@ nav > info {
     color: black;
     display: inline-block;
     margin-right: 2px;
+}
+
+ .sidebar drop > li::before{ 
+  content: "\25B6";
+}
+
+.sidebar drop.active > li::before{ 
+  content: "\25BC";
+}
+
+drop down {
+  display:none;
+}
+
+drop.active > down {
+  display:block;
 }
