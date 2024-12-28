@@ -20,8 +20,11 @@
 
 <!--- 02_nav-->
 <nav class="wr-800-400">
-    <a href="" onclick="">Home</a>
-    <drop>
+    <a onclick="SetOperator('+')">Plus</a>
+    <a onclick="SetOperator('-')">Minus</a>
+    <a onclick="SetOperator('*')">Mal</a>
+    <a onclick="SetOperator('/')">Teilen</a>
+    <!-- <drop>
         <a onclick="toggleDown(this)">Plus</a>
         <down>
             <a onclick="SetPlus5(); closeDown()">1 bis 5</a>
@@ -40,13 +43,23 @@
             <a onclick="SetMinus50(); closeDown()">1 bis 50</a>
             <a onclick="SetMinus100(); closeDown()">1 bis 100</a>
             <a onclick="SetMinus1000(); closeDown()">1 bis 1000</a>
-        </down>
+        </down> -->
 </nav>
+
+<div class="wr-800-400 fixed bottom-0 flex pb-10">
+    <span class="level">Level:</span>
+    <a onclick="SetMaxNumber(5)" class="level-btn">1-5</a>
+    <a onclick="SetMaxNumber(10)" class="level-btn">1-10</a>
+    <a onclick="SetMaxNumber(20)" class="level-btn">20</a>
+    <a onclick="SetMaxNumber(100)" class="level-btn">100</a>
+    <a onclick="SetMaxNumber(1000)" class="level-btn">1000</a>
+</div>
+
 
 <!--- 03_content-->
 <h1>Mathe Fit</h1>
 <div id="aufgabe"  class="mt-50">
-    Aufgabe 1
+    Aufgaben bis 10
 </div>
 <div class="flexC gap-20 ">
     <div id="problem"></div>

@@ -64,3 +64,29 @@ body {
 drop> down> a {
   cursor: pointer;
 }
+
+
+
+/* Bottom */
+span.level {
+    display: inline-block;
+    padding: 20px 20px; /* Padding for the links */
+}
+a.level-btn  {
+  display: inline-block;
+  width: 80px;
+  height: 50px;
+  margin: 5px;
+  line-height: 50px;
+  cursor: pointer;
+
+    background-color: #007bff; /* Background color for the links */
+    color: white; /* Text color for the links */
+    text-decoration: none; /* Remove underline from links */
+    border-radius: 5px; /* Rounded corners for the links */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+a.level-btn:hover {
+    background-color: #0056b3; /* Background color for the links on hover */
+}

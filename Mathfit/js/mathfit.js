@@ -3,12 +3,7 @@ let operator = "+"
 let maxNumber = 11
 let userAnswer = "";
 
-function SetPlus5() {
-    SetMaxNumber(5)
-    for (let id of ['num6', 'num7', 'num8', 'num9']) {
-        document.getElementById(id).style.display = 'none'
-    }
-    }
+
 function SetPlus10() {SetMaxNumber(10)}
 function SetPlus20() {SetMaxNumber(20)}
 function SetPlus50() {SetMaxNumber(50)}
@@ -23,12 +18,26 @@ function SetMinus1000() {SetMaxNumber(1000, "-")}
 
 
 
-function SetMaxNumber(n, op = "+") {
-    for (let id of ['num6', 'num7', 'num8', 'num9']) {
-        document.getElementById(id).style.display = 'inline-block'}
-    operator = op
-    maxNumber = n + 1
-    generateProblem()
+function SetMaxNumber(n) {
+    if (n == 5) {
+        for (let id of ['num6', 'num7', 'num8', 'num9']) {
+            document.getElementById(id).style.display = 'none'
+        }
+    }
+
+    if (n > 5) {
+        for (let id of ['num6', 'num7', 'num8', 'num9']) {
+            document.getElementById(id).style.display = 'inline-block';
+        }
+    }
+    document.getElementById("aufgabe").innerHTML = "Aufgaben bis " + String(n)
+    maxNumber = n + 1;
+    generateProblem();
+}
+
+function SetOperator(op) {
+    operator = op;
+    generateProblem();
 }
 
 function generateProblem() {
@@ -43,6 +52,22 @@ function generateProblem() {
                 num2 = Math.floor(Math.random() * maxNumber);
                 if (num1 > num2) break
                 }
+            break;
+        case "*":
+            for (let x = 0; x < 100; x++) {
+                num1 = Math.floor(Math.pow(Math.random() * maxNumber * maxNumber, 0.25));   // square->random -> root again. this way higher number are more likely
+                num2 = Math.floor(Math.pow(Math.random() * maxNumber * maxNumber, 0.25));
+                if (num1 * num2 <= maxNumber) break;
+            }
+            break;
+        case "/":
+            for (let x = 0; x < 100; x++) {
+                num1 = Math.floor(Math.pow(Math.random() * maxNumber * maxNumber, 0.25));   // square->random -> root again. this way higher number are more likely
+                num2 = Math.floor(Math.pow(Math.random() * maxNumber * maxNumber, 0.25));
+                if (num1 * num2 <= maxNumber) {
+                    num1 = num1 * num2
+                    break; }
+            }
             break;
     }
 
@@ -90,6 +115,13 @@ function checkAnswer() {
             break;
         case "-":
             correctAnswer = num1 - num2;
+            break;
+        case "*":
+            correctAnswer = num1 * num2;
+            break;
+        case "/":
+            correctAnswer = num1 / num2;
+            break;
     }
 
     let check = document.getElementById("check")
