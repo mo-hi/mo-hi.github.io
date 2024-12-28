@@ -20,10 +20,25 @@
 
 <!--- 02_nav-->
 <nav class="wr-800-400">
-    <a onclick="SetOperator('+')">Plus</a>
-    <a onclick="SetOperator('-')">Minus</a>
-    <a onclick="SetOperator('*')">Mal</a>
-    <a onclick="SetOperator('/')">Teilen</a>
+    <drop>
+        <a onclick="toggleDown(this)">Spiel</a>
+        <down>
+            <a onclick="SetOperator('+'); closeDown()">Plus</a>
+            <a onclick="SetOperator('-'); closeDown()">Minus</a>
+            <a onclick="SetOperator('*'); closeDown()">Mal</a>
+            <a onclick="SetOperator('/'); closeDown()">Teilen</a>
+        </down>
+    </drop>      
+    <drop>
+        <a onclick="toggleDown(this)">Training</a>
+        <down>
+            <a onclick="SetOperator('+'); closeDown()">Plus</a>
+            <a onclick="SetOperator('-'); closeDown()">Minus</a>
+            <a onclick="SetOperator('*'); closeDown()">Mal</a>
+            <a onclick="SetOperator('/'); closeDown()">Teilen</a>
+        </down>
+    </drop>    
+
     <!-- <drop>
         <a onclick="toggleDown(this)">Plus</a>
         <down>
@@ -59,7 +74,7 @@
 <!--- 03_content-->
 <h1>Mathe Fit</h1>
 <div id="aufgabe"  class="mt-50">
-    Aufgaben bis 10
+    Aufgabe 1
 </div>
 <div class="flexC gap-20 ">
     <div id="problem"></div>
@@ -88,5 +103,6 @@
 <!--- 09_end-->
 </body>
 <script src="js/mathfit.js"></script>
+<script src="js/mathfitData.js"></script>
 <script src="js/nav.js"></script>
 </html>

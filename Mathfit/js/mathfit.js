@@ -54,6 +54,9 @@ function generateProblem() {
                 }
             break;
         case "*":
+            [num1, num2] = FromProblemTable("*", maxNumber-1);
+            if (num1 != null) break;
+
             for (let x = 0; x < 100; x++) {
                 num1 = Math.floor(Math.pow(Math.random() * maxNumber * maxNumber, 0.25));   // square->random -> root again. this way higher number are more likely
                 num2 = Math.floor(Math.pow(Math.random() * maxNumber * maxNumber, 0.25));
@@ -74,6 +77,12 @@ function generateProblem() {
   document.getElementById("problem").innerHTML = num1 + " " + operator + " " + num2;
   userAnswer = "";
   document.getElementById("result").textContent = "";
+}
+
+function generateProblem_Mal() {
+    if (maxNumber = 10) {
+
+    }
 }
 
 function appendToResult(number) {
@@ -140,5 +149,8 @@ function checkAnswer() {
         check.innerHTML = 'Leider Falsch'
     }
 }
+
+
+// region level
 
 generateProblem(); // Initial problem
