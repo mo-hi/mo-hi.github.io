@@ -30,17 +30,19 @@
             </p> 
             
                 In this version, the sidebar is created based on data. In your html project you have to call 
-                <c>nav_AutoFillSidebar("id-sidebar", sidebarData)</c> when the page loads with two parameters: 
-                The target divID (in This example'id-sidebar') and the actual data, from which the sidebar will be build
-                (in this example 'sidebarData'). For example:
+                <c>nav_AutoFillSidebar("id-sidebar", sidebarData, foo)</c> with two parameters on page load: 
+                The target divID (in This example'id-sidebar') where the sidebar shall appea, 
+                the actual data, from which the sidebar will be build (in this example 'sidebarData') and
+                the function that shall be called when a sidebar item is clicked (in this example 'foo').
             </p>
             <codeblock><pre style="margin-left: -12ch">
                 &lt;script&gt;
-                    nav_AutoFillSidebar("id-sidebar", sidebarData)
+                    nav_AutoFillSidebar("id-sidebar", sidebarData, foo)
                 &lt;/script&gt;</pre>
             </codeblock><br>
             <p>
-                Here' how the result will look like. You can click on the items to see the effect.
+                Here' how the result will look like. You can click on the items to see the effect. 
+                The effect of the function <c>foo</c> applies only to the first item in the sidebar:
                 When you click on "Australia" the sidebar will change to a different data set, starting with "Asia".
                 When you click on "Asia" the sidebar will change back to the original data set:
             </p>
