@@ -40,7 +40,8 @@ function _ulist(parent, items, clickfunction, no = 0) {
 function _ulist_li(item, no, count, clickfunction) {
     let li = document.createElement('li');
     
-    li.addEventListener("click", clickfunction)
+    // li.addEventListener("click", clickfunction)
+    li = addEventListener_ClickTouch(li, clickfunction)
     if (no == -1) li.innerHTML = item.name
 
     if (no ==  0) li.innerHTML = String(count) + " " + item.name;
@@ -55,7 +56,8 @@ function _ulist_dropdown(li, item, count, clickfunction) {
     if (!Object.keys(item).includes('children')) return 
 
     let drop = document.createElement('drop'); // parent element of ego li
-    li.addEventListener("click", toggleDown)
+    // li.addEventListener("click", toggleDown)
+    li = addEventListener_ClickTouch(li, toggleDown)
     drop.appendChild(li)
 
     let down = document.createElement('down'); // next neighbour element of ego li
@@ -63,6 +65,12 @@ function _ulist_dropdown(li, item, count, clickfunction) {
     
     drop.appendChild(down)
     return drop
+}
+
+function addEventListener_ClickTouch(element, functionName) {
+    element.addEventListener('click', functionName)
+    element.addEventListener('touchstart', functionName)
+    return element
 }
 
 

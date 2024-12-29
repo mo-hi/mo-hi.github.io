@@ -74,16 +74,16 @@ function generateProblem() {
             break;
     }
 
-  document.getElementById("problem").innerHTML = num1 + " " + operator + " " + num2;
+  document.getElementById("problem").innerHTML = num1 + " " + _operator(operator) + " " + num2;
   userAnswer = "";
   document.getElementById("result").textContent = "";
 }
 
-function generateProblem_Mal() {
-    if (maxNumber = 10) {
-
-    }
+function _operator(operator) {
+    if(operator == "*") return "×";
+    return operator;
 }
+
 
 function appendToResult(number) {
     if (document.getElementById("check").innerHTML == 'Leider Falsch') {
