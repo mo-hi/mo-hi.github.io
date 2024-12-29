@@ -2,6 +2,7 @@ function toggleDown(a) {
     let divElement = null;
     if (a instanceof PointerEvent) divElement = a.target;   // if eventlistener was used
     if (a instanceof HTMLElement) divElement = a;           // if setAttribute / direct HTML was used
+    if (a instanceof TouchEvent) divElement = a.target;     // if eventlistener was used
     if (divElement == null) return
 
     for (let drop of document.querySelectorAll('nav drop')) {
@@ -69,7 +70,10 @@ function _ulist_dropdown(li, item, count, clickfunction) {
 
 function addEventListener_ClickTouch(element, functionName) {
     element.addEventListener('click', functionName)
-    element.addEventListener('touchstart', functionName)
+    element.addEventListener('touchstart', function(event) {
+  event.preventDefault(); // Prevent mouse events
+  functionName(event);     // Call your function
+});
     return element
 }
 
