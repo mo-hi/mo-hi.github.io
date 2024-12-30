@@ -25,24 +25,41 @@
             <p>
                 In its basic form, the only difference to make a navbar to a sidebar
                 is to wrap the  html inside a &lt;ul&gt; tag (instead of &lt;nav&gt;) and to use  
-                &lt;li&gt; tags (instead of &lt;a&gt;) for the sidebar items. Hence The sidear is intended to call functions and not intended
-                to be used for links. 
+                &lt;li&gt; tags (instead of &lt;a&gt;) for the sidebar items. Hence the sidear is intended to call functions and not intended
+                to be used for links. In your html(/js) insert the following code:
             </p> 
-            
-                In this version, the sidebar is created based on data. In your html project you have to call 
-                <c>nav_AutoFillSidebar("id-sidebar", sidebarData, foo)</c> with two parameters on page load: 
-                The target divID (in This example'id-sidebar') where the sidebar shall appea, 
-                the actual data, from which the sidebar will be build (in this example 'sidebarData') and
-                the function that shall be called when a sidebar item is clicked (in this example 'foo').
-            </p>
+
             <codeblock><pre style="margin-left: -12ch">
+                &lt;html&gt;
+                ...
+                    &lt;ul id="id-sidebar" class="sidebar auto-fill"&gt;
+                    &lt;/ul&gt;
+                ...
                 &lt;script&gt;
                     nav_AutoFillSidebar("id-sidebar", sidebarData, foo)
-                &lt;/script&gt;</pre>
+                &lt;/script&gt;
+                &lt;/html&gt;</pre>
             </codeblock><br>
             <p>
+                The id of the <c>&lt;ul&gt;</c> tag will be the target for the javascript functions.
+                The class <c>sidebar</c> is used to style the sidebar (see nav.css).
+                The class <c>auto-fill</c> is used as a verification in the javascript code to check 
+                if the target ul element is the right sidebar (see nav.js), avoiding conflicts with other ul elements. 
+                Ther's no css styling for this class. It also helps to identify automatically filled content in the html code.
+            </p>
+            <p>
+                <c>sidebarData</c> is the actual data, from which the sidebar will be build. 
+                <c>foo</c> is the function that shall be called when a sidebar item is clicked 
+            </p>
+        </section>
+        <section>
+        <h3>Example</h3>
+            <p>
                 Here' how the result will look like. You can click on the items to see the effect. 
-                The effect of the function <c>foo</c> applies only to the first item in the sidebar:
+                The function <c>foo</c> will be called every time when you click an item of the sidebar. Inside foo (or the function you have defined)
+                you have access to the event object, and such to the &lt;li&gt; respectivley.
+                Inside foo, it is checked if the clicked item contains a certain string, "Australia" or "Asia". so the user will
+                only experience a change if he clicks on the first item.
                 When you click on "Australia" the sidebar will change to a different data set, starting with "Asia".
                 When you click on "Asia" the sidebar will change back to the original data set:
             </p>
@@ -50,7 +67,7 @@
                 <table class="w-100">
                     <tr>
                         <td class="w-30 pt-20 top">
-                            <ul id="id-sidebar" class="sidebar sidebar-auto-fill">
+                            <ul id="id-sidebar" class="sidebar auto-fill">
                                 <!-- filled via script-->
                             </ul>
                         </td>
@@ -92,6 +109,16 @@ const sidebarData = [
                         </td>
                     </tr>
                 </table>
+            </p>
+        </section>
+        <section>
+            <h3>Impact on your Site</h3>
+            <p>
+                nav.js will add the event listeners "click" and "touchstart" to each of the sidebar &lt;li&gt;-elements, 
+                both calling the function <c>foo</c>, or the function you have defined.
+                For all &lt;li&gt;-elements in the sidebar with children (technically an &lt;li&gt;-element followed by a &lt;drop&gt;-element), 
+                two more event listeners "click" and "touchstart" are added, which call the function <c>toggleDown</c> 
+                to open or close the dropdown.
             </p>
         </section>
 

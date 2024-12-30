@@ -71,10 +71,11 @@ class clsTest {
 // # Print                                                                          #
 // ##################################################################################
 
-    PrintResult(targetDiv) {
+    PrintResult(targetDivID) {
         document.head.appendChild(this._style());   
-        // document.getElementById(targetDiv).innerHTML = String(this.cases).replace(/,,/g, '<br>').replace(/ ,/g, '<br>')
-        document.getElementById(targetDiv).append(this._table())
+        let targetDiv = document.getElementById(targetDivID)
+        if (!targetDiv.classList.contains('auto-fill'))  return
+        targetDiv.append(this._table());
     }
         
     _style() {
