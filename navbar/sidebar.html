@@ -17,7 +17,9 @@
         <h2x>(sidebar)</h2x>
         <section>
             <h3>About</h3>
-            <p id = 'id-start'><!-- filled via script--></p> 
+            <p id = 'id-start' class="auto-fill">
+                <!-- filled via script-->
+            </p> 
         </section>
 
         <section>
@@ -110,7 +112,9 @@
         <br>
         <hr>
         <section>
-            <p id="id-end"><!-- filled via script--></p>
+            <p id="id-end" class="auto-fill">
+                <!-- filled via script-->
+            </p>
         </section>
     </main>
     
@@ -119,13 +123,22 @@
 <br>
 
 </body>
+    <!-- js libs -->
     <script src="https://mo-hi.github.io/bjs/js/b.js"> </script>
+
+    <!-- this project -->
     <script src="js/nav.js"></script>
     <script src="js/sideData.js"></script>
+
+    <!-- HTML Auto Fill Scripts -->
     <script src="js/text.js"></script>
+    <script src="../js/textGeneral.js"></script>
+    <script src="../bJS/auto-fill.js"></script>
     <script>
-        let ids = ["id-start", "id-end"]
-        for (id of ids) {
-            document.getElementById(id).innerHTML = textBlocks[id]}
+        Auto_Fill_Parts(textBlocks)
+        Auto_Fill_Parts(FromFile_textGeneraljs)
     </script>
 </html>
+
+
+    

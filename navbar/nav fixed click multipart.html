@@ -46,7 +46,9 @@
     <main class="paper">
         <h2>nav.css</h2>
         <h2X>(with fixed position, click behavior and three sections)</h2X>
-        <div id = 'id-start'><!-- filled via script--></div> 
+        <div id = 'id-start' class="auto-fill">
+            <!-- filled via script-->
+        </div>
     
     </main>
     
@@ -86,22 +88,34 @@
             &lt;a href="" onclick=""&gt;Info&lt;/a&gt;
         &lt;/nav&gt;</pre>
     </codeblock>
-    <div id = 'id-fixed'><!-- filled via script--></div> 
+    <div id = 'id-fixed' class="auto-fill">
+        <!-- filled via script-->
+    </div>
 
-    <div id = 'id-click'><!-- filled via script--></div> 
-
+    <div id = 'id-click' class="auto-fill">
+        <!-- filled via script-->
+    </div>
+    
     <br>
     <hr>
     <section>
-        <p id="id-end"><!-- filled via script--></p>
+        <p id="id-end" class="auto-fill">
+            <!-- filled via script-->
+        </p>
     </section>
     </body>
+    <!-- js libs -->
+    <script src="https://mo-hi.github.io/bjs/js/b.js"> </script>
+
+    <!-- this project -->
     <script src="js/nav.js"></script>
 
+    <!-- HTML Auto Fill Scripts -->
     <script src="js/text.js"></script>
+    <script src="../js/textGeneral.js"></script>
+    <script src="../bJS/auto-fill.js"></script>
     <script>
-        let ids = ["id-start", "id-fixed", "id-end"]
-        for (id of ids) {
-            document.getElementById(id).innerHTML = textBlocks[id]}
+        Auto_Fill_Parts(textBlocks)
+        Auto_Fill_Parts(FromFile_textGeneraljs)
     </script>
 </html>

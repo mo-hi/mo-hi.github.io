@@ -21,9 +21,9 @@
         (-script src="https://mo-hi.github.io/bjs/js/b.js"-) (-/script-)
     </codeblock>
 
-    <p>
-        That's it. Enjoy! <a href="https://github.com/mo-hi/mo-hi.github.io">Link to github repo</a>
-    </p>
+    <section>
+        <p id="id-end" class="auto-fill"><!-- filled via script--></p>
+    </section>
 
     <!-- ----------------------------------------------------------------------------------------- -->
     <h1>Prototype Functions</h1>
@@ -34,12 +34,15 @@
 </body>
 
 <script src="js/b.js"></script>
+<script src="../js/textGeneral.js"></script>
 <script src="docstrings.js"></script>
 <script src="auto-fill.js"></script>
 <script>
+    Auto_Fill_Parts(FromFile_textGeneraljs)
     Auto_Fill('id-main', FromFile_docstrings_js)
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
     DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])
 </script>
 </html>
+
