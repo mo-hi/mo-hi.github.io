@@ -13,7 +13,7 @@
     <!-- ----------------------------------------------------------------------------------------- -->
     <h1>b.JS</h1>
     <p class="big">
-        b.JS is a javascript class providing additional functionaly to javascript data types
+        b.JS iprovides additional functionality to javascript data types
         like arrays, string and to html dom elements. To use b.JS in your project, just add the following script reference to your project:
     </p>
 
@@ -28,50 +28,18 @@
     <!-- ----------------------------------------------------------------------------------------- -->
     <h1>Prototype Functions</h1>
 
-    <div id="id-docstrings">
+    <div id="id-main" class="auto-fill">
 
     </div>
 </body>
 
 <script src="js/b.js"></script>
 <script src="docstrings.js"></script>
-<script >
-    let targetdiv = document.getElementById(id="id-docstrings")
-    let docstrings = FromFile_docstrings_js
-
-    let tocIDs = docstrings.keyValues('h2').removeDuplicates()
-    let ul = ToC(tocIDs); ul.className = 'horizontal'
-    targetdiv.appendChild(ul)
-
-    WrtieDataToDiv(targetdiv, docstrings)
+<script src="auto-fill.js"></script>
+<script>
+    Auto_Fill('id-main', FromFile_docstrings_js)
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
     DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])
-
-    // functions
-    function WrtieDataToDiv(targetdiv, data) {
-        data.forEach(item => {
-            let keys = Object.keys(item)
-            keys.forEach(key => {
-                let div = document.createElement(key)
-                if (key == 'h2') div.id = item[key]
-                div.innerHTML = item[key]
-                targetdiv.appendChild(div)
-            })
-        })
-    }
-
-    function ToC(listofIDs) {
-        let ul = document.createElement('ul')
-        listofIDs.forEach(id => {
-            let li = document.createElement('li')
-            let a = document.createElement('a')
-            a.href = '#' + id; a.innerHTML = id
-            li.appendChild(a)
-            ul.appendChild(li)
-        })
-        return ul
-    }
-
 </script>
 </html>
