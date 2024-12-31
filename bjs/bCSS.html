@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>B CSS</title>
+    <link rel="stylesheet" href="css/b.css">
+    <link rel="stylesheet" href="../css/paper.css">
+    <link rel="stylesheet" href="../css/width.css">
+    <link rel="stylesheet" href="../css/basis.css">
+</head>
+<body class="wr-800-400">
+    <div class="h-30"></div>
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <h1>b.CSS</h1>
+    <p class="big">
+        b.CSS provides ...<br>
+        To use b.CSS in your project, just add the following css reference to your project:
+    </p>
+
+    <codeblock>
+        (-link rel="stylesheet" href="https://mo-hi.github.io/bjs/js/b.css"-)
+    </codeblock>
+
+    <section>
+        <p id="id-end" class="auto-fill">
+            <!-- filled via script-->
+        </p>
+    </section>
+
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <h2>Icons</h2>
+    <br>
+    <div class="svg-icon-edit-24 auto-fill inline-block mr-20"></div>
+    <div class="svg-icon-grid-24 auto-fill inline-block mr-20"></div>
+    <div class="svg-icon-menu-24 auto-fill inline-block mr-20"></div>
+    <div class="svg-icon-search-24 auto-fill inline-block mr-20"></div>
+    <div class="svg-icon-filter-24 auto-fill inline-block mr-20"></div>
+    <div class="svg-icon-download-24 auto-fill inline-block mr-20"></div>
+    <div class="svg-icon-upload-24 auto-fill inline-block mr-20"></div>
+    <br><br>
+    <h2>Buttons</h2>
+    <br>
+
+</body>
+
+<script src="js/b.js"></script>
+<script src="../js/textGeneral.js"></script>
+<script src="../js/svg.js"></script>
+<script src="auto-fill.js"></script>
+<script>
+    Auto_Fill_SVGs(FromFile_svg_js)
+    Auto_Fill_Parts(FromFile_textGeneral_js)
+
+    DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
+    DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])
+</script>
+</html>
+

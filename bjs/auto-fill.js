@@ -1,3 +1,16 @@
+// Automatically fill svg based on element class attribute
+function Auto_Fill_SVGs(data) {
+    _validateParts(data)
+    let divElementsToFillWithSVG = document.querySelectorAll('[class^="svg-"].auto-fill');
+    divElementsToFillWithSVG.forEach(divElement => {
+        // let svgName = divElement.classList[0].replace('svg-', '');
+        let key = Array.from(divElement.classList).find(className => className.startsWith('svg-'))
+        if (data[key] != undefined) divElement.innerHTML = data[key]
+        
+    });
+}
+
+// Automatically fill text content based on element ID
 function Auto_Fill_Parts(data) {
     _validateParts(data)
     for (let key in data) {
