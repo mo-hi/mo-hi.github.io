@@ -1,13 +1,13 @@
 const FromFile_svg_js = {
     'svg-icon-edit-24': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="currentColor" stroke-width="2">
             <path d="M16 2 l3 3 l-3 3 l-3 -3 z"/>  
             <path d="M4 14 v3 h3 l7.5-7.5 l -3 -3 z"/>
             <path d="M4 22h16" stroke-width="2"/>   
         </svg>
     `,
     'svg-icon-grid-24': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
             <rect x="3" y="3" width="8" height="8" rx="1" ry="1"/>
             <rect x="13" y="3" width="8" height="8" rx="1" ry="1"/>
             <rect x="3" y="13" width="8" height="8" rx="1" ry="1"/>

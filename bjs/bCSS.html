@@ -31,6 +31,9 @@
     <!-- ----------------------------------------------------------------------------------------- -->
     <h2>Icons</h2>
     <br>
+    <p>
+        The following icons can be added via ...
+    </p>
     <div class="svg-icon-edit-24 auto-fill inline-block mr-20"></div>
     <div class="svg-icon-grid-24 auto-fill inline-block mr-20"></div>
     <div class="svg-icon-menu-24 auto-fill inline-block mr-20"></div>
@@ -40,7 +43,60 @@
     <div class="svg-icon-upload-24 auto-fill inline-block mr-20"></div>
     <br><br>
     <h2>Buttons</h2>
-    <br>
+    
+    <table class="border border-cells w-100">
+        <tr>
+            <td class="w-5"><div class="svg-icon-edit-24 auto-fill" onclick="foo(this)"></div></td>     <!--  click also works on the icon -->
+            <td class="w-5"><div class="btn blue svg-icon-edit-24 auto-fill" onclick="foo(this)"></div></td>
+            <td class="w-5"><div class="btn blue svg-icon-edit-24 auto-fill" onclick="foo(this)"></div></td>
+            <td class="w-90">Click the icon or the button</td>
+        </tr>
+        <tr>
+            <td><div class="svg-icon-grid-24 auto-fill"></div></td>
+            <td><div class="btn blue svg-icon-grid-24 auto-fill" onclick="foo(this)"></div></td>
+            <td><div class="btn blue svg-icon-grid-24 auto-fill" onclick="foo(this)"></div></td>
+            <td >Click the button</td>
+        </tr>
+        <tr>
+            <td><div class="svg-icon-menu-24 auto-fill"></div></td>
+            <td><div class="btn blue svg-icon-menu-24 auto-fill" onclick="foo(this)"></div></td>
+            <td><div class="btn blue svg-icon-menu-24 auto-fill" onclick="foo(this)"></div></td>
+            <td >Click the button</td>
+        </tr>
+        <tr>
+            <td><div class="svg-icon-search-24 auto-fill"></div></td>
+            <td><div class="btn blue svg-icon-search-24 auto-fill" onclick="foo(this)"></div></td>
+            <td><div class="btn blue svg-icon-search-24 auto-fill" onclick="foo(this)"></div></td>
+            <td >Click the button</td>
+        </tr>
+        <tr>
+            <td><div class="svg-icon-fiter-24 auto-fill"></div></td>
+            <td><div class="btn blue svg-icon-filter-24 auto-fill" onclick="foo(this)"></div></td>
+            <td><div class="btn blue svg-icon-filter-24 auto-fill" onclick="foo(this)"></div></td>
+            <td >Click the button</td>
+        </tr>
+        <tr>
+            <td><div class="svg-icon-download-24 auto-fill"></div></td>
+            <td><div class="btn blue svg-icon-download-24 auto-fill" onclick="foo(this)"></div></td>
+            <td><div class="btn blue svg-icon-download-24 auto-fill" onclick="foo(this)"></div></td>
+            <td >Click the button</td>
+        </tr>
+        <tr>
+            <td><div class="svg-icon-upload-24 auto-fill"></div></td>
+            <td><div class="btn blue svg-icon-upload-24 auto-fill" onclick="foo(this)"></div></td>
+            <td><div class="btn blue svg-icon-upload-24 auto-fill" onclick="foo(this)"></div></td>
+            <td >Click the button</td>
+        </tr>
+        <tr>
+            <td>..</td>
+            <td>..</td>
+            <td><div class="btn blue" onclick="foo(this)">Hallo</div></td>
+            <td >Click the button</td>
+        </tr>
+    </table>
+
+    <div class="h-30"></div>
+
 
 </body>
 
@@ -54,6 +110,12 @@
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
     DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])
+
+    function foo(element) {
+        let td = element.parentNode;
+        let nextCell = td.nextElementSibling;
+        nextCell.innerHTML = "Clicked";
+    }
 </script>
 </html>
 

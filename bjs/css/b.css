@@ -1,13 +1,29 @@
 
 /*  buttons */
+.btn.blue:focus, .btn.blue:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #fff;
+}
+
+.btn.blue {
+    color: #0d6efd;
+    background-color: transparent;
+    border-color: #0d6efd;
+    transition: 0.3s;
+}
+
 .btn {
+    display: inline-block;
     padding: 5px 10px;
     margin: 5px;
-    border: none;
+    border: 1px solid ;
     cursor: pointer;
     font-size: 16px;
     border-radius: 3px;
+    text-align: center;
 }
+
 .btn-like {
     background-color: #007bff;
     color: white;
@@ -29,6 +45,35 @@
 .inline-block {
     display: inline-block !important;
 }
+
+/*  header */
+h2.underline {
+    width: 100%;
+    position: relative;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: left;
+    color: #333;
+}
+
+h2.underline::after {
+    content: '';
+    display: block;
+    width: 100%;
+    min-width: 50%;
+    height: 2px;
+    background-color: #333;
+    /* background: linear-gradient(to right, #333, rgba(51, 51, 51, 0)); */
+}
+
+h2.sticky {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    background-color: white; /* Ensure the background color matches the page */
+    z-index: 1; /* Ensure it stays above other content */
+}
+
 
 /*  margin and padding */
 .mt-1       {margin-top: 1px !important;} .pt-1       {padding-top: 1px !important;}
@@ -194,6 +239,20 @@
 .mr-92      {margin-right: 92px !important;} .pr-92      {padding-right: 92px !important;}
 .mr-96      {margin-right: 96px !important;} .pr-96      {padding-right: 96px !important;}
 .mr-100     {margin-right: 100px !important;} .pr-100     {padding-right: 100px !important;}
+
+/*  table */
+table.border {
+    border-collapse: collapse;
+    border: 1px solid #aaa;
+}
+
+table.border-rows tr {
+    border-bottom: 1px solid #aaa;
+}
+
+table.border-cells td {
+    border: 1px solid #aaa;
+}
 
 /*  width */
 /* For screens smaller than 600px */

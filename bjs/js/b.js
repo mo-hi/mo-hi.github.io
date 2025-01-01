@@ -2,10 +2,12 @@
 // region basis                                                                                           #
 // ####################################################################################################
 
+/**
+returns the type of a variable as a string. The following types are recognized:
+ list, dict, str, int, bool, null, undefined
+*/
 function typOf(variable, extendedInfo = false) {
     if (Array.isArray(variable)) {
-        if (extendedInfo) {
-            return 'list' + '-' + String(ListDepth(variable)) + 'D'}
         return 'list'} // javascript 'Array'
     if (typeof variable === 'object' && variable !== null) {
         return 'dict'} // javascript 'Object'
@@ -19,16 +21,22 @@ function typOf(variable, extendedInfo = false) {
         return 'null'}
     if (variable === undefined) {
         return 'undefined'}
-
-    assert(false, String(variable))
+    
+    throw new Error('Unknown type of variable: ' + variable)
 }
 
+/**
+is a short hand notation / better readability for 'return condition ? trueValue : falseValue';
+*/
 function wenn(condition, trueValue, falseValue) {
     return condition ? trueValue : falseValue;}
 // ####################################################################################################
 // region DOM                                                                                             #
 // ####################################################################################################
 
+/**
+replaces the content of specified tags within a given element.
+*/
 function DOM_Replace(re, place, tags) {
     if (re == undefined || place == undefined) return -1
     if (typOf(re) != typOf(place)) return -1
@@ -42,8 +50,7 @@ function DOM_Replace(re, place, tags) {
     _DOM_Replacer(re, place, tags)
   }
 
-
-  function _DOM_Replacer(re, place, tags) {
+function _DOM_Replacer(re, place, tags) {
     tags.forEach(tag => {
         let elements = document.querySelectorAll(tag);
         elements.forEach(element => {
@@ -58,6 +65,16 @@ function DOM_Replace(re, place, tags) {
 // ####################################################################################################
 
 /** 
+dummy as workaround for regex bug. first docstring is not recognized correctly.
+*/
+Object.defineProperties(Array.prototype, {
+    dummy_I_DO_NOTHING: {
+        value: function() {
+        }
+    }
+});
+
+/** 
 returns the max depth of an array.
 As this function uses recursion you can limit the level of recursions, default limit is 9.
 */
@@ -65,19 +82,19 @@ Object.defineProperties(Array.prototype, {
     depth: {
         value: function(limit_Recursions) {
 
-            function recursiveDepth(arr) {
+            function _recursiveDepth(arr) {
                 if (limit_Recursions == undefined) limit_Recursions = 9
                 if (!Array.isArray(arr)) return 0
                 let ret = 0;
                 for (let item of arr) {
-                    ret = Math.max(ret, recursiveDepth(item));
+                    ret = Math.max(ret, _recursiveDepth(item));
                     if (ret >= limit_Recursions) {
                         ret = limit_Recursions-1
                         break}}
                 return ret + 1
             }
 
-            return recursiveDepth(this)
+            return _recursiveDepth(this)
         }
     }
 });
@@ -123,7 +140,7 @@ Object.defineProperties(Array.prototype, {
 });
 
 /** 
-adds to the string of each of its items a 'prefix' and a 'postfix'.
+adds to each of its items a 'prefix' and a 'postfix'.
 It will only be applied to elements of the ego array which are of type string. 
 */
 Object.defineProperties(Array.prototype, {
@@ -141,7 +158,26 @@ Object.defineProperties(Array.prototype, {
 });
 
 /** 
-returns a list/array with th values to the provided 'key' for all dictionary items of the ego array.
+adds to the value of the specified key of each of its items a 'prefix' and a 'postfix'.
+Will only be applied to elements of the ego array which are of type dictionary.
+Wil only be applied to values of the ego dictionary which are of type string.
+This is a wrapper for the dictionary function prepost.
+*/
+Object.defineProperties(Array.prototype, {
+    prepostKey: {
+        value: function(key, prefix, postfix) {
+            if (key == undefined) return
+            if (prefix == undefined) prefix = ''
+            if (postfix == undefined) postfix = ''
+            for (let item of this) {
+                if (typOf(item) != 'dict') continue
+                item.prepost(key, prefix, postfix)}
+        }
+    } 
+});
+
+/** 
+returns a list/array with the values to the provided 'key' for all dictionary items of the ego array.
 It will only be applied to elements of the ego array which are of type dictionary/object.
 */
 Object.defineProperties(Array.prototype, {
@@ -173,6 +209,23 @@ Object.defineProperties(Array.prototype, {
         }
     } 
 });
+
+/** 
+returns a new array with modified keys and old values. 
+This is a wrapper for the dictionary function with the same name MeWithNewKeys.
+Will only be applied to elements of the ego array which are of type dictionary.
+*/
+Object.defineProperties(Array.prototype, {
+    MeWithNewKeys: {
+        value: function(oldKeys, newKeys) {
+            let ret = []
+            for (let item of this) {
+                if (typOf(item) != 'dict') continue
+                ret.push(item.MeWithNewKeys(oldKeys, newKeys))}
+            return ret    
+        }
+    } 
+});
 // ####################################################################################################
 // region Dictionary                                                                                 #
 // ####################################################################################################
@@ -188,7 +241,6 @@ Object.defineProperties(Object.prototype, {
     } 
 }); 
 
-
 /**
 returns true if the dictionary contains the specified key, returns false if not.
 Is a short version of 'Object.keys(this).includes(key)'
@@ -197,6 +249,44 @@ Object.defineProperties(Object.prototype, {
     includes: {
         value: function(key) {
               return Object.keys(this).includes(key)
+            }  
+    } 
+}); 
+
+/**
+returns a new dictionary with the modified keys and their old values.
+*/
+Object.defineProperties(Object.prototype, {
+    MeWithNewKeys: {
+        value: function(oldKeys, newKeys) {
+            if (oldKeys.length != newKeys.length) return 
+            let thisKeys = Object.keys(this)
+            for (let thisKey of thisKeys) {
+                if (!oldKeys.includes(thisKey)) {
+                    oldKeys.push(thisKey)
+                    newKeys.push(thisKey)}
+            }  
+
+            let newDict = {}
+            for (let i = 0; i < oldKeys.length; i++) {
+                newDict[newKeys[i]] = this[oldKeys[i]]
+            }
+            return newDict
+            }  
+    } 
+}); 
+
+/**
+modifies the value of the specified key by adding a prefix and a postfix.
+Will only be applied if the value to the provided key is of type string.
+*/
+Object.defineProperties(Object.prototype, {
+    prepost: {
+        value: function(key, prefix, postfix) {
+            if (key == undefined) return
+            if (prefix == undefined) prefix = ''
+            if (postfix == undefined) postfix = ''
+            this[key] = prefix + this[key] + postfix
             }  
     } 
 }); 

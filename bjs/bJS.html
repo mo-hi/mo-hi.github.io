@@ -6,7 +6,8 @@
     <title>B JS</title>
     <link rel="stylesheet" href="../css/paper.css">
     <link rel="stylesheet" href="../css/width.css">
-    <link rel="stylesheet" href="../css/basis.css">
+    <!-- <link rel="stylesheet" href="../css/basis.css"> -->
+     <link rel="stylesheet" href="css/b.css">
 </head>
 <body class="wr-800-400">
     <div class="h-30"></div>
@@ -26,20 +27,27 @@
     </section>
 
     <!-- ----------------------------------------------------------------------------------------- -->
-    <h1>Prototype Functions</h1>
+    <div id="id-autofill" class="auto-fill">
+        {{region}}
+        <h3>{{name}} ()</h3>
+        <p><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+    </div>
 
-    <div id="id-main" class="auto-fill">
+    <h2>Prototype Functions</h2>
+    <div id="id-proto" class="auto-fill">
 
     </div>
 </body>
 
 <script src="js/b.js"></script>
 <script src="../js/textGeneral.js"></script>
-<script src="docstrings.js"></script>
+<script src="docstringsPrototypes.js"></script>
+<script src="FunctionsInfo.js"></script>
 <script src="auto-fill.js"></script>
 <script>
     Auto_Fill_Parts(FromFile_textGeneral_js)
-    Auto_Fill('id-main', FromFile_docstrings_js)
+    FromFile_FunctionsInfo_JS.prepostKey('region', '<h2 class="underline sticky">', '</h2>')
+    Auto_Fill_Template('id-autofill', FromFile_FunctionsInfo_JS, ['region'])
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
     DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])

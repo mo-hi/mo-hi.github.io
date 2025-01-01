@@ -1,7 +1,31 @@
+function Auto_Fill_Template(elementId, listOfDictionaries, compareKeys = []) {
+    let container = document.getElementById(elementId);
+    if (!container) return 
+  
+    let template = container.innerHTML
+    let lastVaues = {}
+    container.innerHTML = "";
+  
+    listOfDictionaries.forEach(item => {
+        let nextString = template
+ 
+        for (let key in item) {
+            if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
+                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
+            else {
+                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), item[key])}
+            
+            lastVaues[key] = item[key]
+            }
+        container.innerHTML += nextString
+    });
+  }
+
+
 // Automatically fill svg based on element class attribute
 function Auto_Fill_SVGs(data) {
     _validateParts(data)
-    let divElementsToFillWithSVG = document.querySelectorAll('[class^="svg-"].auto-fill');
+    let divElementsToFillWithSVG = document.querySelectorAll('[class*="svg-"].auto-fill');
     divElementsToFillWithSVG.forEach(divElement => {
         // let svgName = divElement.classList[0].replace('svg-', '');
         let key = Array.from(divElement.classList).find(className => className.startsWith('svg-'))

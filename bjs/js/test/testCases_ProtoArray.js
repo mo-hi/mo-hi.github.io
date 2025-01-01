@@ -5,6 +5,7 @@ function testCases_ProtoArray(myTest) {
     testcase_ProtoArray_PrePost(myTest)
     testcase_ProtoArray_keyValues(myTest)
     testcase_ProtoArray_removeDuplicates(myTest)
+    testcase_ProtoArray_MeWithNewKeys(myTest)
 }
 
 function testcase_ProtoArray_Depth(myTest) {
@@ -73,4 +74,20 @@ function testcase_ProtoArray_removeDuplicates(myTest) {
 
     myTest.Equal(true, true,'---------------------')  
     myTest.Equal(["1", "2", "3", "3", "4"].removeDuplicates(), ["1", "2", "3", "4"], fname)
+}
+
+function testcase_ProtoArray_MeWithNewKeys(myTest) {
+    let fname = arguments.callee.name;
+
+    let test = [
+        {'name': 'John', 'age': 30, 'city': 'New York'},
+        {'name': 'Jane', 'age': 25, 'city': 'Los Angeles'}
+    ]
+
+    let test2 = [
+        {'summary': 'John', 'age': 30, 'city': 'New York'},
+        {'summary': 'Jane', 'age': 25, 'city': 'Los Angeles'}
+    ]
+    myTest.Equal(true, true,'---------------------')  
+    myTest.Equal(test.MeWithNewKeys(['name'], ['summary']), test2, fname) 
 }
