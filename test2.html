@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>Lese fit</title>
+    <link rel="stylesheet" href="css/paper.css">
+    <link rel="stylesheet" href="css/width.css">
+    <link rel="stylesheet" href="bjs/css/b.css">
+    <style>
+        :root {
+            --color-background: #f0f0f0;
+            --color-text: #000;
+        }
+
+        /*paper.css*/
+        .paper          {background-color: var(--color-background); color: var(--color-text);}
+        /*b.css*/
+        h2.sticky       {background-color: var(--color-background); color: var(--color-text);}
+
+        p {font-size: 14pt;
+        line-height:20pt;}
+    </style>
+</head>
+<body class="paper wr-800-400">
+
+    <h2 class="underline sticky">Anna geht zu Lara</h2>
+    <p>
+        Anna geht zu ihrer Freundin Lara. <br>
+        Lara lebt in einem Haus mit Tante und Onkel.<br>
+        Lara hat einen Hund.<br>
+        Der Hund ist sehr lieb.<br>
+        Der Hund heißt Bello.<br>
+        Lara hat auch einen Garten.<br>
+        Im Garten gibt es viele Blumen.<br>
+        Im Garten steht auch ein Baum<br>
+        Anna und Lara spielen im Garten.<br>
+        Sie spielen Ball mit dem Hund.<br>
+        Lara wirft den Ball und der Hund Bello holt ihn.<br>
+        Dann gehen sie ins Haus.<br>
+        Im Haus gibt es Kuchen und Saft.<br>
+        Sie essen und trinken.<br>
+        Dann ist es Zeit für Anna zu gehen.<br>
+        Anna sagt: „Tschüss, bis morgen!“<br>
+        Lara sagt: „Tschüss, bis morgen!“<br>
+        Anna geht nach Hause.<br>
+    </p>
+    <br><hr>
+    <p id="id-end" class="auto-fill">
+        {{id-end-index}}
+    </p>
+        <div class="h-30"></div>
+    </section>
+
+
+</body>
+
+<script src="bJS/js/b.js"></script>
+<script src="js/textGeneral.js"></script>
+<script>
+    Auto_Fill('body', FromFile_textGeneral_js)
+</script>
+</html>
+

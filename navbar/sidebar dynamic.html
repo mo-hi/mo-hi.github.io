@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
     <title>sidebar css</title>
+    <link rel="stylesheet" href="../bJS/css/b.css">
     <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="../css/basis.css">
     <link rel="stylesheet" href="../css/paper.css">
     <link rel="stylesheet" href="../css/width.css">
 </head>
@@ -122,25 +122,31 @@ const sidebarData = [
             </p>
         </section>
 
-        <br>
-        <hr>
+        <br><hr>
         <section>
-            <p id="id-end"><!-- filled via script--></p>
+            <p id="id-end" class="auto-fill">
+                {{id-end}}
+            </p>
         </section>
+        {{very-end}}
     </main>
-    
-<br>
 
 </body>
-    <script src="https://mo-hi.github.io/bjs/js/b.js"> </script>
+    <!-- js libs -->
+    <script src="../bJS/js/b.js"> </script>
+
+    <!-- this project -->
     <script src="js/nav.js"></script>
-    <script src="js/text.js"></script>
     <script src="js/sideData.js"></script>
     <script src="js/sideData copy.js"></script>
+
+    <!-- HTML Auto Fill Text -->
+    <script src="js/textNav.js"></script>
+    <script src="../js/textGeneral.js"></script>
+    
     <script>
-        let ids = ["id-start", "id-end"]
-        for (id of ids) {
-            document.getElementById(id).innerHTML = textBlocks[id]}
+        Auto_Fill("body", FromFile_textNav_JS)
+        Auto_Fill("body", FromFile_textGeneral_js)
         
         nav_AutoFillSidebar("id-sidebar", sidebarData, foo)
 

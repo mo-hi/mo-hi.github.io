@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
     <title>CSS: nav fix position </title>
+    <link rel="stylesheet" href="../bJS/css/b.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/navColors.css">
-    <link rel="stylesheet" href="../css/basis.css">
     <link rel="stylesheet" href="../css/paper.css">
     <link rel="stylesheet" href="../css/width.css">
 </head>
@@ -39,9 +39,9 @@
         <section>
             <h2>nav.css</h2>
             <h2X> (with fixed position)</h2X>
-            <p id = 'id-start' class="auto-fill">
-                <!-- filled via script-->
-            </p>
+            <div id = 'id-start' class="auto-fill">
+                {{nav-start}}
+            </div>
         </section>
 
         <section>
@@ -82,34 +82,26 @@
             </p>
         </section>
 
-        <br>
-        <hr>
+        <br><hr>
         <section>
             <p id="id-end" class="auto-fill">
-                <!-- filled via script-->
+                {{id-end}}
             </p>
         </section>
+        {{very-end}}
     </main>
-
-    </div>
-    
-    
-
-    
-
     </body>
     <!-- js libs -->
-    <script src="https://mo-hi.github.io/bjs/js/b.js"> </script>
+    <script src="../bJS/js/b.js"> </script>
 
     <!-- this project -->
     <script src="js/nav.js"></script>
 
-    <!-- HTML Auto Fill Scripts -->
-    <script src="js/text.js"></script>
+    <!-- HTML Auto Fill Text -->
+    <script src="js/textNav.js"></script>
     <script src="../js/textGeneral.js"></script>
-    <script src="../bJS/auto-fill.js"></script>
     <script>
-        Auto_Fill_Parts(textBlocks)
-        Auto_Fill_Parts(FromFile_textGeneral_js)
+        Auto_Fill("body", FromFile_textNav_JS)
+        Auto_Fill("body", FromFile_textGeneral_js)
     </script>
 </html>

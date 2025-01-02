@@ -1,4 +1,34 @@
 // ####################################################################################################
+// region auto_fill                                                                                       #
+// ####################################################################################################
+
+function Auto_Fill(elementId, listOfDictionaries, compareKeys = []) {
+    let container = document.getElementById(elementId);
+    if (elementId == "body") container = document.body
+    if (!container) return 
+  
+    let template = container.innerHTML
+    let lastVaues = {}
+    container.innerHTML = "";
+    
+    if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
+    if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
+
+    listOfDictionaries.forEach(item => {
+        let nextString = template
+ 
+        for (let key in item) {
+            if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
+                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
+            else {
+                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), item[key])}
+            
+            lastVaues[key] = item[key]
+            }
+        container.innerHTML += nextString
+    });
+  }
+// ####################################################################################################
 // region basis                                                                                           #
 // ####################################################################################################
 

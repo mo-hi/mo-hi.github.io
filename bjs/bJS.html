@@ -6,10 +6,20 @@
     <title>B JS</title>
     <link rel="stylesheet" href="../css/paper.css">
     <link rel="stylesheet" href="../css/width.css">
-    <!-- <link rel="stylesheet" href="../css/basis.css"> -->
-     <link rel="stylesheet" href="css/b.css">
+    <link rel="stylesheet" href="css/b.css">
+    <style>
+        :root {
+            --color-background: #f0f0f0;
+            --color-text: #000;
+        }
+
+        /*paper.css*/
+        .paper          {background-color: var(--color-background); color: var(--color-text);}
+        /*b.css*/
+        h2.sticky       {background-color: var(--color-background); color: var(--color-text);}
+    </style>
 </head>
-<body class="wr-800-400">
+<body class="paper wr-800-400">
     <div class="h-30"></div>
     <!-- ----------------------------------------------------------------------------------------- -->
     <h1>b.JS</h1>
@@ -23,31 +33,33 @@
     </codeblock>
 
     <section>
-        <p id="id-end" class="auto-fill"><!-- filled via script--></p>
+        <p id="id-end" class="auto-fill">
+            {{id-end-index}}
+        </p>
     </section>
 
     <!-- ----------------------------------------------------------------------------------------- -->
-    <div id="id-autofill" class="auto-fill">
-        {{region}}
-        <h3>{{name}} ()</h3>
-        <p><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
-    </div>
+    <section>
+        <div id="id-autofill" class="auto-fill">
+            {{region}}
+            <h3>{{name}} ()</h3>
+            <p><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+        </div>
+    </section>
 
-    <h2>Prototype Functions</h2>
-    <div id="id-proto" class="auto-fill">
 
-    </div>
 </body>
 
 <script src="js/b.js"></script>
 <script src="../js/textGeneral.js"></script>
-<script src="docstringsPrototypes.js"></script>
 <script src="FunctionsInfo.js"></script>
-<script src="auto-fill.js"></script>
+<!-- <script src="auto-fill.js"></script> -->
 <script>
-    Auto_Fill_Parts(FromFile_textGeneral_js)
+    // Auto_Fill_Parts(FromFile_textGeneral_js)
+    Auto_Fill('id-end', FromFile_textGeneral_js)
+
     FromFile_FunctionsInfo_JS.prepostKey('region', '<h2 class="underline sticky">', '</h2>')
-    Auto_Fill_Template('id-autofill', FromFile_FunctionsInfo_JS, ['region'])
+    Auto_Fill('id-autofill', FromFile_FunctionsInfo_JS, ['region'])
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
     DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])
