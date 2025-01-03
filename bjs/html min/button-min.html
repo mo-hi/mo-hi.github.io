@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Button Minumum HTML</title>
+    <link rel="stylesheet" href="../../bJS/css/b.css">
+</head>
+<body>
+    <h3>svg in html</h3>
+    <div id = "id-1">
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="currentColor" stroke-width="2">
+            <path d="M16 2 l3 3 l-3 3 l-3 -3 z"/>  
+            <path d="M4 14 v3 h3 l7.5-7.5 l -3 -3 z"/>
+            <path d="M4 22h16" stroke-width="2"/>   
+        </svg>
+    </div>
+    <h3>svg via javascript</h3>
+    <div id = "id-2">
+
+    </div>
+
+    <h3>svg via Auto_Fill</h3>
+    <div id = "id-3">
+        {{svg-icon-edit-24}}
+    </div>
+    <hr><br><!-- #IGNORE  -->
+    HTML Code of this page:<br> <!-- #IGNORE  -->
+</body>
+<script src="../../bJS/js/b.js"></script>
+<script src="../../js/svg.js"></script>
+<script>
+  const textarea = document.createElement('textarea');                                      // #IGNORE 
+  textarea.id = 'htmlSource'; textarea.spellcheck = false                                   // #IGNORE         
+  textarea.style.width = '80%';                                                             // #IGNORE   
+  textarea.style.height = '600px';                                                         // #IGNORE   
+  htmlSource = document.documentElement.outerHTML;                                          // #IGNORE   
+                                                                                            // #IGNORE 
+  const lines = htmlSource.split('\n');                                                     // #IGNORE                   
+  const filteredLines = lines.filter(line => !line.includes('#IGNORE'));                    // #IGNORE
+  textarea.value = filteredLines.join('\n');                                                // #IGNORE   
+                                                                                            // #IGNORE
+  const body = document.querySelector('body');                                              // #IGNORE   
+  body.appendChild(textarea);                                                               // #IGNORE
+
+    // svg via javascript
+    document.getElementById('id-2').innerHTML = FromFile_svg_js['svg-icon-edit-24']
+
+    // svg via Auto_Fill
+    Auto_Fill(FromFile_svg_js,'id-3')
+</script>
+</html>

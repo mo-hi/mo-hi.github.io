@@ -55,11 +55,11 @@
 <script src="FunctionsInfo.js"></script>
 <!-- <script src="auto-fill.js"></script> -->
 <script>
-    // Auto_Fill_Parts(FromFile_textGeneral_js)
-    Auto_Fill('id-end', FromFile_textGeneral_js)
+
+    Auto_Fill(FromFile_textGeneral_js,'id-end')
 
     FromFile_FunctionsInfo_JS.prepostKey('region', '<h2 class="underline sticky">', '</h2>')
-    Auto_Fill('id-autofill', FromFile_FunctionsInfo_JS, ['region'])
+    Auto_Fill(FromFile_FunctionsInfo_JS, 'id-autofill', ['region'])
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
     DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])

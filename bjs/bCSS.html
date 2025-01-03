@@ -13,26 +13,41 @@
     <div class="h-30"></div>
     <!-- ----------------------------------------------------------------------------------------- -->
     <h1>b.CSS</h1>
-    <p class="big">
-        b.CSS provides ...<br>
-        To use b.CSS in your project, just add the following css reference to your project:
+    <p >
+        To use b.CSS in your project, just add the following css reference to your project. in case you also want
+        to use the icons, add the svg.js reference as well. 
     </p>
 
     <codeblock>
-        (-link rel="stylesheet" href="https://mo-hi.github.io/bjs/js/b.css"-)
+        (-html-) <br>
+        --(-head-) <br>
+        ----(-link rel="stylesheet" href="https://mo-hi.github.io/bjs/css/b.css"-) <br>
+        --(-/head-) <br>
+        --(-body-) <br>
+        ----(-link rel="stylesheet" href="https://mo-hi.github.io/js/svg.js"-)  // only if you want to use the icons <br>
+        --(-/body-) <br>
+        (-/html-) <br>
     </codeblock>
+    <p >
+         Usage Example: <a href="html min/button-min.html">Button Minimum HTML</a>
+    </p>
 
-    <section>
-        <p id="id-end" class="auto-fill">
-            {{id-end-index}}
-        </p>
-    </section>
 
     <!-- ----------------------------------------------------------------------------------------- -->
      <section >
         <h2>Icons</h2>
         <p>
-            The following icons can be added via ...
+            The code for icons are stored in 
+        </p>
+        <codeblock>
+            (-link rel="stylesheet" href="https://mo-hi.github.io/js/svg.js"-)
+        </codeblock>
+
+        <p>
+            You can either  <br>
+            - directly use the svg code form the file (CopyPaste) <br>
+            - call the svg code in javascript via the dictionary vaule (<c>FromFile_svg_js['svg-icon-edit-24']</c>)<br>
+            - use the Auto_Fill function from <a href="bjs.html">bJS</a> to fill the svg code into the html via <c>{{ svg-icon-edit-24 }}</c><br> 
         </p>
         <div class="auto-fill">
             <div class="inline-block mr-20">{{svg-icon-edit-24}}</div>
@@ -98,12 +113,14 @@
             <td >Click the button</td>
         </tr>
     </table>
+
+    <br><hr>
     <section>
         <p id="id-end" class="auto-fill">
             {{id-end-index}}
         </p>
     </section>
-    <div class="h-30"></div>
+    {{very-end}}
 
 
 </body>
@@ -112,12 +129,11 @@
 <script src="../js/textGeneral.js"></script>
 <script src="../js/svg.js"></script>
 <script>
-    Auto_Fill("body", FromFile_svg_js)    
-
-    Auto_Fill('id-end', FromFile_textGeneral_js)       //  this is done by b.js
+    Auto_Fill(FromFile_svg_js)    
+    Auto_Fill(FromFile_textGeneral_js)       //  this is done by b.js
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
-    DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['codeblock'])
+    DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['codeblock'])
 
     function foo(element) {
         let td = element.parentNode;
