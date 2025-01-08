@@ -146,8 +146,11 @@
     </section>
 
 </body>
+<script>
+    let scriptSrc = window.location.hostname === "" ? "../bJS/js/b.js" : "https://mo-hi.github.io/bjs/js/b.js"
+    document.write('<script src="' + scriptSrc + '"><' + '/script>');
+</script>
 
-<script src="../bJS/js/b.js"></script>
 <script src="../js/textGeneral.js"></script>
 <script src="js/editableHTML.js"></script>  <!-- this project -->
 <script>
