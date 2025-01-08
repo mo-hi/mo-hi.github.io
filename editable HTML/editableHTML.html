@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
     <title>EDITABLE HTML</title>
-    <link rel="stylesheet" href="../bJS/css/b.css">
     <style>
         :root       {--color-background: #f0f0f0;--color-text: #444;}
         body        {background-color: var(--color-background); color: var(--color-text);}
@@ -147,8 +146,19 @@
 
 </body>
 <script>
-    let scriptSrc = window.location.hostname === "" ? "../bJS/js/b.js" : "https://mo-hi.github.io/bjs/js/b.js"
+    let scriptSrc = ''; let cssSrc = ''
+    if (window.location.hostname === "") {
+        scriptSrc = "../bJS/js/b.js"
+        cssSrc = "../bJS/css/b.css"
+    } else {
+        scriptSrc = "https://mo-hi.github.io/bjs/js/b.js"
+        cssSrc = "https://mo-hi.github.io/bjs/css/b.css"
+    }
     document.write('<script src="' + scriptSrc + '"><' + '/script>');
+    //  document.write also posssibe, but load is better
+    let link = document.createElement('link');link.rel = 'stylesheet'; link.href = cssSrc
+    document.head.appendChild(link)
+
 </script>
 
 <script src="../js/textGeneral.js"></script>
