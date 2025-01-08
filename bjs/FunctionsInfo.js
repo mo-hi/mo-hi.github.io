@@ -12,6 +12,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "basis"
     },
     {
+        "name": "b_svg",
+        "docstring": "returns svg markup for various icons. The function has two usecases, each returning a different daty type\n<br><br>\n\nUsecase 1: single svg string<br>\nreturns the SVG markup string for a given icon name and a given size.\nWhen no size is provided, then the default is 24, i.e. the width and height are both 24.\n<br><br>\n\nUsecase 2: svg dictionary<br>\nWhen no name is provided then all svg markup strings are returned in form of a dictionary with size 24 and all names have the postfix '-24'.\nWhen a list is provided instead of a string for name, \nthen all svg markups are returned in form of a dictionary with the sizes provided in the list.\n<br><br>\n\nThe follwoing icon names are available (among others):<br>\nsvg-icon-edit<br>\nsvg-icon-grid<br>\nsvg-icon-menu<br>\nsvg-icon-search<br>\nsvg-icon-filter<br>\nsvg-icon-download<br>\nsvg-icon-upload<br>\nsvg-icon-save<br>\nsvg-icon-discard<br>",
+        "parameters": "name, size",
+        "region": "content"
+    },
+    {
         "name": "DOM_Replace",
         "docstring": "replaces the content of specified tags within a given element.",
         "parameters": "re, place, tags",

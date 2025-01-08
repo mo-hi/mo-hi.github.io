@@ -1,0 +1,186 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>EDITABLE HTML</title>
+    <link rel="stylesheet" href="../bJS/css/b.css">
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+    </style>
+</head>
+<body class="academic wr-800-400">
+    <h1>EDITABLE HTML</h1>
+    <p class="fontPlus2">
+        Editable HTML provides a way to make divs of your HTML content editable. 
+        You can switch between view and edit modes, allowing for dynamic content updates directly within the browser. 
+    </p>
+    <sction>
+        <h2 class="underline sticky">Quickguide</h2>
+        <p>
+            To use Editable HTML in your project, the following two parts of html are needed.
+            The first part (<c>class = "js-edit-btn"</c>) container for the edit and save button.
+            The second part (<c>class = "js-edit-div"</c>) contains the actual editable div and the discard button
+            to cancel edits without changes and appears right next to the editable div during edit mode.
+        </p>
+        <p>
+            The two parts can be contained anywhere in your html, the link between is done by pointing from the first part to the id of the second part 
+            via <c>data-target-id="id-01"</c>. Inside each part, the structure (of the first element children) must be contained
+        </p>
+
+
+        <code><b>HTML</b>
+            <div class="green">// The first part for the edit and save button. Both toggle the class 'hidden' when clicked </div>
+            (-div class="inline-block js-edit-btn" data-target-id="id-01"-)<br>
+            --(-div class="btn blue js-event"-){{svg-icon-edit-18 }}(-/div-)<br>
+            --(-div class="btn blue js-event hidden"-){{svg-icon-save-18 }}(-/div-)<br>
+            (-/div-)<br>
+            ... <br>
+            <div class="green">// The second part contains the actual editable div. The discard buttton is toggled like the save button</div>
+            (-div id="id-01" class="inline-block js-edit-div "-)<br>
+            --(-div class="h-30 p-2"-)... editable HTML ...(-/div-)<br>
+            --(-div class="btnS blue m-2 js-event hidden"-){{ svg-icon-discard-12}}(-/div-)<br>
+            (-/div-)
+        </code>
+        In your script section, add the following script reference to your project and call the function<c>b_editableHTML_init()</c>:
+    <code><b>HTML (script section)</b><br>
+        (-script src="https://mo-hi.github.io/editable HTML/js/b.js"-) (-/script-)<br>
+        (-script-)<br>
+        --b_editableHTML_init()<br>
+        (-/script-)</pre><br>
+    </code>
+        <p>
+            The <c>b_editableHTML_init()</c> function now adds two event listeners to each of the buttons 
+            (<c>class="js-event"</c>), fulfilling the required functionality for (1) toggling between edit and read mode additional
+            (2) saving the content of the user input to the divs innerHTML.
+        </p>
+        <p> 
+            In the above html, icons and style from <b>b.JS</b>/<b>b.CSS</b> were used. If you want to use your own icons (or no icons at all) with your own style, the functionality 
+            should still work (but i haven't tested it).
+        </p>
+        <p> 
+            When you click the edit button, the content of the div becomes editable. 
+            You can then make changes and click the save button to save your changes. 
+            If you decide not to save, you can click the discard button to cancel the edits and revert to the original content.
+            You have the option to integrate your own function when teh edit button or the save button is clocked (but not the discard button).
+        </p>
+        <code>
+            <div class="green">// If no function is defined, then innerHTML = textara.value</div>
+            CONST_EDITABLE_HTML_FUNCTION_CALLS = {<br>
+                --"edit": (innerHTML) =-) your_edit_function(innerHTML),<br>
+                --"save": (textAreaValue) =-) your_save_functtion(textAreaValue),<br>
+            }<br>
+            <div class="green">// called when the edit button is clicked. ensure to return a string that will be the textarea value</div>
+            function your_edit_function(innerHTML) {<br>
+                --return innerHTML<br>
+            }<br>
+            <div class="green">// called when the save button is clicked. ensure to return innerHTML that will be the innerHTML of the editable div.</div>
+            <div class="green">// you may also call your database function here, to update according to the user input.</div>
+            function your_save_functtion(textAreaValue) {<br>
+                --return textAreaValue.replace("0", "0")<br>
+            }<br>
+        </code>
+
+    </sction>
+
+    <section>
+        <h2 class="underline sticky"> editable divs with different pixel width</h2>
+        <p>
+            Let's see some examples how the function with its buttons (from <b>b.JS</b>/<b>b.CSS</b>) look like in different html environments.
+        </p>
+        <div id="id-repeater-1">
+            <div class="inline-block js-edit-btn" data-target-id="id-edit{{w}}">
+                <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+            </div>
+            
+            <div id="id-edit{{w}}" class="inline-block js-edit-div ">
+                <div class="w-{{w}}px border inline-block h-30 p-2">This is a div with {{w}}px</div>
+                <div class="btnS blue m-2 js-event hidden">{{svg-icon-discard-12}}</div>
+            </div>
+            <br><br>
+        </div>
+    </section>
+    <section>
+        <h2 class="underline sticky">Editable divs with different % width</h2>
+        <div id="id-repeater-2">
+            <div class="inline-block js-edit-btn" data-target-id="id-edit{{w}}">
+                <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+            </div>
+            
+            <div id="id-edit{{w}}" class="w-{{w}} inline-block js-edit-div">
+                <div class="w-100 border inline-block h-30 p-2">This is a div of {{w}}%</div>
+                <div class="btnS blue m-2 js-event hidden">{{svg-icon-discard-12}}</div>
+            </div>
+            <br><br>
+        </div>
+    </section>
+    <section>
+        <h2 class="underline sticky">Editable Table</h2>
+        <table class="padding-5 border border-cells w-600px" id = "id-repeater-3">
+            <tr>
+                <td class="w-10">
+                    <div class="js-edit-btn" data-target-id="id-edit{{row}}">
+                        <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                        <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                    </div>
+                </td>
+                <td class="w-30">Row {{row}}, Cell 2</td>
+                <td class="w-30">
+                    <div id="id-edit{{row}}" class=" js-edit-div">
+                        <div class="w-100 p-2 h-30 inline-block">Row {{row}}, Cell 3</div>
+                        <div class="btnS blue m-2 js-event hidden">{{svg-icon-discard-12}}</div>
+                    </div>
+                </td>
+                <td class="w-30">Row {{row}}, Cell 4</td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <p id="id-end" class="auto-fill">
+            {{id-end-index}}
+        </p>
+    </section>
+
+</body>
+
+<script src="../bJS/js/b.js"></script>
+<script src="../js/textGeneral.js"></script>
+<script src="js/editableHTML.js"></script>  <!-- this project -->
+<script>
+
+    Auto_Fill(FromFile_textGeneral_js,'id-end')
+    Auto_Fill(b_svg([12,18,24]))  
+    Auto_Fill([{"w":200}, {"w":300}, {"w":400}, {"w":500}, {"w":600}, {"w":700}], "id-repeater-1")  
+    Auto_Fill([{"w":20}, {"w":30}, {"w":40}, {"w":50}, {"w":60}, {"w":70}, {"w":80}], "id-repeater-2")  
+    Auto_Fill([{"row":1}, {"row":2}, {"row":3}, {"row":4}, {"row":5}], "id-repeater-3")  
+
+    DOM_Replace(['Editable HTML'], ['<b>Editable HTML</b>'], ['p'])
+    DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['code'])
+
+    b_editableHTML_init()
+
+    // If no function is defined, then innerHTML = textara.value
+    CONST_EDITABLE_HTML_FUNCTION_CALLS = {
+        "edit": (innerHTML) => your_edit_function(innerHTML),  // innerHTML -> textAreaValue
+        "save": (textAreaValue) => your_save_functtion(textAreaValue),  // textAreaValue -> InnerHTML
+    }
+
+    function your_edit_function(innerHTML) {
+        // return string that will be the textarea value when edit button is clicked
+        return innerHTML
+    }
+
+    function your_save_functtion(textAreaValue) {
+        // return innerHTML that will be the innerHTML of the editable div when save is clicked. 
+        // you may also call your database function here, to update according to the user input
+        return textAreaValue.replace("0", "0")
+    }
+
+</script>
+
+</body>
+</html>

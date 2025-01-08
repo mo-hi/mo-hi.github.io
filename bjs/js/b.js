@@ -61,6 +61,130 @@ is a short hand notation / better readability for 'return condition ? trueValue 
 function wenn(condition, trueValue, falseValue) {
     return condition ? trueValue : falseValue;}
 // ####################################################################################################
+// region content                                                                                         #
+// ####################################################################################################
+
+/**
+returns svg markup for various icons. The function has two usecases, each returning a different daty type
+<br><br>
+
+Usecase 1: single svg string<br>
+returns the SVG markup string for a given icon name and a given size.
+When no size is provided, then the default is 24, i.e. the width and height are both 24.
+<br><br>
+
+Usecase 2: svg dictionary<br>
+When no name is provided then all svg markup strings are returned in form of a dictionary with size 24 and all names have the postfix '-24'.
+When a list is provided instead of a string for name, 
+then all svg markups are returned in form of a dictionary with the sizes provided in the list.
+<br><br>
+
+The follwoing icon names are available (among others):<br>
+svg-icon-edit<br>
+svg-icon-grid<br>
+svg-icon-menu<br>
+svg-icon-search<br>
+svg-icon-filter<br>
+svg-icon-download<br>
+svg-icon-upload<br>
+svg-icon-save<br>
+svg-icon-discard<br>
+ */
+function b_svg(name, size) {
+let svg = { 
+    'svg-icon-edit': `
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="currentColor" stroke-width="2">
+            <path d="M16 2 l3 3 l-3 3 l-3 -3 z"/>  
+            <path d="M4 14 v3 h3 l7.5-7.5 l -3 -3 z"/>
+            <path d="M4 22h16" stroke-width="2"/>   
+        </svg>
+    `,
+    'svg-icon-grid': `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+            <rect x="3" y="3" width="8" height="8" rx="1" ry="1"/>
+            <rect x="13" y="3" width="8" height="8" rx="1" ry="1"/>
+            <rect x="3" y="13" width="8" height="8" rx="1" ry="1"/>
+            <rect x="13" y="13" width="8" height="8" rx="1" ry="1"/>
+        </svg>
+    `,
+    'svg-icon-menu': `
+    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M3 6h18" />
+        <path d="M3 12h18" />
+        <path d="M3 18h18" />
+    </svg>
+    `,
+    'svg-icon-search': `
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="10" cy="10" r="6" fill="none"/>
+            <path d="M16 16 l5 5" stroke-linecap="round"/>
+        </svg>
+    `,
+    'svg-icon-filter': `
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 6h18" />
+            <path d="M6 12h12" />
+            <path d="M9 18h6" />
+        </svg>
+    `,
+    'svg-icon-download': `
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M12 5 v10" />
+            <path d="M6 12 l6 4 l6 -4" fill="none"/>
+            <path d="M3 20 h18" />
+        </svg>
+    `,
+    'svg-icon-upload': `
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M12 5 v12" />
+            <path d="M6 10 l6 -4 l6 4" fill="none"/>
+            <path d="M3 20 h18" />
+        </svg>
+    `,
+    'svg-icon-save': `
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M8 2 L4 2 L2 4 L2 20 L4 22 L20 22 L22 20 L22 4 L20 2 L12 2 L12 16" />
+            <path d = "M6 12L 12 16L 18 12"/>
+        </svg>
+    `,
+    'svg-icon-discard': `
+    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M6 6 l12 12" />
+        <path d="M6 18 l12 -12" />
+    </svg>
+    `
+}
+    if (name == undefined) return _svg_All(['24'], svg) 
+    
+    if (typOf(name) == 'list') return _svg_All(name, svg) 
+
+    if (typOf(name) != 'str') return undefined
+    
+    let sizeInName = undefined
+    if (/-\d+$/.test(name)) {   // check if name ends with '-x', where x is a number (not digit)
+        let match = name.match(/-(\d+)$/)
+        name = name.until(match[0])                 // match[0] = '-24', whole regex
+        sizeInName = parseInt( match[1], 10)}       // match[1] = '24', only capture
+    if (! svg.keys().includes(name))   return
+
+    if (size == undefined && sizeInName == undefined) size = 24
+    if (size == undefined) size = sizeInName
+
+    let svgString = svg[name].replace('width="24"', 'width="' + String(size) + '"').replace('height="24"', 'height="' + String(size) + '"')
+    return svgString
+}
+
+function _svg_All(sizes, dict) {
+    let ret = {}
+    for (let size of sizes) {
+        size = String(size)
+        for (let d of dict.keys()) {
+            ret[d + '-' + size] = dict[d].replace('width="24"', 'width="' + String(size) + '"').replace('height="24"', 'height="' + String(size) + '"')
+        }
+    }
+    return ret
+}
+// ####################################################################################################
 // region DOM                                                                                             #
 // ####################################################################################################
 

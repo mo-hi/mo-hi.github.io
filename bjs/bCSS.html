@@ -49,6 +49,19 @@
             - call the svg code in javascript via the dictionary vaule (<c>FromFile_svg_js['svg-icon-edit-24']</c>)<br>
             - use the Auto_Fill function from <a href="bjs.html">bJS</a> to fill the svg code into the html via <c>{{ svg-icon-edit-24 }}</c><br> 
         </p>
+        <h3>Size 12</h3>
+        <div class="auto-fill">
+            <div class="inline-block mr-20">{{svg-icon-edit-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-grid-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-menu-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-search-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-filter-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-download-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-upload-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-save-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-discard-12}}</div>
+        </div>
+        <h3>Size 24</h3>
         <div class="auto-fill">
             <div class="inline-block mr-20">{{svg-icon-edit-24}}</div>
             <div class="inline-block mr-20">{{svg-icon-grid-24}}</div>
@@ -57,62 +70,65 @@
             <div class="inline-block mr-20">{{svg-icon-filter-24}}</div>
             <div class="inline-block mr-20">{{svg-icon-download-24}}</div>
             <div class="inline-block mr-20">{{svg-icon-upload-24}}</div>
+            <div class="inline-block mr-20">{{svg-icon-save-24}}</div>
+            <div class="inline-block mr-20">{{svg-icon-discard-24}}</div>
+        </div>
+        <h3>Size 48</h3>
+        <div class="auto-fill">
+            <div class="inline-block mr-20">{{svg-icon-edit-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-grid-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-menu-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-search-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-filter-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-download-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-upload-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-save-48}}</div>
+            <div class="inline-block mr-20">{{svg-icon-discard-48}}</div>
         </div>
     </section>
 
     <br><br>
     <h2>Buttons</h2>
-    
-    <table class="border border-cells w-100">
-        <tr>
-            <td class="w-5"><div class="auto-fill" onclick="foo(this)">{{svg-icon-edit-24}}</div></td>     <!--  click also works on the icon -->
-            <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-edit-24}}</div></td>
-            <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-edit-24}}</div></td>
-            <td class="w-90">Click the icon or the button</td>
-        </tr>
-        <tr>
-            <td><div class="svg-icon-grid-24 auto-fill"></div>{{svg-icon-grid-24}}</td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-grid-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-grid-24}}</div></td>
-            <td >Click the button</td>
-        </tr>
-        <tr>
-            <td><div class="auto-fill">{{svg-icon-menu-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-menu-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-menu-24}}</div></td>
-            <td >Click the button</td>
-        </tr>
-        <tr>
-            <td><div class="auto-fill">{{svg-icon-search-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-search-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-search-24}}</div></td>
-            <td >Click the button</td>
-        </tr>
-        <tr>
-            <td><div class="auto-fill">{{svg-icon-filter-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-filter-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-filter-24}}</div></td>
-            <td >Click the button</td>
-        </tr>
-        <tr>
-            <td><div class="auto-fill">{{svg-icon-download-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-download-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-download-24}}</div></td>
-            <td >Click the button</td>
-        </tr>
-        <tr>
-            <td><div class="auto-fill">{{svg-icon-upload-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-upload-24}}</div></td>
-            <td><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-upload-24}}</div></td>
-            <td  id="test">Click the button</td>
-        </tr>
-        <tr>
-            <td>..</td>
-            <td>..</td>
-            <td><div class="btn blue" onclick="foo(this)">Hallo</div></td>
-            <td >Click the button</td>
-        </tr>
-    </table>
+    <div id="repeatTable">
+        <table id = "{{iconname}}" class="border border-cells center w-100 p-5">
+            <tr>
+                <td class="w-5"><div class="auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}<br> svg-icon-{{iconname}}</div></td></td>
+                <td>12</td>
+                <td>18</td>
+                <td>24</td>
+                <td>36</td>
+                <td>48</td>
+            </tr>
+            <tr>
+                <td>btn</td>
+                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-12}} </div></td>
+                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-18}}</div></td>
+                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}</div></td>
+                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-36}}</div></td>
+                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-48}}</div></td>
+            </tr>
+            <tr>
+                <td>btnS</td>
+                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-12}}</div></td>
+                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-18}}</div></td>
+                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}</div></td>
+                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-36}}</div></td>
+                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-48}}</div></td>
+            </tr>
+            <tr>
+                <td>btnXS</td>
+                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-12}}</div></td>
+                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-18}}</div></td>
+                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}</div></td>
+                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-36}}</div></td>
+                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-48}}</div></td>
+            </tr>
+            <tr>
+                <td colspan="6" id = "{{iconname}}-merged" class="font-12 left h-40"></td>
+            </tr>
+        </table>
+        <br>
+    </div>
 
     <br><hr>
     <section>
@@ -127,18 +143,34 @@
 
 <script src="js/b.js"></script>
 <script src="../js/textGeneral.js"></script>
-<script src="../js/svg.js"></script>
 <script>
-    Auto_Fill(FromFile_svg_js)    
+    let ButtonTables = [
+        {iconname:'edit'}, 
+        {iconname:'grid'},
+        {iconname:'menu'},
+        {iconname:'search'},
+        {iconname:'filter'},
+        {iconname:'download'},
+        {iconname:'upload'},
+        {iconname:'save'},
+        {iconname:'discard'}
+    ]
+    Auto_Fill(ButtonTables, "repeatTable")
+    Auto_Fill(b_svg([12,18,24,36,48]))    
     Auto_Fill(FromFile_textGeneral_js)       //  this is done by b.js
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
     DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['codeblock'])
 
     function foo(element) {
+        let outer = element.outerHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;');
         let td = element.parentNode;
         let nextCell = td.nextElementSibling;
-        nextCell.innerHTML = "Clicked";
+        // nextCell.innerHTML = outer
+        let name = element.parentElement.parentElement.parentElement.parentElement.id
+        let merged = document.getElementById(name + "-merged")
+
+        merged.innerHTML = outer
     }
 </script>
 </html>
