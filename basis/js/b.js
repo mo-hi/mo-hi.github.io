@@ -109,19 +109,16 @@ function assert(condition, message) {
 // ####################################################################################################
 
 /**
-returns svg markup for various icons. The function has two usecases, each returning a different daty type
-<br><br>
+returns svg markup for various icons. The function has two Use Cases: <br><br>
 
-Usecase 1: single svg string<br>
-returns the SVG markup string for a given icon name and a given size.
-When no size is provided, then the default is 24, i.e. the width and height are both 24.
-<br><br>
+(1) returns a <b>string</b> for a given icon name and a given size. Example: 
+<code>b_svg("svg-icon-edit") = "...//svg code...width=24 height=24 ..." <br>
+        b_svg("svg-icon-edit", 16) = "...//svg code...width=16 height=16 ..."  
+</code> <br>
 
-Usecase 2: svg dictionary<br>
-When no name is provided then all svg markup strings are returned in form of a dictionary with size 24 and all names have the postfix '-24'.
-When a list is provided instead of a string for name, 
-then all svg markups are returned in form of a dictionary with the sizes provided in the list.
-<br><br>
+(2) returns a <b>dictionary</b>. The keys are the svg name, the value is the return value from Use Case 1. Example:
+<code> b_svg() = { "svg-icon-edit-24": "....", "svg-icon-grid-24": "...", ...} <br>
+b_svg([16,24]) = { "svg-icon-edit-16": "...", "svg-icon-grid-16": "...", "svg-icon-edit-24": "...", ...} </code> 
 
 The follwoing icon names are available (among others):<br>
 svg-icon-edit<br>
@@ -507,8 +504,14 @@ Object.defineProperties(Object.prototype, {
     } 
 }); 
 // ####################################################################################################
-// region DOM                                                                                        #
+// region DIV                                                                                        #
 // ####################################################################################################
+
+/** 
+dummy as workaround for regex bug. first docstring is not recognized correctly.
+*/
+Element.prototype.dummy_I_DO_NOTHING = function() {
+};
 
 /**
 returns all descendats (children and grandchildren) of a div that have a certain className
@@ -533,7 +536,9 @@ Element.prototype.DescendantsWithClass = function(className) {
     return results;
   };
 
-
+/**
+returns true if the ego div is a decendant of a div that containts the ancestorClass
+*/
 Element.prototype.IsDescendantOfClass = function(ancestorClass) {
   if (!ancestorClass.startsWith('.')) throw new Error('className must start with a "."');
   ancestorClass = ancestorClass.after(".")
@@ -576,6 +581,16 @@ Object.defineProperty(DOMTokenList.prototype, 'addX', {
 // ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################
+
+/** 
+dummy as workaround for regex bug. first docstring is not recognized correctly.
+*/
+Object.defineProperties(Object.prototype, {
+    dummy_I_DO_NOTHING: {
+        value: function() {
+        }
+    }
+});
 
 /** 
 sets the table headers innerHTML. The headers must be provided as list/array (hence liste)

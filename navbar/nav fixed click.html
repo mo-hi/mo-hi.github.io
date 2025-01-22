@@ -6,34 +6,35 @@
     <title>CSS: nav fix position </title>
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/navColors.css">
-    <link rel="stylesheet" href="../css/basis.css">
-    <link rel="stylesheet" href="../css/paper.css">
-    <link rel="stylesheet" href="../css/width.css">
+    <link rel="stylesheet" href="../basis/css/b.css">
 </head>
-<body class="wr-800-400">  
-    <div class="fixed wr-800-400">
-        <nav>
-            <a href="" onclick="">Home</a>
-            <a href="" onclick="">Edit</a>
-            <drop>
-                <a onclick="toggleDown(this)">Stuff</a>
-                <down>
-                    <a href="" onclick="">Link 1</a>
-                    <a href="" onclick="">Link 2</a>
-                    <a href="" onclick="">Link 3</a>
-                </down>
-            </drop>
-            <a href="" onclick="">Articles</a>
-            <drop>
-                <a onclick="toggleDown(this)">More</a>
-                <down>
-                    <a href="" onclick="">Link 1</a>
-                    <a href="" onclick="">Link 2</a>
-                    <a href="" onclick="">Link 3</a>
-                </down>
-            </drop>
-        </nav>
-    </div>
+<body class="wr-800-400">
+    <div id="id-nav">
+        <div class="fixed wr-800-400">
+            <nav>
+                <a href="" onclick="">Home</a>
+                <a href="" onclick="">Edit</a>
+                <drop>
+                    <a onclick="toggleDown(this)">Stuff</a>
+                    <down>
+                        <a href="" onclick="">Link 1</a>
+                        <a href="" onclick="">Link 2</a>
+                        <a href="" onclick="">Link 3</a>
+                    </down>
+                </drop>
+                <a href="" onclick="">Articles</a>
+                <drop>
+                    <a onclick="toggleDown(this)">More</a>
+                    <down>
+                        <a href="" onclick="">Link 1</a>
+                        <a href="" onclick="">Link 2</a>
+                        <a href="" onclick="">Link 3</a>
+                    </down>
+                </drop>
+            </nav>
+        </div>
+    </div>  
+
     <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
 
     <div class="flex h-46 mt-30">
@@ -49,31 +50,9 @@
         with the menu dropping down via onclick behavior instead of hover. 
         It is created with the following html:
     </p>
-    <codeblock><pre>
-    &lt;div class="position-fixed fullWidth"&gt;
-        &lt;nav&gt;
-            &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
-            &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
-            &lt;drop&gt;
-                &lt;a onclick="toggleDown(this)"&gt;Stuff&lt;/a&gt;
-                &lt;down&gt;
-                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-                &lt;/down&gt;
-            &lt;/drop&gt;
-            &lt;a href="" onclick=""&gt;Articles&lt;/a&gt;
-            &lt;drop&gt;
-                &lt;a onclick="toggleDown(this)"&gt;More&lt;/a&gt;
-                &lt;down&gt;
-                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-                &lt;/down&gt;
-            &lt;/drop&gt;
-        &lt;/nav&gt;
-    &lt;/div&gt;</pre>
-    </codeblock>
+    HTML
+    <div id="id-show" class="h-360"></div>
+
     <div id = 'id-fixed' class="auto-fill">
         <!-- filled via script-->
     </div>
@@ -91,16 +70,18 @@
     </section>
     </body>
     <!-- js libs -->
-    <script src="../bJS/js/b.js"> </script>
+    <script src="../basis/js/b.js"> </script>
 
     <!-- this project -->
     <script src="js/nav.js"></script>
 
     <!-- HTML Auto Fill Text -->
     <script src="js/textNav.js"></script>
-    <script src="../js/textGeneral.js"></script>
+    <script src="../textGeneral.js"></script>
     <script>
         Auto_Fill(FromFile_textNav_JS)
         Auto_Fill(FromFile_textGeneral_js)
+
+        ShowHTMLinTextArea(document.getElementById("id-nav"), document.getElementById("id-show"))
     </script>
 </html>

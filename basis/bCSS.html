@@ -5,11 +5,14 @@
     <meta name="author" content="Mario Hamidi">
     <title>B CSS</title>
     <link rel="stylesheet" href="css/b.css">
-    <link rel="stylesheet" href="../css/paper.css">
-    <link rel="stylesheet" href="../css/width.css">
-
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        #id-end     {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+    </style>
 </head>
-<body class="wr-800-400">
+<body class="academic wr-800-400">
     <div class="h-30"></div>
     <!-- ----------------------------------------------------------------------------------------- -->
     <h1>b.CSS</h1>
@@ -18,37 +21,12 @@
         to use the icons, add the svg.js reference as well. 
     </p>
 
-    <codeblock>
-        (-html-) <br>
-        --(-head-) <br>
-        ----(-link rel="stylesheet" href="https://mo-hi.github.io/bjs/css/b.css"-) <br>
-        --(-/head-) <br>
-        --(-body-) <br>
-        ----(-link rel="stylesheet" href="https://mo-hi.github.io/js/svg.js"-)  // only if you want to use the icons <br>
-        --(-/body-) <br>
-        (-/html-) <br>
-    </codeblock>
-    <p >
-         Usage Example: <a href="html min/button-min.html">Button Minimum HTML</a>
-    </p>
-
+    <code>
+        (-link rel="stylesheet" href="https://mo-hi.github.io/bjs/css/b.css"-)
+    </code>
 
     <!-- ----------------------------------------------------------------------------------------- -->
      <section >
-        <h2>Icons</h2>
-        <p>
-            The code for icons are stored in 
-        </p>
-        <codeblock>
-            (-link rel="stylesheet" href="https://mo-hi.github.io/js/svg.js"-)
-        </codeblock>
-
-        <p>
-            You can either  <br>
-            - directly use the svg code form the file (CopyPaste) <br>
-            - call the svg code in javascript via the dictionary vaule (<c>FromFile_svg_js['svg-icon-edit-24']</c>)<br>
-            - use the Auto_Fill function from <a href="bjs.html">bJS</a> to fill the svg code into the html via <c>{{ svg-icon-edit-24 }}</c><br> 
-        </p>
         <h3>Size 12</h3>
         <div class="auto-fill">
             <div class="inline-block mr-20">{{svg-icon-edit-12}}</div>
@@ -130,19 +108,17 @@
         <br>
     </div>
 
-    <br><hr>
-    <section>
-        <p id="id-end" class="auto-fill">
-            {{id-end-index}}
+    <section id="id-end" class="wr-800-400 h-50 fixed bottom-0 mb-0i" style="z-index: 2;border-top: 1px solid grey;">
+        <p >
+            Back to <a href="../index.html" class="mr-20"> mo-hi </a>  
+            Link to <a href="https://github.com/mo-hi/mo-hi.github.io" class="mr-20">github repo</a> 
         </p>
     </section>
-    {{very-end}}
-
 
 </body>
 
 <script src="js/b.js"></script>
-<script src="../js/textGeneral.js"></script>
+<script src="../textGeneral.js"></script>
 <script>
     let ButtonTables = [
         {iconname:'edit'}, 
@@ -160,7 +136,7 @@
     Auto_Fill(FromFile_textGeneral_js)       //  this is done by b.js
 
     DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
-    DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['codeblock'])
+    DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['code'])
 
     function foo(element) {
         let outer = element.outerHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;');
