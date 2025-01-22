@@ -9,8 +9,8 @@ const FromFile_textNav_JS = {
         Colors are defined in a separate <a href="https://mo-hi.github.io/navbar/css/navColors.css"> navColors.css </a>.\
     </p>\
     <code><pre>\
-    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css"&gt;\n\
-    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css"&gt;</pre>\
+    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/nav.css">link</a>\n\
+    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/navColors.css">link</a></pre>\
     </code>\
     <br>\
     <p>\
