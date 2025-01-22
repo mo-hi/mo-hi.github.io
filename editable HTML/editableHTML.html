@@ -8,6 +8,7 @@
         :root       {--color-background: #f0f0f0;--color-text: #444;}
         body        {background-color: var(--color-background); color: var(--color-text);}
         h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        textarea    {background-color: var(--color-background); color: var(--color-text);}
     </style>
 </head>
 <body class="academic wr-800-400">
@@ -63,13 +64,18 @@
             When you click the edit button, the content of the div becomes editable. 
             You can then make changes and click the save button to save your changes. 
             If you decide not to save, you can click the discard button to cancel the edits and revert to the original content.
+        </p>
+    </sction>
+    <section>
+        <h2 class="underline sticky">Integratiion of Functions</h2>
+        <p>
             You have the option to integrate your own function when teh edit button or the save button is clocked (but not the discard button).
         </p>
         <code>
             <div class="green">// If no function is defined, then innerHTML = textara.value</div>
             CONST_EDITABLE_HTML_FUNCTION_CALLS = {<br>
                 --"edit": (innerHTML) =-) your_edit_function(innerHTML),<br>
-                --"save": (textAreaValue) =-) your_save_functtion(textAreaValue),<br>
+                --"save": (textAreaValue) =-) your_save_function(textAreaValue),<br>
             }<br>
             <div class="green">// called when the edit button is clicked. ensure to return a string that will be the textarea value</div>
             function your_edit_function(innerHTML) {<br>
@@ -77,67 +83,224 @@
             }<br>
             <div class="green">// called when the save button is clicked. ensure to return innerHTML that will be the innerHTML of the editable div.</div>
             <div class="green">// you may also call your database function here, to update according to the user input.</div>
-            function your_save_functtion(textAreaValue) {<br>
+            function your_save_function(textAreaValue) {<br>
                 --return textAreaValue.replace("0", "0")<br>
             }<br>
         </code>
-
     </sction>
 
     <section>
-        <h2 class="underline sticky"> editable divs with different pixel width</h2>
+        <!-- --------------------------------------------------------------------------------------- -->
+        <h2 class="underline sticky"> HTML Template</h2>
         <p>
-            Let's see some examples how the function with its buttons (from <b>b.JS</b>/<b>b.CSS</b>) look like in different html environments.
+            <b>Edit.js </b> has two main parts, the <b>button container</b> <c>.js-edit-btn</c> and the 
+            <b>node container </b><c>.js-edit-node</c>. Both conainer can be placed independent 
+            of each other anywhere on the page. 
         </p>
-        <div id="id-repeater-1">
-            <div class="inline-block js-edit-btn" data-target-id="id-edit{{w}}">
+        <p>
+            Linking between the button container and the node container is
+            done by setting the the dataset attribute <c>dataset.targetID=""</c> (js) /
+             <c>data-target-id=""</c> (html) of <c>.js-edit-btn</c> to the id of <c>.js-edit-node</c>.
+            In case <c>.js-edit-btn</c> is inside <c>.js-edit-node</c>, then the linking is done automatically
+            during initialization.
+        </p>
+        <p>
+            The <b>button container</b><c>.js-edit-btn</c>  has the <b>edit button</b> <c>.js-edit-edit</c> and <b>save button </b><c>.js-edit-save</c> as children. 
+            Both buttons will toggle between each other when clicked <br>
+        </p>
+        <p>
+            The <b>discard button</b> <c>.js-edit-discard</c> can be placed as a decendent of the button container or as a decendent of the node container.
+            The discard button will toggle like the save button. 
+        </p>
+        <p>
+            In case no class is defined for the edit and save button, then the first element child of <c>.js-edit-btn</c>  will get the <c>.js-edit-edit</c> class and the second
+            will be the <c>.js-edit-save</c> class. This does not apply for the discard buttoen, i. e. the class <c>.js-edit-discard</c> needs to be set.
+        </p>
+        <p>
+            The <b>node container</b> <c>.js-edit-node</c> has all editable div elements <c>.js-edit-div</c>.
+            The buttons will always apply to all editable divs inside the linked node.
+        </p>
+        <p>
+            To initialize edit.js, you have to call <c>b_editableHTML_init(elementID)</c> in your script section.
+            Edit.js will then set eventlisteners to the button elements inside the div with the corresponding elementID. 
+            The three buttons need to have the class <c>.js-event</c> to allow adding eventlisteners to them.
+        </p>
+        <br>
+        
+        <h2 class="underline sticky">Example 1: Minimum Aufbau</h2>
+        <p>
+            This is probably needed to tables 
+        </p>
+        <div id="id-01">
+            <div id="edit-applied-01">
+                <div id="id-node-01" class="js-edit-node">
+                    <div class="inline-block js-edit-btn"> 
+                         <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                         <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                         <div class="btn blue js-event js-edit-discard hidden">{{svg-icon-discard-12}}</div>
+                     </div>
+                     <div id="id-edit-11" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                        This is a div 1
+                    </div>
+                     <div id="id-edit-12" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                        This is a div 2
+                    </div>
+                 </div>
+            </div>
+        </div>
+        <br>
+        HTML:
+        <div id="show-01" class="h-240"></div>
+        <br>
+        JS:
+        <div class="h-60">
+            <textarea class="w-100" style="height:100%">
+(--script--)
+    b_editableHTML_init("edit-applied-01")
+(--/script--)</textarea>
+        </div>
+        <!-- --------------------------------------------------------------------------------------- -->
+        <h2 class="underline sticky">Example 2: buttons seperated form editable divs</h2>
+        <p>
+            .... 
+        </p>
+        <div id="id-02">
+            <div id="edit-applied-02">
+                <div class="inline-block js-edit-btn" data-target-id="id-node-02"> 
+                    <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                    <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                    <div class="btn blue js-event js-edit-discard hidden">{{svg-icon-discard-12}}</div>
+                </div>
+                ...
+                <div id="id-node-02" class="inline-block js-edit-node">
+                     <div id="id-edit-21" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                        This is a div 1
+                    </div>
+                     <div id="id-edit-22" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                        This is a div 2
+                    </div>
+                 </div>
+            </div>
+        </div>
+        <br>
+        HTML:
+        <div id="show-02" class="h-260"></div>
+        <br>
+        JS:
+        <div class="h-60">
+            <textarea class="w-100" style="height:100%">
+(--script--)
+    b_editableHTML_init("edit-applied-02")
+(--/script--)</textarea>
+        </div>
+
+                <!-- --------------------------------------------------------------------------------------- -->
+                <h2 class="underline sticky">Example 3: discard button part of node</h2>
+                <p>
+                    .... 
+                </p>
+                <div id="id-03">
+                    <div id="edit-applied-03">
+                        <div class="inline-block js-edit-btn" data-target-id="id-node-03"> 
+                            <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                            <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                        </div>
+                        ...
+                        <div id="id-node-03" class="inline-block js-edit-node">
+                             <div id="id-edit-31" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                                This is a div 1
+                            </div>
+                             <div id="id-edit-32" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                                This is a div 2
+                            </div>
+                            <div class="btn blue js-event js-edit-discard hidden">{{svg-icon-discard-12}}</div>
+                         </div>
+                    </div>
+                </div>
+                <br>
+                HTML:
+                <div id="show-03" class="h-280"></div>
+                <br>
+                JS:
+                <div class="h-60">
+                    <textarea class="w-100" style="height:100%">
+        (--script--)
+            b_editableHTML_init("edit-applied-02")
+        (--/script--)</textarea>
+                </div>
+
+                <!-- --------------------------------------------------------------------------------------- -->
+                <h2 class="underline sticky">Example 4: table</h2>
+                <p>
+                    .... 
+                </p>
+                <div id="id-04">
+                    <div id="edit-applied-04">
+                        <table class="border border-cells padding-5">
+                            <tbody>
+                                <tr id="id-node-table" class="js-edit-node">
+                                    <td>
+                                        <div class="inline-block js-edit-btn"> 
+                                            <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                                            <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                                        </div> 
+                                    </td>
+                                    <td id="edit-table-A" class="js-edit-div"> some text</td>
+                                    <td id="edit-table-B" class="js-edit-div"> some other text</td>
+                                    <td id="edit-table-C" class="btn blue js-event js-edit-discard hidden">{{svg-icon-discard-12}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br>
+                HTML:
+                <div id="show-04" class="h-280"></div>
+                <br>
+                JS:
+                <div class="h-60">
+                    <textarea class="w-100" style="height:100%">
+        (--script--)
+            b_editableHTML_init("edit-applied-04")
+        (--/script--)</textarea>
+                </div>
+        
+
+        
+        <!-- --------------------------------------------------------------------------------------- -->
+         <!-- MOHI -->
+        <h2 class="underline sticky"> ID link and discard on right</h2>
+        <p>
+            button wrapper somewhere on page (outside node)...you need to set the target ID
+        </p>  
+        <div id="id-03">
+            <div class="inline-block js-edit-btn" data-target-id="id-edit-11"> 
                 <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
                 <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                <div class="btn blue js-event hidden">{{svg-icon-discard-12}}</div>
             </div>
-            
-            <div id="id-edit{{w}}" class="inline-block js-edit-div ">
-                <div class="w-{{w}}px border inline-block h-30 p-2">This is a div with {{w}}px</div>
-                <div class="btnS blue m-2 js-event hidden">{{svg-icon-discard-12}}</div>
+            ...
+            <div class="inline-block js-edit-node w-80">
+                <div id="id-edit-31" class="w-30 border inline-block h-30 p-2 js-edit-div">
+                    w-25
+                </div>
+                <div id="id-edit-32" class="w-30 border inline-block h-30 p-2 js-edit-div">
+                    w-25
+                </div>
+                <div id="id-edit-33" class="w-30 border inline-block h-30 p-2 js-edit-div">
+                    w-25
+                </div>
             </div>
-            <br><br>
-        </div>
-    </section>
-    <section>
-        <h2 class="underline sticky">Editable divs with different % width</h2>
-        <div id="id-repeater-2">
-            <div class="inline-block js-edit-btn" data-target-id="id-edit{{w}}">
-                <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
-                <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
-            </div>
-            
-            <div id="id-edit{{w}}" class="w-{{w}} inline-block js-edit-div">
-                <div class="w-100 border inline-block h-30 p-2">This is a div of {{w}}%</div>
-                <div class="btnS blue m-2 js-event hidden">{{svg-icon-discard-12}}</div>
-            </div>
-            <br><br>
-        </div>
-    </section>
-    <section>
-        <h2 class="underline sticky">Editable Table</h2>
-        <table class="padding-5 border border-cells w-600px" id = "id-repeater-3">
-            <tr>
-                <td class="w-10">
-                    <div class="js-edit-btn" data-target-id="id-edit{{row}}">
-                        <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
-                        <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
-                    </div>
-                </td>
-                <td class="w-30">Row {{row}}, Cell 2</td>
-                <td class="w-30">
-                    <div id="id-edit{{row}}" class=" js-edit-div">
-                        <div class="w-100 p-2 h-30 inline-block">Row {{row}}, Cell 3</div>
-                        <div class="btnS blue m-2 js-event hidden">{{svg-icon-discard-12}}</div>
-                    </div>
-                </td>
-                <td class="w-30">Row {{row}}, Cell 4</td>
-            </tr>
-        </table>
-    </section>
+        </div>          
+        
+
+        <br>
+        HTML Code:
+        <div id="show-03" class="h-260"></div>
+        <br>
+
+       
     <section>
         <p id="id-end" class="auto-fill">
             {{id-end-index}}
@@ -164,33 +327,66 @@
 <script src="../js/textGeneral.js"></script>
 <script src="js/editableHTML.js"></script>  <!-- this project -->
 <script>
+    for (let id of ["01", "02", "03", "04"]) {
+        ShowHTMLinTextArea(document.getElementById("id-" + id), document.getElementById("show-" + id))}
 
-    Auto_Fill(FromFile_textGeneral_js,'id-end')
-    Auto_Fill(b_svg([12,18,24]))  
+    Auto_Fill(FromFile_textGeneral_js,"id-end")
+
+    for (let id of ["id-01", "id-02", "id-03", "id-04"]) {
+        Auto_Fill(b_svg([12,18,24]),id)} 
+
     Auto_Fill([{"w":200}, {"w":300}, {"w":400}, {"w":500}, {"w":600}, {"w":700}], "id-repeater-1")  
-    Auto_Fill([{"w":20}, {"w":30}, {"w":40}, {"w":50}, {"w":60}, {"w":70}, {"w":80}], "id-repeater-2")  
+    Auto_Fill([{"w":30}, {"w":40}, {"w":50}, {"w":60}, {"w":70}, {"w":80}], "id-repeater-2")  
     Auto_Fill([{"row":1}, {"row":2}, {"row":3}, {"row":4}, {"row":5}], "id-repeater-3")  
 
     DOM_Replace(['Editable HTML'], ['<b>Editable HTML</b>'], ['p'])
-    DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['code'])
+    DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['code', 'textArea'])
 
-    b_editableHTML_init()
+
+    // b_editableHTML_init()
+    b_editableHTML_init('edit-applied-01')
+    b_editableHTML_init('edit-applied-02')
+    b_editableHTML_init('edit-applied-03')
+    b_editableHTML_init('edit-applied-04')
+    
+    //MOHI
+    // b_editableHTML_init("id-03", discardButtonAfter = "id-edit-32")
 
     // If no function is defined, then innerHTML = textara.value
     CONST_EDITABLE_HTML_FUNCTION_CALLS = {
-        "edit": (innerHTML) => your_edit_function(innerHTML),  // innerHTML -> textAreaValue
-        "save": (textAreaValue) => your_save_functtion(textAreaValue),  // textAreaValue -> InnerHTML
+        "edit": (innerHTML) => innerHTML,  // innerHTML -> textAreaValue
+        "save": (textAreaValue) => textAreaValue,  // textAreaValue -> InnerHTML
     }
+
+    // CONST_EDITABLE_HTML_FUNCTION_CALLS = {
+    //     "edit": (innerHTML) => your_edit_function(innerHTML),  // innerHTML -> textAreaValue
+    //     "save": (textAreaValue) => your_save_function(textAreaValue),  // textAreaValue -> InnerHTML
+    //     "margin-discard": 36,
+    // }
 
     function your_edit_function(innerHTML) {
         // return string that will be the textarea value when edit button is clicked
+
+        let para = [
+            {'id':'id-scsc', 'innerHTML': 'sdsds'}, 
+            {'id':'id-scsc', 'innerHTML': 'sdsds'},
+        ]
+
         return innerHTML
     }
 
-    function your_save_functtion(textAreaValue) {
-        // return innerHTML that will be the innerHTML of the editable div when save is clicked. 
-        // you may also call your database function here, to update according to the user input
-        return textAreaValue.replace("0", "0")
+    function your_save_function(div_save_infos) {
+        // what you get:
+        // [
+        //     {'id':'id-scsc', 'innerHTML': 'sdsds', 'value': ...}, 
+        //     {'id':'id-scsc', 'innerHTML': 'sdsds', 'value': ...},
+        // ]
+        for (let i = 0; i< div_save_infos.length; i++) {
+            // overwrite innerHTML
+            div_save_infos[i]['innerHTML'] = div_save_infos[i]['value'].replace("0", "0")
+        }
+
+        return div_save_infos
     }
 
 </script>

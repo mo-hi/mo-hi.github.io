@@ -7,10 +7,16 @@
     <link rel="stylesheet" href="../basis/css/b.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/navColors.css">
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        textarea    {background-color: var(--color-background); color: var(--color-text);}
+    </style>
 </head>
-<body class="wr-800-400">
+<body class="academic wr-800-400">
     <div id="id-nav">
-        <div class="fixed wr-800-400">
+        <div class="fixed wr-800-400 top-0">
             <nav>
                 <a href="" onclick="">Home</a>
                 <a href="" onclick="">Edit</a>
@@ -38,8 +44,8 @@
     <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     <main>
         <section>
-            <h2>nav.css</h2>
-            <h2X> (with fixed position)</h2X>
+            <h2 class="inline-block">nav.css</h2>
+            <h2 class="inline-block not-bold"> (with fixed position)</h2>
             <div id = 'id-start' class="auto-fill">
                 {{nav-start}}
             </div>

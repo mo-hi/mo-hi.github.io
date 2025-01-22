@@ -7,43 +7,52 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/navColors.css">
     <link rel="stylesheet" href="../basis/css/b.css">
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        textarea    {background-color: var(--color-background); color: var(--color-text);}
+    </style>
 </head>
-<body class="wr-800-400">  
-    <div class="fixed wr-800-400 flex">
-        <nav class="w-60">
-            <a href="" onclick="">Home</a>
-            <a href="" onclick="">Edit</a>
-            <drop>
-                <a onclick="toggleDown(this)">Stuff</a>
-                <down>
-                    <a href="" onclick="">Link 1</a>
-                    <a href="" onclick="">Link 2</a>
-                    <a href="" onclick="">Link 3</a>
-                </down>
-            </drop>
-        </nav>
-        <nav>
-            <info>
-                Hallo
-            </info>
-        </nav>
-        <nav class="w-40 flexR">
-            <drop>
-                <a onclick="toggleDown(this)">Things</a>
-                <down>
-                    <a href="" onclick="">Link 1</a>
-                    <a href="" onclick="">Link 2</a>
-                    <a href="" onclick="">Link 3</a>
-                </down>
-            </drop>
-            <a href="" onclick="">Info</a>
-        </nav>
-    </div>
+<body class="academic wr-800-400" >
+    <div id="id-nav">
+        <div class="fixed wr-800-400 flex top-0" >
+            <nav class="w-60">
+                <a href="" onclick="">Home</a>
+                <a href="" onclick="">Edit</a>
+                <drop>
+                    <a onclick="toggleDown(this)">Stuff</a>
+                    <down>
+                        <a href="" onclick="">Link 1</a>
+                        <a href="" onclick="">Link 2</a>
+                        <a href="" onclick="">Link 3</a>
+                    </down>
+                </drop>
+            </nav>
+            <nav>
+                <info>
+                    Hallo
+                </info>
+            </nav>
+            <nav class="w-40 flexR">
+                <drop>
+                    <a onclick="toggleDown(this)">Things</a>
+                    <down>
+                        <a href="" onclick="">Link 1</a>
+                        <a href="" onclick="">Link 2</a>
+                        <a href="" onclick="">Link 3</a>
+                    </down>
+                </drop>
+                <a href="" onclick="">Info</a>
+            </nav>
+        </div>
+    </div>  
+
     <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     
     <main class="paper">
-        <h2>nav.css</h2>
-        <h2X>(with fixed position, click behavior and three sections)</h2X>
+        <h2 class="inline-block">nav.css</h2>
+        <h2 class="inline-block not-bold">(with fixed position, click behavior and three sections)</h2>
         <div id = 'id-start' class="auto-fill">
             <!-- filled via script-->
         </div>
@@ -54,38 +63,11 @@
         The navbar of this page is an enhancement of <a href="https://github.com/mo-hi/mo-hi.github.io" >nav</a> with fixed position to the top and 
         with the menu dropping down via onclick behavior instead of hover. In also comes with three nav sections, a left section, a right section and
         a middle section, whch can be used to display information to the user.
-        It is created with the following html:
+        It is created with the following
     </p>
+    HTML
+    <div id="id-show" class="h-500"></div>
 
-    <codeblock><pre>
-        &lt;nav class="w-60"&gt;
-            &lt;a href="" onclick=""&gt;Home&lt;/a&gt;
-            &lt;a href="" onclick=""&gt;Edit&lt;/a&gt;
-            &lt;drop&gt;
-                &lt;a onclick="toggleDown(this)"&gt;Stuff&lt;/a&gt;
-                &lt;down&gt;
-                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-                &lt;/down&gt;
-            &lt;/drop&gt;
-        &lt;nav&gt;
-            &lt;info&gt;
-                Hallo
-            &lt;/info&gt;
-        &lt;/nav&gt;
-        &lt;nav class="w-40 flexR"&gt;
-            &lt;drop&gt;
-                &lt;a onclick="toggleDown(this)"&gt;Things&lt;/a&gt;
-                &lt;down&gt;
-                    &lt;a href="" onclick=""&gt;Link 1&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 2&lt;/a&gt;
-                    &lt;a href="" onclick=""&gt;Link 3&lt;/a&gt;
-                &lt;/down&gt;
-            &lt;/drop&gt;
-            &lt;a href="" onclick=""&gt;Info&lt;/a&gt;
-        &lt;/nav&gt;</pre>
-    </codeblock>
     <div id = 'id-fixed' class="auto-fill">
         <!-- filled via script-->
     </div>
@@ -103,16 +85,18 @@
     </section>
     </body>
     <!-- js libs -->
-    <script src="../bJS/js/b.js"> </script>
+    <script src="../basis/js/b.js"> </script>
 
     <!-- this project -->
     <script src="js/nav.js"></script>
 
     <!-- HTML Auto Fill Text -->
     <script src="js/textNav.js"></script>
-    <script src="../js/textGeneral.js"></script>
+    <script src="../textGeneral.js"></script>
     <script>
         Auto_Fill(FromFile_textNav_JS)
         Auto_Fill(FromFile_textGeneral_js)
+
+        ShowHTMLinTextArea(document.getElementById("id-nav"), document.getElementById("id-show"))
     </script>
 </html>
