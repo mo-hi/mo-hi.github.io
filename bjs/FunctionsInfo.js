@@ -24,6 +24,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DOM"
     },
     {
+        "name": "DOM_ElementFromJSEvent",
+        "docstring": "returns the DOM/div element to where the event was triggered. The element must have the class 'js-event'",
+        "parameters": "event",
+        "region": "DOM"
+    },
+    {
         "name": "depth",
         "docstring": "returns the max depth of an array.\nAs this function uses recursion you can limit the level of recursions, default limit is 9.",
         "parameters": "limit_Recursions",
@@ -97,7 +103,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": "bSetHeaders",
-        "docstring": "sets the table headers innerHTML. The headers must be provided as list/array (hence liste)\nThe length of liste must equal to the table cols length.",
+        "docstring": "returns all descendats (children and grandchildren) of a div that have a certain className\n*/\nElement.prototype.DescendantsWithClass = function(className) {\n    if (!className.startsWith('.')) throw new Error('className must start with a \".\"');\n    className = className.after(\".\")\n\n    let results = [];\n  \n    function traverse(element) {\n      if (element.classList && element.classList.contains(className)) {\n        results.push(element);\n      }\n      for (const child of element.children) {\n        traverse(child);\n      }\n    }\n  \n    traverse(this); \n  \n    return results;\n  };\n\n\nElement.prototype.IsDescendantOfClass = function(ancestorClass) {\n  if (!ancestorClass.startsWith('.')) throw new Error('className must start with a \".\"');\n  ancestorClass = ancestorClass.after(\".\")\n\n  let current = this;\n  while (current && current !== document.body) { \n    if (current.classList && current.classList.contains(ancestorClass)) {\n      return true;\n    }\n    current = current.parentElement;\n  }\n  return false;\n};\n\n/**\nadds a 'click' and a 'touchstart' evenlistener event to the ego element. The ego element must have the class 'js-event'\n*/\nElement.prototype.JSEvent_AddClickTouch = function(functionName) {\n  if (!this.classList.contains(\"js-event\")) return\n\n  this.addEventListener('click', functionName)\n  this.addEventListener('touchstart', function(event) {\n      event.preventDefault(); // Prevent mouse events\n      functionName(event);     // Call your function\n      });\n};\n\n/**\nadds a single class to a div if not already present\n*/\nObject.defineProperty(DOMTokenList.prototype, 'addX', {\n    value: function(className) {\n        if (!this.contains(className)) {\n            this.add(className);\n        }\n    },\n    enumerable: false, // Prevents the method from showing up in for...in loops\n    configurable: true // Allows the property to be deleted or modified later\n});\n// ####################################################################################################\n// region DOMTables                                                                                  #\n// ####################################################################################################\n\n/** \nsets the table headers innerHTML. The headers must be provided as list/array (hence liste)\nThe length of liste must equal to the table cols length.",
         "parameters": "liste",
         "region": "DOMTables"
     },

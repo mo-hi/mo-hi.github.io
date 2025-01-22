@@ -9,14 +9,14 @@ function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
   
     let template = container.innerHTML
     let lastVaues = {}
-    container.innerHTML = "";
     
     if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
     if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
 
+    container.innerHTML = "";
     listOfDictionaries.forEach(item => {
         let nextString = template
- 
+    
         for (let key in item) {
             if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
                 nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
@@ -27,6 +27,42 @@ function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
             }
         container.innerHTML += nextString
     });
+}
+
+
+function ShowHTMLinTextArea(divToExpose, divToAppend, optionalSkript) {
+    let textarea = document.createElement('textarea');
+    textarea.id = 'htmlSource';
+    textarea.spellcheck = false;
+    textarea.style.width = '100%';
+    textarea.style.height = '100%';
+    htmlSource = divToExpose.innerHTML;
+    
+    let scriptCode = ''
+    if (optionalSkript) {
+        let scripts = document.getElementsByTagName('script');
+      
+        for (let script of scripts) {
+            if (!script.src) scriptCode += script.innerHTML + '\n\n';  
+        }
+    }
+    textarea.value = _filteredLines(htmlSource, '#IGNORE') + _filteredLines(scriptCode, '#IGNORE')
+    divToAppend.appendChild(textarea);                                                                                                                                           
+}
+
+function _filteredLines(text, filterWord) {
+    let lines = text.split('\n')
+                    .filter(line => !isBlank(line) && !line.includes(filterWord));
+
+    let Indent = Math.min(...lines.map(line => line.match(/^\s*/)[0].length));
+
+    return lines.map(line => line.slice(Indent).trimEnd()).join('\n');
+}
+
+
+
+function isBlank(str) {
+    return !/[^\t\r\n\v\f ]/.test(str);
   }
 // ####################################################################################################
 // region basis                                                                                           #
@@ -60,6 +96,14 @@ is a short hand notation / better readability for 'return condition ? trueValue 
 */
 function wenn(condition, trueValue, falseValue) {
     return condition ? trueValue : falseValue;}
+
+function assert(condition, message) {
+    if (condition) return
+    if (message == undefined) message = "Assertion failed"
+    
+    throw new Error(message)
+}
+      
 // ####################################################################################################
 // region content                                                                                         #
 // ####################################################################################################
@@ -214,6 +258,24 @@ function _DOM_Replacer(re, place, tags) {
         })
     })
   }
+
+/**
+returns the DOM/div element to where the event was triggered. The element must have the class 'js-event'
+*/
+function DOM_ElementFromJSEvent(event) {
+    let divElement = null;
+    if (event instanceof PointerEvent) divElement = event.target;   // if eventlistener was used
+    if (event instanceof HTMLElement) divElement = event;           // if setAttribute / direct HTML was used
+    if (event instanceof TouchEvent) divElement = event.target;     // if eventlistener was used
+    if (divElement == null) return
+
+    /// target may be pointing to childrean of the intended target. Loop Up 100 parents.
+    for (i = 0; i < 100; i++) {
+        if (!divElement.classList.contains('js-event')) divElement = divElement.parentElement}      
+    if (!divElement.classList.contains('js-event')) return
+
+    return divElement
+}
 // ####################################################################################################
 // region Array                                                                                      #
 // ####################################################################################################
@@ -444,6 +506,73 @@ Object.defineProperties(Object.prototype, {
             }  
     } 
 }); 
+// ####################################################################################################
+// region DOM                                                                                        #
+// ####################################################################################################
+
+/**
+returns all descendats (children and grandchildren) of a div that have a certain className
+*/
+Element.prototype.DescendantsWithClass = function(className) {
+    if (!className.startsWith('.')) throw new Error('className must start with a "."');
+    className = className.after(".")
+
+    let results = [];
+  
+    function traverse(element) {
+      if (element.classList && element.classList.contains(className)) {
+        results.push(element);
+      }
+      for (const child of element.children) {
+        traverse(child);
+      }
+    }
+  
+    traverse(this); 
+  
+    return results;
+  };
+
+
+Element.prototype.IsDescendantOfClass = function(ancestorClass) {
+  if (!ancestorClass.startsWith('.')) throw new Error('className must start with a "."');
+  ancestorClass = ancestorClass.after(".")
+
+  let current = this;
+  while (current && current !== document.body) { 
+    if (current.classList && current.classList.contains(ancestorClass)) {
+      return true;
+    }
+    current = current.parentElement;
+  }
+  return false;
+};
+
+/**
+adds a 'click' and a 'touchstart' evenlistener event to the ego element. The ego element must have the class 'js-event'
+*/
+Element.prototype.JSEvent_AddClickTouch = function(functionName) {
+  if (!this.classList.contains("js-event")) return
+
+  this.addEventListener('click', functionName)
+  this.addEventListener('touchstart', function(event) {
+      event.preventDefault(); // Prevent mouse events
+      functionName(event);     // Call your function
+      });
+};
+
+/**
+adds a single class to a div if not already present
+*/
+Object.defineProperty(DOMTokenList.prototype, 'addX', {
+    value: function(className) {
+        if (!this.contains(className)) {
+            this.add(className);
+        }
+    },
+    enumerable: false, // Prevents the method from showing up in for...in loops
+    configurable: true // Allows the property to be deleted or modified later
+});
 // ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################
