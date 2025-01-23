@@ -199,7 +199,26 @@ let svg = {
         <path d="M6 6 l12 12" />
         <path d="M6 18 l12 -12" />
     </svg>
-    `
+    `,
+    'svg-icon-heart': `
+    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M 12 20
+            L 4 12
+            C -2 6 8 0 12 6 
+            C 16 0 26 6 20 12
+            z"/>
+    </svg>
+    `,
+    'svg-icon-heartFill': `
+    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="currentColor">
+        <path d="M 12 20
+            L 4 12
+            C -2 6 8 0 12 6 
+            C 16 0 26 6 20 12
+            z"/>
+    </svg>
+    `,
+
 }
     if (name == undefined) return _svg_All(['24'], svg) 
     

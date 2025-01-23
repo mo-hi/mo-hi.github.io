@@ -27,6 +27,12 @@
 
     <!-- ----------------------------------------------------------------------------------------- -->
      <section >
+        <h3>All available svgs</h3>
+        <div id="id-svgs" class="auto-fill">
+            <div class="inline-block">{{{{svg}}}}</div>
+            <div class="inline-block">{{svg}}</div>
+            <br><br>
+        </div>
         <h3>Size 12</h3>
         <div class="auto-fill">
             <div class="inline-block mr-20">{{svg-icon-edit-12}}</div>
@@ -38,6 +44,7 @@
             <div class="inline-block mr-20">{{svg-icon-upload-12}}</div>
             <div class="inline-block mr-20">{{svg-icon-save-12}}</div>
             <div class="inline-block mr-20">{{svg-icon-discard-12}}</div>
+            <div class="inline-block mr-20">{{svg-icon-heart-12}}</div>
         </div>
         <h3>Size 24</h3>
         <div class="auto-fill">
@@ -145,6 +152,12 @@
         {iconname:'save'},
         {iconname:'discard'}
     ]
+    let allSVGs = []
+    for (let svgKey of b_svg().keys()) {
+        allSVGs.push({"svg":svgKey})}
+
+    Auto_Fill(allSVGs, "id-svgs")
+
     Auto_Fill(ButtonTables, "repeatTable")
     Auto_Fill(b_svg([12,18,24,36,48]))    
     Auto_Fill(FromFile_textGeneral_js)       //  this is done by b.js
