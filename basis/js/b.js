@@ -36,7 +36,13 @@ function ShowHTMLinTextArea(divToExpose, divToAppend, optionalSkript) {
     textarea.spellcheck = false;
     textarea.style.width = '100%';
     textarea.style.height = '100%';
-    htmlSource = divToExpose.innerHTML;
+
+    if (typOf(divToExpose) == 'str') {
+        htmlSource = divToExpose}
+    else {
+        htmlSource = divToExpose.innerHTML;
+    }
+    
     
     let scriptCode = ''
     if (optionalSkript) {

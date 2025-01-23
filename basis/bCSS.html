@@ -65,7 +65,7 @@
         </div>
 
         <h3>Colors</h3>
-        <div class="auto-fill">
+        <div id="id-colors" class="auto-fill">
             <div class="inline-block mr-20 blue">{{svg-icon-grid-48}}</div>
             <div class="inline-block mr-20 green">{{svg-icon-grid-48}}</div>
             <div class="inline-block mr-20 red">{{svg-icon-grid-48}}</div>
@@ -75,6 +75,7 @@
             <div class="inline-block mr-20 pink">{{svg-icon-grid-48}}</div>
             <div class="inline-block mr-20 brown">{{svg-icon-grid-48}}</div>
         </div>
+        <div id="id-color-show" class="h-160"></div>
     </section>
 
     <br><br>
@@ -132,6 +133,7 @@
 <script src="js/b.js"></script>
 <script src="../textGeneral.js"></script>
 <script>
+    let colorsInnerHTML = document.getElementById("id-colors").innerHTML
     let ButtonTables = [
         {iconname:'edit'}, 
         {iconname:'grid'},
@@ -160,6 +162,7 @@
 
         merged.innerHTML = outer
     }
+    ShowHTMLinTextArea(colorsInnerHTML, document.getElementById("id-color-show"))
 </script>
 </html>
 
