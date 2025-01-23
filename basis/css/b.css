@@ -614,6 +614,59 @@ body.academic c {
 
 /*
 // ####################################################################################################
+// #                                               svg                                                #
+// ####################################################################################################
+*/
+div.blue > svg {
+    color: #0d6efd;
+    background-color: transparent;
+    border-color: #0d6efd;
+}
+
+div.green > svg {
+    color: #198754;
+    background-color: transparent;
+    border-color: #198754;
+}
+
+div.red > svg {
+    color: #dc3545;
+    background-color: transparent;
+    border-color: #dc3545;
+}
+
+div.yellow > svg {
+    color: #ffc107;
+    background-color: transparent;
+    border-color: #ffc107;
+}
+
+div.purple > svg {
+    color: #6f42c1;
+    background-color: transparent;
+    border-color: #6f42c1;
+}
+
+div.orange > svg {
+    color: #fd7e14;
+    background-color: transparent;
+    border-color: #fd7e14;
+}
+
+div.pink > svg {
+    color: #e83e8c;
+    background-color: transparent;
+    border-color: #e83e8c;
+}
+
+div.brown > svg {
+    color: #795548;
+    background-color: transparent;
+    border-color: #795548;
+}
+
+/*
+// ####################################################################################################
 // #                                              table                                               #
 // ####################################################################################################
 */
