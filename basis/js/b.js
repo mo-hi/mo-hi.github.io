@@ -218,6 +218,13 @@ let svg = {
             z"/>
     </svg>
     `,
+    'svg-icon-check': `
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M 4,14
+            L12,20
+            L22,6"/>
+        </svg>
+    `,
 
 }
     if (name == undefined) return _svg_All(['24'], svg) 
