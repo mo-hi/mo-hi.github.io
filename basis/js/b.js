@@ -30,29 +30,21 @@ function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
 }
 
 
-function ShowHTMLinTextArea(divToExpose, divToAppend, optionalSkript) {
+function ShowHTMLinTextArea(divToExpose, divToAppend) {
     let textarea = document.createElement('textarea');
     textarea.id = 'htmlSource';
     textarea.spellcheck = false;
     textarea.style.width = '100%';
     textarea.style.height = '100%';
 
+    let htmlSource = undefined
     if (typOf(divToExpose) == 'str') {
         htmlSource = divToExpose}
-    else {
-        htmlSource = divToExpose.innerHTML;
-    }
+    if (divToExpose instanceof HTMLElement) {
+        htmlSource = divToExpose.innerHTML;}
+    if (htmlSource == undefined) return
     
-    
-    let scriptCode = ''
-    if (optionalSkript) {
-        let scripts = document.getElementsByTagName('script');
-      
-        for (let script of scripts) {
-            if (!script.src) scriptCode += script.innerHTML + '\n\n';  
-        }
-    }
-    textarea.value = _filteredLines(htmlSource, '#IGNORE') + _filteredLines(scriptCode, '#IGNORE')
+    textarea.value = _filteredLines(htmlSource, '#IGNORE')
     divToAppend.appendChild(textarea);                                                                                                                                           
 }
 
@@ -111,7 +103,55 @@ function assert(condition, message) {
 }
       
 // ####################################################################################################
-// region content                                                                                         #
+// region content_divTable                                                                                #
+// ####################################################################################################
+
+function b_divTable({cols}) {
+    if(cols == undefined) cols = 3
+    let rows = 0
+
+    let f = new b_divTable_functionContainer()
+    let table = f.Skeleton(rows, cols)
+
+    return table;
+}
+
+class b_divTable_functionContainer {
+    constructor () {
+        // nothing, its a function Container
+    }
+
+    Skeleton(rows, cols) {
+        let thead = document.createElement('thead')
+        thead = this.Rows(thead, 'th', 1, cols)
+        
+        let tbody = document.createElement('tbody');
+        tbody = this.Rows(tbody, 'td', rows, cols)
+    
+        let table = document.createElement('table')
+        table.appendChild(thead)
+        table.appendChild(tbody);
+    
+        return table;
+    }
+    
+    Rows(anchor, tx, Nrows, Ncols) {
+        if (tx == 'th') assert(Nrows == 1)
+    
+        let row = document.createElement('tr')
+        for (let r = 0; r < Nrows; r++) {
+            row = document.createElement('tr')
+            for (let i = 0; i<Ncols; i++) {
+                row.appendChild(document.createElement(tx))}
+            anchor.appendChild(row)
+        }
+        return anchor
+    }
+}
+
+
+// ####################################################################################################
+// region content_svg                                                                                     #
 // ####################################################################################################
 
 /**
@@ -611,6 +651,63 @@ Object.defineProperty(DOMTokenList.prototype, 'addX', {
     configurable: true // Allows the property to be deleted or modified later
 });
 // ####################################################################################################
+// region DivTables                                                                                  #
+// ####################################################################################################
+
+/** 
+dummy as workaround for regex bug. first docstring is not recognized correctly.
+*/
+Element.prototype.dummy_I_DO_NOTHING = function() {
+};
+
+/** 
+sets the table headers innerHTML. The headers must be provided as list/array (hence liste)
+The length of liste must equal to the table cols length.
+*/
+Element.prototype.b_divTable_SetHeaders = function(liste) {
+    assert(this.tagName == 'TABLE')
+    assert(this.rows[0].cells.length == liste.length)
+
+    let headerRow = this.querySelector('thead tr');
+    let headerCells = headerRow.cells;
+
+    for (let i = 0; i < headerCells.length; i++) {
+        headerCells[i].innerHTML = liste[i]}
+}
+
+
+/** 
+adds new rows to a table. 
+If liste is a list of dictionaries, then the innerHTML of each cell will be set to the value of the 
+key identical to the header.
+*/
+Element.prototype.b_divTable_AddRows = function(liste) {
+    assert(this.tagName == 'TABLE');
+
+    let tbody = this.querySelector('tbody');
+    
+    // Handle 2D array
+    if (typOf(liste) == 'list' && typOf(liste[0]) == 'list') {
+        // to be implemented
+        return
+    }
+
+    // Handle list of dictionaries
+    if ((typOf(liste) == 'list' && typOf(liste[0]) == 'dict')) {
+        let headers = Array.from(this.querySelectorAll('thead th')).map(th => th.innerHTML);
+
+        for (let i = 0; i < liste.length; i++) {
+            let row = tbody.insertRow();
+            for (let j = 0; j < headers.length; j++) {
+                let cell = row.insertCell();
+                let key = headers[j];
+                cell.innerHTML = liste[i][key];
+            }
+        }
+        return 
+    }
+}
+// ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################
 
@@ -623,6 +720,7 @@ Object.defineProperties(Object.prototype, {
         }
     }
 });
+
 
 /** 
 sets the table headers innerHTML. The headers must be provided as list/array (hence liste)
@@ -642,6 +740,7 @@ Object.defineProperties(Object.prototype, {
         }
     }
 });
+
 
 /** 
 sets the table header ids. The header ids must be provided as list/array (hence liste)

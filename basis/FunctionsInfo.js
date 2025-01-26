@@ -15,7 +15,7 @@ const FromFile_FunctionsInfo_JS = [
         "name": "b_svg",
         "docstring": "returns svg markup for various icons. The function has two Use Cases: <br><br>\n\n(1) returns a <b>string</b> for a given icon name and a given size. Example: \n<code>b_svg(\"svg-icon-edit\") = \"...//svg code...width=24 height=24 ...\" <br>\n        b_svg(\"svg-icon-edit\", 16) = \"...//svg code...width=16 height=16 ...\"  \n</code> <br>\n\n(2) returns a <b>dictionary</b>. The keys are the svg name, the value is the return value from Use Case 1. Example:\n<code> b_svg() = { \"svg-icon-edit-24\": \"....\", \"svg-icon-grid-24\": \"...\", ...} <br>\nb_svg([16,24]) = { \"svg-icon-edit-16\": \"...\", \"svg-icon-grid-16\": \"...\", \"svg-icon-edit-24\": \"...\", ...} </code> \n\nThe follwoing icon names are available (among others):<br>\nsvg-icon-edit<br>\nsvg-icon-grid<br>\nsvg-icon-menu<br>\nsvg-icon-search<br>\nsvg-icon-filter<br>\nsvg-icon-download<br>\nsvg-icon-upload<br>\nsvg-icon-save<br>\nsvg-icon-discard<br>",
         "parameters": "name, size",
-        "region": "content"
+        "region": "content_svg"
     },
     {
         "name": "DOM_Replace",
@@ -220,5 +220,17 @@ const FromFile_FunctionsInfo_JS = [
         "docstring": "adds a 'click' and a 'touchstart' evenlistener event to the ego element. The ego element must have the class 'js-event'",
         "parameters": "functionName",
         "region": "DIV objects"
+    },
+    {
+        "name": ".b_divTable_SetHeaders",
+        "docstring": "sets the table headers innerHTML. The headers must be provided as list/array (hence liste)\nThe length of liste must equal to the table cols length.",
+        "parameters": "liste",
+        "region": "DivTables objects"
+    },
+    {
+        "name": ".b_divTable_AddRows",
+        "docstring": "adds new rows to a table. \nIf liste is a list of dictionaries, then the innerHTML of each cell will be set to the value of the \nkey identical to the header.",
+        "parameters": "liste",
+        "region": "DivTables objects"
     }
 ]

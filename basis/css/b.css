@@ -685,6 +685,10 @@ table.border {
     border: 1px solid #aaa;
 }
 
+table.border-headers th {
+    border: 1px solid #aaa;
+}
+
 table.border-rows tr {
     border-bottom: 1px solid #aaa;
 }

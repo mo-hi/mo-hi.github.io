@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIV BUILDER</title>
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        textarea    {background-color: var(--color-background); color: var(--color-text);}
+        #id-end     {background-color: var(--color-background); color: var(--color-text);}
+    </style>
+</head>
+<body class="academic wr-800-400">
+    <h1>div Builder</h1>
+    <section>
+        <h2 class="underline sticky">tables</h2>
+        <h3>Auto_Fill</h2>
+        <div id="id-table-01">
+            <div id="table-01">
+                <table class="border border-cells border-headers padding-5 w-100">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>River</th>
+                            <th>Food</th>
+                        </tr>
+                    </thead>
+                    <tbody id="id-tbody-01">
+                        <tr>
+                            <td>{{Country}}</td>
+                            <td>{{City}}</td>
+                            <td>{{River}}</td>
+                            <td>{{Food}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        HTML Code:
+        <div id="show-01" class="h-320"></div>
+        <br>
+        JS Code:
+        <code class="mt-1i">
+            Auto_Fill(FromFile_jsonData_js,"id-tbody-01")  
+        </code>
+        <h3>build_table</h3>
+        <div id ="id-build-table">
+
+        </div>
+        <br>JS Code:
+        <div id = "show-script-01" class="mt-1i h-100">
+
+        </div>
+
+    </section>
+
+    <section class=" h-100 mb-100">
+        <!-- empty -->
+    </section>
+       
+    <section id="id-end" class="wr-800-400 h-50 fixed bottom-0 mb-0i" style="z-index: 2;border-top: 1px solid grey;">
+        <p id="id-end" class="auto-fill">
+            {{id-end-index}}
+        </p>
+    </section>
+
+</body>
+<script src="js/getBasis.js"></script>
+<script src="js/jsonData.js"></script>
+<script src="../textGeneral.js"></script>
+<script id ="id-script-01">
+    let table = b_divTable({cols:FromFile_jsonData_js[0].keys().length})
+    table.b_divTable_SetHeaders(FromFile_jsonData_js[0].keys())
+    table.b_divTable_AddRows(FromFile_jsonData_js)
+    table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
+    document.getElementById("id-build-table").append(table)
+</script>
+<script>
+    ShowHTMLinTextArea(document.getElementById("id-table-01"), document.getElementById("show-01"))
+    ShowHTMLinTextArea(document.getElementById("id-script-01"), document.getElementById("show-script-01"))
+    Auto_Fill(FromFile_jsonData_js,"id-tbody-01")
+    Auto_Fill(FromFile_textGeneral_js,"id-end")
+</script>
+</body>
+</html>
