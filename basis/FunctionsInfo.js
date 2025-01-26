@@ -12,6 +12,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "basis"
     },
     {
+        "name": "b_divTable",
+        "docstring": "return a div table. Provide either cols or json! <br>\nWhen cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>\nWith json is provided, a table with the json dataset is returend. <br>",
+        "parameters": "{cols, json}",
+        "region": "content_divTable"
+    },
+    {
         "name": "b_svg",
         "docstring": "returns svg markup for various icons. The function has two Use Cases: <br><br>\n\n(1) returns a <b>string</b> for a given icon name and a given size. Example: \n<code>b_svg(\"svg-icon-edit\") = \"...//svg code...width=24 height=24 ...\" <br>\n        b_svg(\"svg-icon-edit\", 16) = \"...//svg code...width=16 height=16 ...\"  \n</code> <br>\n\n(2) returns a <b>dictionary</b>. The keys are the svg name, the value is the return value from Use Case 1. Example:\n<code> b_svg() = { \"svg-icon-edit-24\": \"....\", \"svg-icon-grid-24\": \"...\", ...} <br>\nb_svg([16,24]) = { \"svg-icon-edit-16\": \"...\", \"svg-icon-grid-16\": \"...\", \"svg-icon-edit-24\": \"...\", ...} </code> \n\nThe follwoing icon names are available (among others):<br>\nsvg-icon-edit<br>\nsvg-icon-grid<br>\nsvg-icon-menu<br>\nsvg-icon-search<br>\nsvg-icon-filter<br>\nsvg-icon-download<br>\nsvg-icon-upload<br>\nsvg-icon-save<br>\nsvg-icon-discard<br>",
         "parameters": "name, size",

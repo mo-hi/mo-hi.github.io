@@ -41,7 +41,11 @@ function ShowHTMLinTextArea(divToExpose, divToAppend) {
     if (typOf(divToExpose) == 'str') {
         htmlSource = divToExpose}
     if (divToExpose instanceof HTMLElement) {
-        htmlSource = divToExpose.innerHTML;}
+        htmlSource = divToExpose.innerHTML;
+        if (divToExpose.tagName.toLowerCase() === 'script') {
+            textarea.classList.add('script') 
+        }
+    }
     if (htmlSource == undefined) return
     
     textarea.value = _filteredLines(htmlSource, '#IGNORE')
@@ -106,19 +110,40 @@ function assert(condition, message) {
 // region content_divTable                                                                                #
 // ####################################################################################################
 
-function b_divTable({cols}) {
-    if(cols == undefined) cols = 3
-    let rows = 0
-
+/**
+return a div table. Provide either cols or json! <br>
+When cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>
+With json is provided, a table with the json dataset is returend. <br>
+*/
+function b_divTable({cols, json}) {
     let f = new b_divTable_functionContainer()
-    let table = f.Skeleton(rows, cols)
+    assert(!(cols !== undefined && json !== undefined))
+    assert(!(cols == undefined && json == undefined))
+    
+    if (cols) return f.TableEmpty_Cols(cols)
 
-    return table;
+    if (json) {
+        assert(typOf(json) == "list")
+        json.every(item => assert(typOf(item) == 'dict'))
+        let table = f.Skeleton(0, json[0].keys().length)
+        table.b_divTable_SetHeaders(json[0].keys())
+        table.b_divTable_AddRows(json)
+        return table}
+
+    assert(false)
 }
+
+
 
 class b_divTable_functionContainer {
     constructor () {
-        // nothing, its a function Container
+        // nothing, it's a function Container
+    }
+    
+    TableEmpty_Cols(cols) {
+        assert(typOf(cols) == 'int')
+        let table = this.Skeleton(0, cols)
+        return table;
     }
 
     Skeleton(rows, cols) {

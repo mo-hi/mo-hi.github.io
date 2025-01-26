@@ -622,6 +622,13 @@ body.academic c {
     font-family: monospace;
 }
 
+body.academic textarea.script {
+    background-color: #dddddd;
+    font-family: monospace;
+    padding: 2px 5px;
+    line-height: 15pt;
+}
+
 /*
 // ####################################################################################################
 // #                                               svg                                                #

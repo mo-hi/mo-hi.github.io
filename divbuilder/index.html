@@ -46,18 +46,29 @@
         <code class="mt-1i">
             Auto_Fill(FromFile_jsonData_js,"id-tbody-01")  
         </code>
-        <h3>build_table</h3>
-        <div id ="id-build-table">
 
+        <!-- --------------------------------------------------------------------------------------- -->
+        <h3>build_table - headers and rows</h3>
+        <div id ="id-build-table">
+            <!--  -->
         </div>
         <br>JS Code:
-        <div id = "show-script-01" class="mt-1i h-100">
-
+        <div id = "show-script-01" class="mt-1i h-140">
+            <!--  -->
         </div>
 
+        <!-- --------------------------------------------------------------------------------------- -->
+        <h3>build_table - all in one</h3>
+        <div id ="id-build-table2">
+            <!--  -->
+        </div>
+        <br>JS Code:
+        <div id = "show-script-02" class="mt-1i h-140">
+            <!--  -->
+        </div>
     </section>
 
-    <section class=" h-100 mb-100">
+    <section class="h-100 mb-100">
         <!-- empty -->
     </section>
        
@@ -78,9 +89,15 @@
     table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
     document.getElementById("id-build-table").append(table)
 </script>
+<script id ="id-script-02">
+    let table2 = b_divTable({json:FromFile_jsonData_js})
+    table2.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
+    document.getElementById("id-build-table2").append(table2)
+</script>
 <script>
     ShowHTMLinTextArea(document.getElementById("id-table-01"), document.getElementById("show-01"))
     ShowHTMLinTextArea(document.getElementById("id-script-01"), document.getElementById("show-script-01"))
+    ShowHTMLinTextArea(document.getElementById("id-script-02"), document.getElementById("show-script-02"))
     Auto_Fill(FromFile_jsonData_js,"id-tbody-01")
     Auto_Fill(FromFile_textGeneral_js,"id-end")
 </script>
