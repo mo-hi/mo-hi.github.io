@@ -30,6 +30,19 @@ class clsTest {
             return this._failed(name, " " + a + " not equal to " + b + ". ")}
     }
 
+    IsTrue(a, name) {
+        if(a) return this._passed(name);
+        return this._failed(name, "failed");
+    }
+
+    ErrorSeen(foo_or_obj, p, fooName) {
+        if (typeof foo_or_obj == 'object') return this._Assertion_Object(ffoo_or_obj, p , fooName); 
+
+        if (typeof foo_or_obj == 'function') return this._Assertion_Function(foo_or_obj, p , fooName); 
+
+        throw new Error(":you should not be here. ErrorThrown")
+    }
+
 // ##################################################################################
 // # Checker helper                                                                 #
 // ##################################################################################
@@ -66,6 +79,26 @@ class clsTest {
         
         return false
         }
+
+    _Assertion_Function(foo, p , fname) {
+        try {
+            foo(p["a"], p["b"], p["c"], p["d"])
+        } catch (error) {
+            return this._passed(fname, "Error was thrown")
+        } 
+        return this._failed(fname, "Error was not thrown")
+        
+    }
+    
+    _Assertion_Object(obj, p , fname) {
+        try {
+            new obj.constructor(p["a"], p["b"], p["c"], p["d"])
+        } catch (error) {
+            return this._passed(fname, "Error was thrown")
+        } 
+        return this._failed(fname, "Error was not thrown")
+        
+    }
 
 // ##################################################################################
 // # Print                                                                          #

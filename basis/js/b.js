@@ -537,6 +537,25 @@ Object.defineProperties(Array.prototype, {
     } 
 });
 // ####################################################################################################
+// region Collection                                                                                 #
+// ####################################################################################################
+
+class Collection extends Array {
+    constructor(...args) {
+        super(...args);
+    }
+
+    push(...items) {
+        for (let item of items) {
+            if (typOf(item) != 'dict') {
+                throw new Error('All items of a collection must be dictionariess');
+            }
+        }
+        return super.push(...items);
+    }
+
+}
+// ####################################################################################################
 // region Dictionary                                                                                 #
 // ####################################################################################################
 
