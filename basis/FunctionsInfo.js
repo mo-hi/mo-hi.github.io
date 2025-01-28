@@ -109,8 +109,14 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".flatten",
-        "docstring": "returns a new array with all items of the ego array which are not in the list2.",
+        "docstring": "returns a new array with all items of the ego array flatten in a 1D array.",
         "parameters": "limit_Recursions",
+        "region": "Array objects"
+    },
+    {
+        "name": ".removeX",
+        "docstring": "removes elements from the array when they exist",
+        "parameters": "item",
         "region": "Array objects"
     },
     {

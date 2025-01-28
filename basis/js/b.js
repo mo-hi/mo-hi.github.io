@@ -579,7 +579,7 @@ Object.defineProperties(Array.prototype, {
 });
 
 /** 
-returns a new array with all items of the ego array which are not in the list2.
+returns a new array with all items of the ego array flatten in a 1D array.
 */
 Object.defineProperties(Array.prototype, {
     flatten: {
@@ -598,6 +598,22 @@ Object.defineProperties(Array.prototype, {
 
             _recursiveFlat(this, limit_Recursions)
             return ret
+        }
+    }
+});
+
+/** 
+removes elements from the array when they exist
+*/
+Object.defineProperties(Array.prototype, {
+    removeX: {
+        value: function(item) {
+            for (let i = 0;i< this.length; i++) {
+                if (this[i] == item) {
+                    this.splice(i, 1);
+                    i--; // Adjust index after removal
+                }
+            }
         }
     }
 });
