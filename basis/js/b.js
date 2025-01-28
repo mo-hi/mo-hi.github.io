@@ -99,11 +99,27 @@ is a short hand notation / better readability for 'return condition ? trueValue 
 function wenn(condition, trueValue, falseValue) {
     return condition ? trueValue : falseValue;}
 
+/**
+throws an error if the condition is false
+*/
 function assert(condition, message) {
     if (condition) return
     if (message == undefined) message = "Assertion failed"
     
     throw new Error(message)
+}
+
+/**
+returns a dictionary with the keys from keys and values from values. Length of keys and values must be equal.
+*/
+function dictionary(keys, values) {
+    assert(keys.length == values.length, "Length of keys and values must be equal")
+    
+    let ret = {}
+    for (let i = 0; i < keys.length; i++) {
+        ret[keys[i]] = values[i]
+    }
+    return ret
 }
       
 // ####################################################################################################
@@ -536,6 +552,55 @@ Object.defineProperties(Array.prototype, {
         }
     } 
 });
+
+/** 
+adds a new item to the Array if the item is not already in the Array.
+*/
+Object.defineProperties(Array.prototype, {
+    pushX: {
+        value: function(newItem) {
+            if (!this.includes(newItem)) {
+                this.push(newItem);
+            }
+        }
+    } 
+});
+
+/** 
+returns a new array with all items of the ego array which are not in the list2.
+*/
+Object.defineProperties(Array.prototype, {
+    ItemsNotIn: {
+        value: function(list2) {
+            let set2 = new Set(list2)
+            return this.filter(item => !set2.has(item))
+        }
+    } 
+});
+
+/** 
+returns a new array with all items of the ego array which are not in the list2.
+*/
+Object.defineProperties(Array.prototype, {
+    flatten: {
+        value: function(limit_Recursions) {
+            let ret = []
+            function _recursiveFlat(arr, limit_Recursions) {
+                if (limit_Recursions == undefined) limit_Recursions = 9
+                
+                if (!Array.isArray(arr)) {
+                    ret.push(arr)
+                    return}
+
+                for (let item of arr) {
+                    _recursiveFlat(item, limit_Recursions-1)}
+            }
+
+            _recursiveFlat(this, limit_Recursions)
+            return ret
+        }
+    }
+});
 // ####################################################################################################
 // region Collection                                                                                 #
 // ####################################################################################################
@@ -553,6 +618,46 @@ class Collection extends Array {
         }
         return super.push(...items);
     }
+
+    AsList(key) {
+        let ret = [];
+
+        if (key == undefined) {
+            let headers = this._headers150()
+            ret.push(headers)
+
+            this.forEach(item => {
+                ret.push(this._pushX150(item, headers))
+            })
+            
+        }
+        
+        if (typOf(key) == 'str') {
+            this.forEach(item => {
+                ret.push(item[key])
+            });
+        }
+        return ret
+    }
+
+    _headers150() {
+        let headers = []
+        this.forEach(item => {
+            for (let key of item.keys()) {
+                headers.pushX(key)
+            }
+        })
+        return headers
+    }
+
+    _pushX150(item, headers150) {
+        let tmp = new Array(headers150.length).fill(null)
+        for (let key of item.keys()) {
+            tmp[headers150.indexOf(key)] = item[key]
+        }
+        return tmp
+    }
+
 
 }
 // ####################################################################################################
@@ -617,6 +722,19 @@ Object.defineProperties(Object.prototype, {
             if (postfix == undefined) postfix = ''
             this[key] = prefix + this[key] + postfix
             }  
+    } 
+}); 
+
+/**
+returns the first key of the dictionary that has the specified value.
+*/
+Object.defineProperties(Object.prototype, {
+    KeyByValue: {
+        value: function(value) {
+            for (let key of this.keys()) {
+                if (this[key] == value) return key}
+            return undefined
+            } 
     } 
 }); 
 // ####################################################################################################
@@ -1061,6 +1179,20 @@ Object.defineProperties(String.prototype, {
             const regex = new RegExp(`\\b\\d{${min},${max}}\\b`, 'g');
             const matches = this.match(regex);
             return matches || [];
+          }
+        }
+});
+
+/** 
+returns true if the ego string is a digit, false otherwise
+*/
+Object.defineProperties(String.prototype, {
+    isDigit: {
+        value: function() {
+            for (let c of this) {
+                if (!'0123456789'.includes(c)) return false
+            }
+            return true
           }
         }
 });

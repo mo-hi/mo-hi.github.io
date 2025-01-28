@@ -12,6 +12,18 @@ const FromFile_FunctionsInfo_JS = [
         "region": "basis"
     },
     {
+        "name": "assert",
+        "docstring": "throws an error if the condition is false",
+        "parameters": "condition, message",
+        "region": "basis"
+    },
+    {
+        "name": "dictionary",
+        "docstring": "returns a dictionary with the keys from keys and values from values. Length of keys and values must be equal.",
+        "parameters": "keys, values",
+        "region": "basis"
+    },
+    {
         "name": "b_divTable",
         "docstring": "return a div table. Provide either cols or json! <br>\nWhen cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>\nWith json is provided, a table with the json dataset is returend. <br>",
         "parameters": "{cols, json}",
@@ -84,6 +96,24 @@ const FromFile_FunctionsInfo_JS = [
         "region": "Array objects"
     },
     {
+        "name": ".pushX",
+        "docstring": "adds a new item to the Array if the item is not already in the Array.",
+        "parameters": "newItem",
+        "region": "Array objects"
+    },
+    {
+        "name": ".ItemsNotIn",
+        "docstring": "returns a new array with all items of the ego array which are not in the list2.",
+        "parameters": "list2",
+        "region": "Array objects"
+    },
+    {
+        "name": ".flatten",
+        "docstring": "returns a new array with all items of the ego array which are not in the list2.",
+        "parameters": "limit_Recursions",
+        "region": "Array objects"
+    },
+    {
         "name": ".keys",
         "docstring": "returns an array of the object's own keys.",
         "parameters": "",
@@ -105,6 +135,12 @@ const FromFile_FunctionsInfo_JS = [
         "name": ".prepost",
         "docstring": "modifies the value of the specified key by adding a prefix and a postfix.\nWill only be applied if the value to the provided key is of type string.",
         "parameters": "key, prefix, postfix",
+        "region": "Dictionary objects"
+    },
+    {
+        "name": ".KeyByValue",
+        "docstring": "returns the first key of the dictionary that has the specified value.",
+        "parameters": "value",
         "region": "Dictionary objects"
     },
     {
@@ -207,6 +243,12 @@ const FromFile_FunctionsInfo_JS = [
         "name": ".digits",
         "docstring": "returns a list (array) of all sequences of digits (whole numbers) occuring in the string, with the option to specify min and max lengths for the digit sequences.\nDefault min is 1, defualt max is unlimited",
         "parameters": "min, max",
+        "region": "String objects"
+    },
+    {
+        "name": ".isDigit",
+        "docstring": "returns true if the ego string is a digit, false otherwise",
+        "parameters": "",
         "region": "String objects"
     },
     {
