@@ -617,6 +617,70 @@ Object.defineProperties(Array.prototype, {
         }
     }
 });
+
+/** 
+returns a 2D list. To each of the ego elements the split function with seperator sep is applied.
+Will only run if the ego array is a 1D list with string elements.
+*/
+Object.defineProperties(Array.prototype, {
+    massSplit: {
+        value: function(sep = ',') {
+            if (this.length == 0) return
+            if (this.depth()!= 1) return
+
+            for (let item of this) {
+                if(typOf(item) != 'str') return}
+            
+            return this.map(item => {
+                return item.split(sep);})
+        }
+    }
+});
+
+/** 
+returns true if the ego arry is of depth 2 and all sub arrays are of equal length, otherwise false
+*/
+Object.defineProperties(Array.prototype, {
+    Is2DTable: {
+        value: function(minSubLength = 2, withHeaders = true) {
+            if (this.length == 0) return false
+            if (withHeaders && this.length == 1) return false
+            if (this.depth()!= 2) return false
+
+            let subLength = this[0].length
+            for (let item of this) {
+                if (typOf(item) != 'list') return false
+                if (item.length < minSubLength) return false
+                if (item.length != subLength) return false
+            }
+
+            return true
+        }
+    }
+});
+
+/** 
+returns a string, representing the array content similar to <i>String(array)</i>.
+Stringify will not put brackets at the end or beginning of an array or subarray. Stringify expects as 
+many separators as the depth of the ego array.
+*/
+Object.defineProperties(Array.prototype, {
+    stringify: {
+        value: function(...seperators) {
+            if (seperators.length == 0) seperators = [',']
+            if (this.length == 0) return ''
+            assert (seperators.length = this.length)
+
+            function _recursiveStringify(arr, depth) {
+                if (!Array.isArray(arr)) return String(arr)
+                let sep = seperators[Math.min(depth, seperators.length - 1)]
+                return arr.map(item => _recursiveStringify(item, depth + 1)).join(sep)
+            }
+
+            return _recursiveStringify(this, 0)
+        }
+    }
+});
 // ####################################################################################################
 // region Collection                                                                                 #
 // ####################################################################################################
@@ -626,6 +690,26 @@ class Collection extends Array {
         super(...args);
     }
 
+    /** 
+    Collection
+    dummy as workaround for regex bug. first docstring is not recognized correctly.
+    */
+    dummy_I_DO_NOTHING() {
+        // i do nothing
+    }
+
+    /** 
+    Collection
+    A collection is a list of dictionaries (technically array of objects).
+    */
+    aboutMe() {
+        // i do nothing
+    }
+
+    /** 
+    Collection
+    with an additional check that the item(s) pushed are of type dictionary
+    */
     push(...items) {
         for (let item of items) {
             if (typOf(item) != 'dict') {
@@ -635,6 +719,25 @@ class Collection extends Array {
         return super.push(...items);
     }
 
+    /** 
+    Collection
+    pushes the rows of the array. The array must be a 2D array, where the first row (array[0]) are the keys.
+    */
+    push_Array(array2D) {
+        assert (typOf(array2D) == 'list')
+        assert (array2D.depth() == 2)
+
+        let keys = array2D[0]
+        for (let i = 1; i<array2D.length; i++) {
+            this.push(dictionary(keys, array2D[i]))
+        }
+    }
+
+    /** 
+    Collection
+    returns all items in form of a 2D array. The first row of the 2D array are the dictionary keys. in case a key is provided, then a 1D array is provided
+    that contains all values of the corresponding key. 
+    */
     AsList(key) {
         let ret = [];
 
@@ -654,6 +757,38 @@ class Collection extends Array {
             });
         }
         return ret
+    }
+
+    /** 
+    Collection
+    like JSON.stringify()
+    */
+    stringify() {
+        let jsonObject = []
+        this.forEach(item => {
+            jsonObject.push(item)
+        });
+        return JSON.stringify(jsonObject);
+    }
+
+    /** 
+    Collection
+    like stringify() just in a nice formatted way with new lines and tabs
+    */
+    stringifyFormatted() {
+        let jsonObject = []
+        this.forEach(item => {
+            jsonObject.push(item)
+        });
+    return JSON.stringify(jsonObject, null, 4);
+    }
+
+        /** 
+    Collection
+    returns the ego data as a string in a excel-ready formatted 2D array
+    */
+    stringifyTable() {
+        return this.AsList().stringify('\n', '\t')
     }
 
     _headers150() {
@@ -679,6 +814,16 @@ class Collection extends Array {
 // ####################################################################################################
 // region Dictionary                                                                                 #
 // ####################################################################################################
+
+/** 
+dummy as workaround for regex bug. first docstring is not recognized correctly.
+*/
+Object.defineProperties(Object.prototype, {
+    dummy_I_DO_NOTHING2: {
+        value: function() {
+        }
+    }
+});
 
 /**
 returns an array of the object's own keys.
@@ -1209,6 +1354,22 @@ Object.defineProperties(String.prototype, {
                 if (!'0123456789'.includes(c)) return false
             }
             return true
+          }
+        }
+});
+
+/** 
+returns true if the ego string is a valid json string, false otherwise
+*/
+Object.defineProperties(String.prototype, {
+    isJSON: {
+        value: function() {
+            try {
+                JSON.parse(this);
+                return true;
+            } catch (e) {
+                return false;
+            }
           }
         }
 });

@@ -120,6 +120,24 @@ const FromFile_FunctionsInfo_JS = [
         "region": "Array objects"
     },
     {
+        "name": ".massSplit",
+        "docstring": "returns a 2D list. To each of the ego elements the split function with seperator sep is applied.\nWill only run if the ego array is a 1D list with string elements.",
+        "parameters": "sep = ','",
+        "region": "Array objects"
+    },
+    {
+        "name": ".Is2DTable",
+        "docstring": "returns true if the ego arry is of depth 2 and all sub arrays are of equal length, otherwise false",
+        "parameters": "minSubLength = 2, withHeaders = true",
+        "region": "Array objects"
+    },
+    {
+        "name": ".stringify",
+        "docstring": "returns a string, representing the array content similar to <i>String(array)</i>.\nStringify will not put brackets at the end or beginning of an array or subarray. Stringify expects as \nmany separators as the depth of the ego array.",
+        "parameters": "...seperators",
+        "region": "Array objects"
+    },
+    {
         "name": ".keys",
         "docstring": "returns an array of the object's own keys.",
         "parameters": "",
@@ -258,6 +276,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "String objects"
     },
     {
+        "name": ".isJSON",
+        "docstring": "returns true if the ego string is a valid json string, false otherwise",
+        "parameters": "",
+        "region": "String objects"
+    },
+    {
         "name": ".DescendantsWithClass",
         "docstring": "returns all descendats (children and grandchildren) of a div that have a certain className",
         "parameters": "className",
@@ -286,5 +310,47 @@ const FromFile_FunctionsInfo_JS = [
         "docstring": "adds new rows to a table. \nIf liste is a list of dictionaries, then the innerHTML of each cell will be set to the value of the \nkey identical to the header.",
         "parameters": "liste",
         "region": "DivTables objects"
+    },
+    {
+        "name": ".aboutMe",
+        "docstring": "A collection is a list of dictionaries (technically array of objects).",
+        "parameters": "",
+        "region": "class Collection"
+    },
+    {
+        "name": ".push",
+        "docstring": "with an additional check that the item(s) pushed are of type dictionary",
+        "parameters": "...items",
+        "region": "class Collection"
+    },
+    {
+        "name": ".push_Array",
+        "docstring": "pushes the rows of the array. The array must be a 2D array, where the first row (array[0]) are the keys.",
+        "parameters": "array2D",
+        "region": "class Collection"
+    },
+    {
+        "name": ".AsList",
+        "docstring": "returns all items in form of a 2D array. The first row of the 2D array are the dictionary keys. in case a key is provided, then a 1D array is provided\n    that contains all values of the corresponding key.",
+        "parameters": "key",
+        "region": "class Collection"
+    },
+    {
+        "name": ".stringify",
+        "docstring": "like JSON.stringify()",
+        "parameters": "",
+        "region": "class Collection"
+    },
+    {
+        "name": ".stringifyFormatted",
+        "docstring": "like stringify() just in a nice formatted way with new lines and tabs",
+        "parameters": "",
+        "region": "class Collection"
+    },
+    {
+        "name": ".stringifyTable",
+        "docstring": "returns the ego data as a string in a excel-ready formatted 2D array",
+        "parameters": "",
+        "region": "class Collection"
     }
 ]
