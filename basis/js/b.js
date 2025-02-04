@@ -49,7 +49,8 @@ function ShowHTMLinTextArea(divToExpose, divToAppend) {
     if (htmlSource == undefined) return
     
     textarea.value = _filteredLines(htmlSource, '#IGNORE')
-    divToAppend.appendChild(textarea);                                                                                                                                           
+    divToAppend.appendChild(textarea);   
+    return textarea                                                                                                                                        
 }
 
 function _filteredLines(text, filterWord) {
@@ -712,11 +713,21 @@ class Collection extends Array {
     */
     push(...items) {
         for (let item of items) {
-            if (typOf(item) != 'dict') {
-                throw new Error('All items of a collection must be dictionariess');
-            }
+            assert (typOf(item) == 'dict')
         }
-        return super.push(...items);
+        super.push(...items);
+    }
+
+    /** 
+    Collection
+    pushed the elements of a odanariy list of dictionaries. 
+    */
+    push_JSON(items) {
+        assert (typOf(items) == 'list')
+        for (let item of items) {
+            assert (typOf(item) == 'dict')
+            super.push(item)
+        }
     }
 
     /** 
@@ -731,6 +742,17 @@ class Collection extends Array {
         for (let i = 1; i<array2D.length; i++) {
             this.push(dictionary(keys, array2D[i]))
         }
+    }
+
+    /** 
+    Collection
+    pushes the elements represented by a JSOn String. The JSON string must be a list of dictionaries.
+    */
+    push_String(jsonString) {
+        if (!jsonString.isJSON) return 
+
+        let jsonObject = JSON.parse(jsonString);
+        jsonObject.forEach(item => {this.push(item)})
     }
 
     /** 
@@ -761,7 +783,7 @@ class Collection extends Array {
 
     /** 
     Collection
-    like JSON.stringify()
+    returns the ego data in a JSON string, like JSON.stringify()
     */
     stringify() {
         let jsonObject = []
@@ -783,7 +805,7 @@ class Collection extends Array {
     return JSON.stringify(jsonObject, null, 4);
     }
 
-        /** 
+    /** 
     Collection
     returns the ego data as a string in a excel-ready formatted 2D array
     */

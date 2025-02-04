@@ -324,9 +324,21 @@ const FromFile_FunctionsInfo_JS = [
         "region": "class Collection"
     },
     {
+        "name": ".push_JSON",
+        "docstring": "pushed the elements of a odanariy list of dictionaries.",
+        "parameters": "items",
+        "region": "class Collection"
+    },
+    {
         "name": ".push_Array",
         "docstring": "pushes the rows of the array. The array must be a 2D array, where the first row (array[0]) are the keys.",
         "parameters": "array2D",
+        "region": "class Collection"
+    },
+    {
+        "name": ".push_String",
+        "docstring": "pushes the elements represented by a JSOn String. The JSON string must be a list of dictionaries.",
+        "parameters": "jsonString",
         "region": "class Collection"
     },
     {
@@ -337,7 +349,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".stringify",
-        "docstring": "like JSON.stringify()",
+        "docstring": "returns the ego data in a JSON string, like JSON.stringify()",
         "parameters": "",
         "region": "class Collection"
     },

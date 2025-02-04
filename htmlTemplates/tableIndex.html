@@ -12,15 +12,39 @@
     </style>
 </head>
 <body class="academic w-80">
+    <input type="text" id="searchInput" placeholder="Search...">
     <section>
-        <h2>Table</h2>
-        <div id="id-table">
+        <h2>Table 1</h2>
+        <div id="id-table-01">
+            <table class="border border-cells border-headers padding-5 w-100">
+                <thead>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
+                </thead>
+                <tbody id="id-table-body" class="auto-fill">
+                    <tr>
+                        <td>{{A}}</td>
+                        <td>{{B}}</td>
+                        <td>{{C}}</td>
+                        <td>{{D}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section>
+        <h2>Table 2</h2>
+        <div id="id-table-02">
 
         </div>
     </section>
-    <section class="hidden">
-        <h2>Javascript Data</h2>
-        <div id="id-show-data" class="border border-cells border-headers padding-5 w-100">
+    <br>
+    <a class="btn blue" onclick="document.getElementById('id-show-data').classList.toggle('hidden')">Data</a>
+    
+    <section id="id-show-data" class="hidden">
+        <div class="border border-cells border-headers padding-5 w-100">
         </div>
     </section>
 
@@ -29,19 +53,56 @@
 <script src="js/getBasis.js"></script>
 <script src="../editable HTML/js/editableHTML.js"></script> 
 <script src="js/data.js"></script>
-
 <script>
-    let table = b_divTable({json:FromFile_data, editable:true})
-    table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
-    document.getElementById("id-table").append(table)
+    const textarea = InitTextArea()
+    const searchInput = document.getElementById('searchInput');
+
+    function createTable() {
+        document.getElementById("id-table-02").innerHTML = ""
+        data = new Collection()
+        data.push_String(textarea.value)
+        let table = b_divTable({json:data})
+        table = _setTableThClasses(table, ["w-10", "w-20", "w-30", "w-40"])
+        table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
+        document.getElementById("id-table-02").append(table)
+    }
+
+    function _setTableThClasses(table, classes) {
+        let ths = table.getElementsByTagName('th');
+        assert(ths.length == classes.length)
+        for (let i = 0; i < ths.length; i++) {
+            ths[i].classList.add(classes[i])
+        }
+        return table
+    }
+
+    function InitTextArea() {
+        // Init hiddden textarea
+        data = new Collection()
+        data.push_JSON(FromFile_data)
+        let div = document.createElement("div")
+        div.innerHTML = data.stringifyFormatted()
+        return ShowHTMLinTextArea(div, document.getElementById("id-show-data"))  
+    }
+
+    function filterTable(event) {
+        let searchTerm = searchInput.value.toLowerCase()
+        let table = document.getElementById("id-table-02")
+        // let table = document.getElementById("id-table-01")
+        let tableRows = table.querySelectorAll('tbody tr');
+        tableRows.forEach(row => {
+        let rowData = row.textContent.toLowerCase(); 
+        if (row.classList.contains("hidden")) row.classList.remove("hidden")
+        if (!rowData.includes(searchTerm)) row.classList.add("hidden")
+        })
+    }
 </script>
 
+
 <script>
-    let div = document.createElement("div")
-    let data = new Collection()
-    FromFile_data.forEach(item => data.push(item))
-    div.innerHTML = data.stringifyFormatted()
-    ShowHTMLinTextArea(div, document.getElementById("id-show-data"))
-    document.getElementById("id-show-data").firstElementChild.value = ''
-    + 'const FromFile_data = ' + document.getElementById("id-show-data").firstElementChild.value
+    createTable()
+    Auto_Fill(FromFile_data,"id-table-body")
+
+    textarea.addEventListener('input', createTable)
+    searchInput.addEventListener('input', filterTable)
 </script>
