@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>Table Viewer</title>
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        textarea    {background-color: var(--color-background); color: var(--color-text);}
+    </style>
+</head>
+<body class="academic w-80">
+    <section>
+        <h2>Table</h2>
+        <div id="id-table">
+
+        </div>
+    </section>
+    <section class="hidden">
+        <h2>Javascript Data</h2>
+        <div id="id-show-data" class="border border-cells border-headers padding-5 w-100">
+        </div>
+    </section>
+
+</body> 
+
+<script src="js/getBasis.js"></script>
+<script src="../editable HTML/js/editableHTML.js"></script> 
+<script src="js/data.js"></script>
+
+<script>
+    let table = b_divTable({json:FromFile_data, editable:true})
+    table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
+    document.getElementById("id-table").append(table)
+</script>
+
+<script>
+    let div = document.createElement("div")
+    let data = new Collection()
+    FromFile_data.forEach(item => data.push(item))
+    div.innerHTML = data.stringifyFormatted()
+    ShowHTMLinTextArea(div, document.getElementById("id-show-data"))
+    document.getElementById("id-show-data").firstElementChild.value = ''
+    + 'const FromFile_data = ' + document.getElementById("id-show-data").firstElementChild.value
+</script>

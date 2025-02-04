@@ -269,7 +269,6 @@
 
         
         <!-- --------------------------------------------------------------------------------------- -->
-         <!-- MOHI -->
         <h2 class="underline sticky"> ID link and discard on right</h2>
         <p>
             button wrapper somewhere on page (outside node)...you need to set the target ID
@@ -308,23 +307,9 @@
     </section>
 
 </body>
-<script>
-    let scriptSrc = ''; let cssSrc = ''
-    if (window.location.hostname === "") {
-        scriptSrc = "../bJS/js/b.js"
-        cssSrc = "../bJS/css/b.css"
-    } else {
-        scriptSrc = "https://mo-hi.github.io/bjs/js/b.js"
-        cssSrc = "https://mo-hi.github.io/bjs/css/b.css"
-    }
-    document.write('<script src="' + scriptSrc + '"><' + '/script>');
-    //  document.write also posssibe, but load is better
-    let link = document.createElement('link');link.rel = 'stylesheet'; link.href = cssSrc
-    document.head.appendChild(link)
+<script src="js/getBasis.js"></script>
 
-</script>
-
-<script src="../js/textGeneral.js"></script>
+<script src="../textGeneral.js"></script>
 <script src="js/editableHTML.js"></script>  <!-- this project -->
 <script>
     for (let id of ["01", "02", "03", "04"]) {
