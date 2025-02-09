@@ -18,17 +18,17 @@
         <div id="id-table-01">
             <table class="border border-cells border-headers padding-5 w-100">
                 <thead>
-                    <th>A</th>
-                    <th>B</th>
-                    <th>C</th>
-                    <th>D</th>
+                    <th class="w-10">Country</th>
+                    <th class="w-20">City</th>
+                    <th class="w-30">River</th>
+                    <th class="w-40">Food</th>
                 </thead>
                 <tbody id="id-table-body" class="auto-fill">
                     <tr>
-                        <td>{{A}}</td>
-                        <td>{{B}}</td>
-                        <td>{{C}}</td>
-                        <td>{{D}}</td>
+                        <td>{{Country}}</td>
+                        <td>{{City}}</td>
+                        <td>{{River}}</td>
+                        <td>{{Food}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -51,13 +51,39 @@
 </body> 
 
 <script src="js/getBasis.js"></script>
-<script src="../editable HTML/js/editableHTML.js"></script> 
 <script src="js/data.js"></script>
 <script>
     const textarea = InitTextArea()
     const searchInput = document.getElementById('searchInput');
 
-    function createTable() {
+    function InitTextArea() {
+        // Init hiddden textarea
+        data = new Collection()
+        data.push_JSON(FromFile_data)
+        let div = document.createElement("div")
+        div.innerHTML = data.stringifyFormatted()
+        return ShowHTMLinTextArea(div, document.getElementById("id-show-data"))  
+    }
+
+    function createTables() {
+        createTable_AutoFill()
+        createTable_divTable()
+    }
+
+    function createTable_AutoFill() {
+        document.getElementById("id-table-body").innerHTML = `                    
+                    <tr>
+                        <td>{{Country}}</td>
+                        <td>{{City}}</td>
+                        <td>{{River}}</td>
+                        <td>{{Food}}</td>
+                    </tr>`
+        data = new Collection()
+        data.push_String(textarea.value)
+        Auto_Fill(data,"id-table-body")    
+    }
+
+    function createTable_divTable() {
         document.getElementById("id-table-02").innerHTML = ""
         data = new Collection()
         data.push_String(textarea.value)
@@ -76,19 +102,15 @@
         return table
     }
 
-    function InitTextArea() {
-        // Init hiddden textarea
-        data = new Collection()
-        data.push_JSON(FromFile_data)
-        let div = document.createElement("div")
-        div.innerHTML = data.stringifyFormatted()
-        return ShowHTMLinTextArea(div, document.getElementById("id-show-data"))  
+
+    function filterTable(event) { 
+        filterTable_id("id-table-01")
+        filterTable_id("id-table-02")
     }
 
-    function filterTable(event) {
+    function filterTable_id(id) {    // event is not used
         let searchTerm = searchInput.value.toLowerCase()
-        let table = document.getElementById("id-table-02")
-        // let table = document.getElementById("id-table-01")
+        let table = document.getElementById(id)
         let tableRows = table.querySelectorAll('tbody tr');
         tableRows.forEach(row => {
         let rowData = row.textContent.toLowerCase(); 
@@ -100,9 +122,8 @@
 
 
 <script>
-    createTable()
-    Auto_Fill(FromFile_data,"id-table-body")
-
-    textarea.addEventListener('input', createTable)
+    createTables()
+    
+    textarea.addEventListener('input', createTables)
     searchInput.addEventListener('input', filterTable)
 </script>
