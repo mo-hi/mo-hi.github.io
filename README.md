@@ -1,6 +1,6 @@
 # Mo-Hi
 
-My personal collection of basic javascript and css 
+My personal collection of basic javascript and css. The main documentation is on the io page: [https://mo-hi.github.io/]
 
 - test JS: Super light-weight javascript class for testing javascript code.
 - b JS: Basis javascript and prototype functions.
