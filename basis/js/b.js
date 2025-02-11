@@ -1,73 +1,4 @@
 // ####################################################################################################
-// region auto_fill                                                                                       #
-// ####################################################################################################
-
-function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
-    let container = document.getElementById(elementId);
-    if (elementId == "body") container = document.body
-    if (!container) return 
-  
-    let template = container.innerHTML
-    let lastVaues = {}
-    
-    if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
-    if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
-
-    container.innerHTML = "";
-    listOfDictionaries.forEach(item => {
-        let nextString = template
-    
-        for (let key in item) {
-            if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
-                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
-            else {
-                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), item[key])}
-            
-            lastVaues[key] = item[key]
-            }
-        container.innerHTML += nextString
-    });
-}
-
-
-function ShowHTMLinTextArea(divToExpose, divToAppend) {
-    let textarea = document.createElement('textarea');
-    textarea.id = 'htmlSource';
-    textarea.spellcheck = false;
-    textarea.style.width = '100%';
-    textarea.style.height = '100%';
-
-    let htmlSource = undefined
-    if (typOf(divToExpose) == 'str') {
-        htmlSource = divToExpose}
-    if (divToExpose instanceof HTMLElement) {
-        htmlSource = divToExpose.innerHTML;
-        if (divToExpose.tagName.toLowerCase() === 'script') {
-            textarea.classList.add('script') 
-        }
-    }
-    if (htmlSource == undefined) return
-    
-    textarea.value = _filteredLines(htmlSource, '#IGNORE')
-    divToAppend.appendChild(textarea);   
-    return textarea                                                                                                                                        
-}
-
-function _filteredLines(text, filterWord) {
-    let lines = text.split('\n')
-                    .filter(line => !isBlank(line) && !line.includes(filterWord));
-
-    let Indent = Math.min(...lines.map(line => line.match(/^\s*/)[0].length));
-
-    return lines.map(line => line.slice(Indent).trimEnd()).join('\n');
-}
-
-
-
-function isBlank(str) {
-    return !/[^\t\r\n\v\f ]/.test(str);
-  }
-// ####################################################################################################
 // region basis                                                                                           #
 // ####################################################################################################
 
@@ -388,6 +319,80 @@ function DOM_ElementFromJSEvent(event) {
     return divElement
 }
 // ####################################################################################################
+// region htmlManipulation                                                                                #
+// ####################################################################################################
+
+/**
+Modifies your html page by filling in the values of the provided list of dictionaries.
+*/
+function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
+    let container = document.getElementById(elementId);
+    if (elementId == "body") container = document.body
+    if (!container) return 
+  
+    let template = container.innerHTML
+    let lastVaues = {}
+    
+    if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
+    if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
+
+    container.innerHTML = "";
+    listOfDictionaries.forEach(item => {
+        let nextString = template
+    
+        for (let key in item) {
+            if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
+                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
+            else {
+                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), item[key])}
+            
+            lastVaues[key] = item[key]
+            }
+        container.innerHTML += nextString
+    });
+}
+
+/**
+Modifies your html page by adding a textarea with a div's innerHTML.
+*/
+function ShowHTMLinTextArea(divToExpose, divToAppend) {
+    let textarea = document.createElement('textarea');
+    textarea.id = 'htmlSource';
+    textarea.spellcheck = false;
+    textarea.style.width = '100%';
+    textarea.style.height = '100%';
+
+    let htmlSource = undefined
+    if (typOf(divToExpose) == 'str') {
+        htmlSource = divToExpose}
+    if (divToExpose instanceof HTMLElement) {
+        htmlSource = divToExpose.innerHTML;
+        if (divToExpose.tagName.toLowerCase() === 'script') {
+            textarea.classList.add('script') 
+        }
+    }
+    if (htmlSource == undefined) return
+    
+    textarea.value = _filteredLines(htmlSource, '#IGNORE')
+    divToAppend.appendChild(textarea);   
+    return textarea                                                                                                                                        
+}
+
+function _filteredLines(text, filterWord) {
+    let lines = text.split('\n')
+                    .filter(line => !isBlank(line) && !line.includes(filterWord));
+
+    let Indent = Math.min(...lines.map(line => line.match(/^\s*/)[0].length));
+
+    return lines.map(line => line.slice(Indent).trimEnd()).join('\n');
+}
+
+
+
+function isBlank(str) {
+    return !/[^\t\r\n\v\f ]/.test(str);
+  }
+// ####################################################################################################
 // region Array                                                                                      #
 // ####################################################################################################
 
@@ -688,60 +693,12 @@ class Collection extends Array {
         // i do nothing
     }
 
-    /** 
-    Collection
-    with an additional check that the item(s) pushed are of type dictionary
-    */
-    push(...items) {
-        for (let item of items) {
-            assert (typOf(item) == 'dict')
-        }
-        super.push(...items);
-    }
-
-    /** 
-    Collection
-    pushed the elements of a odanariy list of dictionaries. 
-    */
-    push_JSON(items) {
-        assert (typOf(items) == 'list')
-        for (let item of items) {
-            assert (typOf(item) == 'dict')
-            super.push(item)
-        }
-    }
-
-    /** 
-    Collection
-    pushes the rows of the array. The array must be a 2D array, where the first row (array[0]) are the keys.
-    */
-    push_Array(array2D) {
-        assert (typOf(array2D) == 'list')
-        assert (array2D.depth() == 2)
-
-        let keys = array2D[0]
-        for (let i = 1; i<array2D.length; i++) {
-            this.push(dictionary(keys, array2D[i]))
-        }
-    }
-
-    /** 
-    Collection
-    pushes the elements represented by a JSOn String. The JSON string must be a list of dictionaries.
-    */
-    push_String(jsonString) {
-        if (!jsonString.isJSON) return 
-
-        let jsonObject = JSON.parse(jsonString);
-        jsonObject.forEach(item => {this.push(item)})
-    }
-
-    /** 
+        /** 
     Collection
     returns all items in form of a 2D array. The first row of the 2D array are the dictionary keys. in case a key is provided, then a 1D array is provided
     that contains all values of the corresponding key. 
     */
-    AsList(key) {
+    asList(key) {
         let ret = [];
 
         if (key == undefined) {
@@ -760,6 +717,65 @@ class Collection extends Array {
             });
         }
         return ret
+    }
+
+    /** 
+    Collection
+    with an additional check that the item(s) pushed are of type dictionary
+    */
+    push(...items) {
+        for (let item of items) {
+            assert (typOf(item) == 'dict')
+        }
+        super.push(...items);
+    }
+
+    /** 
+    Collection
+    pushed the elements of a odanariy list of dictionaries. 
+    */
+    pushJSON(items) {
+        assert (typOf(items) == 'list')
+        for (let item of items) {
+            assert (typOf(item) == 'dict')
+            super.push(item)
+        }
+    }
+
+    /** 
+    Collection
+    pushes the rows of the array. The array must be a 2D array, where the first row (array[0]) are the keys.
+    */
+    pushArray(array2D) {
+        assert (typOf(array2D) == 'list')
+        assert (array2D.depth() == 2)
+
+        let keys = array2D[0]
+        for (let i = 1; i<array2D.length; i++) {
+            this.push(dictionary(keys, array2D[i]))
+        }
+    }
+
+    /** 
+    Collection
+    pushes the elements represented by a JSOn String. The JSON string must be a list of dictionaries.
+    */
+    pushString(jsonString) {
+        if (!jsonString.isJSON) return 
+
+        let jsonObject = JSON.parse(jsonString);
+        jsonObject.forEach(item => {this.push(item)})
+    }
+
+    /**
+    Collection
+    removes for all items the key-value pair of a specified key. This is equivalent to removing a column in a table.
+    */
+    removeKey(key) {
+        assert (typOf(key) == 'str')
+        this.forEach(item => {
+            if (item[key]) delete item[key]
+        });
     }
 
     /** 
@@ -791,7 +807,26 @@ class Collection extends Array {
     returns the ego data as a string in a excel-ready formatted 2D array
     */
     stringifyTable() {
-        return this.AsList().stringify('\n', '\t')
+        return this.asList().stringify('\n', '\t')
+    }
+
+    /**
+    Collection
+    returns a new collection with the subset of elements which have the specified key
+    */
+    subsetKeys(keys) {
+        assert (typOf(keys) == 'list')
+        return this.filter(item => keys.every(key => item.keys().includes(key)))
+    }
+
+    /**
+    Collection
+    returns a new collection with the subset of elements which have the specified key-value pair
+    */
+    subsetValues(key, values) {
+        assert (typOf(key) == 'str')
+        assert (typOf(values) == 'list')
+        return this.filter(item => values.includes(item[key]))
     }
 
     _headers150() {

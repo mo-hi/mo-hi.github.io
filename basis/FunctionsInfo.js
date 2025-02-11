@@ -48,6 +48,18 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DOM"
     },
     {
+        "name": "Auto_Fill",
+        "docstring": "Modifies your html page by filling in the values of the provided list of dictionaries.",
+        "parameters": "listOfDictionaries, elementId = \"body\", compareKeys = []",
+        "region": "htmlManipulation"
+    },
+    {
+        "name": "ShowHTMLinTextArea",
+        "docstring": "Modifies your html page by adding a textarea with a div's innerHTML.",
+        "parameters": "divToExpose, divToAppend",
+        "region": "htmlManipulation"
+    },
+    {
         "name": ".depth",
         "docstring": "returns the max depth of an array.\nAs this function uses recursion you can limit the level of recursions, default limit is 9.",
         "parameters": "limit_Recursions",
@@ -318,32 +330,38 @@ const FromFile_FunctionsInfo_JS = [
         "region": "class Collection"
     },
     {
+        "name": ".asList",
+        "docstring": "returns all items in form of a 2D array. The first row of the 2D array are the dictionary keys. in case a key is provided, then a 1D array is provided\n    that contains all values of the corresponding key.",
+        "parameters": "key",
+        "region": "class Collection"
+    },
+    {
         "name": ".push",
         "docstring": "with an additional check that the item(s) pushed are of type dictionary",
         "parameters": "...items",
         "region": "class Collection"
     },
     {
-        "name": ".push_JSON",
+        "name": ".pushJSON",
         "docstring": "pushed the elements of a odanariy list of dictionaries.",
         "parameters": "items",
         "region": "class Collection"
     },
     {
-        "name": ".push_Array",
+        "name": ".pushArray",
         "docstring": "pushes the rows of the array. The array must be a 2D array, where the first row (array[0]) are the keys.",
         "parameters": "array2D",
         "region": "class Collection"
     },
     {
-        "name": ".push_String",
+        "name": ".pushString",
         "docstring": "pushes the elements represented by a JSOn String. The JSON string must be a list of dictionaries.",
         "parameters": "jsonString",
         "region": "class Collection"
     },
     {
-        "name": ".AsList",
-        "docstring": "returns all items in form of a 2D array. The first row of the 2D array are the dictionary keys. in case a key is provided, then a 1D array is provided\n    that contains all values of the corresponding key.",
+        "name": ".removeKey",
+        "docstring": "removes for all items the key-value pair of a specified key. This is equivalent to removing a column in a table.",
         "parameters": "key",
         "region": "class Collection"
     },
@@ -363,6 +381,18 @@ const FromFile_FunctionsInfo_JS = [
         "name": ".stringifyTable",
         "docstring": "returns the ego data as a string in a excel-ready formatted 2D array",
         "parameters": "",
+        "region": "class Collection"
+    },
+    {
+        "name": ".subsetKeys",
+        "docstring": "returns a new collection with the subset of elements which have the specified key",
+        "parameters": "keys",
+        "region": "class Collection"
+    },
+    {
+        "name": ".subsetValues",
+        "docstring": "returns a new collection with the subset of elements which have the specified key-value pair",
+        "parameters": "key, values",
         "region": "class Collection"
     }
 ]
