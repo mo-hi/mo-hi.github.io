@@ -392,16 +392,6 @@ function DOM_ElementFromJSEvent(event) {
 // ####################################################################################################
 
 /** 
-dummy as workaround for regex bug. first docstring is not recognized correctly.
-*/
-Object.defineProperties(Array.prototype, {
-    dummy_I_DO_NOTHING: {
-        value: function() {
-        }
-    }
-});
-
-/** 
 returns the max depth of an array.
 As this function uses recursion you can limit the level of recursions, default limit is 9.
 */
@@ -690,16 +680,7 @@ class Collection extends Array {
     constructor(...args) {
         super(...args);
     }
-
-    /** 
-    Collection
-    dummy as workaround for regex bug. first docstring is not recognized correctly.
-    */
-    dummy_I_DO_NOTHING() {
-        // i do nothing
-    }
-
-    /** 
+        /** 
     Collection
     A collection is a list of dictionaries (technically array of objects).
     */
@@ -837,16 +818,6 @@ class Collection extends Array {
 // region Dictionary                                                                                 #
 // ####################################################################################################
 
-/** 
-dummy as workaround for regex bug. first docstring is not recognized correctly.
-*/
-Object.defineProperties(Object.prototype, {
-    dummy_I_DO_NOTHING2: {
-        value: function() {
-        }
-    }
-});
-
 /**
 returns an array of the object's own keys.
  */
@@ -924,12 +895,6 @@ Object.defineProperties(Object.prototype, {
 // region DIV                                                                                        #
 // ####################################################################################################
 
-/** 
-dummy as workaround for regex bug. first docstring is not recognized correctly.
-*/
-Element.prototype.dummy_I_DO_NOTHING = function() {
-};
-
 /**
 returns all descendats (children and grandchildren) of a div that have a certain className
 */
@@ -1000,12 +965,6 @@ Object.defineProperty(DOMTokenList.prototype, 'addX', {
 // ####################################################################################################
 
 /** 
-dummy as workaround for regex bug. first docstring is not recognized correctly.
-*/
-Element.prototype.dummy_I_DO_NOTHING = function() {
-};
-
-/** 
 sets the table headers innerHTML. The headers must be provided as list/array (hence liste)
 The length of liste must equal to the table cols length.
 */
@@ -1055,17 +1014,6 @@ Element.prototype.b_divTable_AddRows = function(liste) {
 // ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################
-
-/** 
-dummy as workaround for regex bug. first docstring is not recognized correctly.
-*/
-Object.defineProperties(Object.prototype, {
-    dummy_I_DO_NOTHING: {
-        value: function() {
-        }
-    }
-});
-
 
 /** 
 sets the table headers innerHTML. The headers must be provided as list/array (hence liste)
