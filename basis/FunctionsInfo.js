@@ -336,6 +336,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "class Collection"
     },
     {
+        "name": ".copyKey",
+        "docstring": "adds a new key-value pair to all items. This is equivalent to adding a new column to a table. \n    If force is set to false, then the new key is only added to items if key exists in the item.\n    Force is set to true by default and will add the new key with an empty string in case the key does not exist.",
+        "parameters": "key, newKey, force=true",
+        "region": "class Collection"
+    },
+    {
         "name": ".push",
         "docstring": "with an additional check that the item(s) pushed are of type dictionary",
         "parameters": "...items",

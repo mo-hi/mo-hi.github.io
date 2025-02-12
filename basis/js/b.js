@@ -719,6 +719,22 @@ class Collection extends Array {
         return ret
     }
 
+    /**
+    Collection
+    adds a new key-value pair to all items. This is equivalent to adding a new column to a table. 
+    If force is set to false, then the new key is only added to items if key exists in the item.
+    Force is set to true by default and will add the new key with an empty string in case the key does not exist.
+    */
+    copyKey(key, newKey, force=true) {
+        assert (typOf(key) == 'str')
+        assert (typOf(newKey) == 'str')
+        assert (typOf(force) == 'bool')
+        this.forEach(item => {
+            if (item[key]) item[newKey] = item[key]
+            else if (force) item[newKey] = ""
+        });
+    }
+
     /** 
     Collection
     with an additional check that the item(s) pushed are of type dictionary
@@ -774,7 +790,7 @@ class Collection extends Array {
     removeKey(key) {
         assert (typOf(key) == 'str')
         this.forEach(item => {
-            if (item[key]) delete item[key]
+            if (item[key] != undefined) delete item[key]
         });
     }
 
