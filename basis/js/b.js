@@ -329,6 +329,7 @@ function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
     let container = document.getElementById(elementId);
     if (elementId == "body") container = document.body
     if (!container) return 
+    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
   
     let template = container.innerHTML
     let lastVaues = {}
@@ -374,6 +375,7 @@ function ShowHTMLinTextArea(divToExpose, divToAppend) {
     if (htmlSource == undefined) return
     
     textarea.value = _filteredLines(htmlSource, '#IGNORE')
+    if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
     divToAppend.appendChild(textarea);   
     return textarea                                                                                                                                        
 }
