@@ -55,7 +55,7 @@ nav > info {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  z-index: 1;
+  z-index: -1;
 }
 
 .sidebar a {
@@ -99,4 +99,5 @@ drop down {
 
 drop.active > down {
   display:block;
+  z-index: 1;
 }

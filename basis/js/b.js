@@ -989,6 +989,23 @@ Element.prototype.IsDescendantOfClass = function(ancestorClass) {
 };
 
 /**
+returns true if the ego div is a decendant of the ancestor div
+*/
+Element.prototype.IsDescendantOf = function(ancestor, iterations = 20) {
+          let ego = this
+          for (i = 0; i<iterations; i++) {
+              if (ego.tagName == "BODY") {
+                  return false}
+              if (ego.parentElement === null) {
+                  return false}
+              if (ego === ancestor) {
+                  return true}
+              ego = ego.parentElement
+          }
+          return false
+      };
+
+/**
 adds a 'click' and a 'touchstart' evenlistener event to the ego element. The ego element must have the class 'js-event'
 */
 Element.prototype.JSEvent_AddClickTouch = function(functionName) {

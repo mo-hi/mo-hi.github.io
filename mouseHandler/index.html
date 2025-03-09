@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>Mouse Handler</title>
+    <link rel="stylesheet" href="../basis/css/b.css">
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        #id-end     {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        div.item   {
+            border: 1px solid black;
+            width:50pt;
+            height:50pt;
+            float: left;
+            text-align: center;
+            line-height: 50pt;
+            }
+        </style>
+</head>
+
+<body class="academic wr-1600-400">
+    <h1>Mouse Handler</h1>
+    <h2 class="underline sticky">About Mouse Handler</h2>
+    <p>
+        Mouse Handler provides simplified usage of mousce click events. In the current version clicks take take longer
+        than 0.3 seconds are considered as text marking actions, ignoring the click. Other may be added. 
+        To use Mouse Handler in your project, just add the following script reference to your project:
+    </p>
+    <code class="w-70">
+        (-script src="https://mo-hi.github.io/mouseHandler/js/mouseHandler.js"-) (-/script-)  | <a href="https://mo-hi.github.io/mouseHandler/js/libUserInput.js">link </a>
+    </code>
+    <p> 
+        The application of mouseHandler via <c>addEventListener</c> in comparison with hover and Keyboard user inputs.
+        When initialozing the mouseHandler object, the function to be called on click is passed as a parameter.
+        Two event listeners are added, one to check cklickDown and on to check ClickUp. The assigned functions are
+        always <c>MH.MouseDown</c> and <c>MH.MouseUp</c>.
+        The hover event is added natively to the divs. The key event is added to the window.
+    </p>
+    <div id="id-showJS" class="js-fill h-300 w-70">
+    
+    </div>
+    <br/>
+    <p><b>See the result </b> and notice when clicks that take longer than 300ms do not trigger the Click function:</p>
+    <div id="id-section-out" > 
+        <div id="out-tipp" class="inline-block w-35">Keyboard: </div>
+        <div id="out-click" class="inline-block w-30">Click: </div>
+        <div id="out-hover" class="inline-block w-30">Hover: </div>
+    </div>
+    <br/>
+    <div id="id-section-2" class="js-fill"> 
+        <div id="id-{{no}}" class="item">{{no}}</div>
+    </div>
+
+    <section class="h-400 mb-100">
+        <!-- empty -->
+    </section>
+    <p id="id-end" class="js-fill wr-1600-400 h-50 fixed bottom-0 mb-0i" style="z-index: 2;border-top: 1px solid grey;">
+        {{id-end-index}}
+    </p>
+
+</body>
+<script src="../basis/js/b.js"></script>
+<script src="../navbar/js/nav.js"></script>
+<script src="../textGeneral.js"></script>
+
+<!-- this project -->
+<script src="js/mouseHandler.js"></script>
+
+<!-- supporting pre-->
+<script>
+    let list200 = [];
+    for (let i = 1; i <= 110; i++) {
+        list200.push({ "no": i });}
+    Auto_Fill(list200,"id-section-2")
+    Auto_Fill(FromFile_textGeneral_js,"id-end")
+    DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['code'])
+</script>
+
+<!-- environment -->
+<script src="js/global.js"></script>
+
+<!-- application -->
+<script id="id-js-application">
+    const MH = new clsMouseHandler({'onClick':fucntion_Click});
+    (function () {
+            for (i = 1; i<110;i++) {
+                div = document.getElementById("id-"+String(i))
+                // Mouse Handler per div. Both events are needed to prevent text selection being mistaken for a click
+                div.addEventListener('mousedown', MH.MouseDown)
+                div.addEventListener('mouseup', MH.MouseUp)
+                // native Hover per div.
+                div.addEventListener('mouseenter', fucntion_Hover)
+                }
+            // native Key Handler. Once per window
+            window.addEventListener('keyup', fucntion_Tipp)
+            }
+    )();
+</script>
+
+<!-- supporting post-->
+<script>
+    ShowHTMLinTextArea(document.getElementById("id-js-application"), document.getElementById("id-showJS"))
+</script>
+
+
+
+
+</html>

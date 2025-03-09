@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
     <title>CSS: nav fix multi </title>
-    <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/navColors.css">
-    <link rel="stylesheet" href="../basis/css/b.css">
+    <div id="id-css">
+        <link rel="stylesheet" href="css/nav.css"> <!-- mandatory -->
+        <link rel="stylesheet" href="css/navColors.css">
+        <link rel="stylesheet" href="../basis/css/b.css">
+    </div>
     <style>
         :root       {--color-background: #f0f0f0;--color-text: #444;}
         body        {background-color: var(--color-background); color: var(--color-text);}
@@ -14,7 +16,7 @@
         textarea    {background-color: var(--color-background); color: var(--color-text);}
     </style>
 </head>
-<body class="academic wr-800-400" >
+<body class="academic wr-800-400 js-fill" >
     <div id="id-nav">
         <div class="fixed wr-800-400 flex top-0" >
             <nav class="w-60">
@@ -53,7 +55,7 @@
     <main class="paper">
         <h2 class="inline-block">nav.css</h2>
         <h2 class="inline-block not-bold">(with fixed position, click behavior and three sections)</h2>
-        <div id = 'id-start' class="auto-fill">
+        <div id = 'id-start' class="js-fill">
             <!-- filled via script-->
         </div>
     
@@ -67,36 +69,37 @@
     </p>
     HTML
     <div id="id-show" class="h-500"></div>
-
-    <div id = 'id-fixed' class="auto-fill">
-        <!-- filled via script-->
-    </div>
-
-    <div id = 'id-click' class="auto-fill">
-        <!-- filled via script-->
-    </div>
-    
+    <br>
+    JS
+    <div id="id-showJS" class="h-60"></div>
+    <br>
+    CSS 
+    <div id="id-showCSS" class="h-60"></div>
     <br>
     <hr>
     <section>
-        <p id="id-end" class="auto-fill">
-            <!-- filled via script-->
+        <p id="id-end">
+            {{id-end}}
         </p>
     </section>
+    {{very-end}}
     </body>
-    <!-- js libs -->
-    <script src="../basis/js/b.js"> </script>
+    <div id = "id-scripts">
+        <script src="../basis/js/b.js"> </script>
+        <script src="js/nav.js"></script>
+    </div>
 
-    <!-- this project -->
-    <script src="js/nav.js"></script>
+    <div id = "id-Auto-Fill">
+        <!-- HTML Auto Fill Text -->
+        <script src="js/textNav.js"></script>
+        <script src="../textGeneral.js"></script>
+        <script>
+            Auto_Fill(FromFile_textNav_JS)
+            Auto_Fill(FromFile_textGeneral_js)
 
-    <!-- HTML Auto Fill Text -->
-    <script src="js/textNav.js"></script>
-    <script src="../textGeneral.js"></script>
-    <script>
-        Auto_Fill(FromFile_textNav_JS)
-        Auto_Fill(FromFile_textGeneral_js)
-
-        ShowHTMLinTextArea(document.getElementById("id-nav"), document.getElementById("id-show"))
-    </script>
+            ShowHTMLinTextArea(document.getElementById("id-nav"), document.getElementById("id-show"))
+            ShowHTMLinTextArea(document.getElementById("id-scripts"), document.getElementById("id-showJS"))
+            ShowHTMLinTextArea(document.getElementById("id-css"), document.getElementById("id-showCSS"))
+        </script>
+    </div>
 </html>

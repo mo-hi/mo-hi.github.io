@@ -306,6 +306,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DIV objects"
     },
     {
+        "name": ".IsDescendantOf",
+        "docstring": "returns true if the ego div is a decendant of the ancestor div",
+        "parameters": "ancestor, iterations = 20",
+        "region": "DIV objects"
+    },
+    {
         "name": ".JSEvent_AddClickTouch",
         "docstring": "adds a 'click' and a 'touchstart' evenlistener event to the ego element. The ego element must have the class 'js-event'",
         "parameters": "functionName",
