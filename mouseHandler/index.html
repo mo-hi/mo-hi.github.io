@@ -41,7 +41,7 @@
         always <c>MH.MouseDown</c> and <c>MH.MouseUp</c>.
         The hover event is added natively to the divs. The key event is added to the window.
     </p>
-    <div id="id-showJS" class="js-fill h-300 w-70">
+    <div id="id-showJS" class="js-fill h-350 w-70">
     
     </div>
     <br/>
@@ -86,18 +86,21 @@
 
 <!-- application -->
 <script id="id-js-application">
-    const MH = new clsMouseHandler({'onClick':fucntion_Click});
+    const MH = new clsMouseHandler({'onClick':function_Click});
     (function () {
             for (i = 1; i<110;i++) {
                 div = document.getElementById("id-"+String(i))
                 // Mouse Handler per div. Both events are needed to prevent text selection being mistaken for a click
-                div.addEventListener('mousedown', MH.MouseDown)
-                div.addEventListener('mouseup', MH.MouseUp)
+                MH.addEventListeners(div)
+                // alternative: native event listeners
+                // div.addEventListener('mousedown', MH.MouseDown)
+                // div.addEventListener('mouseup', MH.MouseUp)
+
                 // native Hover per div.
-                div.addEventListener('mouseenter', fucntion_Hover)
+                div.addEventListener('mouseenter', function_Hover)
                 }
             // native Key Handler. Once per window
-            window.addEventListener('keyup', fucntion_Tipp)
+            window.addEventListener('keyup', function_Tipp)
             }
     )();
 </script>

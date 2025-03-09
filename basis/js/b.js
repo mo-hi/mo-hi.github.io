@@ -989,7 +989,7 @@ Element.prototype.IsDescendantOfClass = function(ancestorClass) {
 };
 
 /**
-returns true if the ego div is a decendant of the ancestor div
+returns true if the ego div is a decendant of the ancestor div. The function looks up 20 generations, which can be changed by the iterations parameter.
 */
 Element.prototype.IsDescendantOf = function(ancestor, iterations = 20) {
           let ego = this

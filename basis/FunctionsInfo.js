@@ -307,7 +307,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".IsDescendantOf",
-        "docstring": "returns true if the ego div is a decendant of the ancestor div",
+        "docstring": "returns true if the ego div is a decendant of the ancestor div. The function looks up 20 generations, which can be changed by the iterations parameter.",
         "parameters": "ancestor, iterations = 20",
         "region": "DIV objects"
     },

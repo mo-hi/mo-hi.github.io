@@ -3,12 +3,17 @@ class clsMouseHandler {
         this.mousedownTime = 0
         this.onClickFunction = onClickFunction
     }
+
+    addEventListeners = (element) => {
+        element.addEventListener('mousedown', this._MouseDown)
+        element.addEventListener('mouseup', this._MouseUp)
+    }
     
-    MouseDown = (event) => {
+    _MouseDown = (event) => {
         this.mousedownTime = new Date().getTime();
     }
 
-    MouseUp = (event) => {
+    _MouseUp = (event) => {
         let nextMouseupTime = new Date().getTime();
         let mousetime = nextMouseupTime-this.mousedownTime
 
