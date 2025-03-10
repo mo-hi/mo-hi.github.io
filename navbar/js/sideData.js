@@ -1,7 +1,7 @@
   
 // Example sidebar data
 const sidebarData = [
-    { name: "Australia" },
+    { name: "America" },
     {
         name: "Europe",
   
@@ -32,5 +32,5 @@ const sidebarData = [
             { name: "Italy" },
         ],
         },
-        { name: "Zoomania" },
+        { name: "Asia" },
   ];

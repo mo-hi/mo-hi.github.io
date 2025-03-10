@@ -20,7 +20,9 @@ function toggleDown(a) {
 function nav_AutoFillSidebar(targetID, data, clickfunction, clearBefore = true, numbering = true, ) {
     let ul = document.getElementById(targetID)
     if (!(ul instanceof HTMLUListElement) ||
-        !ul.classList.contains("auto-fill")) return;
+        !ul.classList.contains("js-fill")) {
+            console.log('Warning: nav_AutoFillSidebar, class "js-fill" not found')
+            return;}
 
     let no = -1; 
     if (numbering) no = 0

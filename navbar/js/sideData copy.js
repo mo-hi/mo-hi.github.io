@@ -1,7 +1,7 @@
   
 // Example sidebar data
 const sidebarDataCopy = [
-    { name: "Asia" },
+    { name: "Europe" },
     {
         name: "America",
         children: [
@@ -30,5 +30,5 @@ const sidebarDataCopy = [
             { name: "Mexico" },
         ],
         },
-        { name: "Zoomania" },
+        { name: "Asia" },
   ];

@@ -4,34 +4,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
     <title>sidebar css</title>
-    <link rel="stylesheet" href="../basis/css/b.css">
-    <link rel="stylesheet" href="css/nav.css">
+    <div id="id-css">
+        <link rel="stylesheet" href="../basis/css/b.css">
+        <link rel="stylesheet" href="css/nav.css">
+    </div>
 </head>
-<body class="academic wr-800-400">
+<body class="academic wr-800-400 js-fill">
     <div class="h-30"></div>
     <!-- ----------------------------------------------------------------------------------------- -->   
     <main>
-        <h2>nav.css</h2>
-        <h2x>(sidebar)</h2x>
-        <section>
-            <h3>About</h3>
-            <p id = 'id-start' class="auto-fill">
-                <!-- filled via script-->
-            </p> 
-        </section>
+        <h2 class="inline-block">nav.css</h2>
+        <h2 class="inline-block h2-not-bold"> (sidebar)</h2>
+
 
         <section>
-            <h3>nav.css as sidebar</h3>
+            <h3>static sidebar</h3>
             <p>
-                In its basic form, the only difference to make a navbar to a sidebar
-                is to wrap the  html inside a &lt;ul&gt; tag (instead of &lt;nav&gt;) and to use  
-                &lt;li&gt; tags (instead of &lt;a&gt;) for the sidebar items. Hence The sidear is intended to call functions and not intended
-                to be used for links. Here's an example sidebar:
+                The sidebar is based on the same nav.js as the navbars.
+                The key difference of the sidebar is to:<br/>
+                - wrap the  html inside a &lt;ul&gt; tag (instead of &lt;nav&gt;) and <br/>
+                - use &lt;li&gt; tags (instead of &lt;a&gt;) for the sidebar items. <br/><br/>
+                The class <c>sidebar</c> is used to style the sidebar (see nav.css).
+                The sidear is intended to call functions via <c>onclick</c>. The sidebar is not intended
+                to be used for links. The sidebar is staticly defined in the html part. Here's an example:
             </p> 
             <p>
-                <table>
+                <table class="w-100">
                     <tr>
-                        <td class="w-40 pt-20 top">
+                        <td id="id-sidebar" class="w-30 pt-20 top">
                             <ul class="sidebar">
                                 <li onclick="">Australia</li>
                                 <drop>
@@ -63,53 +63,66 @@
                                         <li onclick="">Italy</li>
                                     </down>
                                 </drop>
-                                <li onclick="">Zoomania</li>
+                                <li onclick="">Africa</li>
                             </ul>
                         </td>
-                        <td class="top"><codeblock><pre>
-&lt;ul class="sidebar"&gt;
-&lt;li onclick=""&gt;Australia&lt;/li&gt;
-&lt;drop&gt;
-    &lt;li onclick="toggleDown(this)"&gt;Europe&lt;/li&gt;
-    &lt;down&gt;
-        &lt;drop&gt;
-            &lt;li onclick="toggleDown(this)"&gt;Germany&lt;/li&gt;
-            &lt;down&gt;
-                &lt;drop&gt;
-                    &lt;li onclick="toggleDown(this)"&gt;Bavaria&lt;/li&gt;
-                    &lt;down&gt;
-                        &lt;drop&gt;
-                            &lt;li onclick="toggleDown(this)"&gt;Munich&lt;/li&gt;
-                            &lt;down&gt;
-                                &lt;li onclick=""&gt;Schwabing&lt;/li&gt;
-                                &lt;li onclick=""&gt;Neuhausen&lt;/li&gt;
-                                &lt;li onclick=""&gt;Feldmoching&lt;/li&gt;
-                            &lt;/down&gt;
-                        &lt;/drop&gt;
-                        &lt;li onclick=""&gt;Regensburg&lt;/li&gt;
-                        &lt;li onclick=""&gt;Rosenheim&lt;/li&gt;
-                    &lt;/down&gt;
-                &lt;/drop&gt;
-                &lt;li onclick=""&gt;Saxony&lt;/li&gt;
-                &lt;li onclick=""&gt;NRW&lt;/li&gt;
-            &lt;/down&gt;
-        &lt;/drop&gt;
-        &lt;li onclick=""&gt;France&lt;/li&gt;
-        &lt;li onclick=""&gt;Italy&lt;/li&gt;
-    &lt;/down&gt;
-&lt;/drop&gt;
-&lt;li onclick=""&gt;Zoomania&lt;/li&gt;
-&lt;/ul&gt;</pre>
-                        </codeblock>
+                        <td  class="w-70  pt-20 top">
+                            HTML
+                            <div id="id-show" class="h-550 js-fill">
+                                <!-- filled via script -->
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+            </p>
+        </section>
+        JS
+        <div id="id-showJS" class="h-60 js-fill"></div>
+        <br>
+        CSS 
+        <div id="id-showCSS" class="h-60 js-fill"></div>
+        
+        <section>
+            <h3>dynamic sidebar</h3>
+            <p>
+                The content of this sidebar is generated from data. The data is an array of objects (=list of dictionaries), where each object represents a sidebar item.
+                Each item again can be a list of items, creating a dropdown. 
+                <br><br>
+                As this dynamics sidebar is no longer defiend in html, assigning functions to the sidebar items works differently.
+                One function must be defined which will be called for all sidebar items when clicked. 
+                Within this function, the clicked item can be identified and the appropriate action taken.
+                <br><br>
+                In the below example, the function <c>foo</c> will be called every time when you click an item of the sidebar changing the content of the sidebar. 
+                Inside foo (or the function you have defined) you have access to the event object, and such to the &lt;li&gt; respectivley.
+                
+            </p>
+            HTML
+            <div id="id-show-2" class="h-60 js-fill">
+                <!-- filled via script -->
+            </div>
+            JS
+            <div id="id-showJS-2" class="h-400 js-fill">
+
+            </div>
+            <p>
+                <table class="w-100">
+                    <tr>
+                        <td id="id-sidebar-2-wrapper" class="w-30 pt-20 top">
+                            <ul id="id-sidebar2" class="sidebar js-fill">
+                                <!-- filled via script-->
+                            </ul>
+                        </td>
+                        <td class="top w-70">
                         </td>
                     </tr>
                 </table>
             </p>
         </section>
-
+        
         <br><hr>
         <section>
-            <p id="id-end" class="auto-fill">
+            <p id="id-end">
                 {{id-end}}
             </p>
         </section>
@@ -117,20 +130,57 @@
     </main>
 
 </body>
-    <!-- js libs -->
-    <script src="../bJS/js/b.js"> </script>
-
-    <!-- this project -->
-    <script src="js/nav.js"></script>
-    <script src="js/sideData.js"></script>
-
+    <div id = "id-scripts">
+        <script src="../basis/js/b.js"> </script>
+        <script src="js/nav.js"></script>
+    </div>
     <!-- HTML Auto Fill Text -->
     <script src="js/textNav.js"></script>
-    <script src="../js/textGeneral.js"></script>
+    <script src="../textGeneral.js"></script>
     <script>
         Auto_Fill(FromFile_textNav_JS)
         Auto_Fill(FromFile_textGeneral_js)
+        ShowHTMLinTextArea(document.getElementById("id-sidebar-2-wrapper"), document.getElementById("id-show-2"))
+        
     </script>
+
+    <div id = "id-scripts-foo">
+        <!-- the data -->
+        <script src="js/sideData.js"></script>
+        <script src="js/sideData copy.js"></script>
+        <!-- the fucntion -->
+        <script>
+            // create the sidebar at page load 
+            nav_AutoFillSidebar("id-sidebar2", sidebarData, foo)
+            //
+            function foo(event) {
+                let li= null
+                if (event instanceof PointerEvent) li = event.target;
+                if (event instanceof HTMLElement) li = event;
+                if (event instanceof TouchEvent) li = event.target;
+                console.log(li.innerHTML)
+    
+                if (li.innerHTML.includes("1 America")) {
+                    // change the content of the sidebar
+                    nav_AutoFillSidebar("id-sidebar2", sidebarDataCopy, foo)
+                }
+                if (li.innerHTML.includes("1 Europe")) {
+                    // change the content of the sidebar
+                    nav_AutoFillSidebar("id-sidebar2", sidebarData, foo)
+                }
+            }
+        </script>
+    </div>
+
+    <script>
+        ShowHTMLinTextArea(document.getElementById("id-sidebar"), document.getElementById("id-show"))
+        ShowHTMLinTextArea(document.getElementById("id-scripts"), document.getElementById("id-showJS"))
+        ShowHTMLinTextArea(document.getElementById("id-css"), document.getElementById("id-showCSS"))
+
+        ShowHTMLinTextArea(document.getElementById("id-scripts-foo"), document.getElementById("id-showJS-2"))
+    </script>
+
+
 </html>
 
 
