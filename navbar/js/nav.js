@@ -11,6 +11,9 @@ function toggleDown(a) {
     }
 
     divElement.parentElement.classList.toggle('active');
+
+    //DEBUG
+    console.log("toggleDown: " + divElement.innerHTML)
 }
 
 // ################################################################
@@ -42,9 +45,8 @@ function _ulist(parent, items, clickfunction, no = 0) {
 
 function _ulist_li(item, no, count, clickfunction) {
     let li = document.createElement('li');
+    if (!item.includes('children')) li = addEventListener_ClickTouch(li, clickfunction)
     
-    // li.addEventListener("click", clickfunction)
-    li = addEventListener_ClickTouch(li, clickfunction)
     if (no == -1) li.innerHTML = item.name
 
     if (no ==  0) li.innerHTML = String(count) + " " + item.name;
@@ -59,7 +61,6 @@ function _ulist_dropdown(li, item, count, clickfunction) {
     if (!Object.keys(item).includes('children')) return 
 
     let drop = document.createElement('drop'); // parent element of ego li
-    // li.addEventListener("click", toggleDown)
     li = addEventListener_ClickTouch(li, toggleDown)
     drop.appendChild(li)
 
