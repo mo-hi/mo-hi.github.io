@@ -152,6 +152,9 @@
 .flexC      {display: flex;justify-content: center;}
 .flexR      {display: flex;justify-content: flex-end;}
 
+.z-1 {z-index: 1;}
+.z--1 {z-index: -1;}
+
 /*
 // ####################################################################################################
 // #                                              header                                              #

@@ -5,15 +5,34 @@ function toggleDown(a) {
     if (a instanceof TouchEvent) divElement = a.target;     // if eventlistener was used
     if (divElement == null) return
 
-    for (let drop of document.querySelectorAll('nav drop')) {
-        if (divElement.parentElement === drop) continue;
-        drop.classList.remove('active');
-    }
+    _nav_CloseOtherOpenDropdowns(divElement)
+
+    if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) _nav_toggleSidebarZIndex()
 
     divElement.parentElement.classList.toggle('active');
 
     //DEBUG
     console.log("toggleDown: " + divElement.innerHTML)
+}
+
+
+function _nav_CloseOtherOpenDropdowns(divElement) {
+    for (let drop of document.querySelectorAll('nav drop')) {
+        if (divElement.parentElement === drop) continue;
+        drop.classList.remove('active');
+    }
+}
+
+function _nav_IsTopNavBar(divElement) {
+    return divElement.tagName.toLowerCase() === 'a';
+}
+
+function _nav_IsThereSidebar() {
+    return document.querySelectorAll('.sidebar').length === 1;}
+
+function _nav_toggleSidebarZIndex() {
+    let sidebar = document.querySelector('.sidebar')
+    sidebar.classList.toggle('z--1')
 }
 
 // ################################################################
