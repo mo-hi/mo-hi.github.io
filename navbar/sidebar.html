@@ -91,7 +91,7 @@
             <h3>dynamic sidebar</h3>
             <p>
                 The content of this sidebar is generated from data. The data is an array of objects (=list of dictionaries), where each object represents a sidebar item.
-                Each item again can be a list of items, creating a dropdown. 
+                Each item has the key 'name' and optionally the key 'children', which again can be a list of items, creating a dropdown. 
             </p>
             <p>
                 As this dynamics sidebar is no longer defined in html, assigning functions to the sidebar items works differently.
@@ -100,7 +100,7 @@
             </p>
                 Within your function, the clicked item can be identified and the appropriate action taken.
                 <br><br>
-                In the below example, the function <c>foo</c> will be called every time when you click an item of the sidebar changing the content of the sidebar. 
+                In the below example, the function <c>foo</c> will be called every time when you click on the first item of the sidebar changing the content of the sidebar. 
                 Inside foo (or the function you have defined) you have access to the event object, and such to the &lt;li&gt; respectivley.
                 
             </p>
@@ -121,6 +121,10 @@
                             </ul>
                         </td>
                         <td class="top w-70">
+                            DATA Munich
+                            <div id="id-show-data" class="h-300 js-fill">
+                                <!-- filled via script -->
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -187,6 +191,10 @@
         ShowHTMLinTextArea(document.getElementById("id-css"), document.getElementById("id-showCSS"))
 
         ShowHTMLinTextArea(document.getElementById("id-scripts-foo"), document.getElementById("id-showJS-2"))
+
+        let pseudoDiv = document.createElement("div")
+        pseudoDiv.innerHTML = JSON.stringify(sidebarData, null, 2);
+        ShowHTMLinTextArea(pseudoDiv, document.getElementById("id-show-data"))
     </script>
 
 
