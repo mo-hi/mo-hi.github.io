@@ -1008,7 +1008,7 @@ Element.prototype.IsDescendantOf = function(ancestor, iterations = 20) {
 /**
 adds a 'click' and a 'touchstart' evenlistener event to the ego element. The ego element must have the class 'js-event'
 */
-Element.prototype.JSEvent_AddClickTouch = function(functionName) {
+Element.prototype.addEventListener_ClickAndTouch = function(functionName) {
   if (!this.classList.contains("js-event")) return
 
   this.addEventListener('click', functionName)

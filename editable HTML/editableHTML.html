@@ -131,10 +131,10 @@
         <div id="id-00">
             <div id="edit-applied-00">
                 <div id="id-node-00" class="js-edit">
-                     <div id="id-edit-01" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                    <div id="id-edit-01" class="w-300px border inline-block h-30 p-2 js-edit-div js-event">
                         This is a div 1
                     </div>
-                     <div id="id-edit-02" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                    <div id="id-edit-02" class="w-300px border inline-block h-30 p-2 js-edit-div js-event">
                         This is a div 2
                     </div>
                  </div>
@@ -342,6 +342,7 @@
 
 
     // b_editableHTML_init()
+    b_editableHTML_init('edit-applied-00')
 </script>
 <script id = "id-js-01">
     b_editableHTML_init('edit-applied-01')
@@ -391,6 +392,14 @@
 
         return div_save_infos
     }
+
+    // key events
+    document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') b_editableHTML_DiscardAll()
+
+    if (event.ctrlKey && event.key === 'Enter') b_editableHTML_SaveAllText()
+    }); 
+
 
 </script>
 

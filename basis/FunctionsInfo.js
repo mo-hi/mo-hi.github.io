@@ -312,7 +312,7 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DIV objects"
     },
     {
-        "name": ".JSEvent_AddClickTouch",
+        "name": ".addEventListener_ClickAndTouch",
         "docstring": "adds a 'click' and a 'touchstart' evenlistener event to the ego element. The ego element must have the class 'js-event'",
         "parameters": "functionName",
         "region": "DIV objects"
