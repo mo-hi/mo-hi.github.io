@@ -67,9 +67,9 @@
         </p>
     </sction>
     <section>
-        <h2 class="underline sticky">Integratiion of Functions</h2>
+        <h2 class="underline sticky">Integration of Functions</h2>
         <p>
-            You have the option to integrate your own function when teh edit button or the save button is clocked (but not the discard button).
+            You have the option to integrate your own functions, whcih will be called when the edit button or the save button is clicked (but not the discard button).
         </p>
         <code>
             <div class="green">// If no function is defined, then innerHTML = textara.value</div>
@@ -94,14 +94,14 @@
         <h2 class="underline sticky"> HTML Template</h2>
         <p>
             <b>Edit.js </b> has two main parts, the <b>button container</b> <c>.js-edit-btn</c> and the 
-            <b>node container </b><c>.js-edit-node</c>. Both conainer can be placed independent 
+            <b>node container </b><c>.js-edit</c>. Both conainer can be placed independent 
             of each other anywhere on the page. 
         </p>
         <p>
             Linking between the button container and the node container is
             done by setting the the dataset attribute <c>dataset.targetID=""</c> (js) /
-             <c>data-target-id=""</c> (html) of <c>.js-edit-btn</c> to the id of <c>.js-edit-node</c>.
-            In case <c>.js-edit-btn</c> is inside <c>.js-edit-node</c>, then the linking is done automatically
+             <c>data-target-id=""</c> (html) of <c>.js-edit-btn</c> to the id of <c>.js-edit</c>.
+            In case <c>.js-edit-btn</c> is inside <c>.js-edit</c>, then the linking is done automatically
             during initialization.
         </p>
         <p>
@@ -117,7 +117,7 @@
             will be the <c>.js-edit-save</c> class. This does not apply for the discard buttoen, i. e. the class <c>.js-edit-discard</c> needs to be set.
         </p>
         <p>
-            The <b>node container</b> <c>.js-edit-node</c> has all editable div elements <c>.js-edit-div</c>.
+            The <b>node container</b> <c>.js-edit</c> has all editable div elements <c>.js-edit-div</c>.
             The buttons will always apply to all editable divs inside the linked node.
         </p>
         <p>
@@ -126,14 +126,32 @@
             The three buttons need to have the class <c>.js-event</c> to allow adding eventlisteners to them.
         </p>
         <br>
-        
-        <h2 class="underline sticky">Example 1: Minimum Aufbau</h2>
-        <p>
-            This is probably needed to tables 
-        </p>
+        <h2 class="underline sticky">Example 0: Minimum Aufbau</h2>
+
+        <div id="id-00">
+            <div id="edit-applied-00">
+                <div id="id-node-00" class="js-edit">
+                     <div id="id-edit-01" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                        This is a div 1
+                    </div>
+                     <div id="id-edit-02" class="w-300px border inline-block h-30 p-2 js-edit-div">
+                        This is a div 2
+                    </div>
+                 </div>
+            </div>
+        </div>
+        <br>
+        HTML:
+        <div id="show-00" class="h-240"></div>
+        <br>
+        JS:
+        <div id="show-js-00" class="h-40"></div>
+        <!-- --------------------------------------------------------------------------------------- -->
+        <h2 class="underline sticky">Example 1: Minimum Aufbau with buttons</h2>
+
         <div id="id-01">
             <div id="edit-applied-01">
-                <div id="id-node-01" class="js-edit-node">
+                <div id="id-node-01" class="js-edit">
                     <div class="inline-block js-edit-btn"> 
                          <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
                          <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
@@ -153,12 +171,7 @@
         <div id="show-01" class="h-240"></div>
         <br>
         JS:
-        <div class="h-60">
-            <textarea class="w-100" style="height:100%">
-(--script--)
-    b_editableHTML_init("edit-applied-01")
-(--/script--)</textarea>
-        </div>
+        <div id="show-js-01" class="h-40"></div>
         <!-- --------------------------------------------------------------------------------------- -->
         <h2 class="underline sticky">Example 2: buttons seperated form editable divs</h2>
         <p>
@@ -172,7 +185,7 @@
                     <div class="btn blue js-event js-edit-discard hidden">{{svg-icon-discard-12}}</div>
                 </div>
                 ...
-                <div id="id-node-02" class="inline-block js-edit-node">
+                <div id="id-node-02" class="inline-block js-edit">
                      <div id="id-edit-21" class="w-300px border inline-block h-30 p-2 js-edit-div">
                         This is a div 1
                     </div>
@@ -206,7 +219,7 @@
                             <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
                         </div>
                         ...
-                        <div id="id-node-03" class="inline-block js-edit-node">
+                        <div id="id-node-03" class="inline-block js-edit">
                              <div id="id-edit-31" class="w-300px border inline-block h-30 p-2 js-edit-div">
                                 This is a div 1
                             </div>
@@ -238,7 +251,7 @@
                     <div id="edit-applied-04">
                         <table class="border border-cells padding-5">
                             <tbody>
-                                <tr id="id-node-table" class="js-edit-node">
+                                <tr id="id-node-table" class="js-edit">
                                     <td>
                                         <div class="inline-block js-edit-btn"> 
                                             <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
@@ -280,7 +293,7 @@
                 <div class="btn blue js-event hidden">{{svg-icon-discard-12}}</div>
             </div>
             ...
-            <div class="inline-block js-edit-node w-80">
+            <div class="inline-block js-edit w-80">
                 <div id="id-edit-31" class="w-30 border inline-block h-30 p-2 js-edit-div">
                     w-25
                 </div>
@@ -312,7 +325,7 @@
 <script src="../textGeneral.js"></script>
 <script src="js/editableHTML.js"></script>  <!-- this project -->
 <script>
-    for (let id of ["01", "02", "03", "04"]) {
+    for (let id of ["00", "01", "02", "03", "04"]) {
         ShowHTMLinTextArea(document.getElementById("id-" + id), document.getElementById("show-" + id))}
 
     Auto_Fill(FromFile_textGeneral_js,"id-end")
@@ -329,11 +342,16 @@
 
 
     // b_editableHTML_init()
+</script>
+<script id = "id-js-01">
     b_editableHTML_init('edit-applied-01')
+</script>
+<script>
     b_editableHTML_init('edit-applied-02')
     b_editableHTML_init('edit-applied-03')
     b_editableHTML_init('edit-applied-04')
     
+    ShowHTMLinTextArea(document.getElementById("id-js-01"), document.getElementById("show-js-01"))
     //MOHI
     // b_editableHTML_init("id-03", discardButtonAfter = "id-edit-32")
 

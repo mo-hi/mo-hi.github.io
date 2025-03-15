@@ -5,7 +5,8 @@ function b_editableHTML_init(elementId = "body") {
     if (elementId == "body") container = document.body
     
     container.DescendantsWithClass('.js-edit-btn').forEach(editBtn => {   
-        let divInitializer = new cls_editableHTML_divInitializer(editBtn)
+        let divInitializer = new cls_editableHTML_divInitializer()
+        divInitializer.setEditButtonDiv(editBtn)
         let node = divInitializer.node()
         let editButton = divInitializer.editButton()
         let saveButton = divInitializer.saveButton()
@@ -30,13 +31,19 @@ function b_editableHTML_init(elementId = "body") {
 
 
 class cls_editableHTML_divInitializer {
-    constructor(editBtnDiv) {
-        this.editBtnDiv = editBtnDiv
+    constructor() {
+        // this.editBtnDiv = editBtnDiv
     }
+
+    setEditDiv(editDiv) {
+        this.editBtnDiv = editDiv}
+
+    setEditButtonDiv(editButtonDiv) {
+        this.editBtnDiv = editButtonDiv}
 
     node() {
         // if btn wrapper is inside the node, set the link (overwrite)
-        let IsNode = this.editBtnDiv.closest('.js-edit-node')
+        let IsNode = this.editBtnDiv.closest('.js-edit')
         if (IsNode) this.editBtnDiv.dataset.targetId = IsNode.id
     
         let node = document.getElementById(this.editBtnDiv.dataset.targetId)
@@ -101,8 +108,8 @@ class cls_editableHTML_divTracer {
         if (anyButton.classList.contains('js-edit-discard')) {
             this.discardButton = anyButton}
         
-        if (anyButton.closest('.js-edit-node')) {
-            this.node = anyButton.closest('.js-edit-node')}
+        if (anyButton.closest('.js-edit')) {
+            this.node = anyButton.closest('.js-edit')}
         
         if (this.node) {
             this.btn = document.querySelectorAll('.js-edit-btn[data-target-id="' + this.node.id + '"]')[0]}
