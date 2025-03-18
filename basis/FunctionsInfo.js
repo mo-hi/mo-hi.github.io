@@ -300,6 +300,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DIV objects"
     },
     {
+        "name": ".DescendantsWithTag",
+        "docstring": "returns all descendats (children and grandchildren) of a div that have a certain className",
+        "parameters": "tagName",
+        "region": "DIV objects"
+    },
+    {
         "name": ".IsDescendantOfClass",
         "docstring": "returns true if the ego div is a decendant of a div that containts the ancestorClass",
         "parameters": "ancestorClass",

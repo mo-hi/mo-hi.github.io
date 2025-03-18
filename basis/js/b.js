@@ -958,18 +958,35 @@ Element.prototype.DescendantsWithClass = function(className) {
     let results = [];
   
     function traverse(element) {
-      if (element.classList && element.classList.contains(className)) {
-        results.push(element);
-      }
-      for (const child of element.children) {
-        traverse(child);
-      }
-    }
+        if (element.classList && element.classList.contains(className)) results.push(element)
+        for (const child of element.children) {
+            traverse(child)}
+        }
   
     traverse(this); 
   
     return results;
   };
+
+/**
+returns all descendats (children and grandchildren) of a div that have a certain className
+*/
+Element.prototype.DescendantsWithTag = function(tagName) {
+    let validTags = ['textarea', 'p', 'a', 'table']
+    assert (validTags.includes(tagName))
+
+    let results = [];
+
+    function traverse(element) {
+        if (element.tagName.toLowerCase() == tagName) results.push(element)
+        for (const child of element.children) {
+            traverse(child)}
+        }
+
+    traverse(this); 
+
+    return results;
+};
 
 /**
 returns true if the ego div is a decendant of a div that containts the ancestorClass
