@@ -1,42 +1,94 @@
 // region Init
 
-function b_editableHTML_init(elementId = "body") {
-    let container = document.getElementById(elementId);
-    if (elementId == "body") container = document.body
+function editableHTML_init(elementId = "body") {
+    let container = wenn(elementId == "body", document.body,document.getElementById(elementId))
     
-    container.DescendantsWithClass('.js-edit').forEach(editDiv => {   
-        let [editButton, saveButton, discardButton] = new cls_editableHTML_PerpareAndReturnEditGroup(editDiv)
-       
-        if (editDiv.dataset.editStatus == "solo") {
-            // div Events
-            let editableDivs = editDiv.DescendantsWithClass('.js-edit-div')
-            for (let editableDiv of editableDivs) {
-                editableDiv.addEventListener_ClickAndTouch(b_edit_edit)}
+    let editDivs = container.DescendantsWithClass('.js-edit')
+    if (editDivs.length == 0) return
 
-        } else {
-            // button events
-            editButton.addEventListener_ClickAndTouch(Toggle_EditSaveDiscard)
-            saveButton.addEventListener_ClickAndTouch(Toggle_EditSaveDiscard)
-            discardButton.addEventListener_ClickAndTouch(Toggle_EditSaveDiscard)
+    for (let editDiv of editDivs) {
+        let EditGroup = new cls_editableHTML_EditGroup(editDiv)
 
-            editButton.addEventListener_ClickAndTouch(b_edit_edit)
-            saveButton.addEventListener_ClickAndTouch(b_edit_unedit)
-            discardButton.addEventListener_ClickAndTouch(b_edit_unedit)
+        if (EditGroup.IsTextDiv()) {
+            EditGroup.class_edit.addEventListener_ClickAndTouch(editableHTML_onclick)
+            continue}
+
+        if (EditGroup.IsTextDivWithButtons()) {
+            EditGroup.div_editButton.dataset.buttonType = "edit"
+            EditGroup.div_saveButton.dataset.buttonType = "save"
+            EditGroup.div_discardButton.dataset.buttonType = "discard"
+            
+            EditGroup.div_editButton.addEventListener_ClickAndTouch(editableHTML_ToogleButtons)
+            EditGroup.div_saveButton.addEventListener_ClickAndTouch(editableHTML_ToogleButtons)
+            EditGroup.div_discardButton.addEventListener_ClickAndTouch(editableHTML_ToogleButtons)
+
+            EditGroup.div_editButton.addEventListener_ClickAndTouch(editableHTML_onclick)
+            EditGroup.div_saveButton.addEventListener_ClickAndTouch(editableHTML_onclick)
+            EditGroup.div_discardButton.addEventListener_ClickAndTouch(editableHTML_onclick)
         }
-});
+    }
 }
 
-
-class cls_editableHTML_PerpareAndReturnEditGroup {
+class cls_editableHTML_EditGroup {
     constructor(editDiv) {
+        if (editDiv == undefined) return // vaild construction, functionality is still available
+        assert(editDiv.classList.contains('js-edit'))
         this.class_edit = editDiv
-        this.class_edit_btn()
-        if (this.class_edit.dataset.editStatus == "solo") return [null, null, null]
 
-        this.class_edit_edit = this.perpareEditButton()
-        this.class_edit_save = this.perpareSaveButton()
-        this.class_edit_discard = this.discardButton()
-        return [this.class_edit_edit, this.class_edit_save, this.class_edit_discard]
+        if (this.IsTextDiv()) return
+
+        if (this.IsSolo() && this.IsLinked()) {
+            this.class_edit_btn = this._returnButtonContainer()
+            this.div_editButton = this._returnButton_Edit()
+            this.div_saveButton = this._returnButton_Save()
+            this.div_discardButton = this._returnButton_Discard()
+        }
+    }
+
+    IsEmpty() {
+        return this.class_edit == undefined
+    }
+
+    IsTextDiv() {
+        return (this.IsSolo() && !this.IsLinked())
+    }
+
+    IsTextDivWithButtons() {
+        return this.IsLinked()
+    }
+
+    IsSolo() {
+        return this.class_edit.DescendantsWithClass('.js-edit-div').length == 0}
+
+    IsLinked() {
+        return this.class_edit.dataset.editableLink !== undefined}
+
+    _returnButtonContainer() {
+        assert (this.IsLinked())
+        let linkValue = this.class_edit.dataset.editableLink;
+        let queryString = '[data-editable-link="' + linkValue + '"]'
+        assert (document.querySelectorAll(queryString).length == 2)
+        let queryString_Btn = '.js-edit-btn' + queryString
+        assert (document.querySelectorAll(queryString_Btn).length == 1)
+
+        return document.querySelectorAll(queryString_Btn)[0]}
+
+    _returnButton_Edit() {
+        assert (this.class_edit_btn !== undefined)
+        return this.class_edit_btn.firstElementChild;
+    }
+
+    _returnButton_Save() {
+        assert (this.class_edit_btn !== undefined)
+        return this.class_edit_btn.firstElementChild.nextElementSibling
+    }
+
+    _returnButton_Discard() {
+        assert (this.class_edit_btn !== undefined)
+        if (this.div_saveButton.nextElementSibling !== undefined) {
+            return this.div_saveButton.nextElementSibling} 
+        
+        //else: find it this.class_edit_btn()
     }
 
     setEditDiv(editDiv) {
@@ -59,27 +111,6 @@ class cls_editableHTML_PerpareAndReturnEditGroup {
         this.class_edit.dataset.editStatus = "solo"
     }
 
-    perpareEditButton() {
-        let IsEditButton = this.class_edit_btn.DescendantsWithClass('.js-edit-edit')
-        if (IsEditButton.length == 1) return IsEditButton[0]
-        
-        assert(IsEditButton.length == 0)
-        let editButton = this.class_edit_btn.firstElementChild; 
-        
-        editButton.classList.addX('js-edit-edit');
-        return editButton
-    }
-
-    perpareSaveButton() {
-        let IsSaveButton = this.class_edit_btn.DescendantsWithClass('.js-edit-save')
-        if (IsSaveButton.length == 1) return IsSaveButton[0]
-        
-        assert(IsSaveButton.length == 0)
-        let saveButton = this.class_edit_edit.nextElementSibling
-
-        saveButton.classList.addX('js-edit-save');
-        return saveButton
-    }
 
     discardButton() {   
         let IsDiscardButton = this.class_edit_btn.DescendantsWithClass('.js-edit-discard') 
@@ -89,171 +120,170 @@ class cls_editableHTML_PerpareAndReturnEditGroup {
         if (IsDiscardButton.length == 1) return IsDiscardButton[0]  
     }
 
-}
-
-class cls_editableHTML_divTracer {
-    constructor(anyButton) {
-        this._IdentifyButtons(anyButton)
+    IsButton(divElement) {
+        return divElement.classList.contains('js-edit-edit') || divElement.classList.contains('js-edit-save') || divElement.classList.contains('js-edit-discard')
     }
 
-    _IdentifyButtons(anyButton) {
-        let tagButton = false
-        if (anyButton.classList.contains('js-edit-discard')) {
-            this.class_edit_discard = anyButton
-            if (anyButton.closest('.js-edit-btn')) {
-                this.class_edit_btn = anyButton.closest('.js-edit-btn')
-                this.class_edit = document.getElementById(this.class_edit_btn.dataset.targetId)}
-            if (anyButton.closest('.js-edit')) {
-                this.class_edit = anyButton.closest('.js-edit')
-                this.class_edit_btn = document.querySelectorAll('.js-edit-btn[data-target-id="' + this.class_edit.id + '"]')[0]}
-            this.class_edit_save = this.class_edit_btn.DescendantsWithClass('.js-edit-save')[0]
-            this.class_edit_edit = this.class_edit_btn.DescendantsWithClass('.js-edit-edit')[0]
-            this.editableDivs = this.class_edit.DescendantsWithClass('.js-edit-div')
-            return}
+    CreateTeaxtarea() {
+        let editableDiv = null
+        let minHeight = 40
 
-        if (anyButton.classList.contains('js-edit-save')) {
-            this.class_edit_save = anyButton; 
-            this.class_edit_btn = anyButton.closest('.js-edit-btn')
-            this.class_edit = document.getElementById(this.class_edit_btn.dataset.targetId)
-            this.class_edit_edit = this.class_edit_btn.DescendantsWithClass('.js-edit-edit')[0]
-            this.class_edit_discard = this.class_edit_btn.DescendantsWithClass('.js-edit-discard')[0] || this.class_edit.DescendantsWithClass('.js-edit-discard')[0]
-            this.editableDivs = this.class_edit.DescendantsWithClass('.js-edit-div')
-            return}
+        if (this.IsSolo()) {editableDiv = this.class_edit}
 
-        if (anyButton.classList.contains('js-edit-edit')) {
-            this.class_edit_edit = anyButton
-            this.class_edit_btn = anyButton.closest('.js-edit-btn')
-            this.class_edit = document.getElementById(this.class_edit_btn.dataset.targetId)
-            this.class_edit_save = this.class_edit_btn.DescendantsWithClass('.js-edit-save')[0]
-            this.class_edit_discard = this.class_edit_btn.DescendantsWithClass('.js-edit-discard')[0] || this.class_edit.DescendantsWithClass('.js-edit-discard')[0]
-            this.editableDivs = this.class_edit.DescendantsWithClass('.js-edit-div')
-            return}
+        if (editableDiv.dataset.editMode == "active") return
+        editableDiv.dataset.editMode = "active"
+        this._SetDataset()
 
-        // in case of no button
-        assert (anyButton.classList.contains('js-edit-div'))
-        this.editableDivs = anyButton.DescendantsWithClass('.js-edit-div')
+        if (editableDiv.dataset.originalStylePadding) {
+            let padding = 0 + "px"
+            editableDiv.style.setProperty("padding", padding)
+            editableDiv.dataset.padding = padding}
+
+        if (editableDiv.dataset.originalHeight) {
+            let height = Math.max(editableDiv.dataset.originalHeight, minHeight) + "px"
+            editableDiv.style.setProperty("height", height)
+            editableDiv.dataset.height = height}
+        
+        if (editableDiv.dataset.originalInnerHTML) {
+            editableDiv.innerHTML = ''}
+
+        editableDiv.appendChild(this._Textarea())  
+    }
+
+    _Textarea() {
+        let editableDiv = this.class_edit
+        let textarea = document.createElement("textarea");
+        // take over dataset
+        textarea.id             = editableDiv.id + "-textarea"
+        textarea.value          = editableDiv.dataset.originaTextAreaValue  
+        textarea.style.padding  = editableDiv.dataset.originalStylePadding
+        textarea.style.height   = '100%'
+        textarea.style.width    = "100%"
+    
+        // textarea syle
+        textarea.style.boxSizing = "border-box";       // size of textarea box: border-box = same as div, content-box = based on content
+        textarea.style.border = "1.5px solid #0d6efd";
+        textarea.style.borderRadius = '3px';
+        textarea.style.resize = "none";
+    
+        //vertical scrollbar if needed
+        textarea.style.overflowY = 'auto'; 
+        textarea.style.overflowX = 'hidden';
+    
+        return textarea
+    }
+
+    _SetDataset() {
+        let fDict = CONST_EDITABLE_HTML_FUNCTION_CALLS
+        let editableDiv = this.class_edit
+
+        editableDiv.dataset.originalStylePadding = getComputedStyle(editableDiv).padding
+        editableDiv.dataset.originalInnerHTML = editableDiv.innerHTML.trim()
+        editableDiv.dataset.originaTextAreaValue = fDict["edit"](editableDiv.innerHTML.trim())
+        editableDiv.dataset.originalHeight = parseInt(getComputedStyle(editableDiv).height) +
+        parseInt(getComputedStyle(editableDiv).paddingTop) + parseInt(getComputedStyle(editableDiv).paddingBottom)
+    
+        return editableDiv
     }
 
     Buttons() {
-        return [this.class_edit_edit, this.class_edit_save, this.class_edit_discard]
+        this._validate()
+        assert (!this.IsTextDiv())
+        return [this.div_editButton, this.div_saveButton, this.div_discardButton]
     }
+
+
+    InitFromButton(anyButton) {
+        if (!this.IsEmpty()) return // in case js-edit is known, other functions shall be used
+        
+        let parent = anyButton.parentElement
+        let linkValue = parent.dataset.editableLink;
+        let queryString = '.js-edit[data-editable-link="' + linkValue + '"]'
+        assert(document.querySelectorAll(queryString).length == 1)
+        
+        this.class_edit = document.querySelectorAll(queryString)[0]  // now -js-edit is known
+        //copypaste from constructor:
+        this.class_edit_btn = this._returnButtonContainer()
+        this.div_editButton = this._returnButton_Edit()
+        this.div_saveButton = this._returnButton_Save()
+        this.div_discardButton = this._returnButton_Discard()
+        this._validate()
+    }
+
+    _validate() {
+        assert (this.class_edit !== undefined)
+        if (this.IsTextDiv()) {
+            assert (this.class_edit_btn !== undefined)
+            assert (this.div_editButton !== undefined)
+            assert (this.div_saveButton !== undefined)
+            assert (this.div_discardButton !== undefined)
+        }
+    }
+
 }
 
 
-function Toggle_EditSaveDiscard(event) {
-    let egoElement = DOM_ElementFromJSEvent(event)
-    let Tracer = new cls_editableHTML_divTracer(egoElement)
-
-    for (let button of Tracer.Buttons()) {
-        button.classList.toggle('hidden');
+function editableHTML_ToogleButtons(event) {
+        let egoButton = DOM_ElementFromJSEvent(event)
+        let EditGroup = new cls_editableHTML_EditGroup()
+        EditGroup.InitFromButton(egoButton)
+        let buttons = EditGroup.Buttons()
+        
+        for (let button of buttons) {
+            button.classList.toggle('hidden');
+            button.dataset.status = button.classList.contains('hidden') ? '' : 'active';
+        }
     }
-    Tracer.class_edit_discard.dataset.status = Tracer.class_edit_discard.classList.contains('hidden') ? '' : 'active';
-}
 
-// region Button Clicks
-
-function b_edit_edit(event) {
+function editableHTML_onclick(event) {
     let divElement = DOM_ElementFromJSEvent(event)
-    if (divElement.classList.contains('js-edit-div')) {
-        b_edit_edit_text(divElement)}
-
-    if (divElement.classList.contains('js-edit-edit') || divElement.classList.contains('js-edit-save') || divElement.classList.contains('js-edit-discard')) {
-        b_edit_edit_button(divElement)}
-
-}
-
-function b_edit_edit_text(divElement) {
-    let editableDivs = new cls_editableHTML_divTracer(divElement).editableDivs
-    let minHeight = 40
-
-    for (let editableDiv of editableDivs) {
-        if (editableDiv.dataset.editMode == "active") return 
-        editableDiv.dataset.editMode = "active"
-        editableDiv = b_edit_edit_SetDataset(editableDiv)
-
-        if (editableDiv.dataset.originalStylePadding) {
-            let padding = 0 + "px"
-            editableDiv.style.setProperty("padding", padding)
-            editableDiv.dataset.padding = padding}
-
-        if (editableDiv.dataset.originalHeight) {
-            let height = Math.max(editableDiv.dataset.originalHeight, minHeight) + "px"
-            editableDiv.style.setProperty("height", height)
-            editableDiv.dataset.height = height}
-        
-        if (editableDiv.dataset.originalInnerHTML) {
-            editableDiv.innerHTML = ''}
-
-        editableDiv.appendChild(__b_textarea(editableDiv))  
+    let buttonType = divElement.dataset.buttonType
+    let EditGroup  = null; 
+    let actionEdit = false
+    // Enter edit mode
+    if (divElement.classList.contains('js-edit')) {
+        actionEdit  = true
+        EditGroup = new cls_editableHTML_EditGroup(divElement)}
+    if (buttonType == "edit") {
+        actionEdit  = true
+        EditGroup = new cls_editableHTML_EditGroup()
+        EditGroup.InitFromButton(divElement)
     }
-}
-
-function b_edit_edit_button(divElement) {
-    let editableDivs = new cls_editableHTML_divTracer(divElement).editableDivs
-    let minHeight = 40
-
-    for (let editableDiv of editableDivs) {
-        editableDiv = b_edit_edit_SetDataset(editableDiv)
-
-        if (editableDiv.dataset.originalStylePadding) {
-            let padding = 0 + "px"
-            editableDiv.style.setProperty("padding", padding)
-            editableDiv.dataset.padding = padding}
-
-        if (editableDiv.dataset.originalHeight) {
-            let height = Math.max(editableDiv.dataset.originalHeight, minHeight) + "px"
-            editableDiv.style.setProperty("height", height)
-            editableDiv.dataset.height = height}
-        
-        if (editableDiv.dataset.originalInnerHTML) {
-            editableDiv.innerHTML = ''}
-
-        editableDiv.appendChild(__b_textarea(editableDiv))  
-    }
-}
-
-function b_edit_edit_SetDataset(editableDiv) {
-    let fDict = CONST_EDITABLE_HTML_FUNCTION_CALLS
+    if (actionEdit) {
+        EditGroup.CreateTeaxtarea()
+        return}
     
-    editableDiv.dataset.originalStylePadding = getComputedStyle(editableDiv).padding
-    editableDiv.dataset.originalInnerHTML = editableDiv.innerHTML.trim()
-    editableDiv.dataset.originaTextAreaValue = fDict["edit"](editableDiv.innerHTML.trim())
-    editableDiv.dataset.originalHeight = parseInt(getComputedStyle(editableDiv).height) +
-    parseInt(getComputedStyle(editableDiv).paddingTop) + parseInt(getComputedStyle(editableDiv).paddingBottom)
-
-    return editableDiv
-}
-
-
-// function b_edit_Text(event) {
-//     let fDict = CONST_EDITABLE_HTML_FUNCTION_CALLS
-//     let divElement = DOM_ElementFromJSEvent(event)
-//     assert (divElement.classList.contains('js-edit-div'))
-//     let editableDivs = new cls_editableHTML_divTracer(divElement).editableDivs
-
-//     for (let editableDiv of editableDivs) {
-//         editableDiv = b_edit_edit_SetDataset(editableDiv)
-// }
-
-function b_edit_unedit(event) {
-    let fDict = CONST_EDITABLE_HTML_FUNCTION_CALLS
-    let divElement = DOM_ElementFromJSEvent(event)
-    let editableDivs = new cls_editableHTML_divTracer(divElement).editableDivs
-
-    for (let editableDiv of editableDivs) {
-        let innerHTML = ''
-        if (divElement.classList.contains('js-edit-save')) {
-            let textarea = document.getElementById(editableDiv.id + "-textarea")
-            innerHTML = fDict["save"](textarea.value)}
-        if (divElement.classList.contains('js-edit-discard')) {
-            innerHTML = editableDiv.dataset.originalInnerHTML}
-        
-        editableDiv.innerHTML = innerHTML
-        _restoreOriginal(editableDiv)
+    let actionUnEdit = false
+    // save + discard (Undo Edit)
+    if (["save", "discard"].includes(buttonType)) {
+        actionUnEdit = true
+        EditGroup = new cls_editableHTML_EditGroup()
+        EditGroup.InitFromButton(divElement)
     }
+
+    if (buttonType == "save") {
+        let textarea = EditGroup.class_edit.DescendantsWithTag("textarea")[0]
+        innerHTML = CONST_EDITABLE_HTML_FUNCTION_CALLS["save"](textarea.value)}
+
+    if (buttonType == "discard") {
+        innerHTML = EditGroup.class_edit.dataset.originalInnerHTML}
+
+    if (actionUnEdit) {
+        _restoreOriginal(EditGroup.class_edit)
+        EditGroup.class_edit.innerHTML = innerHTML
+        return}
+    
+    assert (false)
 }
 
-function b_editableHTML_DiscardAll() {
+function editableHTML_DiscardAll() {
+    document.querySelectorAll('.js-edit[data-edit-mode="active"]').forEach(divElement => {
+        innerHTML = divElement.dataset.originalInnerHTML
+        _restoreOriginal(divElement)
+        divElement.dataset.editMode = ''
+        divElement.innerHTML = innerHTML
+    });
+
     document.querySelectorAll('.js-edit-discard[data-status="active"]').forEach(divElement => {
         b_edit_unedit(divElement); 
         Toggle_EditSaveDiscard(divElement);
@@ -268,9 +298,9 @@ function b_editableHTML_DiscardAll() {
     
 }
 
-function b_editableHTML_SaveAllText() {
+function editableHTML_SaveAllText() {
     let fDict = CONST_EDITABLE_HTML_FUNCTION_CALLS
-    document.querySelectorAll('.js-edit-div[data-edit-mode="active"]').forEach(divElement => {
+    document.querySelectorAll('.js-edit[data-edit-mode="active"]').forEach(divElement => {
         let textarea = document.getElementById(divElement.id + "-textarea")
         innerHTML = fDict["save"](textarea.value)
         _restoreOriginal(divElement)
@@ -279,28 +309,6 @@ function b_editableHTML_SaveAllText() {
     });
 }
 
-
-function __b_textarea(editableDiv) {
-    let textarea = document.createElement("textarea");
-    // take over dataset
-    textarea.id             = editableDiv.id + "-textarea"
-    textarea.value          = editableDiv.dataset.originaTextAreaValue  
-    textarea.style.padding  = editableDiv.dataset.originalStylePadding
-    textarea.style.height   = '100%'
-    textarea.style.width    = "100%"
-
-    // textarea syle
-    textarea.style.boxSizing = "border-box";       // size of textarea box: border-box = same as div, content-box = based on content
-    textarea.style.border = "1.5px solid #0d6efd";
-    textarea.style.borderRadius = '3px';
-    textarea.style.resize = "none";
-
-    //vertical scrollbar if needed
-    textarea.style.overflowY = 'auto'; 
-    textarea.style.overflowX = 'hidden';
-
-    return textarea
-}
 
 function _restoreOriginal(editableDiv) {
     if (editableDiv.dataset.padding) {
@@ -311,7 +319,8 @@ function _restoreOriginal(editableDiv) {
         editableDiv.style.height = ''
         editableDiv.dataset.height = ''}
     
-    let textarea = document.getElementById(editableDiv.id + "-textarea")
+    editableDiv.dataset.editMode = ""
+    let textarea = editableDiv.DescendantsWithTag("textarea")[0]
     if (textarea) textarea.remove()
 }
 
