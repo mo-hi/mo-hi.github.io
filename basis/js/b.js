@@ -969,7 +969,7 @@ Element.prototype.DescendantsWithClass = function(className) {
   };
 
 /**
-returns all descendats (children and grandchildren) of a div that have a certain className
+returns all descendats (children and grandchildren) of a div that have a certain tag
 */
 Element.prototype.DescendantsWithTag = function(tagName) {
     let validTags = ['textarea', 'p', 'a', 'table']
@@ -987,6 +987,23 @@ Element.prototype.DescendantsWithTag = function(tagName) {
 
     return results;
 };
+
+/**
+returns the first ancestor of a div that has a certain className
+*/
+Element.prototype.AncestorWithClass = function(className) {
+    if (!className.startsWith('.')) throw new Error('className must start with a "."');
+    className = className.after(".")
+
+    let currentElement = this.parentElement;
+    
+    while (currentElement) {
+        if (currentElement.classList.contains(className)) return currentElement;
+        currentElement = currentElement.parentElement}
+    
+    return null; // No ancestor found with the specified class
+    }
+
 
 /**
 returns true if the ego div is a decendant of a div that containts the ancestorClass

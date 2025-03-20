@@ -301,8 +301,14 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".DescendantsWithTag",
-        "docstring": "returns all descendats (children and grandchildren) of a div that have a certain className",
+        "docstring": "returns all descendats (children and grandchildren) of a div that have a certain tag",
         "parameters": "tagName",
+        "region": "DIV objects"
+    },
+    {
+        "name": ".AncestorWithClass",
+        "docstring": "returns the first ancestor of a div that has a certain className",
+        "parameters": "className",
         "region": "DIV objects"
     },
     {
