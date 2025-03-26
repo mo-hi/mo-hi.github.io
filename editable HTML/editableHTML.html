@@ -76,7 +76,7 @@
         <div id="show-js-01" class="h-140"></div>
         <!-- --------------------------------------------------------------------------------------- -->
 
-        <h2 class="underline sticky">02 Multiple text divs</h2>
+        <h2 class="underline sticky">02 More text divs</h2>
         <b>APPLICATION</b>
         <p class="mt-0i">
            Same logic as above. You can have multiple editable divs can be placed inside a node container.
@@ -102,11 +102,12 @@
         <div id="show-js-02" class="h-140"></div>
         <!-- --------------------------------------------------------------------------------------- -->
 
-        <h2 class="underline sticky">02b Multiple connected text divs</h2>
+        <h2 class="underline sticky">02b Multi Text divs</h2>
         <b>APPLICATION</b>
         <p class="mt-0i">
             In this variant, the three text divs are connected. They form one logical edit unit, which are saved or discarded together.
-            The editable divs need to be children of <c>js-edit</c> and have the class <c>js-edit-child</c> 
+            The editable divs need to be children of <c>js-edit</c> and have the class <c>js-edit-child</c>. 
+            Note that clicking outside the textare here will not lead to discard, as you want to edit multiple fields at once
         </p>
         <div id="root-02b">
             <div id="id-02b">
@@ -125,7 +126,7 @@
         </div>
         <br>
         <b>HTML</b>
-        <div id="show-02b" class="h-180"></div>
+        <div id="show-02b" class="h-220"></div>
         <br>
         <b>JS</b>
         <div id="show-js-02b" class="h-140"></div>
@@ -141,7 +142,8 @@
         <p>
             The buttons rule is that <c> js-edit-btn</c> must have two or three children, the first element child is the edit-button and the second 
             is the save-button. If there's a third child, then it's the discard button 
-            </b>
+            </b> <br>
+            Note that here pointing outside or pressing the 'esc' button will not lead to discard. Only dedicated button actions will lead to edit, save or discard.
         </p>
 
         <div id ="root-03">
@@ -192,92 +194,97 @@
         <p>
             Same logic as above. You can have multiple editable divs can be placed inside a node container. The button actions applay to all divs inside the node
         </p>
+
         <div id ="root-05">
             <div class="inline-block js-edit-btn" data-editable-link="link-05"> 
                 <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
                 <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
             </div> 
+
             <div id="id-05"  class="inline-block">
-                 <div class="w-200px border inline-block h-30 p-2 js-edit" data-editable-link="link-05">
-                    This is a div 1
-                </div>
-                <div class="w-200px border inline-block h-30 p-2 js-edit" data-editable-link="link-05">
-                    This is a div 2
-                </div>
-                <div class="w-200px border inline-block h-30 p-2 js-edit" data-editable-link="link-05">
-                    This is a div 3
+                <div class="js-edit" data-editable-link="link-05">
+                    <div class="w-200px border inline-block h-30 p-2 js-edit-child">
+                        This is a div 1
+                    </div>
+                    <div class="w-200px border inline-block h-30 p-2 js-edit-child">
+                        This is a div 2
+                    </div>
+                    <div class="w-200px border inline-block h-30 p-2 js-edit-child">
+                        This is a div 3
+                    </div>
                 </div>
             </div>
-            <div class="btn blue js-event js-edit-discard hidden" data-editable-link="link-05">{{svg-icon-discard-12}}</div>
+
+            <div class="btn blue js-event js-edit-discard hidden" data-editable-link="link-05">
+                {{svg-icon-discard-12}}
+            </div>
         </div>
         <br>
         HTML:
-        <div id="show-05" class="h-280"></div>
+        <div id="show-05" class="h-320"></div>
         <br>
         JS:
-        <div id="show-js-05" class="h-120"></div>
+        <div id="show-js-05" class="h-140"></div>
         <!-- --------------------------------------------------------------------------------------- -->
                 <h2 class="underline sticky">Example 4: table</h2>
                 <p>
                     .... 
                 </p>
                 <div id="id-06">
-                    <div id="edit-applied-06">
-                        <table class="border border-cells padding-5">
-                            <tbody>
-                                <tr id="id-node-table" class="js-edit">
-                                    <td>
-                                        <div class="inline-block js-edit-btn"> 
-                                            <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
-                                            <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
-                                        </div> 
-                                    </td>
-                                    <td id="edit-table-A" class="js-edit-div"> some text</td>
-                                    <td id="edit-table-B" class="js-edit-div"> some other text</td>
-                                    <td id="edit-table-C" class="btn blue js-event js-edit-discard hidden">{{svg-icon-discard-12}}</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="border border-cells padding-5 w-600px">
+                        <tbody>
+                            <tr id="id-node-table" class="js-edit w-15" data-editable-link="link-06">
+                                <td >
+                                    <div class="inline-block js-edit-btn" data-editable-link="link-06"> 
+                                        <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                                        <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                                        <div class="btn blue js-event hidden">{{svg-icon-discard-12}}</div>
+                                    </div> 
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-25">
+                                    some other text
+                                </td>
+                            </tr>
+                            <tr id="id-node-table" class="js-edit w-15" data-editable-link="link-06b">
+                                <td >
+                                    <div class="inline-block js-edit-btn" data-editable-link="link-06b"> 
+                                        <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
+                                        <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
+                                        <div class="btn blue js-event hidden">{{svg-icon-discard-12}}</div>
+                                    </div> 
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-25">
+                                    some other text
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <br>
                 <br>
                 HTML:
-                <div id="show-06" class="h-240"></div>
+                <div id="show-06" class="h-400"></div>
                 <br>
                 JS:
-                <div id="show-js-06" class="h-40"></div>
-                <!-- --------------------------------------------------------------------------------------- -->
-        <h2 class="underline sticky"> ID link and discard on right</h2>
-        <p>
-            button wrapper somewhere on page (outside node)...you need to set the target ID
-        </p>  
-        <div id="id-03">
-            <div class="inline-block js-edit-btn" data-target-id="id-edit-11"> 
-                <div class="btn blue js-event">{{svg-icon-edit-18}}</div>
-                <div class="btn blue js-event hidden">{{svg-icon-save-18}}</div>
-                <div class="btn blue js-event hidden">{{svg-icon-discard-12}}</div>
-            </div>
-            ...
-            <div class="inline-block js-edit w-80">
-                <div id="id-edit-31" class="w-30 border inline-block h-30 p-2 js-edit-div">
-                    w-25
-                </div>
-                <div id="id-edit-32" class="w-30 border inline-block h-30 p-2 js-edit-div">
-                    w-25
-                </div>
-                <div id="id-edit-33" class="w-30 border inline-block h-30 p-2 js-edit-div">
-                    w-25
-                </div>
-            </div>
-        </div>          
-        
-
-        <br>
-        HTML Code:
-        <div id="show-03" class="h-260"></div>
-        <br>
+                <div id="show-js-06" class="h-140"></div>
 
        
     <section>
@@ -314,7 +321,7 @@
     // validate:
     let div1 = document.getElementById('id-01').DescendantsWithClass('.js-edit')[0]
     let EditGroup = new cls_editableHTML_EditGroup(div1)
-    assert (EditGroup.IsTextDiv())
+    assert (EditGroup.IsSingleTextDiv())
 </script>
 <script id = "id-js-02">
     editableHTML_init('id-02')
@@ -322,7 +329,7 @@
     let divs2 = document.getElementById('id-02').DescendantsWithClass('.js-edit')
     for (let div of divs2) {
         EditGroup = new cls_editableHTML_EditGroup(div)
-        assert (EditGroup.IsTextDiv())}
+        assert (EditGroup.IsSingleTextDiv())}
 </script>
 <script id = "id-js-02b">
     editableHTML_init('id-02b')
@@ -336,24 +343,36 @@
     // validate:
     div = document.getElementById('id-03').DescendantsWithClass('.js-edit')[0]
     EditGroup = new cls_editableHTML_EditGroup(div)
-    assert (EditGroup.IsTextDivWithButtons())
+    assert (EditGroup.IsSingleTextDiv())
+    assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-04">
     editableHTML_init('id-04')
     // validate:
     div = document.getElementById('id-04').DescendantsWithClass('.js-edit')[0]
     EditGroup = new cls_editableHTML_EditGroup(div)
-    assert (EditGroup.IsTextDivWithButtons())
+    assert (EditGroup.IsSingleTextDiv())
+    assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-05">
     editableHTML_init('id-05')
+    // validate:
+    div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
+    EditGroup = new cls_editableHTML_EditGroup(div)
+    assert (EditGroup.IsMultiTextDiv())
+    assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-06">
-    // editableHTML_init('edit-applied-06')
+    editableHTML_init('id-06')
+    // validate:
+    div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
+    EditGroup = new cls_editableHTML_EditGroup(div)
+    assert (EditGroup.IsMultiTextDiv())
+    assert (EditGroup.HasButtons())
 </script> 
 
 <script>
-    for (let id of ["05", "06"]) {
+    for (let id of ["06"]) {
         let pseudodiv = document.createElement("div")
         pseudodiv.innerHTML = SITE_DIVS_INNER[id]
         ShowHTMLinTextArea(pseudodiv, document.getElementById("show-" + id))
@@ -361,7 +380,6 @@
     }
 
     for (let id of ["01", "02", "02b", "03", "04", "05"]) {
-        // ShowHTMLinTextArea(document.getElementById("root-" + id), document.getElementById("show-" + id))
         ShowHTMLinTextArea(document.getElementById("id-js-" + id), document.getElementById("show-js-" + id))
     }
     

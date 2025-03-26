@@ -9,17 +9,7 @@ function editableHTML_init(elementId = "body") {
     for (let editDiv of editDivs) {
         let EditGroup = new cls_editableHTML_EditGroup(editDiv)
 
-        if (EditGroup.IsTextDiv()) {
-            EditGroup.class_edit.addEventListener_ClickAndTouch(editableHTML_onclick)
-            continue}
-
-        if (EditGroup.IsMultiTextDiv()) {
-            for (let edit_child of EditGroup.class_edit_childs) {
-                edit_child.addEventListener_ClickAndTouch(editableHTML_onclick)
-            }
-        }
-
-        if (EditGroup.IsTextDivWithButtons()) {
+        if (EditGroup.HasButtons()) {
             EditGroup.div_editButton.dataset.buttonType = "edit"
             EditGroup.div_saveButton.dataset.buttonType = "save"
             EditGroup.div_discardButton.dataset.buttonType = "discard"
@@ -30,27 +20,31 @@ function editableHTML_init(elementId = "body") {
 
             EditGroup.div_editButton.addEventListener_ClickAndTouch(editableHTML_onclick)
             EditGroup.div_saveButton.addEventListener_ClickAndTouch(editableHTML_onclick)
-            EditGroup.div_discardButton.addEventListener_ClickAndTouch(editableHTML_onclick)
+            EditGroup.div_discardButton.addEventListener_ClickAndTouch(editableHTML_onclick)}
 
-
-        }
+        if (EditGroup.IsSingleTextDiv()) {
+            EditGroup.class_edit.addEventListener_ClickAndTouch(editableHTML_onclick)
+            continue}
+        if (EditGroup.IsMultiTextDiv()) {
+            for (let edit_child of EditGroup.class_edit_childs) {
+                edit_child.addEventListener_ClickAndTouch(editableHTML_onclick)}}
     }
 }
 
 class cls_editableHTML_EditGroup {
     constructor(editDiv) {
+        this._constructor(editDiv)}
+
+    _constructor(editDiv) {
         if (editDiv == undefined) return // vaild construction, functionality is still available
         assert(editDiv.classList.contains('js-edit'))
         
         this.class_edit = editDiv
 
-        if (this.IsTextDiv()) return
-
         if (this.IsMultiTextDiv()) {
-            this.class_edit_childs = this.class_edit.DescendantsWithClass('.js-edit-child')
-        }
+            this.class_edit_childs = this.class_edit.DescendantsWithClass('.js-edit-child')}
 
-        if (this.IsTextDivWithButtons()) {
+        if (this.HasButtons()) {
             this.class_edit_btn = this._returnButtonContainer()
             this.div_editButton = this._returnButton_Edit()
             this.div_saveButton = this._returnButton_Save()
@@ -58,7 +52,29 @@ class cls_editableHTML_EditGroup {
         }
     }
 
-    IsActive() {
+    InitFromClickEvent(event) {
+        let divElement = DOM_ElementFromJSEvent(event)
+        if (divElement.classList.contains('js-edit') && divElement.DescendantsWithClass(".js-edit-child").length == 0) {
+            this._constructor(divElement)
+            return}
+        if (divElement.classList.contains('js-edit-child')) {
+            let parent = divElement.AncestorWithClass(".js-edit")
+            this._constructor(parent)
+            return}
+
+        let buttonType = divElement.dataset.buttonType
+        assert (["edit","save", "discard"].includes(buttonType))
+        this.InitFromButton(divElement)
+
+        assert(!this.IsEmpty())
+    }
+
+    // build in jevascript method for classes that returns a boolean when the object is called without further functiuons/parameters
+
+    IsInReadMode() {
+        return !this.IsInEditMode()
+    }
+    IsInEditMode() {
         return this.class_edit.dataset.editMode == "active"
     }
 
@@ -66,26 +82,16 @@ class cls_editableHTML_EditGroup {
         return this.class_edit == undefined
     }
 
-    IsTextDiv() {
-        return (this._IsSolo() && !this._IsLinked())
-    }
-
-    IsMultiTextDiv() {
-        return (!this._IsSolo() && !this._IsLinked())
-    }
-
-    IsTextDivWithButtons() {
-        return this._IsLinked()
-    }
-
-    _IsSolo() {
+    IsSingleTextDiv() {
         return this.class_edit.DescendantsWithClass('.js-edit-child').length == 0}
+    IsMultiTextDiv() {
+        return !this.IsEmpty() && !this.IsSingleTextDiv()}
 
-    _IsLinked() {
+    HasButtons() {
         return this.class_edit.dataset.editableLink !== undefined}
 
     _returnButtonContainer() {
-        assert (this._IsLinked())
+        assert (this.HasButtons())
         let linkValue = this.class_edit.dataset.editableLink;
         let queryString = '[data-editable-link="' + linkValue + '"]'
         let queryString_Btn = '.js-edit-btn' + queryString
@@ -138,24 +144,17 @@ class cls_editableHTML_EditGroup {
     }
 
 
-    discardButton() {   
-        let IsDiscardButton = this.class_edit_btn.DescendantsWithClass('.js-edit-discard') 
-        if (IsDiscardButton.length == 1) return IsDiscardButton[0] 
-
-        IsDiscardButton = this.class_edit.DescendantsWithClass('.js-edit-discard') 
-        if (IsDiscardButton.length == 1) return IsDiscardButton[0]  
-    }
-
-    CreateTeaxtarea() {
+    Edit_CreateTeaxtarea() {
         let editableDivs = null
         this.class_edit.dataset.editMode = "active"
 
-        if (this._IsSolo())  {editableDivs = [this.class_edit]}
-        if (!this._IsSolo()) {editableDivs = this.class_edit.DescendantsWithClass(".js-edit-child")}
+        if (this.IsSingleTextDiv())  {editableDivs = [this.class_edit]}
+        if (this.IsMultiTextDiv()) {editableDivs = this.class_edit.DescendantsWithClass(".js-edit-child")}
 
         for (let editableDiv of editableDivs) {
             editableDiv = this._CreateTeaxtarea_prepareEditableDivDataset(editableDiv)
-            editableDiv.appendChild(this._CreateTeaxtarea_TextareaFromEditableDiv(editableDiv))  
+            editableDiv.appendChild(this._CreateTeaxtarea_TextareaFromEditableDiv(editableDiv))
+            editableDiv.DescendantsWithTag("textarea")[0].focus()
         }
     }
 
@@ -203,7 +202,7 @@ class cls_editableHTML_EditGroup {
         //vertical scrollbar if needed
         textarea.style.overflowY = 'auto'; 
         textarea.style.overflowX = 'hidden';
-        if (this.IsTextDiv()) {
+        if (this.IsSingleTextDiv()) {
             textarea.onblur = function() {editableHTML_DiscardAll();}}
     
         return textarea
@@ -211,7 +210,6 @@ class cls_editableHTML_EditGroup {
 
     Buttons() {
         this._validate()
-        assert (!this.IsTextDiv())
         return [this.div_editButton, this.div_saveButton, this.div_discardButton]
     }
 
@@ -231,18 +229,13 @@ class cls_editableHTML_EditGroup {
         let queryString = '.js-edit[data-editable-link="' + linkValue + '"]'
         assert(document.querySelectorAll(queryString).length == 1)
         
-        this.class_edit = document.querySelectorAll(queryString)[0]  // now -js-edit is known
-        //copypaste from constructor:
-        this.class_edit_btn = this._returnButtonContainer()
-        this.div_editButton = this._returnButton_Edit()
-        this.div_saveButton = this._returnButton_Save()
-        this.div_discardButton = this._returnButton_Discard()
-        this._validate()
+        let editDiv = document.querySelectorAll(queryString)[0]  // now -js-edit is known
+        this._constructor(editDiv)
     }
 
     _validate() {
         assert (this.class_edit !== undefined)
-        if (this.IsTextDiv()) {
+        if (this.IsSingleTextDiv()) {
             assert (this.class_edit_btn !== undefined)
             assert (this.div_editButton !== undefined)
             assert (this.div_saveButton !== undefined)
@@ -251,13 +244,13 @@ class cls_editableHTML_EditGroup {
     }
 
     Save() {
-        if (this._IsSolo()) {
+        if (this.IsSingleTextDiv()) {
+            this.class_edit.dataset.editMode = ''
             this._Save_Single(this.class_edit)}
         else {
+            this.class_edit.dataset.editMode = ''
             for (let child of this.class_edit_childs) {
                 this._Save_Single(child)}  }
-        
-        this.class_edit.dataset.editMode = ""
         }
 
     _Save_Single(editableDiv) {
@@ -272,11 +265,25 @@ class cls_editableHTML_EditGroup {
         }
 
     _restoreOriginal(editableDiv) {
-        editableDiv.dataset.editMode = ''
         editableDiv.style.padding = ''
         editableDiv.dataset.padding = ''
         editableDiv.style.height = ''
         editableDiv.dataset.height = ''
+    }
+
+    Discard() {
+        if (this.IsSingleTextDiv()) {
+            this.class_edit.dataset.editMode = ''
+            this._Discard_Single(this.class_edit)
+        } else {
+            this.class_edit.dataset.editMode = ''
+            for (let child of this.class_edit_childs) {
+                this._Discard_Single(child)}}
+    }
+
+    _Discard_Single(editableDiv) {
+        this._restoreOriginal(editableDiv)
+        editableDiv.innerHTML = editableDiv.dataset.originalInnerHTML
     }
 
     // Checker for empty EditGroup class
@@ -287,7 +294,7 @@ class cls_editableHTML_EditGroup {
         return divElement.classList.contains('js-edit-child')}
 
     IsEditButton(divElement) {
-        return divElement.dataset.buttonType = "edit"
+        return 
     }
 
 }
@@ -306,65 +313,58 @@ function editableHTML_ToogleButtons(event) {
     }
 
 function editableHTML_onclick(event) {
-    let divElement = DOM_ElementFromJSEvent(event)
-    let buttonType = divElement.dataset.buttonType
-    let EditGroup  = new cls_editableHTML_EditGroup()
-    // Enter edit mode
-    if (EditGroup.IsEditText(divElement)) {
-        EditGroup = new cls_editableHTML_EditGroup(divElement)}
-    if (EditGroup.IsEditTextChild(divElement)) {
-        let editParent = divElement.AncestorWithClass(".js-edit")
-        EditGroup = new cls_editableHTML_EditGroup(editParent)}
-    if (EditGroup.IsEditButton(divElement)) {
-        EditGroup.InitFromButton(divElement)}
+    function xIdentifyEditGroup (event) {
+        let EditGroup  = new cls_editableHTML_EditGroup()
+        EditGroup.InitFromClickEvent(event)
+        return EditGroup
 
-    // When not empty, then one of the above was sucessfull, i. e.click was on a "edit" user interface
-    if (!EditGroup.IsEmpty()) {
-        if (!EditGroup.IsActive()) EditGroup.CreateTeaxtarea()
-        return} 
-    
-    let actionUnEdit = false
-    // save + discard (Undo Edit)
-    if (["save", "discard"].includes(buttonType)) {
-        actionUnEdit = true
-        EditGroup = new cls_editableHTML_EditGroup()
-        EditGroup.InitFromButton(divElement)
+        // if (EditGroup.IsEditText(divElement)) {
+        //     EditGroup = new cls_editableHTML_EditGroup(divElement)}
+        // if (EditGroup.IsEditTextChild(divElement)) {
+        //     let editParent = divElement.AncestorWithClass(".js-edit")
+        //     EditGroup = new cls_editableHTML_EditGroup(editParent)}
+        // if (EditGroup.IsEditButton(divElement)) {
+        //     EditGroup.InitFromButton(divElement)}
+
+        // if (!EditGroup.IsEmpty()) return EditGroup
+
+        // let buttonType = divElement.dataset.buttonType
+        // assert (["save", "discard"].includes(buttonType))
+        // EditGroup.InitFromButton(divElement)
+        
+        // if (!EditGroup.IsEmpty()) return EditGroup
+        // assert (false)
     }
 
-    if (buttonType == "save") {
-        let textarea = EditGroup.class_edit.DescendantsWithTag("textarea")[0]
-        innerHTML = CONST_EDITABLE_HTML_FUNCTION_CALLS["save"](textarea.value)}
+    function xIsTextEvent(event) {
+        let divElement = DOM_ElementFromJSEvent(event)
+        if (divElement.classList.contains('js-edit') || divElement.classList.contains('js-edit-child') ) return true
+        }
 
-    if (buttonType == "discard") {
-        innerHTML = EditGroup.class_edit.dataset.originalInnerHTML}
+    function xButtonevent(event, types) {
+        let divElement = DOM_ElementFromJSEvent(event)
+        let buttonType = divElement.dataset.buttonType
+        return types.includes(buttonType)
+        }
 
-    if (actionUnEdit) {
-        _restoreOriginal(EditGroup.class_edit)
-        EditGroup.class_edit.innerHTML = innerHTML
+
+    EditGroup = xIdentifyEditGroup(event)
+    if (xIsTextEvent(event) || xButtonevent(event, ["edit"])) {
+        if (EditGroup.IsInReadMode()) EditGroup.Edit_CreateTeaxtarea() 
         return}
-    
-    assert (false)
+
+    if (xButtonevent(event, ["save"])) {
+        EditGroup.Save()}
+
+    if (xButtonevent(event, "discard")) {
+        EditGroup.Discard()}
 
 }
 
 function editableHTML_DiscardAll() {
     document.querySelectorAll('.js-edit[data-edit-mode="active"]').forEach(divElement => {
-        innerHTML = divElement.dataset.originalInnerHTML
-        _restoreOriginal(divElement)
-        divElement.dataset.editMode = ''
-        divElement.innerHTML = innerHTML
-    });
-
-    document.querySelectorAll('.js-edit-discard[data-status="active"]').forEach(divElement => {
-        b_edit_unedit(divElement); 
-        Toggle_EditSaveDiscard(divElement);
-    });
-
-    document.querySelectorAll('.js-edit-div[data-edit-mode="active"]').forEach(divElement => {
-        innerHTML = divElement.dataset.originalInnerHTML
-        _restoreOriginal(divElement)
-        divElement.dataset.editMode = ''
-        divElement.innerHTML = innerHTML
+        let EditGroup = new cls_editableHTML_EditGroup(divElement)
+        if (!EditGroup.HasButtons()) EditGroup.Discard()
     });
     
 }
