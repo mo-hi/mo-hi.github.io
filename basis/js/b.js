@@ -53,7 +53,19 @@ function dictionary(keys, values) {
     }
     return ret
 }
-      
+
+/**
+returns an array of numbers from 'from' to 'to'.
+*/
+function NumbersFromTo(from, to, asString = false) {
+    let ret = [];
+    for (let i = from; i <= to; i++) {
+        ret.push(asString ? String(i) : i);
+    }
+    return ret;
+}
+   
+
 // ####################################################################################################
 // region content_divTable                                                                                #
 // ####################################################################################################
@@ -847,6 +859,20 @@ class Collection extends Array {
         return this.filter(item => values.includes(item[key]))
     }
 
+    /**
+    Collection
+    adds to each item of the collection the corresponding value of the array.
+    Collection item 'i-1' will get the new key-value pair arr[0]:arr[i], as arr[0] is interpeted as the new key for all items.
+    arr must be the length of the ego colllection plus 1.
+    */
+    addCol(arr) {
+        assert (arr.length == this.length + 1)
+
+        for (let i = 1; i < this.length +1; i++) {
+            this[i-1][arr[0]] = arr[i]
+        }
+    }
+
     _headers150() {
         let headers = []
         this.forEach(item => {
@@ -942,6 +968,21 @@ Object.defineProperties(Object.prototype, {
                 if (this[key] == value) return key}
             return undefined
             } 
+    } 
+}); 
+
+/**
+returns a new dictionary with the provided keys (in the order the keys are provided. Note: keys are generally not ordered in a dictionary.)
+*/
+Object.defineProperties(Object.prototype, {
+    SubsetAndOrder: {
+        value: function(keys) {
+            let ret = {}
+            for (let key of keys) {
+                if(this.hasOwnProperty(key)) ret[key] = this[key]
+            } 
+            return ret
+        }
     } 
 }); 
 // ####################################################################################################
