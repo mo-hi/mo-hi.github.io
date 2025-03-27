@@ -861,6 +861,21 @@ class Collection extends Array {
 
     /**
     Collection
+    will change for all items the key of oldKey to newKey. The values stay the same. Note: This function will change the order of the keys, newKey will be the last key.
+    */
+    renameKey(oldKey, newKey) {
+        assert (typOf(oldKey) == 'str')
+        assert (typOf(newKey) == 'str')
+        this.forEach(item => {
+            if (item[oldKey] != undefined) {
+                item[newKey] = item[oldKey]
+                delete item[oldKey]
+            }
+        });
+    }
+
+    /**
+    Collection
     adds to each item of the collection the corresponding value of the array.
     Collection item 'i-1' will get the new key-value pair arr[0]:arr[i], as arr[0] is interpeted as the new key for all items.
     arr must be the length of the ego colllection plus 1.
@@ -871,6 +886,14 @@ class Collection extends Array {
         for (let i = 1; i < this.length +1; i++) {
             this[i-1][arr[0]] = arr[i]
         }
+    }
+
+    /**
+    Collection
+    deletes all items in the collection
+    */
+    reset() {
+        this.length = 0
     }
 
     _headers150() {

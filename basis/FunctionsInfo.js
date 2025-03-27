@@ -432,9 +432,21 @@ const FromFile_FunctionsInfo_JS = [
         "region": "class Collection"
     },
     {
+        "name": ".renameKey",
+        "docstring": "will change for all items the key of oldKey to newKey. The values stay the same. Note: This function will change the order of the keys, newKey will be the last key.",
+        "parameters": "oldKey, newKey",
+        "region": "class Collection"
+    },
+    {
         "name": ".addCol",
         "docstring": "adds to each item of the collection the corresponding value of the array.\n    Collection item 'i-1' will get the new key-value pair arr[0]:arr[i], as arr[0] is interpeted as the new key for all items.\n    arr must be the length of the ego colllection plus 1.",
         "parameters": "arr",
+        "region": "class Collection"
+    },
+    {
+        "name": ".reset",
+        "docstring": "deletes all items in the collection",
+        "parameters": "",
         "region": "class Collection"
     }
 ]
