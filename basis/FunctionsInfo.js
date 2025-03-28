@@ -30,6 +30,18 @@ const FromFile_FunctionsInfo_JS = [
         "region": "basis"
     },
     {
+        "name": "debounce",
+        "docstring": "delays a function call.",
+        "parameters": "func, delay",
+        "region": "basis"
+    },
+    {
+        "name": "getAllEventListeners",
+        "docstring": "returns all event listeners of the current page. The function uses the native getEventListeners function of Chrome DevTools. \nThe function is for develooment purposes only and should not be used in production code.",
+        "parameters": "",
+        "region": "basis"
+    },
+    {
         "name": "b_divTable",
         "docstring": "return a div table. Provide either cols or json! <br>\nWhen cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>\nWith json is provided, a table with the json dataset is returend. <br>",
         "parameters": "{cols, json}",
@@ -186,7 +198,7 @@ const FromFile_FunctionsInfo_JS = [
         "region": "Dictionary objects"
     },
     {
-        "name": ".SubsetAndOrder",
+        "name": ".KeySubsetAndOrder",
         "docstring": "returns a new dictionary with the provided keys (in the order the keys are provided. Note: keys are generally not ordered in a dictionary.)",
         "parameters": "keys",
         "region": "Dictionary objects"
@@ -421,7 +433,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".subsetKeys",
-        "docstring": "returns a new collection with the subset of elements which have the specified key",
+        "docstring": "returns a new collection with the subset of elements which have the specified keys",
         "parameters": "keys",
         "region": "class Collection"
     },
@@ -438,7 +450,7 @@ const FromFile_FunctionsInfo_JS = [
         "region": "class Collection"
     },
     {
-        "name": ".addCol",
+        "name": ".addKey",
         "docstring": "adds to each item of the collection the corresponding value of the array.\n    Collection item 'i-1' will get the new key-value pair arr[0]:arr[i], as arr[0] is interpeted as the new key for all items.\n    arr must be the length of the ego colllection plus 1.",
         "parameters": "arr",
         "region": "class Collection"
@@ -446,6 +458,12 @@ const FromFile_FunctionsInfo_JS = [
     {
         "name": ".reset",
         "docstring": "deletes all items in the collection",
+        "parameters": "",
+        "region": "class Collection"
+    },
+    {
+        "name": ".removeEmptyEntries",
+        "docstring": "removes all items from the collection which are empty (i.e. have no keys)",
         "parameters": "",
         "region": "class Collection"
     }

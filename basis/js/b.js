@@ -65,7 +65,40 @@ function NumbersFromTo(from, to, asString = false) {
     return ret;
 }
    
+/**
+delays a function call.
+*/
+function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+}
 
+/**
+returns all event listeners of the current page. The function uses the native getEventListeners function of Chrome DevTools. 
+The function is for develooment purposes only and should not be used in production code.
+*/
+function getAllEventListeners() {
+    function xdivStr(element) {
+        if (element === document) return "document"
+        if (element === window)  return "window"
+        if (element.id) element.id
+        if (element.className) return element.className.replace(/\s+/g, '.');
+        return element.tagName.toLowerCase(); // Fallback to tag name
+    }
+    const allElements = document.querySelectorAll('*');
+    let eventListeners = {};
+
+    allElements.forEach(element => {
+      const elementListeners = getEventListeners(element); // Native Chrome's getEventListeners
+      if (Object.keys(elementListeners).length > 0) eventListeners[xdivStr(element)] = elementListeners;
+    });
+  
+    return eventListeners;
+  }
+  
 // ####################################################################################################
 // region content_divTable                                                                                #
 // ####################################################################################################
@@ -842,7 +875,7 @@ class Collection extends Array {
 
     /**
     Collection
-    returns a new collection with the subset of elements which have the specified key
+    returns a new collection with the subset of elements which have the specified keys
     */
     subsetKeys(keys) {
         assert (typOf(keys) == 'list')
@@ -880,7 +913,7 @@ class Collection extends Array {
     Collection item 'i-1' will get the new key-value pair arr[0]:arr[i], as arr[0] is interpeted as the new key for all items.
     arr must be the length of the ego colllection plus 1.
     */
-    addCol(arr) {
+    addKey(arr) {
         assert (arr.length == this.length + 1)
 
         for (let i = 1; i < this.length +1; i++) {
@@ -894,6 +927,53 @@ class Collection extends Array {
     */
     reset() {
         this.length = 0
+    }
+
+    /**
+    Collection
+    removes all items from the collection which are empty (i.e. have no keys)
+    */
+    removeEmptyEntries() {
+        this.forEach((item, index) => {
+            let hasValue = false
+            for (let key of item.keys()) {
+                if (typOf(item[key]) == 'list') {
+                    if (item[key].length > 0) {
+                        hasValue = true
+                        break
+                    }
+                }
+                if (item[key] != null && item[key] != "" && item[key] != undefined){
+                    hasValue = true
+                    break
+                }
+            }
+            if (!hasValue) this.splice(index, 1)
+        })
+    }
+
+    sortByKey(key, ascending=true, numeric=false) {
+        assert (typOf(key) == 'str')
+        assert (typOf(ascending) == 'bool')
+        assert (typOf(numeric) == 'bool')
+
+        if (!numeric) {
+            this.sort((a, b) => {
+                if (String(a[key]) < String(b[key])) return ascending ? -1 : 1
+                if (String(a[key]) > String(b[key])) return ascending ? 1 : -1
+                return 0
+            })
+            return
+        }
+        
+        if (numeric) {
+            this.sort((a, b) => {
+                if (a[key] < b[key]) return ascending ? -1 : 1
+                if (a[key] > b[key]) return ascending ? 1 : -1
+                return 0
+            })
+            return
+        }
     }
 
     _headers150() {
@@ -998,7 +1078,7 @@ Object.defineProperties(Object.prototype, {
 returns a new dictionary with the provided keys (in the order the keys are provided. Note: keys are generally not ordered in a dictionary.)
 */
 Object.defineProperties(Object.prototype, {
-    SubsetAndOrder: {
+    KeySubsetAndOrder: {
         value: function(keys) {
             let ret = {}
             for (let key of keys) {
