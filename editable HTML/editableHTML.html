@@ -13,26 +13,24 @@
 </head>
 <body class="academic wr-800-400">
     <h1>EDITABLE HTML</h1>
+    <section>
     <p class="fontPlus2">
         Editable HTML provides a way to make divs of your HTML content editable. 
         The behavior of Editable HTML is very similar to the <c>contentEditable = true</c> feature supported by most browsers.
-        Editable HTML wil create a textareas inside your editable divs and the textare value will become the divs innerHTML.
-        That means, that also html can be used inside the Editable HTML.
+        Editable HTML wil create a textareas inside your divs and the textarea value will get the divs innerHTML.
+        By that you can also modify the html inside a div.
     </p>
-    <section>
-        <p>
-            To use Editable HTML, you need to (1) define which divs in your HTML should be editable by adding the class <c>js-edit</c> to them, 
-            and (2) call the function <c>editableHTML_init(targetID)</c> in your JavaScript, where <c>targetID</c> is the ID of the parent div containing the editable divs.
-        </p>
+    <p class="fontPlus2">
+        The user interface of Editable HTML is either be based on mouse clicks and keyboard events of based on buttons.
+        Let's go through the different options.
     </section>
 
 
     <section>
        
-        <h2 class="underline sticky">01 Single text div</h2>
-        <b>APPLICATION</b>
+        <h2 class="underline sticky">Editable div via mouse click and keyboard event</h2>
         <p class="mt-0i">
-            Below are two divs with a border. Each can be edited by clicking inside the divs area. 
+            Below are two divs with a border. Each div can be edited by clicking inside the divs area. 
             The first div is implemented using the build-in browser/html feature <c>contentEditable</c>.
             The second div is implemented using Editable HTML of this project. Try it and experience the different behavior
         </p>
@@ -51,11 +49,14 @@
         </div>
 
         <p> 
-            Difference 1: Editable HTML will set the divs innerHTML back to its original value, when you edit a div and then do a click outside the div to avoid unintential changes.
-            In contrast to the buld-in feature will save your input and the original value gets lost.  
+            Notice the different behavior of the two divs
         </p>
-        <p>   
-            Difference 2: Editable HTML will only save your input when you press 'Ctrl + Enter' or 'Ctrl + Blankspace'. Editable HTML aims to avoid unintentional inputs by the user. 
+        <p class="w-90 pl-40">
+            (1) Editable HTML will set the divs innerHTML back to its original value, when click outside the div to avoid unintential changes.
+            The buld-in feature will save your input and the original value gets lost.  
+        </p>
+        <p class="w-90 pl-40">
+            (2) In this example, Editable HTML will only save your input when you press 'Ctrl + Enter' or 'Ctrl + Blankspace'. 
             Each input must be confirmed by a dedicated user action, that makes it unlikey to happen by mistake.
         </p>
 
@@ -70,16 +71,17 @@
         <div id="show-01" class="h-90 mb-20i"></div>
         <b>JS</b>
         <p class="mt-0i">
-        In your script section, you need to call the function <c>editableHTML_init()</c> and pass the id of the div 
-        that contains the editable divs.
+        In your script section, you need to call the function <c>editableHTML_Init()</c> and pass the id of the node div container
+        that has the editable divs. In this first example, there is only one editable div inside the node container.
         <p>
         <div id="show-js-01" class="h-140"></div>
         <!-- --------------------------------------------------------------------------------------- -->
 
-        <h2 class="underline sticky">02 More text divs</h2>
-        <b>APPLICATION</b>
-        <p class="mt-0i">
-           Same logic as above. You can have multiple editable divs can be placed inside a node container.
+        <!-- <h2 class="underline sticky">02 More text divs</h2>
+        <b>APPLICATION</b> -->
+        <br>
+        <p>
+            Here's the example with three multiple editable divs inside the node container,  containing the class <c>js-edit</c> and <c>js-event</c> 
         </p>
         <div id="root-02">
             <div id="id-02">
@@ -102,12 +104,11 @@
         <div id="show-js-02" class="h-140"></div>
         <!-- --------------------------------------------------------------------------------------- -->
 
-        <h2 class="underline sticky">02b Multi Text divs</h2>
-        <b>APPLICATION</b>
+        <h2 class="underline sticky"> Multi Editable divs via mouse click and keyboard event</h2>
         <p class="mt-0i">
             In this variant, the three text divs are connected. They form one logical edit unit, which are saved or discarded together.
             The editable divs need to be children of <c>js-edit</c> and have the class <c>js-edit-child</c>. 
-            Note that clicking outside the textare here will not lead to discard, as you want to edit multiple fields at once
+            Note that clicking outside the textare here will not undo your edit. Here we have to use the keyboard event 'esc' to discard the changes.
         </p>
         <div id="root-02b">
             <div id="id-02b">
@@ -132,18 +133,17 @@
         <div id="show-js-02b" class="h-140"></div>
         <!-- --------------------------------------------------------------------------------------- -->
 
-        <h2 class="underline sticky">03 editable divs with buttons</h2>
+        <h2 class="underline sticky">Editable div with buttons</h2>
         <p>
-            Let's add buttons to set the div explicitly to edit mode and read mode.<br>
-            The div element loses its <c>js-event</c> class as the events are on the buttons now.
-            The buttons are located anywhere on the html as children of a div with class <c>js-edit-btn</c>. 
+            In this example the user interface is based on buttons. Mouse clicks on the editable div and keyboard events are disabled here.
+            The class <c>js-event</c> therefore has to move from the editiable div to the buttons. There a three buttons, edit, save and discard.
+            The buttons can be located anywhere on the html as children of a div with class <c>js-edit-btn</c>. 
             The link between the <c>js-edit</c> and <c>js-edit-btn</c> element is done via <c>data-editable-link</c> attribute which must be the same value.
         </p>
         <p>
-            The buttons rule is that <c> js-edit-btn</c> must have two or three children, the first element child is the edit-button and the second 
-            is the save-button. If there's a third child, then it's the discard button 
-            </b> <br>
-            Note that here pointing outside or pressing the 'esc' button will not lead to discard. Only dedicated button actions will lead to edit, save or discard.
+            To minimize html code, the buttons edit and save are by befault identified as the first and second child of the <c>js-edit-btn</c> element.
+            When <c> js-edit-btn</c> has a third child, like in this exmaple, then the third child is identified as discard button. 
+            The discard button also can a separate element anywhere on the page. In yout html you have to set the class <c>hidden</c> to the save and discard button.
         </p>
 
         <div id ="root-03">
@@ -165,11 +165,14 @@
         <br>
         JS:
         <div id="show-js-03" class="h-140"></div>
-        <!-- --------------------------------------------------------------------------------------- -->
-        <h2 class="underline sticky">04 discard button seperated</h2>
+        <br>
         <p>
-            If <c>js-edit-btn</c> has two children, then the third discard button can be anywhere on the page. In this case the class
-            <c>js-edit-discard</c> must be added to the discard div and the <c>data-editable-link</c> with the same value.
+            In this example the discard button is a seperate element. To link the discard button with its corresponding editable div, and button container
+            the data <c>data-editable-link</c> with the same value must be added.
+        </p>
+        <p>
+            So either the class <c>js-edit-btn</c> has a third child, which is the discard button, or the data-value pair of <c>data-editable-link</c> occurs three times 
+            on the page (for a particular value), where only one has also the class <c>js-event</c>, which is the discard button.
         </p>
         <div id ="root-04">
             <div class="inline-block js-edit-btn" data-editable-link="link-04"> 
@@ -181,7 +184,7 @@
                     This is a div 1
                 </div>
             </div>
-            <div class="btn blue js-event js-edit-discard hidden" data-editable-link="link-04">{{svg-icon-discard-12}}</div>
+            <div class="btn blue js-event hidden" data-editable-link="link-04">{{svg-icon-discard-12}}</div>
         </div>
         <br>
         HTML:
@@ -215,7 +218,7 @@
                 </div>
             </div>
 
-            <div class="btn blue js-event js-edit-discard hidden" data-editable-link="link-05">
+            <div class="btn blue js-event hidden" data-editable-link="link-05">
                 {{svg-icon-discard-12}}
             </div>
         </div>
@@ -226,12 +229,12 @@
         JS:
         <div id="show-js-05" class="h-140"></div>
         <!-- --------------------------------------------------------------------------------------- -->
-                <h2 class="underline sticky">Example 4: table</h2>
+                <h2 class="underline sticky">Example 6: table</h2>
                 <p>
                     .... 
                 </p>
-                <div id="id-06">
-                    <table class="border border-cells padding-5 w-600px">
+                <div  id="root-06">
+                    <table id="id-06" class="border border-cells padding-5 w-600px">
                         <tbody>
                             <tr id="id-node-table" class="js-edit w-15" data-editable-link="link-06">
                                 <td >
@@ -300,15 +303,8 @@
 <script src="js/editableHTML.js"></script>  <!-- this project -->
 
 <script>
-    for (let id of ["01", "02","02b","03", "04", "05"]) {
-        ShowHTMLinTextArea(document.getElementById("root-" + id), document.getElementById("show-" + id))
-        // ShowHTMLinTextArea(document.getElementById("id-js-" + id), document.getElementById("show-js-" + id))
-    }
-    // AutoFill kills eventlisteners. Therefore it needs to be the first script
-    // Remember the Inner HTML before change.
-    const SITE_DIVS_INNER = {}
-    for (let id of ["03", "04", "05", "06"]) {
-        SITE_DIVS_INNER[id] = document.getElementById("id-" + id).innerHTML}
+    for (let id of ["01", "02","02b","03", "04", "05", "06"]) {
+        ShowHTMLinTextArea(document.getElementById("root-" + id), document.getElementById("show-" + id))}
 
     Auto_Fill(FromFile_textGeneral_js,"id-end")
         
@@ -317,14 +313,14 @@
 </script>
 
 <script id = "id-js-01">
-    editableHTML_init('id-01')
+    editableHTML_Init('id-01')
     // validate:
     let div1 = document.getElementById('id-01').DescendantsWithClass('.js-edit')[0]
     let EditGroup = new cls_editableHTML_EditGroup(div1)
     assert (EditGroup.IsSingleTextDiv())
 </script>
 <script id = "id-js-02">
-    editableHTML_init('id-02')
+    editableHTML_Init('id-02')
     // validate:
     let divs2 = document.getElementById('id-02').DescendantsWithClass('.js-edit')
     for (let div of divs2) {
@@ -332,14 +328,14 @@
         assert (EditGroup.IsSingleTextDiv())}
 </script>
 <script id = "id-js-02b">
-    editableHTML_init('id-02b')
+    editableHTML_Init('id-02b')
     // validate:
     let div2b = document.getElementById('id-02b').DescendantsWithClass('.js-edit')[0]
     EditGroup = new cls_editableHTML_EditGroup(div2b)
     assert (EditGroup.IsMultiTextDiv())
 </script>
 <script id = "id-js-03">
-    editableHTML_init('id-03')
+    editableHTML_Init('id-03')
     // validate:
     div = document.getElementById('id-03').DescendantsWithClass('.js-edit')[0]
     EditGroup = new cls_editableHTML_EditGroup(div)
@@ -347,7 +343,7 @@
     assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-04">
-    editableHTML_init('id-04')
+    editableHTML_Init('id-04')
     // validate:
     div = document.getElementById('id-04').DescendantsWithClass('.js-edit')[0]
     EditGroup = new cls_editableHTML_EditGroup(div)
@@ -355,7 +351,7 @@
     assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-05">
-    editableHTML_init('id-05')
+    editableHTML_Init('id-05')
     // validate:
     div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
     EditGroup = new cls_editableHTML_EditGroup(div)
@@ -363,7 +359,7 @@
     assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-06">
-    editableHTML_init('id-06')
+    editableHTML_Init('id-06')
     // validate:
     div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
     EditGroup = new cls_editableHTML_EditGroup(div)
@@ -372,60 +368,31 @@
 </script> 
 
 <script>
-    for (let id of ["06"]) {
-        let pseudodiv = document.createElement("div")
-        pseudodiv.innerHTML = SITE_DIVS_INNER[id]
-        ShowHTMLinTextArea(pseudodiv, document.getElementById("show-" + id))
-        ShowHTMLinTextArea(document.getElementById("id-js-" + id), document.getElementById("show-js-" + id))
-    }
-
-    for (let id of ["01", "02", "02b", "03", "04", "05"]) {
-        ShowHTMLinTextArea(document.getElementById("id-js-" + id), document.getElementById("show-js-" + id))
-    }
-    
+    for (let id of ["01", "02", "02b", "03", "04", "05", "06"]) {
+        ShowHTMLinTextArea(document.getElementById("id-js-" + id), document.getElementById("show-js-" + id))} 
 </script>
 
 
 <script>
+    //============================================
+    // functions to be modified by user
+    //============================================
 
-    //MOHI
-    // editableHTML_init("id-03", discardButtonAfter = "id-edit-32")
-
-    // If no function is defined, then innerHTML = textara.value
     CONST_EDITABLE_HTML_FUNCTION_CALLS = {
-        "edit": (innerHTML) => innerHTML,  // innerHTML -> textAreaValue
-        "save": (textAreaValue) => textAreaValue,  // textAreaValue -> InnerHTML
-    }
+    "edit": editableHTML_your_edit_function,  // innerHTML -> textAreaValue
+    "save": editableHTML_your_save_function,  // textAreaValue -> InnerHTML
+}
 
-    // CONST_EDITABLE_HTML_FUNCTION_CALLS = {
-    //     "edit": (innerHTML) => your_edit_function(innerHTML),  // innerHTML -> textAreaValue
-    //     "save": (textAreaValue) => your_save_function(textAreaValue),  // textAreaValue -> InnerHTML
-    //     "margin-discard": 36,
-    // }
-
-    function your_edit_function(innerHTML) {
+    
+    function editableHTML_your_edit_function(innerHTML) {
         // return string that will be the textarea value when edit button is clicked
-
-        let para = [
-            {'id':'id-scsc', 'innerHTML': 'sdsds'}, 
-            {'id':'id-scsc', 'innerHTML': 'sdsds'},
-        ]
 
         return innerHTML
     }
 
-    function your_save_function(div_save_infos) {
-        // what you get:
-        // [
-        //     {'id':'id-scsc', 'innerHTML': 'sdsds', 'value': ...}, 
-        //     {'id':'id-scsc', 'innerHTML': 'sdsds', 'value': ...},
-        // ]
-        for (let i = 0; i< div_save_infos.length; i++) {
-            // overwrite innerHTML
-            div_save_infos[i]['innerHTML'] = div_save_infos[i]['value'].replace("0", "0")
-        }
-
-        return div_save_infos
+    function editableHTML_your_save_function(textAreaValue) {
+        // return string that will be the innerHTML when save button is clicked
+        return textAreaValue
     }
 
     // key events
@@ -440,65 +407,3 @@
 
 </body>
 </html>
-
-
-<!-- <section>
-    <h2 class="underline sticky">Integration of Functions</h2>
-    <p>
-        You have the option to integrate your own functions, whcih will be called when the edit button or the save button is clicked (but not the discard button).
-    </p>
-    <code>
-        <div class="green">// If no function is defined, then innerHTML = textara.value</div>
-        CONST_EDITABLE_HTML_FUNCTION_CALLS = {<br>
-            --"edit": (innerHTML) =-) your_edit_function(innerHTML),<br>
-            --"save": (textAreaValue) =-) your_save_function(textAreaValue),<br>
-        }<br>
-        <div class="green">// called when the edit button is clicked. ensure to return a string that will be the textarea value</div>
-        function your_edit_function(innerHTML) {<br>
-            --return innerHTML<br>
-        }<br>
-        <div class="green">// called when the save button is clicked. ensure to return innerHTML that will be the innerHTML of the editable div.</div>
-        <div class="green">// you may also call your database function here, to update according to the user input.</div>
-        function your_save_function(textAreaValue) {<br>
-            --return textAreaValue.replace("0", "0")<br>
-        }<br>
-    </code>
-</sction> -->
-
-<!-- 
- --------------------------------------------------------------------------------------- 
- <h2 class="underline sticky"> HTML Template</h2>
- <p>
-     <b>Edit.js </b> has two main parts, the <b>button container</b> <c>.js-edit-btn</c> and the 
-     <b>node container </b><c>.js-edit</c>. Both conainer can be placed independent 
-     of each other anywhere on the page. 
- </p>
- <p>
-     Linking between the button container and the node container is
-     done by setting the the dataset attribute <c>dataset.targetID=""</c> (js) /
-      <c>data-target-id=""</c> (html) of <c>.js-edit-btn</c> to the id of <c>.js-edit</c>.
-     In case <c>.js-edit-btn</c> is inside <c>.js-edit</c>, then the linking is done automatically
-     during initialization.
- </p>
- <p>
-     The <b>button container</b><c>.js-edit-btn</c>  has the <b>edit button</b> <c>.js-edit-edit</c> and <b>save button </b><c>.js-edit-save</c> as children. 
-     Both buttons will toggle between each other when clicked <br>
- </p>
- <p>
-     The <b>discard button</b> <c>.js-edit-discard</c> can be placed as a decendent of the button container or as a decendent of the node container.
-     The discard button will toggle like the save button. 
- </p>
- <p>
-     In case no class is defined for the edit and save button, then the first element child of <c>.js-edit-btn</c>  will get the <c>.js-edit-edit</c> class and the second
-     will be the <c>.js-edit-save</c> class. This does not apply for the discard buttoen, i. e. the class <c>.js-edit-discard</c> needs to be set.
- </p>
- <p>
-     The <b>node container</b> <c>.js-edit</c> has all editable div elements <c>.js-edit-div</c>.
-     The buttons will always apply to all editable divs inside the linked node.
- </p>
- <p>
-     To initialize edit.js, you have to call <c>editableHTML_init(elementID)</c> in your script section.
-     Edit.js will then set eventlisteners to the button elements inside the div with the corresponding elementID. 
-     The three buttons need to have the class <c>.js-event</c> to allow adding eventlisteners to them.
- </p>
- <br> -->

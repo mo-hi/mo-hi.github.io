@@ -615,7 +615,9 @@ h2.sticky {
 */
 body.academic{
     font-family: Arial, sans-serif;
+    /* font-family: Helvetica, arial, freesans, clean, sans-serif; */
     /* margin: 60px auto; */
+    line-height: 1.4;
     margin: 30px auto 60px auto; 
     /* text-align: center;  */
     padding: 0;

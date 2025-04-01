@@ -1,8 +1,44 @@
-// region Init
+// =========================================================
+// Initialization of editableHTML                           /
+//    - This will add event listeners                       /   
+//    - This will add data attributes                       /
+// =========================================================
+function editableHTML_Init(elementId) {
+    _editableHTML_init(elementId)
+}
 
-function editableHTML_init(elementId = "body") {
-    let container = wenn(elementId == "body", document.body,document.getElementById(elementId))
-    
+// ==================================================================================
+// Optional Editable HTML functions, for example to assigne to keyboard events      /
+// ==================================================================================
+function editableHTML_DiscardAll(includeButtons = false) {
+    _editableHTML_DiscardAll(includeButtons)
+}
+
+function editableHTML_SaveAll(includeButtons = false) {
+    _editableHTML_SaveAll(includeButtons)
+}
+
+// =========================================================================================
+// globally available functions that are added via the event listeners. Don't use them.    /
+// =========================================================================================
+
+function ELONLY_editableHTML_onclick(event) {
+    _editableHTML_onclick(event)
+}
+
+function ELONLY_editableHTML_ToogleButtons(event) {
+    _editableHTML_ToogleButtons(event)
+}
+
+
+
+// =========================================================
+// Funcionality for editableHTML                           /
+// =========================================================
+
+function _editableHTML_init(elementId) {
+    let container = document.getElementById(elementId)
+    assert(container != undefined)
     let editDivs = container.DescendantsWithClass('.js-edit')
     if (editDivs.length == 0) return
 
@@ -10,24 +46,21 @@ function editableHTML_init(elementId = "body") {
         let EditGroup = new cls_editableHTML_EditGroup(editDiv)
 
         if (EditGroup.HasButtons()) {
-            EditGroup.div_editButton.dataset.buttonType = "edit"
-            EditGroup.div_saveButton.dataset.buttonType = "save"
-            EditGroup.div_discardButton.dataset.buttonType = "discard"
             
-            EditGroup.div_editButton.addEventListener_ClickAndTouch(editableHTML_ToogleButtons)
-            EditGroup.div_saveButton.addEventListener_ClickAndTouch(editableHTML_ToogleButtons)
-            EditGroup.div_discardButton.addEventListener_ClickAndTouch(editableHTML_ToogleButtons)
+            EditGroup.div_editButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
+            EditGroup.div_saveButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
+            EditGroup.div_discardButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
 
-            EditGroup.div_editButton.addEventListener_ClickAndTouch(editableHTML_onclick)
-            EditGroup.div_saveButton.addEventListener_ClickAndTouch(editableHTML_onclick)
-            EditGroup.div_discardButton.addEventListener_ClickAndTouch(editableHTML_onclick)}
+            EditGroup.div_editButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
+            EditGroup.div_saveButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
+            EditGroup.div_discardButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)}
 
         if (EditGroup.IsSingleTextDiv()) {
-            EditGroup.class_edit.addEventListener_ClickAndTouch(editableHTML_onclick)
+            EditGroup.class_edit.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
             continue}
         if (EditGroup.IsMultiTextDiv()) {
             for (let edit_child of EditGroup.class_edit_childs) {
-                edit_child.addEventListener_ClickAndTouch(editableHTML_onclick)}}
+                edit_child.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)}}
     }
 }
 
@@ -46,9 +79,15 @@ class cls_editableHTML_EditGroup {
 
         if (this.HasButtons()) {
             this.class_edit_btn = this._returnButtonContainer()
-            this.div_editButton = this._returnButton_Edit()
-            this.div_saveButton = this._returnButton_Save()
+
+            this.div_editButton = this.class_edit_btn.firstElementChild;
+            this.div_editButton.dataset.buttonType = "edit"
+
+            this.div_saveButton = this.class_edit_btn.firstElementChild.nextElementSibling
+            this.div_saveButton.dataset.buttonType = "save"
+
             this.div_discardButton = this._returnButton_Discard()
+            this.div_discardButton.dataset.buttonType = "discard"
         }
     }
 
@@ -99,24 +138,13 @@ class cls_editableHTML_EditGroup {
 
         return document.querySelectorAll(queryString_Btn)[0]}
 
-    
-    _returnButton_Edit() {
-        assert (this.class_edit_btn !== undefined)
-        return this.class_edit_btn.firstElementChild;
-    }
-
-    _returnButton_Save() {
-        assert (this.class_edit_btn !== undefined)
-        return this.class_edit_btn.firstElementChild.nextElementSibling
-    }
-
     _returnButton_Discard() {
-        assert (this.class_edit_btn !== undefined)
         if (this.div_saveButton.nextElementSibling) {
             return this.div_saveButton.nextElementSibling} 
         
         let linkValue = this.class_edit.dataset.editableLink;
-        let queryString = '.js-edit-discard[data-editable-link="' + linkValue + '"]'
+        let queryString = '.js-event[data-editable-link="' + linkValue + '"]'
+        // let queryString = '[data-editable-link="' + linkValue + '"][data-button-type="discard"]'
         if (document.querySelectorAll(queryString).length == 1) {
             return document.querySelectorAll(queryString)[0]}
 
@@ -215,11 +243,11 @@ class cls_editableHTML_EditGroup {
 
 
     InitFromButton(anyButton) {
-        if (!this.IsEmpty()) return // in case js-edit is known, other functions shall be used
+        assert(this.IsEmpty())      // in case js-edit is known, standedard init shall be used
         
         let linkValue = ""
         if (anyButton.dataset.editableLink) {
-            assert (anyButton.classList.contains("js-edit-discard"))
+            assert (anyButton.dataset.buttonType == "discard")
             linkValue = anyButton.dataset.editableLink
         } else {
             let parent = anyButton.parentElement
@@ -300,7 +328,7 @@ class cls_editableHTML_EditGroup {
 }
 
 
-function editableHTML_ToogleButtons(event) {
+function _editableHTML_ToogleButtons(event) {
         let egoButton = DOM_ElementFromJSEvent(event)
         let EditGroup = new cls_editableHTML_EditGroup()
         EditGroup.InitFromButton(egoButton)
@@ -312,28 +340,12 @@ function editableHTML_ToogleButtons(event) {
         }
     }
 
-function editableHTML_onclick(event) {
+function _editableHTML_onclick(event) {
     function xIdentifyEditGroup (event) {
         let EditGroup  = new cls_editableHTML_EditGroup()
         EditGroup.InitFromClickEvent(event)
         return EditGroup
 
-        // if (EditGroup.IsEditText(divElement)) {
-        //     EditGroup = new cls_editableHTML_EditGroup(divElement)}
-        // if (EditGroup.IsEditTextChild(divElement)) {
-        //     let editParent = divElement.AncestorWithClass(".js-edit")
-        //     EditGroup = new cls_editableHTML_EditGroup(editParent)}
-        // if (EditGroup.IsEditButton(divElement)) {
-        //     EditGroup.InitFromButton(divElement)}
-
-        // if (!EditGroup.IsEmpty()) return EditGroup
-
-        // let buttonType = divElement.dataset.buttonType
-        // assert (["save", "discard"].includes(buttonType))
-        // EditGroup.InitFromButton(divElement)
-        
-        // if (!EditGroup.IsEmpty()) return EditGroup
-        // assert (false)
     }
 
     function xIsTextEvent(event) {
@@ -361,63 +373,17 @@ function editableHTML_onclick(event) {
 
 }
 
-function editableHTML_DiscardAll() {
+function _editableHTML_DiscardAll(includeButtons) {
     document.querySelectorAll('.js-edit[data-edit-mode="active"]').forEach(divElement => {
         let EditGroup = new cls_editableHTML_EditGroup(divElement)
-        if (!EditGroup.HasButtons()) EditGroup.Discard()
+        if (!EditGroup.HasButtons() || includeButtons) EditGroup.Discard()
     });
     
 }
 
-function editableHTML_SaveAllText() {
+function editableHTML_SaveAllText(includeButtons) {
     document.querySelectorAll('.js-edit[data-edit-mode="active"]').forEach(divElement => {
         let EditGroup = new cls_editableHTML_EditGroup(divElement)
-        EditGroup.Save()
+        if (!EditGroup.HasButtons() || includeButtons) EditGroup.Save()
     });
-}
-
-
-
-
-
-// region Templates
-
-function EditableDiv_TemplateButtons(targetID, includeDiscard = false) {
-    // Create the main div
-    let mainDiv = document.createElement('div');
-    mainDiv.classList.add('js-edit-btn');
-    mainDiv.dataset.targetId = targetID;
-
-    // Create the edit button div
-    let editButton = document.createElement('div');
-    editButton.classList.add('btn', 'blue', 'js-event');
-    editButton.innerHTML = b_svg("svg-icon-edit-18")
-
-    // Create the save button div
-    let saveButton = document.createElement('div');
-    saveButton.classList.add('btn', 'blue', 'js-event', 'hidden');
-    saveButton.innerHTML = b_svg("svg-icon-save-18")
-
-    // Append the buttons to the main div
-    mainDiv.appendChild(editButton);
-    mainDiv.appendChild(saveButton);
-
-    if (includeDiscard) {
-        // Create the discard button div
-        let discardButton = document.createElement('div');
-        discardButton.classList.add('btn', 'blue', 'js-event', 'hidden', 'js-edit-discard');
-        discardButton.innerHTML = b_svg("svg-icon-discard-12");
-        mainDiv.appendChild(discardButton);
-    }
-
-    return mainDiv;
-}
-
-function EditableDiv_TemplateDiscard (id) {
-            // Create the discard button div
-            let discardButton = document.createElement('div');
-            discardButton.classList.add('btn', 'blue', 'js-event', 'hidden', 'js-edit-discard');
-            discardButton.innerHTML = b_svg("svg-icon-discard-12");
-            if (id) discardButton.id = id
-            return discardButton
 }
