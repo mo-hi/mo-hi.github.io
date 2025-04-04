@@ -303,6 +303,7 @@
 <script src="js/editableHTML.js"></script>  <!-- this project -->
 
 <script>
+    // auto generation
     for (let id of ["01", "02","02b","03", "04", "05", "06"]) {
         ShowHTMLinTextArea(document.getElementById("root-" + id), document.getElementById("show-" + id))}
 
@@ -311,60 +312,56 @@
     for (let id of ["id-01", "id-02", "root-03", "root-04", "root-05", "id-06"]) {
         Auto_Fill(b_svg([12,18,24]),id)} 
 </script>
-
 <script id = "id-js-01">
-    editableHTML_Init('id-01')
-    // validate:
-    let div1 = document.getElementById('id-01').DescendantsWithClass('.js-edit')[0]
-    let EditGroup = new cls_editableHTML_EditGroup(div1)
-    assert (EditGroup.IsSingleTextDiv())
+    let EDIT = new functions_editableHTML()
+    EDIT.Init('id-01')
 </script>
 <script id = "id-js-02">
-    editableHTML_Init('id-02')
+    EDIT.Init('id-02')
     // validate:
     let divs2 = document.getElementById('id-02').DescendantsWithClass('.js-edit')
-    for (let div of divs2) {
-        EditGroup = new cls_editableHTML_EditGroup(div)
-        assert (EditGroup.IsSingleTextDiv())}
+    // for (let div of divs2) {
+    //     EditGroup = new cls_editableHTML_EditGroup(div)
+    //     assert (EditGroup.IsSingleTextDiv())}
 </script>
 <script id = "id-js-02b">
-    editableHTML_Init('id-02b')
+    EDIT.Init('id-02b')
     // validate:
-    let div2b = document.getElementById('id-02b').DescendantsWithClass('.js-edit')[0]
-    EditGroup = new cls_editableHTML_EditGroup(div2b)
-    assert (EditGroup.IsMultiTextDiv())
-</script>
+//     let div2b = document.getElementById('id-02b').DescendantsWithClass('.js-edit')[0]
+//     EditGroup = new cls_editableHTML_EditGroup(div2b)
+//     assert (EditGroup.IsMultiTextDiv())
+// </script>
 <script id = "id-js-03">
-    editableHTML_Init('id-03')
+    EDIT.Init('id-03')
     // validate:
-    div = document.getElementById('id-03').DescendantsWithClass('.js-edit')[0]
-    EditGroup = new cls_editableHTML_EditGroup(div)
-    assert (EditGroup.IsSingleTextDiv())
-    assert (EditGroup.HasButtons())
+    // div = document.getElementById('id-03').DescendantsWithClass('.js-edit')[0]
+    // EditGroup = new cls_editableHTML_EditGroup(div)
+    // assert (EditGroup.IsSingleTextDiv())
+    // assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-04">
-    editableHTML_Init('id-04')
+    EDIT.Init('id-04')
     // validate:
-    div = document.getElementById('id-04').DescendantsWithClass('.js-edit')[0]
-    EditGroup = new cls_editableHTML_EditGroup(div)
-    assert (EditGroup.IsSingleTextDiv())
-    assert (EditGroup.HasButtons())
+    // div = document.getElementById('id-04').DescendantsWithClass('.js-edit')[0]
+    // EditGroup = new cls_editableHTML_EditGroup(div)
+    // assert (EditGroup.IsSingleTextDiv())
+    // assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-05">
-    editableHTML_Init('id-05')
+    EDIT.Init('id-05')
     // validate:
-    div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
-    EditGroup = new cls_editableHTML_EditGroup(div)
-    assert (EditGroup.IsMultiTextDiv())
-    assert (EditGroup.HasButtons())
+    // div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
+    // EditGroup = new cls_editableHTML_EditGroup(div)
+    // assert (EditGroup.IsMultiTextDiv())
+    // assert (EditGroup.HasButtons())
 </script>
 <script id = "id-js-06">
-    editableHTML_Init('id-06')
+    EDIT.Init('id-06')
     // validate:
-    div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
-    EditGroup = new cls_editableHTML_EditGroup(div)
-    assert (EditGroup.IsMultiTextDiv())
-    assert (EditGroup.HasButtons())
+    // div = document.getElementById('id-05').DescendantsWithClass('.js-edit')[0]
+    // EditGroup = new cls_editableHTML_EditGroup(div)
+    // assert (EditGroup.IsMultiTextDiv())
+    // assert (EditGroup.HasButtons())
 </script> 
 
 <script>

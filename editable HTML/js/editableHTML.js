@@ -1,11 +1,3 @@
-// =========================================================
-// Initialization of editableHTML                           /
-//    - This will add event listeners                       /   
-//    - This will add data attributes                       /
-// =========================================================
-function editableHTML_Init(elementId) {
-    _editableHTML_init(elementId)
-}
 
 // ==================================================================================
 // Optional Editable HTML functions, for example to assigne to keyboard events      /
@@ -35,41 +27,49 @@ function ELONLY_editableHTML_ToogleButtons(event) {
 // =========================================================
 // Funcionality for editableHTML                           /
 // =========================================================
+// (function() {
 
-function _editableHTML_init(elementId) {
-    let container = document.getElementById(elementId)
-    assert(container != undefined)
-    let editDivs = container.DescendantsWithClass('.js-edit')
-    if (editDivs.length == 0) return
+// window.functions_editableHTML = class {
+class functions_editableHTML {
+    constructor() {
 
-    for (let editDiv of editDivs) {
-        let EditGroup = new cls_editableHTML_EditGroup(editDiv)
+    }
 
-        if (EditGroup.HasButtons()) {
-            
-            EditGroup.div_editButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
-            EditGroup.div_saveButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
-            EditGroup.div_discardButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
-
-            EditGroup.div_editButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
-            EditGroup.div_saveButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
-            EditGroup.div_discardButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)}
-
-        if (EditGroup.IsSingleTextDiv()) {
-            EditGroup.class_edit.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
-            continue}
-        if (EditGroup.IsMultiTextDiv()) {
-            for (let edit_child of EditGroup.class_edit_childs) {
-                edit_child.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)}}
+    Init(elementId) {
+        let container = document.getElementById(elementId)
+        assert(container != undefined)
+        let editDivs = container.DescendantsWithClass('.js-edit')
+        if (editDivs.length == 0) return
+    
+        for (let editDiv of editDivs) {
+            let EditGroup = new cls_editableHTML_EditGroup(editDiv)
+    
+            if (EditGroup.HasButtons()) {
+                EditGroup.div_editButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
+                EditGroup.div_saveButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
+                EditGroup.div_discardButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_ToogleButtons)
+    
+                EditGroup.div_editButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
+                EditGroup.div_saveButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
+                EditGroup.div_discardButton.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)}
+    
+            if (EditGroup.IsSingleTextDiv()) {
+                EditGroup.class_edit.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)
+                continue}
+            if (EditGroup.IsMultiTextDiv()) {
+                for (let edit_child of EditGroup.class_edit_childs) {
+                    edit_child.addEventListener_ClickAndTouch(ELONLY_editableHTML_onclick)}}
+        }
     }
 }
+
 
 class cls_editableHTML_EditGroup {
     constructor(editDiv) {
         this._constructor(editDiv)}
 
     _constructor(editDiv) {
-        if (editDiv == undefined) return // vaild construction, functionality is still available
+        if (editDiv == undefined) return // vaild construction, functionality of this class is still available
         assert(editDiv.classList.contains('js-edit'))
         
         this.class_edit = editDiv
@@ -326,6 +326,7 @@ class cls_editableHTML_EditGroup {
     }
 
 }
+// })();
 
 
 function _editableHTML_ToogleButtons(event) {
