@@ -157,14 +157,26 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".Is2DTable",
-        "docstring": "returns true if the ego arry is of depth 2 and all sub arrays are of equal length, otherwise false",
-        "parameters": "minSubLength = 2, withHeaders = true",
+        "docstring": "Obsolete. Use 'typOf(arr.Shape()) == 'list' instead.",
+        "parameters": "",
+        "region": "Array objects"
+    },
+    {
+        "name": ".Shape",
+        "docstring": "return a list with the number of elements in the first dimension and the number of elements in the second dimension and so on.\nThe shape of a 1D array is [n], the shape of a 2D array is [n, m], and so on\nShape checks if all subarrays are of the same shape and returns false if not. If false is returned, you can use .depth() to check the depth of the array.",
+        "parameters": "",
         "region": "Array objects"
     },
     {
         "name": ".stringify",
         "docstring": "returns a string, representing the array content similar to <i>String(array)</i>.\nStringify will not put brackets at the end or beginning of an array or subarray. Stringify expects as \nmany separators as the depth of the ego array.",
         "parameters": "...seperators",
+        "region": "Array objects"
+    },
+    {
+        "name": ".removeAll",
+        "docstring": "removes all occurances of the specified element from the array.\nThis function modifies the original array.",
+        "parameters": "elements",
         "region": "Array objects"
     },
     {
@@ -315,6 +327,18 @@ const FromFile_FunctionsInfo_JS = [
         "name": ".isJSON",
         "docstring": "returns true if the ego string is a valid json string, false otherwise",
         "parameters": "",
+        "region": "String objects"
+    },
+    {
+        "name": ".replaceN",
+        "docstring": "replaced all occurences of a specified text with another text up to n times. This is a alternative for regex replace, which might in some cases not work as expected.",
+        "parameters": "re, place, n = 1000",
+        "region": "String objects"
+    },
+    {
+        "name": ".trimPlus",
+        "docstring": "does multiple replacements in the ego string, with the option to specify a list of replacements. \n1) if std is true, it will apply the build in trim() function.\n2) if multiSpace is true, it will remove all multiple spaces inside the string\n3) if plusList is provided, it will remove all spaces in the specified patterns.",
+        "parameters": "plusList, multiSpace = true, std = true",
         "region": "String objects"
     },
     {

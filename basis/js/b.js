@@ -21,6 +21,8 @@ function typOf(variable, extendedInfo = false) {
         return 'null'}
     if (variable === undefined) {
         return 'undefined'}
+    if (typeof variable === 'function') {
+        return 'function'}
     
     throw new Error('Unknown type of variable: ' + variable)
 }
@@ -84,7 +86,7 @@ function getAllEventListeners() {
     function xdivStr(element) {
         if (element === document) return "document"
         if (element === window)  return "window"
-        if (element.id) element.id
+        if (element.id) return element.id
         if (element.className) return element.className.replace(/\s+/g, '.');
         return element.tagName.toLowerCase(); // Fallback to tag name
     }
@@ -98,6 +100,33 @@ function getAllEventListeners() {
   
     return eventListeners;
   }
+
+
+  function byVal(data) {
+    // Creates a hard copy of a variable (instead of just createing a reference in case of list and dictioaries). 
+    // It mimics the 'byVal' operater in VBA, hence the name
+    
+    if ( ["bool", "str", "int"].indexOf(typOf(data)) >-1) {
+        return data} // as they are 'hard copied' by default
+
+    if (typOf(data) == "list") {
+        let ret = []
+        for (let element of data) {
+            ret.push(byVal(element))}
+        return ret}
+    
+    if (typOf(data) == "dict") { 
+        let ret = { }
+        let keys= Object.keys(data)
+        for (let key of keys) {
+            ret[key] = byVal(data[key])}
+        return ret}
+    
+    if (typOf(data) == "function") {
+        return data.bind({});
+    }
+    return data
+}
   
 // ####################################################################################################
 // region content_divTable                                                                                #
@@ -681,26 +710,44 @@ Object.defineProperties(Array.prototype, {
 });
 
 /** 
-returns true if the ego arry is of depth 2 and all sub arrays are of equal length, otherwise false
+Obsolete. Use 'typOf(arr.Shape()) == 'list' instead.
 */
 Object.defineProperties(Array.prototype, {
     Is2DTable: {
-        value: function(minSubLength = 2, withHeaders = true) {
-            if (this.length == 0) return false
-            if (withHeaders && this.length == 1) return false
-            if (this.depth()!= 2) return false
-
-            let subLength = this[0].length
-            for (let item of this) {
-                if (typOf(item) != 'list') return false
-                if (item.length < minSubLength) return false
-                if (item.length != subLength) return false
-            }
-
-            return true
+        value: function() {
+            return typOf(this.Shape()) == 'list'
         }
     }
 });
+
+/** 
+return a list with the number of elements in the first dimension and the number of elements in the second dimension and so on.
+The shape of a 1D array is [n], the shape of a 2D array is [n, m], and so on
+Shape checks if all subarrays are of the same shape and returns false if not. If false is returned, you can use .depth() to check the depth of the array.
+*/
+Object.defineProperties(Array.prototype, {
+    Shape: {
+        value: function() {
+            function _getShape(arr) {
+                if (!Array.isArray(arr)) return null;
+                let shape = [arr.length];
+                if (arr.length > 0) {
+                    let firstSubShape = _getShape(arr[0]);
+                    if (firstSubShape === null) return shape;
+                    for (let item of arr) {
+                        let subShape = _getShape(item);
+                        if (JSON.stringify(subShape) !== JSON.stringify(firstSubShape)) return false;
+                    }
+                    shape = shape.concat(firstSubShape);
+                }
+                return shape;
+            }
+
+            return _getShape(this);
+        }
+    }
+});
+
 
 /** 
 returns a string, representing the array content similar to <i>String(array)</i>.
@@ -721,6 +768,27 @@ Object.defineProperties(Array.prototype, {
             }
 
             return _recursiveStringify(this, 0)
+        }
+    }
+});
+
+
+/**
+removes all occurances of the specified element from the array.
+This function modifies the original array.
+ */
+Object.defineProperties(Array.prototype, {
+    removeAll: {
+        value: function(elements) {
+            if (typOf(elements) == 'str' || typOf(elements) == 'int') elements = [elements]
+            if (typOf(elements) != 'list') return
+
+            for (let element of elements) {
+                if (typOf(element) != 'str' && typOf(element) != 'int') continue
+                let n = this.count(element)
+                for (let i = 0; i<n;i++) {
+                    this.removeX(element)}
+            }
         }
     }
 });
@@ -1590,4 +1658,53 @@ Object.defineProperties(String.prototype, {
             }
           }
         }
+});
+
+/**
+replaced all occurences of a specified text with another text up to n times. This is a alternative for regex replace, which might in some cases not work as expected.
+*/
+Object.defineProperties(String.prototype, {
+    replaceN: {
+        value: function(re, place, n = 1000) {
+            let ret = String(this)
+            for (let i = 0; i < n; i++) {
+                if (ret.includes(re)) {
+                    ret = ret.replace(re,place)}
+                else {
+                    break}
+            }
+            return ret;
+        }
+    } 
+});
+
+
+/**
+does multiple replacements in the ego string, with the option to specify a list of replacements. 
+1) if std is true, it will apply the build in trim() function.
+2) if multiSpace is true, it will remove all multiple spaces inside the string
+3) if plusList is provided, it will remove all spaces in the specified patterns. 
+*/
+Object.defineProperties(String.prototype, {
+    trimPlus: {
+        value: function(plusList, multiSpace = true, std = true) {
+            let ret = String(this)
+            // Plus: specifically will remove all spaces if seen in specifc pattern 
+            if (typOf(plusList) == 'list') {
+                for (element of plusList) {
+                    if (element.includes(' ')){
+                        let rpl = element.replace(RegExp(' ', 'g'), '')
+                        // ret = ret.replace(RegExp(element, 'g'), rpl)       might lead to failue
+                        ret = ret.replaceN(element, rpl)
+                    } 
+                }
+            }
+            // Plus: generically will remove all multi spaces inside with normal blank space. 
+            if (multiSpace) ret = ret.replace(/  +/g, ' ');
+            // Standard: removes starting and ending spaces
+            if (std) ret = ret.trim()               
+            return ret
+        }
+
+    } 
 });
