@@ -1645,6 +1645,23 @@ Object.defineProperties(String.prototype, {
 });
 
 /** 
+returns true if the ego string containts only lower case letters, false otherwise. Empty strings are considered as false.
+*/
+Object.defineProperties(String.prototype, {
+    isLowerCase: {
+        value: function() {
+            if (!this.length) return false;
+            
+            for (let i = 0; i < this.length; i++) {
+                if (this.charAt(i) < 'a' || this.charAt(i) > 'z') return false
+            }
+            
+            return true;
+        }
+    }
+});
+
+/** 
 returns true if the ego string is a valid json string, false otherwise
 */
 Object.defineProperties(String.prototype, {

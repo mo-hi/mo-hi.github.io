@@ -324,6 +324,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "String objects"
     },
     {
+        "name": ".isLowerCase",
+        "docstring": "returns true if the ego string containts only lower case letters, false otherwise. Empty strings are considered as false.",
+        "parameters": "",
+        "region": "String objects"
+    },
+    {
         "name": ".isJSON",
         "docstring": "returns true if the ego string is a valid json string, false otherwise",
         "parameters": "",
