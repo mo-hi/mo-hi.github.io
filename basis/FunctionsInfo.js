@@ -294,6 +294,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DOMTables objects"
     },
     {
+        "name": ".bAddClassToCells",
+        "docstring": "sets",
+        "parameters": "classe",
+        "region": "DOMTables objects"
+    },
+    {
         "name": ".bSetCellsClass",
         "docstring": "sets",
         "parameters": "liste",
@@ -325,8 +331,26 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".isLowerCase",
-        "docstring": "returns true if the ego string containts only lower case letters, false otherwise. Empty strings are considered as false.",
+        "docstring": "returns true if the ego string containts only lower case letters, false otherwise. Empty strings are considered as false. Blank spaces are not considered as false",
         "parameters": "",
+        "region": "String objects"
+    },
+    {
+        "name": ".containsOnly",
+        "docstring": "returns true if the ego string containts only letters frrom letters. E. g. 'Hello World'.ContainsOnly('Helo Wrd') returns true, 'Hello World'.ContainsOnly('HeloWrd') returns false.\nEmpty strings are considered as false.",
+        "parameters": "letters",
+        "region": "String objects"
+    },
+    {
+        "name": ".containsOnlyAbc",
+        "docstring": "returns true if the ego string containts only letters from 'a'-'z' and 'A'-Z' and  + additionalChars, false otherwise. Empty strings are considered as false. Blank spaces are considered as false",
+        "parameters": "additionalChars",
+        "region": "String objects"
+    },
+    {
+        "name": ".containsOnlyAbc123",
+        "docstring": "returns true if the ego string containts only letters from 'a'-'z' and 'A'-Z', numbers 0-9 and additionalChars, false otherwise. Empty strings are considered as false. Blank spaces are considered as false",
+        "parameters": "additionalChars",
         "region": "String objects"
     },
     {

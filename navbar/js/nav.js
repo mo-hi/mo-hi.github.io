@@ -39,24 +39,20 @@ function _nav_toggleSidebarZIndex() {
 // dynamic sidebar                                                #
 // ################################################################
 
-function nav_AutoFillSidebar(targetID, data, clickfunction, clearBefore = true, numbering = true, ) {
+function nav_AutoFillSidebar(targetID, data, clickfunction, numbering = true) {
     let ul = document.getElementById(targetID)
-    if (!(ul instanceof HTMLUListElement) ||
-        !ul.classList.contains("js-fill")) {
-            console.log('Warning: nav_AutoFillSidebar, class "js-fill" not found')
-            return;}
+    assert (ul instanceof HTMLUListElement && ul.classList.contains("js-fill")) 
 
-    let no = -1; 
-    if (numbering) no = 0
-    if (clearBefore) ul.innerHTML = ""
+    ul.innerHTML = "" // clear before filling
+    let no = wenn(numbering, 0, -1)
 
-    ul = _ulist(ul, data, clickfunction, no)
+    ul = _ulist(ul, data, clickfunction, no, numbering)
 }
 
-function _ulist(parent, items, clickfunction, no = 0) {
+function _ulist(parent, items, clickfunction, no, numbering) {
     for (let [count,item] of items.entries()) {
         let li = _ulist_li(item, no, count+1, clickfunction)
-        let nextItem = wenn(item.includes('children'), _ulist_dropdown(li, item, count+1, clickfunction), li)
+        let nextItem = wenn(item.includes('children'), _ulist_dropdown(li, item, count+1, clickfunction, numbering), li)
         parent.appendChild(nextItem)
     }
     return parent
@@ -76,7 +72,7 @@ function _ulist_li(item, no, count, clickfunction) {
 }
 
 // function _ulist_li_or_dropdown(li, item, count, clickfunction) {
-function _ulist_dropdown(li, item, count, clickfunction) {
+function _ulist_dropdown(li, item, count, clickfunction, numbering) {
     if (!Object.keys(item).includes('children')) return 
 
     let drop = document.createElement('drop'); // parent element of ego li
@@ -84,6 +80,7 @@ function _ulist_dropdown(li, item, count, clickfunction) {
     drop.appendChild(li)
 
     let down = document.createElement('down'); // next neighbour element of ego li
+    count = wenn(numbering, count, -1)
     down = _ulist(down,item["children"], clickfunction, count)
     
     drop.appendChild(down)

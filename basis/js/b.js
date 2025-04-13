@@ -1562,6 +1562,23 @@ Object.defineProperties(Object.prototype, {
 sets 
 */
 Object.defineProperties(Object.prototype, {
+    bAddClassToCells: {
+        value: function(classe) {
+            assert(typOf(classe) == 'str' && classe.containsOnlyAbc)
+
+            let cells = this.getElementsByTagName('td');
+
+            for (let i = 0; i < cells.length; i++) {
+                if (!cells[i].classList.contains(classe)) cells[i].classList.add(classe)
+            }
+        }
+    }
+});
+
+/** 
+sets 
+*/
+Object.defineProperties(Object.prototype, {
     bSetCellsClass: {
         value: function(liste) {
             assert(this.tagName == 'TABLE')
@@ -1645,7 +1662,7 @@ Object.defineProperties(String.prototype, {
 });
 
 /** 
-returns true if the ego string containts only lower case letters, false otherwise. Empty strings are considered as false.
+returns true if the ego string containts only lower case letters, false otherwise. Empty strings are considered as false. Blank spaces are not considered as false
 */
 Object.defineProperties(String.prototype, {
     isLowerCase: {
@@ -1657,6 +1674,48 @@ Object.defineProperties(String.prototype, {
             }
             
             return true;
+        }
+    }
+});
+
+/** 
+returns true if the ego string containts only letters frrom letters. E. g. 'Hello World'.ContainsOnly('Helo Wrd') returns true, 'Hello World'.ContainsOnly('HeloWrd') returns false.
+Empty strings are considered as false.
+*/
+Object.defineProperties(String.prototype, {
+    containsOnly: {
+        value: function(letters) {
+            if (!this.length) return false;
+            
+            for (let i = 0; i < this.length; i++) {
+                if (!letters.includes(this[i])) return false
+            }
+            
+            return true;
+        }
+    }
+});
+
+/** 
+returns true if the ego string containts only letters from 'a'-'z' and 'A'-Z' and  + additionalChars, false otherwise. Empty strings are considered as false. Blank spaces are considered as false
+*/
+Object.defineProperties(String.prototype, {
+    containsOnlyAbc: {
+        value: function(additionalChars) {
+            let letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' + additionalChars
+            return this.containsOnly(letters)
+        }
+    }
+});
+
+/** 
+returns true if the ego string containts only letters from 'a'-'z' and 'A'-Z', numbers 0-9 and additionalChars, false otherwise. Empty strings are considered as false. Blank spaces are considered as false
+*/
+Object.defineProperties(String.prototype, {
+    containsOnlyAbc123: {
+        value: function(additionalChars) {
+            let letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' + additionalChars
+            return this.containsOnly(letters)
         }
     }
 });
