@@ -18,7 +18,6 @@ class clsTest {
     }
 
 
-
 // ##################################################################################
 // # Checker                                                                        #
 // ##################################################################################
@@ -104,11 +103,11 @@ class clsTest {
 // # Print                                                                          #
 // ##################################################################################
 
-    PrintResult(targetDivID) {
-        document.head.appendChild(this._style());   
+    PrintResult(targetDivID, tableID, addStyle = true) {
+        if (addStyle) document.head.appendChild(this._style());   
         let targetDiv = document.getElementById(targetDivID)
-        if (!targetDiv.classList.contains('auto-fill'))  return
-        targetDiv.append(this._table());
+        if (!targetDiv.classList.contains('js-fill'))  return
+        targetDiv.append(this._table(tableID));
     }
         
     _style() {
@@ -135,7 +134,7 @@ class clsTest {
         return style
     }
 
-    _table() {
+    _table(tableID) {
         let table = document.createElement('table')
         let thead = document.createElement('thead')
         let tbody = document.createElement('tbody');
@@ -148,6 +147,7 @@ class clsTest {
         table.append(thead)
         table.append(tbody)
 
+        if (tableID != undefined) table.id = tableID
         return table
     }
 
