@@ -1559,17 +1559,24 @@ Object.defineProperties(Object.prototype, {
 });
 
 /** 
-sets 
+Adds a class to all cells of the table. The class must be provided as a string (hence classe).
+The class is added to all cells of the table (including headers) if includeHeaders is set to true.
 */
 Object.defineProperties(Object.prototype, {
     bAddClassToCells: {
-        value: function(classe) {
-            assert(typOf(classe) == 'str' && classe.containsOnlyAbc)
+        value: function(classe, includeHeaders = false) {
+            assert(typOf(classe) == 'str' && classe.containsOnlyAbc123('-'))
 
             let cells = this.getElementsByTagName('td');
-
             for (let i = 0; i < cells.length; i++) {
                 if (!cells[i].classList.contains(classe)) cells[i].classList.add(classe)
+            }
+
+            if (includeHeaders) {
+                let cells = this.getElementsByTagName('th');
+                for (let i = 0; i < cells.length; i++) {
+                    if (!cells[i].classList.contains(classe)) cells[i].classList.add(classe)
+                }
             }
         }
     }

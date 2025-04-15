@@ -295,8 +295,8 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".bAddClassToCells",
-        "docstring": "sets",
-        "parameters": "classe",
+        "docstring": "Adds a class to all cells of the table. The class must be provided as a string (hence classe).\nThe class is added to all cells of the table (including headers) if includeHeaders is set to true.",
+        "parameters": "classe, includeHeaders = false",
         "region": "DOMTables objects"
     },
     {
