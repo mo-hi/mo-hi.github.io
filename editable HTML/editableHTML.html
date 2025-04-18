@@ -59,7 +59,10 @@
             (2) In this example, Editable HTML will only save your input when you press 'Ctrl + Enter' or 'Ctrl + Blankspace'. 
             Each input must be confirmed by a dedicated user action, that makes it unlikey to happen by mistake.
         </p>
-
+        <p class="w-90 pl-40">
+            (3) In EditableHTML you can avoid going to edit mode, when you press 'Ctrl' key and click inside the div.
+            This is useful when you just want to mark the div and not edit it.
+        </p>
 
 
 
@@ -381,13 +384,13 @@
 }
 
     
-    function editableHTML_your_edit_function(innerHTML) {
+    function editableHTML_your_edit_function(innerHTML, editableDiv) {
         // return string that will be the textarea value when edit button is clicked
 
         return innerHTML
     }
 
-    function editableHTML_your_save_function(textAreaValue) {
+    function editableHTML_your_save_function(textAreaValue, editableDiv) {
         // return string that will be the innerHTML when save button is clicked
         return textAreaValue
     }
@@ -398,7 +401,6 @@
 
     if (event.ctrlKey && (event.key === 'Enter' || event.key === ' ')) editableHTML_SaveAllText()
     }); 
-
 
 </script>
 

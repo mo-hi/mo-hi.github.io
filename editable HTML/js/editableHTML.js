@@ -31,7 +31,8 @@ function ELONLY_editableHTML_ToogleButtons(event) {
 
 // window.functions_editableHTML = class {
 class functions_editableHTML {
-    constructor() {
+    constructor(a = false) {
+        this.SaveOnlyWhenCtrlKeyIsPressed = a
 
     }
 
@@ -205,7 +206,7 @@ class cls_editableHTML_EditGroup {
         
         //InnerHTML
         editableDiv.dataset.originalInnerHTML = editableDiv.innerHTML.trim()
-        editableDiv.dataset.originaTextAreaValue = fDict["edit"](editableDiv.innerHTML.trim())
+        editableDiv.dataset.originaTextAreaValue = fDict["edit"](editableDiv.innerHTML.trim(), editableDiv)
         editableDiv.innerHTML = ''
 
         return editableDiv
@@ -287,7 +288,7 @@ class cls_editableHTML_EditGroup {
         assert (textareas.length == 1)
         let textarea = textareas[0]
 
-        let innerHTML = fDict["save"](textarea.value)
+        let innerHTML = fDict["save"](textarea.value, editableDiv)
         this._restoreOriginal(editableDiv)
         editableDiv.innerHTML = innerHTML
         }
@@ -360,6 +361,7 @@ function _editableHTML_onclick(event) {
         return types.includes(buttonType)
         }
 
+    if (event.ctrlKey) return
 
     EditGroup = xIdentifyEditGroup(event)
     if (xIsTextEvent(event) || xButtonevent(event, ["edit"])) {
