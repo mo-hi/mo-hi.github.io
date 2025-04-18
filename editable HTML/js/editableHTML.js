@@ -361,7 +361,7 @@ function _editableHTML_onclick(event) {
         return types.includes(buttonType)
         }
 
-    if (event.ctrlKey) return
+    if (!event.ctrlKey) return
 
     EditGroup = xIdentifyEditGroup(event)
     if (xIsTextEvent(event) || xButtonevent(event, ["edit"])) {
