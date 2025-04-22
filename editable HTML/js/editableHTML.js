@@ -31,9 +31,8 @@ function ELONLY_editableHTML_ToogleButtons(event) {
 
 // window.functions_editableHTML = class {
 class functions_editableHTML {
-    constructor(a = false) {
-        this.SaveOnlyWhenCtrlKeyIsPressed = a
-
+    constructor() {
+        this.SAVE_ONLY_WHEN_CTRL_IS_PRESSED = true
     }
 
     Init(elementId) {
@@ -74,11 +73,14 @@ class cls_editableHTML_EditGroup {
         assert(editDiv.classList.contains('js-edit'))
         
         this.class_edit = editDiv
+        if (this.class_edit.dataset.editOnlyWhenControlPressed == undefined) {
+            this.class_edit.dataset.editOnlyWhenControlPressed = "true"}
 
         if (this.IsMultiTextDiv()) {
             this.class_edit_childs = this.class_edit.DescendantsWithClass('.js-edit-child')}
 
         if (this.HasButtons()) {
+            this.class_edit.dataset.editOnlyWhenControlPressed = "false"
             this.class_edit_btn = this._returnButtonContainer()
 
             this.div_editButton = this.class_edit_btn.firstElementChild;
@@ -361,9 +363,9 @@ function _editableHTML_onclick(event) {
         return types.includes(buttonType)
         }
 
-    if (!event.ctrlKey) return
-
     EditGroup = xIdentifyEditGroup(event)
+    if (!event.ctrlKey && EditGroup.class_edit.dataset.editOnlyWhenControlPressed == "true") return
+
     if (xIsTextEvent(event) || xButtonevent(event, ["edit"])) {
         if (EditGroup.IsInReadMode()) EditGroup.Edit_CreateTeaxtarea() 
         return}

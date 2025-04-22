@@ -1,15 +1,11 @@
-function toggleDown(a) {
-    let divElement = null;
-    if (a instanceof PointerEvent) divElement = a.target;   // if eventlistener was used
-    if (a instanceof HTMLElement) divElement = a;           // if setAttribute / direct HTML was used
-    if (a instanceof TouchEvent) divElement = a.target;     // if eventlistener was used
-    if (divElement == null) return
+function toggleDown(event) {
+    let divElement = DOM_ElementFromJSEvent(event, true)
 
     _nav_CloseOtherOpenDropdowns(divElement)
 
     if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) _nav_toggleSidebarZIndex()
 
-    divElement.parentElement.classList.toggle('active');
+    divElement.parentElement.classList.toggle('nav-js-active');
 
     //DEBUG
     console.log("toggleDown: " + divElement.innerHTML)
@@ -19,7 +15,7 @@ function toggleDown(a) {
 function _nav_CloseOtherOpenDropdowns(divElement) {
     for (let drop of document.querySelectorAll('nav drop')) {
         if (divElement.parentElement === drop) continue;
-        drop.classList.remove('active');
+        drop.classList.remove('nav-js-active');
     }
 }
 
@@ -39,7 +35,8 @@ function _nav_toggleSidebarZIndex() {
 // dynamic sidebar                                                #
 // ################################################################
 
-function nav_AutoFillSidebar(targetID, data, clickfunction, numbering = true) {
+function nav_AutoFillSidebar(targetID, data, clickfunction, 
+    {numbering = true, idPrefix = "", idPostfix = "", AddClassesToActiveItem = "" } = {}) {
     let ul = document.getElementById(targetID)
     assert (ul instanceof HTMLUListElement && ul.classList.contains("js-fill")) 
 
@@ -47,6 +44,17 @@ function nav_AutoFillSidebar(targetID, data, clickfunction, numbering = true) {
     let no = wenn(numbering, 0, -1)
 
     ul = _ulist(ul, data, clickfunction, no, numbering)
+
+    if (idPrefix != "" || idPostfix != "") _addIDToLiChildren(ul, idPrefix, idPostfix)
+
+    if (AddClassesToActiveItem != "") document.getElementById(targetID).dataset["activeClassName"] = AddClassesToActiveItem 
+    
+}
+
+function _addIDToLiChildren(ul, idPrefix, idPostfix) {
+    for (let li of ul.DescendantsWithTag('li')) {
+        li.id = idPrefix + li.dataset["name"] + idPostfix
+    }
 }
 
 function _ulist(parent, items, clickfunction, no, numbering) {
@@ -68,6 +76,7 @@ function _ulist_li(item, no, count, clickfunction) {
 
     if (no >   0) li.innerHTML = String(no) + "." + String(count) + " " + item.name;
 
+    li.dataset["name"] = item.name
     return li
 }
 

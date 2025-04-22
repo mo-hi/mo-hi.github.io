@@ -61,8 +61,14 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": "DOM_ElementFromJSEvent",
-        "docstring": "returns the DOM/div element to where the event was triggered. The element must have the class 'js-event'",
-        "parameters": "event",
+        "docstring": "returns the DOM/div element to where the event was triggered. The element must have the class 'js-event'.\nIn looks up to 100 parents to find the element with the class 'js-event'.\nIf force is set to true, the function will return the clickd element even if it does not have the class 'js-event'. In this case, the function will not look up.",
+        "parameters": "event, force = false",
+        "region": "DOM"
+    },
+    {
+        "name": "DOM_RemoveClassFromAll",
+        "docstring": "removes the class from all elements of the document that have this class.",
+        "parameters": "className",
         "region": "DOM"
     },
     {
@@ -295,7 +301,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".bAddClassToCells",
-        "docstring": "Adds a class to all cells of the table. The class must be provided as a string (hence classe).\nThe class is added to all cells of the table (including headers) if includeHeaders is set to true.",
+        "docstring": "adds a class to all cells of the table. The class must be provided as a string (hence classe).\nThe class is added to all cells of the table (including headers) if includeHeaders is set to true.",
         "parameters": "classe, includeHeaders = false",
         "region": "DOMTables objects"
     },

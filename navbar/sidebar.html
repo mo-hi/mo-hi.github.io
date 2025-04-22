@@ -89,6 +89,7 @@
         
         <section>
             <h3>dynamic sidebar</h3>
+            <p><c>nav_AutoFillSidebar(targetID, data, clickfunction, {numbering = true, idPrefix = "", idPostfix = ""} = {}) </c></p>
             <p>
                 The content of this sidebar is generated from data. The data is an array of objects (=list of dictionaries), where each object represents a sidebar item.
                 Each item has the key 'name' and optionally the key 'children', which again can be a list of items, creating a dropdown. 
@@ -98,12 +99,19 @@
                 One function must provided as parameter to <c>nav_AutoFillSidebar</c> which will be called for all sidebar items when clicked. 
                 <c>nav_AutoFillSidebar</c> will link your function to the <c>li</c> elements using <c>addEventListener</c>.
             </p>
+            <p>
+                As fourth parameter, you can provide an object with additional options. <br>
+                <c>numbering</c> will add a number to the sidebar items.<br>
+                <c>idPrefix</c> and <c> idPostix </c> will add a prefix to the id of the sidebar items. 
+                When no prefix and postfix is provided, the li elements will have no id.
+            </p>
                 Within your function, the clicked item can be identified and the appropriate action taken.
                 <br><br>
                 In the below example, the function <c>foo</c> will be called every time when you click on the first item of the sidebar changing the content of the sidebar. 
                 Inside foo (or the function you have defined) you have access to the event object, and such to the &lt;li&gt; respectivley.
                 
             </p>
+
             HTML
             <div id="id-show-2" class="h-60 js-fill">
                 <!-- filled via script -->
@@ -162,7 +170,7 @@
         <!-- the fucntion -->
         <script>
             // create the sidebar at page load 
-            nav_AutoFillSidebar("id-sidebar2", sidebarData, foo)
+            nav_AutoFillSidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-", AddClassesToActiveItem: "active"})
             //
             function foo(event) {
 
@@ -175,11 +183,11 @@
     
                 if (li.innerHTML.includes("1 America")) {
                     // change the content of the sidebar
-                    nav_AutoFillSidebar("id-sidebar2", sidebarDataCopy, foo, false)
+                    nav_AutoFillSidebar("id-sidebar2", sidebarDataCopy, foo, {numbering: false})
                 }
                 if (li.innerHTML.includes("Europe")) {
                     // change the content of the sidebar
-                    nav_AutoFillSidebar("id-sidebar2", sidebarData, foo)
+                    nav_AutoFillSidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-"})
                 }
             }
         </script>

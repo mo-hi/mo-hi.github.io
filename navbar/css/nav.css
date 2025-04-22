@@ -88,7 +88,7 @@ nav > info {
   content: "\25B6";
 }
 
-.sidebar drop.active > li::before{ 
+.sidebar drop.nav-js-active > li::before{ 
   content: "\25BC";
 }
 
@@ -96,7 +96,7 @@ drop down {
   display:none;
 }
 
-drop.active > down {
+drop.nav-js-active > down {
   display:block;
   z-index: 1;
 }

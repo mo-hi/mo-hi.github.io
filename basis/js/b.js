@@ -376,21 +376,35 @@ function _DOM_Replacer(re, place, tags) {
   }
 
 /**
-returns the DOM/div element to where the event was triggered. The element must have the class 'js-event'
+returns the DOM/div element to where the event was triggered. The element must have the class 'js-event'.
+In looks up to 100 parents to find the element with the class 'js-event'.
+If force is set to true, the function will return the clickd element even if it does not have the class 'js-event'. In this case, the function will not look up.
 */
-function DOM_ElementFromJSEvent(event) {
+function DOM_ElementFromJSEvent(event, force = false) {
     let divElement = null;
+    if (event instanceof MouseEvent) divElement = event.target;     // if eventlistener was used
     if (event instanceof PointerEvent) divElement = event.target;   // if eventlistener was used
     if (event instanceof HTMLElement) divElement = event;           // if setAttribute / direct HTML was used
     if (event instanceof TouchEvent) divElement = event.target;     // if eventlistener was used
+    
     if (divElement == null) return
+    if (force) return divElement
 
     /// target may be pointing to childrean of the intended target. Loop Up 100 parents.
     for (i = 0; i < 100; i++) {
-        if (!divElement.classList.contains('js-event')) divElement = divElement.parentElement}      
+        if (!divElement.classList.contains('js-event')) divElement = divElement.parentElement}     
+    
     if (!divElement.classList.contains('js-event')) return
-
     return divElement
+}
+
+/**
+removes the class from all elements of the document that have this class.
+*/
+function DOM_RemoveClassFromAll(className) {
+    if (!className.startsWith('.')) throw new Error('className must start with a "."');
+    className = className.after(".")
+    document.querySelectorAll("."+className).forEach(item => {item.classList.remove(className);});
 }
 // ####################################################################################################
 // region htmlManipulation                                                                                #
@@ -1184,7 +1198,7 @@ Element.prototype.DescendantsWithClass = function(className) {
 returns all descendats (children and grandchildren) of a div that have a certain tag
 */
 Element.prototype.DescendantsWithTag = function(tagName) {
-    let validTags = ['textarea', 'p', 'a', 'table']
+    let validTags = ['textarea', 'p', 'a', 'table', 'li', 'ul', 'ol', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'button', 'input', 'select', 'option'];
     assert (validTags.includes(tagName))
 
     let results = [];
@@ -1559,7 +1573,7 @@ Object.defineProperties(Object.prototype, {
 });
 
 /** 
-Adds a class to all cells of the table. The class must be provided as a string (hence classe).
+adds a class to all cells of the table. The class must be provided as a string (hence classe).
 The class is added to all cells of the table (including headers) if includeHeaders is set to true.
 */
 Object.defineProperties(Object.prototype, {
