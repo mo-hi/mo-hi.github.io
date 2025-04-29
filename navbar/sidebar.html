@@ -28,27 +28,33 @@
                 The dropdown behavior is realized by adding <c>addEventListener</c> to the <c>li</c> elements
                 that are inside a <c>drop</c> element. 
             </p>
+            <p>
                 The class <c>sidebar</c> is used to style the sidebar (see nav.css).
                 The sidear is intended to call functions via <c>onclick</c>. The sidebar is not intended
                 to be used for links. The sidebar is staticly defined in the html part. Here's an example:
+            </p>
+            <p>
+                Optionally you can add <c>NAV_Sidebar_AddGenericClickFunction</c> to proved a function that will be called when you click on any sidebar item. 
+                You need to provide the id of the sidebar as first parameter and the function as second parameter.
+            </p>
             
             <p>
                 <table class="w-100">
                     <tr>
                         <td id="id-sidebar" class="w-30 pt-20 top">
-                            <ul class="sidebar">
+                            <ul id="id-sidebar-ul" class="sidebar">
                                 <li onclick="">Australia</li>
                                 <drop>
-                                    <li onclick="toggleDown(this)">Europe</li>
+                                    <li onclick="_nav_toggleDown(this)">Europe</li>
                                     <down>
                                         <drop>
-                                            <li onclick="toggleDown(this)">Germany</li>
+                                            <li onclick="_nav_toggleDown(this)">Germany</li>
                                             <down>
                                                 <drop>
-                                                    <li onclick="toggleDown(this)">Bavaria</li>
+                                                    <li onclick="_nav_toggleDown(this)">Bavaria</li>
                                                     <down>
                                                         <drop>
-                                                            <li onclick="toggleDown(this)">Munich</li>
+                                                            <li onclick="_nav_toggleDown(this)">Munich</li>
                                                             <down>
                                                                 <li onclick="">Schwabing</li>
                                                                 <li onclick="">Neuhausen</li>
@@ -83,6 +89,9 @@
         </section>
         JS
         <div id="id-showJS" class="h-60 js-fill"></div>
+        <br>
+        JS OPTIONAL
+        <div id="id-showJS-optional" class="h-140 js-fill"></div>
         <br>
         CSS 
         <div id="id-showCSS" class="h-60 js-fill"></div>
@@ -119,6 +128,7 @@
             JS
             <div id="id-showJS-2" class="h-400 js-fill">
 
+
             </div>
             <p>
                 <table class="w-100">
@@ -149,9 +159,11 @@
     </main>
 
 </body>
+
     <div id = "id-scripts">
         <script src="../basis/js/b.js"> </script>
         <script src="js/nav.js"></script>
+
     </div>
     <!-- HTML Auto Fill Text -->
     <script src="js/textNav.js"></script>
@@ -160,9 +172,14 @@
         Auto_Fill(FromFile_textNav_JS)
         Auto_Fill(FromFile_textGeneral_js)
         ShowHTMLinTextArea(document.getElementById("id-sidebar-2-wrapper"), document.getElementById("id-show-2"))
-        
     </script>
-
+    <script id = "id-js-optional">
+    function fconsoleLog(event) {
+        let divElement = DOM_ElementFromJSEvent(event, true)
+        console.log("clicked: " + divElement.innerHTML)
+    }
+    NAV_Sidebar_AddGenericClickFunction("id-sidebar-ul", fconsoleLog)
+    </script>
     <div id = "id-scripts-foo">
         <!-- the data -->
         <script src="js/sideDataMunich.js"></script>
@@ -170,8 +187,9 @@
         <!-- the fucntion -->
         <script>
             // create the sidebar at page load 
-            nav_AutoFillSidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-", AddClassesToActiveItem: "active"})
+            NAV_Sidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-", AddClassesToActiveItem: "active"})
             //
+            NAV_Sidebar_AddGenericClickFunction("id-sidebar2", fconsoleLog)
             function foo(event) {
 
                 let li= null
@@ -183,11 +201,13 @@
     
                 if (li.innerHTML.includes("1 America")) {
                     // change the content of the sidebar
-                    nav_AutoFillSidebar("id-sidebar2", sidebarDataCopy, foo, {numbering: false})
+                    NAV_Sidebar("id-sidebar2", sidebarDataCopy, foo, {numbering: false})
+                    NAV_Sidebar_AddGenericClickFunction("id-sidebar2", fconsoleLog)
                 }
                 if (li.innerHTML.includes("Europe")) {
                     // change the content of the sidebar
-                    nav_AutoFillSidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-"})
+                    NAV_Sidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-"})
+                    NAV_Sidebar_AddGenericClickFunction("id-sidebar2", fconsoleLog)
                 }
             }
         </script>
@@ -196,6 +216,7 @@
     <script>
         ShowHTMLinTextArea(document.getElementById("id-sidebar"), document.getElementById("id-show"))
         ShowHTMLinTextArea(document.getElementById("id-scripts"), document.getElementById("id-showJS"))
+        ShowHTMLinTextArea(document.getElementById("id-js-optional"), document.getElementById("id-showJS-optional"))
         ShowHTMLinTextArea(document.getElementById("id-css"), document.getElementById("id-showCSS"))
 
         ShowHTMLinTextArea(document.getElementById("id-scripts-foo"), document.getElementById("id-showJS-2"))

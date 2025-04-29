@@ -1,16 +1,35 @@
-function toggleDown(event) {
+function NAV_Sidebar(targetID, data, clickfunction, 
+    {numbering = true, idPrefix = "", idPostfix = ""} = {}) {
+    let ul = document.getElementById(targetID)
+    assert (ul instanceof HTMLUListElement && ul.classList.contains("js-fill")) 
+
+    ul.innerHTML = "" // clear before filling
+    let no = wenn(numbering, 0, -1)
+
+    ul = _ulist(ul, data, clickfunction, no, numbering)
+
+    if (idPrefix != "" || idPostfix != "") _addIDToLiChildren(ul, idPrefix, idPostfix)
+}
+
+function NAV_Sidebar_AddGenericClickFunction(targetID, clickfunction) {
+    let ul = document.getElementById(targetID)
+    assert (ul instanceof HTMLUListElement) 
+
+    for (let li of ul.querySelectorAll('li')) {
+        addEventListener_ClickTouch(li, clickfunction);
+    }
+}
+
+function _nav_toggleDown(event) {
     let divElement = DOM_ElementFromJSEvent(event, true)
 
     _nav_CloseOtherOpenDropdowns(divElement)
 
+    // Bugfix: in the landing page there are two sidebars, not one
     if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) _nav_toggleSidebarZIndex()
 
     divElement.parentElement.classList.toggle('nav-js-active');
-
-    //DEBUG
-    console.log("toggleDown: " + divElement.innerHTML)
 }
-
 
 function _nav_CloseOtherOpenDropdowns(divElement) {
     for (let drop of document.querySelectorAll('nav drop')) {
@@ -35,21 +54,6 @@ function _nav_toggleSidebarZIndex() {
 // dynamic sidebar                                                #
 // ################################################################
 
-function nav_AutoFillSidebar(targetID, data, clickfunction, 
-    {numbering = true, idPrefix = "", idPostfix = "", AddClassesToActiveItem = "" } = {}) {
-    let ul = document.getElementById(targetID)
-    assert (ul instanceof HTMLUListElement && ul.classList.contains("js-fill")) 
-
-    ul.innerHTML = "" // clear before filling
-    let no = wenn(numbering, 0, -1)
-
-    ul = _ulist(ul, data, clickfunction, no, numbering)
-
-    if (idPrefix != "" || idPostfix != "") _addIDToLiChildren(ul, idPrefix, idPostfix)
-
-    if (AddClassesToActiveItem != "") document.getElementById(targetID).dataset["activeClassName"] = AddClassesToActiveItem 
-    
-}
 
 function _addIDToLiChildren(ul, idPrefix, idPostfix) {
     for (let li of ul.DescendantsWithTag('li')) {
@@ -85,7 +89,7 @@ function _ulist_dropdown(li, item, count, clickfunction, numbering) {
     if (!Object.keys(item).includes('children')) return 
 
     let drop = document.createElement('drop'); // parent element of ego li
-    li = addEventListener_ClickTouch(li, toggleDown)
+    li = addEventListener_ClickTouch(li, _nav_toggleDown)
     drop.appendChild(li)
 
     let down = document.createElement('down'); // next neighbour element of ego li
@@ -104,76 +108,3 @@ function addEventListener_ClickTouch(element, functionName) {
 });
     return element
 }
-
-
-
-
-
-
-
-
-
-        // if (Object.keys(item).includes('children')) {
-        //     li.setAttribute('onclick', 'toggleDown(this)');
-        //     let drop = document.createElement('drop'); // parent element of ego li
-        //     let down = document.createElement('down'); // next neighbour element of ego li
-        //     down = _ulist(down,item["children"], count)
-        //     drop.appendChild(li)
-        //     drop.appendChild(down)
-        //     parent.appendChild(drop)
-        // } else {
-        //     li.setAttribute('onclick', 'foo(this)');
-        //     parent.appendChild(li)
-        // }
-
-
-
-        
-// function nav_AutoFillSidebar(targetID, data, clearBefore = true, numbering = true) {
-//     let ul = document.getElementById(targetID)
-//     if (!ul.classList.contains("sidebar-auto-fill")) return
-
-//     let no = -1
-//     if (clearBefore) ul.innerHTML = ""
-//     if (numbering) no = 0
-
-//     ul = _ulist(ul, data, no)
-// }
-
-// function _ulist(parent, items, no = 0, sidebarFunction = '') {
-//     for (let [count,item] of items.entries()) {
-//         let li = document.createElement('li');
-//         li.innerHTML = _ulist_InnerHTML(item, no, count+1)
-        
-//         parent.appendChild(_ulist_children(li, item, count+1))
-//     }
-//     return parent
-// }
-
-// function _ulist_children(li, item, count) {
-//     if (Object.keys(item).includes('children')) {
-//         let drop = document.createElement('drop'); // parent element of ego li
-//         li.setAttribute('onclick', 'toggleDown(this)');
-//         drop.appendChild(li)
-
-//         let down = document.createElement('down'); // next neighbour element of ego li
-//         down = _ulist(down,item["children"], count)
-        
-//         drop.appendChild(down)
-//         return drop
-//     } else {
-//         li.setAttribute('onclick', 'foo(this)');
-//         return li
-//     }
-// }
-
-// function _ulist_InnerHTML(item, no, count) {
-//     let li = document.createElement('li');
-//     if (no == -1) return item.name
-
-//     if (no ==  0) return String(count) + " " + item.name;
-
-//     if (no >   0) return String(no) + "." + String(count) + " " + item.name;
-
-//     return li
-// }

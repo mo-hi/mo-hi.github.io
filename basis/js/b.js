@@ -1281,15 +1281,21 @@ Element.prototype.addEventListener_ClickAndTouch = function(functionName) {
 /**
 adds a single class to a div if not already present
 */
-Object.defineProperty(DOMTokenList.prototype, 'addX', {
-    value: function(className) {
-        if (!this.contains(className)) {
-            this.add(className);
-        }
-    },
-    enumerable: false, // Prevents the method from showing up in for...in loops
-    configurable: true // Allows the property to be deleted or modified later
-});
+Element.prototype.addClassX = function(className) {
+    if (!this.classList.contains(className)) {
+        this.classList.add(className);
+    }
+};
+
+
+/**
+adds a single class to a div if not already present
+*/
+Element.prototype.removeClassX = function(className) {
+    if (this.classList.contains(className)) {
+        this.classList.remove(className);
+    }
+};
 // ####################################################################################################
 // region DivTables                                                                                  #
 // ####################################################################################################

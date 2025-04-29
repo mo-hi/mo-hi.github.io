@@ -414,6 +414,18 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DIV objects"
     },
     {
+        "name": ".addClassX",
+        "docstring": "adds a single class to a div if not already present",
+        "parameters": "className",
+        "region": "DIV objects"
+    },
+    {
+        "name": ".removeClassX",
+        "docstring": "adds a single class to a div if not already present",
+        "parameters": "className",
+        "region": "DIV objects"
+    },
+    {
         "name": ".b_divTable_SetHeaders",
         "docstring": "sets the table headers innerHTML. The headers must be provided as list/array (hence liste)\nThe length of liste must equal to the table cols length.",
         "parameters": "liste",
