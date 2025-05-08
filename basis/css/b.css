@@ -207,10 +207,30 @@ h2.underline::after {
     /* background: linear-gradient(to right, #333, rgba(51, 51, 51, 0)); */
 }
 
+div.underline {
+    margin-bottom:18px
+}
+
+div.underline::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+    margin-top: -20px;
+}
+
 h2.sticky {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
+    z-index: 1;
+}
+
+div.sticky {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: -20px;
     z-index: 1;
 }
 

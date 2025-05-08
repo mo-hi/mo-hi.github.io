@@ -444,7 +444,7 @@ function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
 /**
 Modifies your html page by adding a textarea with a div's innerHTML.
 */
-function ShowHTMLinTextArea(divToExpose, divToAppend) {
+function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false) {
     let textarea = document.createElement('textarea');
     textarea.id = 'htmlSource';
     textarea.spellcheck = false;
@@ -455,7 +455,7 @@ function ShowHTMLinTextArea(divToExpose, divToAppend) {
     if (typOf(divToExpose) == 'str') {
         htmlSource = divToExpose}
     if (divToExpose instanceof HTMLElement) {
-        htmlSource = divToExpose.innerHTML;
+        htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
         if (divToExpose.tagName.toLowerCase() === 'script') {
             textarea.classList.add('script') 
         }

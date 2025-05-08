@@ -187,9 +187,10 @@
         <!-- the fucntion -->
         <script>
             // create the sidebar at page load 
-            NAV_Sidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-", AddClassesToActiveItem: "active"})
+            NAV_Sidebar("id-sidebar2", sidebarData, {idPrefix : "id-", AddClassesToActiveItem: "active"})
             //
             NAV_Sidebar_AddGenericClickFunction("id-sidebar2", fconsoleLog)
+            NAV_Sidebar_AddGenericClickFunction("id-sidebar2", foo)
             function foo(event) {
 
                 let li= null
@@ -201,13 +202,15 @@
     
                 if (li.innerHTML.includes("1 America")) {
                     // change the content of the sidebar
-                    NAV_Sidebar("id-sidebar2", sidebarDataCopy, foo, {numbering: false})
+                    NAV_Sidebar("id-sidebar2", sidebarDataCopy, {numbering: false})
                     NAV_Sidebar_AddGenericClickFunction("id-sidebar2", fconsoleLog)
+                    NAV_Sidebar_AddGenericClickFunction("id-sidebar2", foo)
                 }
-                if (li.innerHTML.includes("Europe")) {
+                if (li.innerHTML.includes("Africa")) {
                     // change the content of the sidebar
-                    NAV_Sidebar("id-sidebar2", sidebarData, foo, {idPrefix : "id-"})
+                    NAV_Sidebar("id-sidebar2", sidebarData, {idPrefix : "id-"})
                     NAV_Sidebar_AddGenericClickFunction("id-sidebar2", fconsoleLog)
+                    NAV_Sidebar_AddGenericClickFunction("id-sidebar2", foo)
                 }
             }
         </script>
