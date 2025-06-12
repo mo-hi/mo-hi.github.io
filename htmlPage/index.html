@@ -94,14 +94,43 @@
         <h3> Show Ego Javascript Code</h3>
         The function <c>ShowHTMLinTextArea</c> works also for script parts. If a script element was identified, 
         then by default the backgroundcolor is grey.
-        <div id = "id-script-code-show" class = "h-200"></div>
+        <div id = "id-script-code-show" class = "h-160"></div>
         <br>
-        When you set the third argument to true, then teh outerHTML is shown
-        <div id = "id-script-code-show-outer" class = "h-200"></div>
+        When you set the second argument to true, then the outerHTML is shown
+        <div id = "id-script-code-show-outer" class = "h-180"></div>
+    </section>
+
+    <!-- markdown------------------------------------------------------------------------>
+    <section class="mb-100">
+    <h2 class="underline sticky">MarkDown</h2>
+    <h3>Markdown to HTML</h3>
+    <div id="id-markdown-use" class = "h-120"></div>
+    <table class="w-100">
+        <tr>
+            <td class="w-50">Source</td>
+            <td class="w-50">Back from HTML</td>
+        </tr>
+        <tr>
+            <td class="w-50 h-200"><textarea id="id-markdown-textarea"  class="h-200 w-95"></textarea></td>
+            <td class="w-50 h-200"><textarea id="id-markdown-textarea-back" class="h-200 w-95"></textarea></td>
+        </tr>
+    </table>
+    <div id = "id-diff">
+
+    </div>
+    
+    <div class="mt-15">
+    HTML Code
+    <div id="id-markdown-output-code" class="h-280 border"></div>
+    <div class="mt-15">
+    HTML Output
+    <div id="id-markdown-output" class="h-280 border">
+    </div>
     </section>
 
 </body>
 <script src="../basis/js/b.js"></script>
+<script src="MyMarkDown.js"></script>
 
 <!-- Autofill-->
 <script >
@@ -150,6 +179,49 @@
 
     ShowHTMLinTextArea(document.getElementById("id-script-code"), 
     document.getElementById("id-script-code-show-outer"), true)
+</script>
+
+
+<script>
+    let textareaSource = document.getElementById("id-markdown-textarea")
+    let textarea_back = document.getElementById("id-markdown-textarea-back")
+    textareaSource.value = "" +
+        "New Lines are automatically taken over\n" +
+        "   Mulit     Spaces    are     taken     over\n" +
+        "[Links::https://www.example.com] can be added\n\n" +
+        "You can add an emtpy checkbox: [ ]\n" + 
+        "You can add an filled checkbox: [x]\n\n" +
+        "Add pictures: [(200x100)pic2.png]\n"
+
+    let markdownHtmlOutput = document.getElementById("id-markdown-output")
+</script>
+<script id = "id-markdown-use-code">
+    // markdown to HTML
+    markdownHtmlOutput.innerHTML = MyMarkDowntoHTML(textareaSource.value)
+    // HTML to markdown
+    textarea_back.value = HTMLtoMyMarkdown(markdownHtmlOutput.innerHTML)
+   
+</script>
+<script>
+    let lines_Source = textareaSource.value.split('\n')
+    let lines_Back = textarea_back.value.split('\n')
+    let diff = document.getElementById("id-diff")
+    diff.innerHTML = "<b>Differences</b><br>";
+
+    let notIdentical = []; let flag = true
+    for (let i = 0; i < Math.max(lines_Source.length, lines_Back.length); i++) {
+        if (lines_Source[i] !== lines_Back[i]) {
+            flag = false
+            diff.innerHTML += `<span class="red">${lines_Source[i] || ''}</span><br>`;
+        } 
+    }
+    if (flag) diff.innerHTML += `None`;
+    
+
+    ShowHTMLinTextArea(document.getElementById("id-markdown-output"), 
+        document.getElementById("id-markdown-output-code"))
+    ShowHTMLinTextArea(document.getElementById("id-markdown-use-code"), 
+        document.getElementById("id-markdown-use"))
 </script>
 </body>
 </html>

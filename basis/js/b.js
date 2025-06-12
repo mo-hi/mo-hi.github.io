@@ -444,7 +444,7 @@ function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
 /**
 Modifies your html page by adding a textarea with a div's innerHTML.
 */
-function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false) {
+function ShowHTMLinTextArea(divToExpose, divToAppend, outer) {
     let textarea = document.createElement('textarea');
     textarea.id = 'htmlSource';
     textarea.spellcheck = false;
@@ -1659,6 +1659,21 @@ Object.defineProperties(String.prototype, {
 });
 
 /** 
+returns true if the ego string ends with any of the strings in the listOfPossibleEndings, false otherwise.
+*/
+Object.defineProperties(String.prototype, {
+    endsWiths: {
+        value: function(listOfPossibleEndings) {
+            assert (typOf(listOfPossibleEndings) == 'list')
+            for (let e of listOfPossibleEndings) {
+                if (this.endsWith(e)) return true
+            }
+            return false
+        }
+    } 
+});
+
+/** 
 returns a list (array) of all sequences of digits (whole numbers) occuring in the string, with the option to specify min and max lengths for the digit sequences.
 Default min is 1, defualt max is unlimited 
 */
@@ -1809,5 +1824,22 @@ Object.defineProperties(String.prototype, {
             return ret
         }
 
+    } 
+});
+
+/**
+returns a substring, starting from the first occurrence of 'bet' until 'ween'. If 'bet' or 'ween' is not found, it returns an empty string.
+*/
+Object.defineProperties(String.prototype, {
+    between: {
+        value: function(bet, ween) {
+            let ret = String(this)
+            let startIdx = ret.indexOf(bet);
+            if (startIdx === -1) return '';
+            startIdx += bet.length;
+            let endIdx = ret.indexOf(ween, startIdx);
+            if (endIdx === -1) return '';
+            return ret.substring(startIdx, endIdx);
+        }
     } 
 });

@@ -80,7 +80,7 @@ const FromFile_FunctionsInfo_JS = [
     {
         "name": "ShowHTMLinTextArea",
         "docstring": "Modifies your html page by adding a textarea with a div's innerHTML.",
-        "parameters": "divToExpose, divToAppend",
+        "parameters": "divToExpose, divToAppend, outer",
         "region": "htmlManipulation"
     },
     {
@@ -324,6 +324,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "String objects"
     },
     {
+        "name": ".endsWiths",
+        "docstring": "returns true if the ego string ends with any of the strings in the listOfPossibleEndings, false otherwise.",
+        "parameters": "listOfPossibleEndings",
+        "region": "String objects"
+    },
+    {
         "name": ".digits",
         "docstring": "returns a list (array) of all sequences of digits (whole numbers) occuring in the string, with the option to specify min and max lengths for the digit sequences.\nDefault min is 1, defualt max is unlimited",
         "parameters": "min, max",
@@ -375,6 +381,12 @@ const FromFile_FunctionsInfo_JS = [
         "name": ".trimPlus",
         "docstring": "does multiple replacements in the ego string, with the option to specify a list of replacements. \n1) if std is true, it will apply the build in trim() function.\n2) if multiSpace is true, it will remove all multiple spaces inside the string\n3) if plusList is provided, it will remove all spaces in the specified patterns.",
         "parameters": "plusList, multiSpace = true, std = true",
+        "region": "String objects"
+    },
+    {
+        "name": ".between",
+        "docstring": "returns a substring, starting from the first occurrence of 'bet' until 'ween'. If 'bet' or 'ween' is not found, it returns an empty string.",
+        "parameters": "bet, ween",
         "region": "String objects"
     },
     {

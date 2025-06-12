@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Mario Hamidi">
     <title>EDITABLE HTML</title>
+    <link rel="stylesheet" href="../basis/css/b.css"></style>
     <style>
         :root       {--color-background: #f0f0f0;--color-text: #444;}
         body        {background-color: var(--color-background); color: var(--color-text);}
@@ -301,8 +302,8 @@
     </section>
 
 </body>
-<script src="js/getBasis.js"></script>
 
+<script src="../basis/js/b.js"></script>
 <script src="../textGeneral.js"></script>
 <script src="js/editableHTML.js"></script>  <!-- this project -->
 
@@ -317,10 +318,14 @@
         Auto_Fill(b_svg([12,18,24]),id)} 
 </script>
 <script id = "id-js-01">
-    let EDIT = new functions_editableHTML()
-    EDIT.Init('id-01')
+    // let EDIT = new functions_editableHTML()
+    // EDIT.Init('id-01') 
+
+    new functions_editableHTML().Init('id-01');
+
 </script>
 <script id = "id-js-02">
+    let EDIT = new functions_editableHTML()
     EDIT.Init('id-02')
     // validate:
     let divs2 = document.getElementById('id-02').DescendantsWithClass('.js-edit')
