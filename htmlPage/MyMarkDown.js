@@ -1,41 +1,39 @@
+class MyMarkDown {
+    constructor() {
+    }
+
 // ################################################################
 // MarkDown   -> HTML                                             #
 // ################################################################
-const CONFIG_MYMARKDOWN_FEATURES_ACTIVE = {
-    'new Line': true,
-    'multi Space': true,
-}
 
-const CONFIG_MYMARKDOWN_PATTERN3_ACTIVE = {
-    'Link': true,
-
-}
-
-
-function MyMarkDowntoHTML(markupText) {
+toHTML(markupText) {
     assert(typOf(markupText) == 'str')
-
-    htmlText = _MyMarkDown_FeaturesWithoutBrackets_Apply(markupText)
-    htmlText = _MyMarkDown_Patterns3_Apply(htmlText, ["[", "::", "]"])
-    htmlText = _MyMarkDown_Patterns2_Apply(htmlText, ["[", "]"])
+    let htmlText = ""
+    htmlText = this._MyMarkDown_FeaturesWithoutBrackets_Apply(markupText)
+    htmlText = this._MyMarkDown_Patterns3_Apply(htmlText, ["[", "::", "]"])
+    htmlText = this._MyMarkDown_Patterns2_Apply(htmlText, ["[", "]"])
 
     return htmlText;
 }
 
-function _MyMarkDown_FeaturesWithoutBrackets_Apply(text) {
+ _MyMarkDown_FeaturesWithoutBrackets_Apply(text) {
     // new line
     text = text.replace(new RegExp('\n', "g") , '<br>')
     // multi space
     text = text.replace(/ {2,}/g, function(match) {return '&nbsp;'.repeat(match.length);})
+    // header
+    while (text.includes('##')) {
+        let header = text.between('##', '<br>')
+        text = text.replace('##' + header, '<h2>' + header.trim() + '</h2>')}
 
     return text
 }
 
-function _MyMarkDown_Patterns2_Apply(text, patterns2) {
+_MyMarkDown_Patterns2_Apply(text, patterns2) {
 
-    let patsIndex = PatternsInText(text, patterns2)
+    let patsIndex = this.PatternsInText(text, patterns2)
     for (let i = patsIndex.length - 1; i >= 0; i--) {
-        let pat = patsIndex[i];
+        let pat = patsIndex[i]; let html = ""
         let part = text.substring(pat.start + patterns2[0].length, pat.end);
 
         if (part == ' ') {
@@ -57,11 +55,10 @@ function _MyMarkDown_Patterns2_Apply(text, patterns2) {
     return text
 }
 
-function _MyMarkDown_Patterns3_Apply(text, patterns3) {
-    let Features = CONFIG_MYMARKDOWN_PATTERN3_ACTIVE
+ _MyMarkDown_Patterns3_Apply(text, patterns3) {
     let part1 = ''; let part2 = ''; let html = ''
-    if (Features['Link']) {
-        let patsIndex = PatternsInText(text, patterns3)
+    if (true) {
+        let patsIndex = this.PatternsInText(text, patterns3)
         for (let i = patsIndex.length - 1; i >= 0; i--) {
             let pat = patsIndex[i];
             part1 = text.substring(pat.start + patterns3[0].length, pat.middle).trim();
@@ -73,21 +70,21 @@ function _MyMarkDown_Patterns3_Apply(text, patterns3) {
     return text
 }
 
-function PatternsInText(text, patternL) {
+PatternsInText(text, patternL) {
     assert(typOf(text) == "str")
     assert(typOf(patternL) == "list")
 
     // paternL = ["[", "]"];
     if (patternL.length == 2) {
-        return _PatternsFound2(text, patternL)
+        return this._PatternsFound2(text, patternL)
     }
     // paternL = ["[", ":", "]"];
     if (patternL.length == 3) {
-        return _PatternsFound3(text, patternL)
+        return this._PatternsFound3(text, patternL)
     }
 }
 
-function _PatternsFound2(text, patternL) {
+_PatternsFound2(text, patternL) {
     let ret = []; let tmp = ""
     let startIndex = 0; 
 
@@ -107,7 +104,7 @@ function _PatternsFound2(text, patternL) {
     return ret
 }
 
-function _PatternsFound3(text, patternL) {
+_PatternsFound3(text, patternL) {
     let ret = []; let tmp = ""
     let startIndex = 0; 
     
@@ -120,7 +117,7 @@ function _PatternsFound3(text, patternL) {
         pIndex.middle = text.indexOf(patternL[1], pIndex.start + patternL[0].length);
         if (pIndex.middle == -1)  break
         // find end index
-        pIndex.end = text.indexOf(patternL[2], pIndex.middle + patternL[1].length);
+        pIndex.end = text.indexOf(patternL[2], pIndex.start + patternL[1].length);
         if (pIndex.end == -1)  break
         // skip if middle comes after end
         if (pIndex.middle > pIndex.end) {
@@ -140,38 +137,40 @@ function _PatternsFound3(text, patternL) {
 // ################################################################
 
 
-function HTMLtoMyMarkdown(htmlText) {
+HTMLtoMyMarkdown(htmlText) {
     assert(typOf(htmlText) == 'str')
+    let markupText = ""
+    markupText = this._BackToMyMarkDown_FeaturesWithoutBrackets_Apply(htmlText)
 
-    markupText = _BackToMyMarkDown_FeaturesWithoutBrackets_Apply(htmlText)
+    markupText = this._BackToMyMarkDown_Patterns2_Apply(markupText)
 
-    markupText = _BackToMyMarkDown_Patterns2_Apply(markupText)
-
-    markupText = _BackToMyMarkDown_Patterns3_Apply(markupText)
+    markupText = this._BackToMyMarkDown_Patterns3_Apply(markupText)
 
     return markupText;
     }
 
-function _BackToMyMarkDown_FeaturesWithoutBrackets_Apply(text) {
-    let Features = CONFIG_MYMARKDOWN_FEATURES_ACTIVE
+_BackToMyMarkDown_FeaturesWithoutBrackets_Apply(text) {
 
-    if (Features['new Line']) {
+    if (true) {
         text = text.replace(new RegExp('<br>', "g") , '\n')}
-    if (Features['multi Space']) {
+    if (true) {
         text = text.replace(/&nbsp;+/g, function(match) {return ' '.repeat(match.length / 6); });}// 6 is the length of '&nbsp;'
+
+    if (true) {
+        let header = text.between('<h2>', '</h2>\n')
+        text = text.replace('<h2>' + header + '</h2>', '## ' + header.trim())}
 
     return text
 }
 
-function _BackToMyMarkDown_Patterns2_Apply(text) {
+_BackToMyMarkDown_Patterns2_Apply(text) {
 
     if (true) {
         text = text.replace(/<input type="checkbox">/g, '[ ]')
         text = text.replace(/<input type="checkbox" checked="">/g, '[x]')}
+
     if (true) {
-        text = _replace_SVG_BACK_To_MyMarkdon(text)}
-    if (true) {
-        let imgTags = PatternsInText(text, ['<img', '>'])
+        let imgTags = this.PatternsInText(text, ['<img', '>'])
         for (let imgTag of imgTags) {
             let part = '<img' + text.substring(imgTag.start + '<img'.length, imgTag.end - 1) + '">';
             let w = part.between('width="', '"')
@@ -185,32 +184,13 @@ function _BackToMyMarkDown_Patterns2_Apply(text) {
     return text
 }
 
-function _BackToMyMarkDown_Patterns3_Apply(text) {
-    let Features = CONFIG_MYMARKDOWN_PATTERN3_ACTIVE
-    let part1 = ''; let part2 = ''
-    if (Features['Link']) {
+_BackToMyMarkDown_Patterns3_Apply(text) {
+    if (true) {
         text = text.replace('target="#"', '')
         var anchorRegex = /<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1[^>]*?>(.*?)<\/a>/g;
         var text = text.replace(anchorRegex, '[$3::$2]');}
 
     return text
 }
-
-function _replace_SVG_BACK_To_MyMarkdon(htmlText) {
-    let ret = htmlText
-    let svgs = DOMElementsFromString(htmlText, 'svg')
-    for (let svg of svgs) {
-        ret = ret.replace(svg.outerHTML, 'xxy-' + svg.id + '-yxx')
-        for (let rpl of CONFIG_SVG_FOR_MARKDOWN_REPLACE) {
-            ret = ret.replace('xxy-' + rpl[2] + '-yxx', rpl[0])}
-        }
     
-    return ret
     }
-
-function DOMElementsFromString(htmlString, tag) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, 'text/html');
-    const svgElements = doc.querySelectorAll(tag);
-    return Array.from(svgElements);
-}

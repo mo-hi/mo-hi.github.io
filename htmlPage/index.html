@@ -120,12 +120,18 @@
     </div>
     
     <div class="mt-15">
-    HTML Code
-    <div id="id-markdown-output-code" class="h-280 border"></div>
-    <div class="mt-15">
-    HTML Output
-    <div id="id-markdown-output" class="h-280 border">
-    </div>
+
+    <table class="w-100">
+        <tr>
+            <td class="w-50">HTML Code</td>
+            <td class="w-50">HTML Output</td>
+        </tr>
+        <tr>
+            <td class="w-50 h-200"><div id="id-markdown-output-code" class="h-280 border w-95"></div></td>
+            <td class="w-50 h-200"><div id="id-markdown-output-html" class="h-280 border w-95"></td>
+        </tr>
+    </table>
+
     </section>
 
 </body>
@@ -183,24 +189,44 @@
 
 
 <script>
-    let textareaSource = document.getElementById("id-markdown-textarea")
-    let textarea_back = document.getElementById("id-markdown-textarea-back")
+    const textareaSource = document.getElementById("id-markdown-textarea")
+    // const markdownOutputCode = document.getElementById("id-markdown-output-code")     will not be directly used
+    const markdownOutputHTML = document.getElementById("id-markdown-output-html")
+    const textarea_back = document.getElementById("id-markdown-textarea-back")
+
+    function handleTextareaChange() {
+        // Convert the textarea content to HTML
+        let htmlContent = new MyMarkDown().toHTML(textareaSource.value);
+        // Update the output div with the converted HTML
+        markdownOutputHTML.innerHTML = htmlContent;
+        // Update the back textarea with the markdown representation of the HTML
+        textarea_back.value = new MyMarkDown().HTMLtoMyMarkdown(htmlContent);
+
+        if (document.getElementById("id-markdown-output-code").firstElementChild) {
+            document.getElementById("id-markdown-output-code").firstElementChild.remove()}
+        ShowHTMLinTextArea(document.getElementById("id-markdown-output-html"), 
+        document.getElementById("id-markdown-output-code"))
+    }
+
     textareaSource.value = "" +
+        "## This is a header\n" +
         "New Lines are automatically taken over\n" +
         "   Mulit     Spaces    are     taken     over\n" +
         "[Links::https://www.example.com] can be added\n\n" +
         "You can add an emtpy checkbox: [ ]\n" + 
         "You can add an filled checkbox: [x]\n\n" +
+        "[Links::https://www.example.com] can be added\n\n" +
         "Add pictures: [(200x100)pic2.png]\n"
 
-    let markdownHtmlOutput = document.getElementById("id-markdown-output")
+    
+    
 </script>
-<script id = "id-markdown-use-code">
-    // markdown to HTML
-    markdownHtmlOutput.innerHTML = MyMarkDowntoHTML(textareaSource.value)
-    // HTML to markdown
-    textarea_back.value = HTMLtoMyMarkdown(markdownHtmlOutput.innerHTML)
-   
+
+<script>
+    handleTextareaChange()
+    textareaSource.addEventListener('input', handleTextareaChange)
+
+
 </script>
 <script>
     let lines_Source = textareaSource.value.split('\n')
@@ -218,10 +244,8 @@
     if (flag) diff.innerHTML += `None`;
     
 
-    ShowHTMLinTextArea(document.getElementById("id-markdown-output"), 
-        document.getElementById("id-markdown-output-code"))
-    ShowHTMLinTextArea(document.getElementById("id-markdown-use-code"), 
-        document.getElementById("id-markdown-use"))
+    // ShowHTMLinTextArea(document.getElementById("id-markdown-output-html"), 
+    //     document.getElementById("id-markdown-output-code"))
 </script>
 </body>
 </html>
