@@ -302,7 +302,7 @@ const FromFile_FunctionsInfo_JS = [
     {
         "name": ".bAddClassToCells",
         "docstring": "adds a class to all cells of the table. The class must be provided as a string (hence classe).\nThe class is added to all cells of the table (including headers) if includeHeaders is set to true.",
-        "parameters": "classe, includeHeaders = false",
+        "parameters": "className, includeHeaders = false",
         "region": "DOMTables objects"
     },
     {
@@ -390,6 +390,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "String objects"
     },
     {
+        "name": ".toggle",
+        "docstring": "toggles the string between two specified texts, 'a' and 'b'. There's no return value.",
+        "parameters": "a, b",
+        "region": "String objects"
+    },
+    {
         "name": ".DescendantsWithClass",
         "docstring": "returns all descendats (children and grandchildren) of a div that have a certain className",
         "parameters": "className",
@@ -447,6 +453,12 @@ const FromFile_FunctionsInfo_JS = [
         "name": ".b_divTable_AddRows",
         "docstring": "adds new rows to a table. \nIf liste is a list of dictionaries, then the innerHTML of each cell will be set to the value of the \nkey identical to the header.",
         "parameters": "liste",
+        "region": "DivTables objects"
+    },
+    {
+        "name": ".b_HeaderIndex",
+        "docstring": "return the index of the header with the given name.\nIf the header is not found, it returns -1.",
+        "parameters": "headerName",
         "region": "DivTables objects"
     },
     {

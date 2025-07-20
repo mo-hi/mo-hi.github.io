@@ -1347,6 +1347,20 @@ Element.prototype.b_divTable_AddRows = function(liste) {
         return 
     }
 }
+
+/**
+return the index of the header with the given name.
+If the header is not found, it returns -1.
+ */
+
+Element.prototype.b_HeaderIndex = function(headerName) {
+    assert(this.tagName == 'TABLE');
+    let headers = Array.from(this.querySelectorAll('thead th'));
+    for (let i = 0; i < headers.length; i++) {
+        if (headers[i].innerHTML == headerName) return i;
+    }
+    return -1; // Header not found
+}
 // ####################################################################################################
 // region DOMTables                                                                                  #
 // ####################################################################################################
@@ -1584,18 +1598,27 @@ The class is added to all cells of the table (including headers) if includeHeade
 */
 Object.defineProperties(Object.prototype, {
     bAddClassToCells: {
-        value: function(classe, includeHeaders = false) {
-            assert(typOf(classe) == 'str' && classe.containsOnlyAbc123('-'))
+        value: function(className, includeHeaders = false) {
+            assert(typOf(className) == 'str')
+            let classen = className.split(' ')
+
+            for (let cls of classen) {
+                assert(typOf(cls) == 'str')
+                assert(cls.containsOnlyAbc123('-'))}
 
             let cells = this.getElementsByTagName('td');
             for (let i = 0; i < cells.length; i++) {
-                if (!cells[i].classList.contains(classe)) cells[i].classList.add(classe)
+                for (let classe of classen) {
+                   if (!cells[i].classList.contains(classe)) cells[i].classList.add(classe)
+                   }
             }
 
             if (includeHeaders) {
                 let cells = this.getElementsByTagName('th');
                 for (let i = 0; i < cells.length; i++) {
-                    if (!cells[i].classList.contains(classe)) cells[i].classList.add(classe)
+                    for (let classe of classen) {
+                        if (!cells[i].classList.contains(classe)) cells[i].classList.add(classe)
+                        }
                 }
             }
         }
@@ -1840,6 +1863,20 @@ Object.defineProperties(String.prototype, {
             let endIdx = ret.indexOf(ween, startIdx);
             if (endIdx === -1) return '';
             return ret.substring(startIdx, endIdx);
+        }
+    } 
+});
+
+/**
+toggles the string between two specified texts, 'a' and 'b'. There's no return value.
+*/
+Object.defineProperties(String.prototype, {
+    toggle: {
+        value: function(a, b) {
+            if (String(this) == a) return b
+            if (String(this) == b) return a
+
+            return String(this)
         }
     } 
 });
