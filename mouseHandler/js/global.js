@@ -16,3 +16,10 @@ function function_Tipp(event)  {
     if (typeof event === "object" && event instanceof KeyboardEvent) {
     document.getElementById("out-tipp").innerHTML += event.key}
 }
+
+function function_Click2 (event)  {
+    if (typeof event === "object" && event instanceof MouseEvent) {
+        id = event.currentTarget.id}
+    document.getElementById("out-click-2").innerHTML = "Click: " + id 
+    // + cUSERINPUT_EVENT["event"].srcElement.id
+}

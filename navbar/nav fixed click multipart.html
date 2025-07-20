@@ -25,16 +25,14 @@
                 <drop>
                     <a onclick="_nav_toggleDown(this)">Stuff</a>
                     <down>
-                        <a href="" onclick="">Link 1</a>
+                        <a href="" >Link 1</a>
                         <a href="" onclick="">Link 2</a>
                         <a href="" onclick="">Link 3</a>
                     </down>
                 </drop>
             </nav>
             <nav>
-                <info>
-                    Hallo
-                </info>
+                <info>Hallo</info>
             </nav>
             <nav class="w-40 flexR">
                 <drop>
@@ -67,14 +65,25 @@
         a middle section, whch can be used to display information to the user.
         It is created with the following
     </p>
+
     HTML
     <div id="id-show" class="h-500"></div>
     <br>
     JS
-    <div id="id-showJS" class="h-60"></div>
+    <div id="id-showJS1" class="h-60"></div>
     <br>
     CSS 
     <div id="id-showCSS" class="h-60"></div>
+    <br>
+
+    <p>
+        Optionally you can add your custom function via <c>NAV_AddGenericClickFunction</c>, that will be called when the user clicks on a dropdown menu item.
+        The function will not be called when the user clicks on a menu item without dropdown or on a dropdown child. The function will be assigned to the dropdown element 
+        via addEventListener, so you can use the <c>event</c> parameter to get the clicked element.
+        See how the name of the clicked menu item is displayed in the info section.
+    </p>
+        JS
+    <div id="id-showJS2" class="h-160"></div>
     <br>
     <hr>
     <section>
@@ -98,8 +107,22 @@
             Auto_Fill(FromFile_textGeneral_js)
 
             ShowHTMLinTextArea(document.getElementById("id-nav"), document.getElementById("id-show"))
-            ShowHTMLinTextArea(document.getElementById("id-scripts"), document.getElementById("id-showJS"))
+            ShowHTMLinTextArea(document.getElementById("id-scripts"), document.getElementById("id-showJS1"))
             ShowHTMLinTextArea(document.getElementById("id-css"), document.getElementById("id-showCSS"))
         </script>
     </div>
+    
+    <script id = "id-js">
+        let nav = document.getElementById('id-nav')
+        NAV_AddGenericClickFunction('id-nav', foo)
+
+        function foo(event) {
+            let info = document.getElementsByTagName("info")[0];
+            info.innerHTML = info.innerHTML.toggle("Hallo", "Welt")
+        }
+    </script>
+
+    <script>
+        ShowHTMLinTextArea(document.getElementById("id-js"), document.getElementById("id-showJS2"))
+    </script>
 </html>

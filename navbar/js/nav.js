@@ -11,13 +11,23 @@ function NAV_Sidebar(targetID, data,
     if (idPrefix != "" || idPostfix != "") _addIDToLiChildren(ul, idPrefix, idPostfix)
 }
 
-function NAV_Sidebar_AddGenericClickFunction(targetID, clickfunction) {
+function NAV_AddGenericClickFunction(targetID, clickfunction) {
     let ul = document.getElementById(targetID)
-    assert (ul instanceof HTMLUListElement) 
-
-    for (let li of ul.querySelectorAll('li')) {
-        addEventListener_ClickTouch(li, clickfunction);
+    if (ul instanceof HTMLUListElement) {
+        for (let li of ul.querySelectorAll('li')) {
+            addEventListener_ClickTouch(li, clickfunction);
+        }
+        return
     }
+    
+    let drops = ul.querySelectorAll('drop')
+    if (drops.length > 0) {
+        for (let drop of drops) {
+            addEventListener_ClickTouch(drop, clickfunction);
+        }
+        return
+    }
+    assert(false)
 }
 
 function _nav_toggleDown(event) {
@@ -25,10 +35,29 @@ function _nav_toggleDown(event) {
 
     _nav_CloseOtherOpenDropdowns(divElement)
 
-    // Bugfix: in the landing page there are two sidebars, not one
-    if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) _nav_toggleSidebarZIndex()
+    // class 'nav-js-active' is used (instead data attribute) to allow CSS to style the dropdown (hide/show)
+    
+    //explicit toogle (multiple actions)
+    if (divElement.parentElement.classList.contains('nav-js-active')) {
+        divElement.parentElement.classList.remove('nav-js-active');
+        divElement.closest('nav').classList.remove('nav-js-active');
+        // Add any additional logic needed when closing the dropdown here
+    } else {
+        divElement.parentElement.classList.add('nav-js-active');
+        divElement.closest('nav').classList.add('nav-js-active');
+        // Add any additional logic needed when opening the dropdown here
+    }
 
-    divElement.parentElement.classList.toggle('nav-js-active');
+    //explicit toogle (extended logic)
+    if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) {
+        let sidebar = document.querySelector('.sidebar')
+        if (divElement.closest('nav').classList.contains('nav-js-active')) {
+            sidebar.classList.add('z--1')
+        } else {
+            sidebar.classList.remove('z--1')
+        }
+    
+    }
 }
 
 function _nav_CloseOtherOpenDropdowns(divElement) {
@@ -45,10 +74,7 @@ function _nav_IsTopNavBar(divElement) {
 function _nav_IsThereSidebar() {
     return document.querySelectorAll('.sidebar').length === 1;}
 
-function _nav_toggleSidebarZIndex() {
-    let sidebar = document.querySelector('.sidebar')
-    sidebar.classList.toggle('z--1')
-}
+
 
 // ################################################################
 // dynamic sidebar                                                #

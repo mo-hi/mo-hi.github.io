@@ -16,7 +16,6 @@
             border: 1px solid black;
             width:50pt;
             height:50pt;
-            float: left;
             text-align: center;
             line-height: 50pt;
             }
@@ -41,8 +40,8 @@
         always <c>MH.MouseDown</c> and <c>MH.MouseUp</c>.
         The hover event is added natively to the divs. The key event is added to the window.
     </p>
+    Alternative 1
     <div id="id-showJS" class="js-fill h-350 w-70">
-    
     </div>
     <br/>
     <p><b>See the result </b> and notice when clicks that take longer than 300ms do not trigger the Click function:</p>
@@ -53,15 +52,28 @@
     </div>
     <br/>
     <div id="id-section-2" class="js-fill"> 
-        <div id="id-{{no}}" class="item">{{no}}</div>
+        <div id="id-{{no}}" class="item inline-block">{{no}}</div>
     </div>
-
+    <section class="w-100 h-10"></section>
+    Alternative 2
+    <div id="id-showJS-2" class="js-fill h-150 w-70">
+    </div>
+    <br/>
+    <div id="id-section-out" > 
+        <div id="out-tipp-2" class="inline-block w-35">Keyboard: </div>
+        <div id="out-click-2" class="inline-block w-30">Click: </div>
+    </div>
+    <br/>
+    <div id="id-section-3" class="js-fill"> 
+        <div id="id2-{{no}}" class="item inline-block">{{no}}</div>
+    </div>
     <section class="h-400 mb-100">
         <!-- empty -->
     </section>
     <p id="id-end" class="js-fill wr-1600-400 h-50 fixed bottom-0 mb-0i" style="z-index: 2;border-top: 1px solid grey;">
         {{id-end-index}}
     </p>
+    
 
 </body>
 <script src="../basis/js/b.js"></script>
@@ -77,6 +89,7 @@
     for (let i = 1; i <= 110; i++) {
         list200.push({ "no": i });}
     Auto_Fill(list200,"id-section-2")
+    Auto_Fill(list200,"id-section-3")
     Auto_Fill(FromFile_textGeneral_js,"id-end")
     DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['code'])
 </script>
@@ -86,7 +99,7 @@
 
 <!-- application -->
 <script id="id-js-application">
-    const MH = new clsMouseHandler({'onClick':function_Click});
+    let MH = new clsMouseHandler(function_Click);
     (function () {
             for (i = 1; i<110;i++) {
                 div = document.getElementById("id-"+String(i))
@@ -105,9 +118,19 @@
     )();
 </script>
 
+<script id="id-js-application-2">
+    (function () {
+            for (i = 1; i<110;i++) {
+                div = document.getElementById("id2-"+String(i))
+                new clsMouseHandler().addEventListeners(div, function_Click2)
+                }
+            })();
+</script>
+
 <!-- supporting post-->
 <script>
     ShowHTMLinTextArea(document.getElementById("id-js-application"), document.getElementById("id-showJS"))
+    ShowHTMLinTextArea(document.getElementById("id-js-application-2"), document.getElementById("id-showJS-2"))
 </script>
 
 

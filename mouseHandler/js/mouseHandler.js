@@ -1,10 +1,19 @@
+/**
+ * Handles mouse click events with timing logic to distinguish clicks.
+ *
+ * You can define the onClickFunction either during initialization or when calling addEventListeners.
+ *
+
+ */
 class clsMouseHandler {
-    constructor({"onClick":onClickFunction}) {
+    constructor(onClickFunction) {
         this.mousedownTime = 0
-        this.onClickFunction = onClickFunction
+        if (typeof onClickFunction == "function") this.onClickFunction = onClickFunction
+        
     }
 
-    addEventListeners = (element) => {
+    addEventListeners = (element, onClickFunction) => {
+        if (typeof onClickFunction == "function") this.onClickFunction = onClickFunction
         element.addEventListener('mousedown', this._MouseDown)
         element.addEventListener('mouseup', this._MouseUp)
     }
