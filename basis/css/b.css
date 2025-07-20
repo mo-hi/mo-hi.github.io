@@ -141,8 +141,185 @@
 }
 
 .fixed      {position: fixed;}
-.top-0      {top: 0;}
+.top-0 {top: 0;}    
+.top-1 {top: 1px;}      .top-2 {top: 2px;}      .top-3 {top: 3px;}      .top-4 {top: 4px;}      .top-5 {top: 5px;}
+.top-6 {top: 6px;}      .top-7 {top: 7px;}      .top-8 {top: 8px;}      .top-9 {top: 9px;}      .top-10 {top: 10px;}
+.top-11 {top: 11px;}    .top-12 {top: 12px;}    .top-13 {top: 13px;}    .top-14 {top: 14px;}    .top-15 {top: 15px;}
+.top-16 {top: 16px;}    .top-17 {top: 17px;}    .top-18 {top: 18px;}    .top-19 {top: 19px;}    .top-20 {top: 20px;}
+.top-21 {top: 21px;}    .top-22 {top: 22px;}    .top-23 {top: 23px;}    .top-24 {top: 24px;}    .top-25 {top: 25px;}
+.top-26 {top: 26px;}    .top-27 {top: 27px;}    .top-28 {top: 28px;}    .top-29 {top: 29px;}    .top-30 {top: 30px;}
+.top-31 {top: 31px;}    .top-32 {top: 32px;}    .top-33 {top: 33px;}    .top-34 {top: 34px;}    .top-35 {top: 35px;}
+.top-36 {top: 36px;}    .top-37 {top: 37px;}    .top-38 {top: 38px;}    .top-39 {top: 39px;}    .top-40 {top: 40px;}
+.top-41 {top: 41px;}    .top-42 {top: 42px;}    .top-43 {top: 43px;}    .top-44 {top: 44px;}    .top-45 {top: 45px;}
+.top-46 {top: 46px;}    .top-47 {top: 47px;}    .top-48 {top: 48px;}    .top-49 {top: 49px;}    .top-50 {top: 50px;}
+.top-51 {top: 51px;}    .top-52 {top: 52px;}    .top-53 {top: 53px;}    .top-54 {top: 54px;}    .top-55 {top: 55px;}
+.top-56 {top: 56px;}    .top-57 {top: 57px;}    .top-58 {top: 58px;}    .top-59 {top: 59px;}    .top-60 {top: 60px;}
+.top-61 {top: 61px;}    .top-62 {top: 62px;}    .top-63 {top: 63px;}    .top-64 {top: 64px;}    .top-65 {top: 65px;}
+.top-66 {top: 66px;}    .top-67 {top: 67px;}    .top-68 {top: 68px;}    .top-69 {top: 69px;}    .top-70 {top: 70px;}
+.top-71 {top: 71px;}    .top-72 {top: 72px;}    .top-73 {top: 73px;}    .top-74 {top: 74px;}    .top-75 {top: 75px;}
+.top-76 {top: 76px;}    .top-77 {top: 77px;}    .top-78 {top: 78px;}    .top-79 {top: 79px;}    .top-80 {top: 80px;}
+.top-81 {top: 81px;}    .top-82 {top: 82px;}    .top-83 {top: 83px;}    .top-84 {top: 84px;}    .top-85 {top: 85px;}
+.top-86 {top: 86px;}    .top-87 {top: 87px;}    .top-88 {top: 88px;}    .top-89 {top: 89px;}    .top-90 {top: 90px;}
+.top-91 {top: 91px;}    .top-92 {top: 92px;}    .top-93 {top: 93px;}    .top-94 {top: 94px;}    .top-95 {top: 95px;}
+.top-96 {top: 96px;}    .top-97 {top: 97px;}    .top-98 {top: 98px;}    .top-99 {top: 99px;}    .top-100 {top: 100px;}
+.top-101 {top: 101px;}  .top-102 {top: 102px;}  .top-103 {top: 103px;}  .top-104 {top: 104px;}  .top-105 {top: 105px;}
+.top-106 {top: 106px;}  .top-107 {top: 107px;}  .top-108 {top: 108px;}  .top-109 {top: 109px;}  .top-110 {top: 110px;}
+.top-111 {top: 111px;}  .top-112 {top: 112px;}  .top-113 {top: 113px;}  .top-114 {top: 114px;}  .top-115 {top: 115px;}
+.top-116 {top: 116px;}  .top-117 {top: 117px;}  .top-118 {top: 118px;}  .top-119 {top: 119px;}  .top-120 {top: 120px;}
+.top-121 {top: 121px;}  .top-122 {top: 122px;}  .top-123 {top: 123px;}  .top-124 {top: 124px;}  .top-125 {top: 125px;}
+.top-126 {top: 126px;}  .top-127 {top: 127px;}  .top-128 {top: 128px;}  .top-129 {top: 129px;}  .top-130 {top: 130px;}
+.top-131 {top: 131px;}  .top-132 {top: 132px;}  .top-133 {top: 133px;}  .top-134 {top: 134px;}  .top-135 {top: 135px;}
+.top-136 {top: 136px;}  .top-137 {top: 137px;}  .top-138 {top: 138px;}  .top-139 {top: 139px;}  .top-140 {top: 140px;}
+.top-141 {top: 141px;}  .top-142 {top: 142px;}  .top-143 {top: 143px;}  .top-144 {top: 144px;}  .top-145 {top: 145px;}
+.top-146 {top: 146px;}  .top-147 {top: 147px;}  .top-148 {top: 148px;}  .top-149 {top: 149px;}  .top-150 {top: 150px;}
+.top-151 {top: 151px;}  .top-152 {top: 152px;}  .top-153 {top: 153px;}  .top-154 {top: 154px;}  .top-155 {top: 155px;}
+.top-156 {top: 156px;}  .top-157 {top: 157px;}  .top-158 {top: 158px;}  .top-159 {top: 159px;}  .top-160 {top: 160px;}
+.top-161 {top: 161px;}  .top-162 {top: 162px;}  .top-163 {top: 163px;}  .top-164 {top: 164px;}  .top-165 {top: 165px;}
+.top-166 {top: 166px;}  .top-167 {top: 167px;}  .top-168 {top: 168px;}  .top-169 {top: 169px;}  .top-170 {top: 170px;}
+.top-171 {top: 171px;}  .top-172 {top: 172px;}  .top-173 {top: 173px;}  .top-174 {top: 174px;}  .top-175 {top: 175px;}
+.top-176 {top: 176px;}  .top-177 {top: 177px;}  .top-178 {top: 178px;}  .top-179 {top: 179px;}  .top-180 {top: 180px;}
+.top-181 {top: 181px;}  .top-182 {top: 182px;}  .top-183 {top: 183px;}  .top-184 {top: 184px;}  .top-185 {top: 185px;}
+.top-186 {top: 186px;}  .top-187 {top: 187px;}  .top-188 {top: 188px;}  .top-189 {top: 189px;}  .top-190 {top: 190px;}
+.top-191 {top: 191px;}  .top-192 {top: 192px;}  .top-193 {top: 193px;}  .top-194 {top: 194px;}  .top-195 {top: 195px;}
+.top-196 {top: 196px;}  .top-197 {top: 197px;}  .top-198 {top: 198px;}  .top-199 {top: 199px;}  .top-200 {top: 200px;}
+
+
+.top-1vh {top: 1vh;}    .top-2vh {top: 2vh;}    .top-3vh {top: 3vh;}    .top-4vh {top: 4vh;}    .top-5vh {top: 5vh;}
+.top-6vh {top: 6vh;}    .top-7vh {top: 7vh;}    .top-8vh {top: 8vh;}    .top-9vh {top: 9vh;}    .top-10vh {top: 10vh;}
+.top-11vh {top: 11vh;}
+.top-12vh {top: 12vh;}
+.top-13vh {top: 13vh;}
+.top-14vh {top: 14vh;}
+.top-15vh {top: 15vh;}
+.top-16vh {top: 16vh;}
+.top-17vh {top: 17vh;}
+.top-18vh {top: 18vh;}
+.top-19vh {top: 19vh;}
+.top-20vh {top: 20vh;}
+.top-21vh {top: 21vh;}
+.top-22vh {top: 22vh;}
+.top-23vh {top: 23vh;}
+.top-24vh {top: 24vh;}
+.top-25vh {top: 25vh;}
+.top-26vh {top: 26vh;}
+.top-27vh {top: 27vh;}
+.top-28vh {top: 28vh;}
+.top-29vh {top: 29vh;}
+.top-30vh {top: 30vh;}
+.top-31vh {top: 31vh;}
+.top-32vh {top: 32vh;}
+.top-33vh {top: 33vh;}
+.top-34vh {top: 34vh;}
+.top-35vh {top: 35vh;}
+.top-36vh {top: 36vh;}
+.top-37vh {top: 37vh;}
+.top-38vh {top: 38vh;}
+.top-39vh {top: 39vh;}
+.top-40vh {top: 40vh;}
+.top-41vh {top: 41vh;}
+.top-42vh {top: 42vh;}
+.top-43vh {top: 43vh;}
+.top-44vh {top: 44vh;}
+.top-45vh {top: 45vh;}
+.top-46vh {top: 46vh;}
+.top-47vh {top: 47vh;}
+.top-48vh {top: 48vh;}
+.top-49vh {top: 49vh;}
+.top-50vh {top: 50vh;}
+.top-51vh {top: 51vh;}
+.top-52vh {top: 52vh;}
+.top-53vh {top: 53vh;}
+.top-54vh {top: 54vh;}
+.top-55vh {top: 55vh;}
+.top-56vh {top: 56vh;}
+.top-57vh {top: 57vh;}
+.top-58vh {top: 58vh;}
+.top-59vh {top: 59vh;}
+.top-60vh {top: 60vh;}
+.top-61vh {top: 61vh;}
+.top-62vh {top: 62vh;}
+.top-63vh {top: 63vh;}
+.top-64vh {top: 64vh;}
+.top-65vh {top: 65vh;}
+.top-66vh {top: 66vh;}
+.top-67vh {top: 67vh;}
+.top-68vh {top: 68vh;}
+.top-69vh {top: 69vh;}
+.top-70vh {top: 70vh;}
+.top-71vh {top: 71vh;}
+.top-72vh {top: 72vh;}
+.top-73vh {top: 73vh;}
+.top-74vh {top: 74vh;}
+.top-75vh {top: 75vh;}
+.top-76vh {top: 76vh;}
+.top-77vh {top: 77vh;}
+.top-78vh {top: 78vh;}
+.top-79vh {top: 79vh;}
+.top-80vh {top: 80vh;}
+.top-81vh {top: 81vh;}
+.top-82vh {top: 82vh;}
+.top-83vh {top: 83vh;}
+.top-84vh {top: 84vh;}
+.top-85vh {top: 85vh;}
+.top-86vh {top: 86vh;}
+.top-87vh {top: 87vh;}
+.top-88vh {top: 88vh;}
+.top-89vh {top: 89vh;}
+.top-90vh {top: 90vh;}
+.top-91vh {top: 91vh;}
+.top-92vh {top: 92vh;}
+.top-93vh {top: 93vh;}
+.top-94vh {top: 94vh;}
+.top-95vh {top: 95vh;}
+.top-96vh {top: 96vh;}
+.top-97vh {top: 97vh;}
+.top-98vh {top: 98vh;}
+.top-99vh {top: 99vh;}
+.top-100vh {top: 100vh;}
+
+
 .left-0     {left: 0;}
+.left-1vw {left: 1vw;}    .left-2vw {left: 2vw;}    .left-3vw {left: 3vw;}    .left-4vw {left: 4vw;}    .left-5vw {left: 5vw;}
+.left-6vw {left: 6vw;}    .left-7vw {left: 7vw;}    .left-8vw {left: 8vw;}    .left-9vw {left: 9vw;}    .left-10vw {left: 10vw;}
+.left-11vw {left: 11vw;}  .left-12vw {left: 12vw;}  .left-13vw {left: 13vw;}  .left-14vw {left: 14vw;}  .left-15vw {left: 15vw;}
+.left-16vw {left: 16vw;}  .left-17vw {left: 17vw;}  .left-18vw {left: 18vw;}  .left-19vw {left: 19vw;}  .left-20vw {left: 20vw;}
+.left-21vw {left: 21vw;}  .left-22vw {left: 22vw;}  .left-23vw {left: 23vw;}  .left-24vw {left: 24vw;}  .left-25vw {left: 25vw;}
+.left-26vw {left: 26vw;}  .left-27vw {left: 27vw;}  .left-28vw {left: 28vw;}  .left-29vw {left: 29vw;}  .left-30vw {left: 30vw;}
+.left-31vw {left: 31vw;}  .left-32vw {left: 32vw;}  .left-33vw {left: 33vw;}  .left-34vw {left: 34vw;}  .left-35vw {left: 35vw;}
+.left-36vw {left: 36vw;}  .left-37vw {left: 37vw;}  .left-38vw {left: 38vw;}  .left-39vw {left: 39vw;}  .left-40vw {left: 40vw;}
+.left-41vw {left: 41vw;}  .left-42vw {left: 42vw;}  .left-43vw {left: 43vw;}  .left-44vw {left: 44vw;}  .left-45vw {left: 45vw;}
+.left-46vw {left: 46vw;}  .left-47vw {left: 47vw;}  .left-48vw {left: 48vw;}  .left-49vw {left: 49vw;}  .left-50vw {left: 50vw;}
+.left-51vw {left: 51vw;}  .left-52vw {left: 52vw;}  .left-53vw {left: 53vw;}  .left-54vw {left: 54vw;}  .left-55vw {left: 55vw;}
+.left-56vw {left: 56vw;}  .left-57vw {left: 57vw;}  .left-58vw {left: 58vw;}  .left-59vw {left: 59vw;}  .left-60vw {left: 60vw;}
+.left-61vw {left: 61vw;}  .left-62vw {left: 62vw;}  .left-63vw {left: 63vw;}  .left-64vw {left: 64vw;}  .left-65vw {left: 65vw;}
+.left-66vw {left: 66vw;}  .left-67vw {left: 67vw;}  .left-68vw {left: 68vw;}  .left-69vw {left: 69vw;}  .left-70vw {left: 70vw;}
+.left-71vw {left: 71vw;}  .left-72vw {left: 72vw;}  .left-73vw {left: 73vw;}  .left-74vw {left: 74vw;}  .left-75vw {left: 75vw;}
+.left-76vw {left: 76vw;}  .left-77vw {left: 77vw;}  .left-78vw {left: 78vw;}  .left-79vw {left: 79vw;}  .left-80vw {left: 80vw;}
+.left-81vw {left: 81vw;}  .left-82vw {left: 82vw;}  .left-83vw {left: 83vw;}  .left-84vw {left: 84vw;}  .left-85vw {left: 85vw;}
+.left-86vw {left: 86vw;}  .left-87vw {left: 87vw;}  .left-88vw {left: 88vw;}  .left-89vw {left: 89vw;}  .left-90vw {left: 90vw;}
+.left-91vw {left: 91vw;}  .left-92vw {left: 92vw;}  .left-93vw {left: 93vw;}  .left-94vw {left: 94vw;}  .left-95vw {left: 95vw;}
+.left-96vw {left: 96vw;}  .left-97vw {left: 97vw;}  .left-98vw {left: 98vw;}  .left-99vw {left: 99vw;}  .left-100vw {left: 100vw;}
+.left-101vw {left: 101vw;}  .left-102vw {left: 102vw;}  .left-103vw {left: 103vw;}  .left-104vw {left: 104vw;}  .left-105vw {left: 105vw;}
+.left-106vw {left: 106vw;}  .left-107vw {left: 107vw;}  .left-108vw {left: 108vw;}  .left-109vw {left: 109vw;}  .left-110vw {left: 110vw;}
+.left-111vw {left: 111vw;}  .left-112vw {left: 112vw;}  .left-113vw {left: 113vw;}  .left-114vw {left: 114vw;}  .left-115vw {left: 115vw;}
+.left-116vw {left: 116vw;}  .left-117vw {left: 117vw;}  .left-118vw {left: 118vw;}  .left-119vw {left: 119vw;}  .left-120vw {left: 120vw;}
+.left-121vw {left: 121vw;}  .left-122vw {left: 122vw;}  .left-123vw {left: 123vw;}  .left-124vw {left: 124vw;}  .left-125vw {left: 125vw;}
+.left-126vw {left: 126vw;}  .left-127vw {left: 127vw;}  .left-128vw {left: 128vw;}  .left-129vw {left: 129vw;}  .left-130vw {left: 130vw;}
+.left-131vw {left: 131vw;}  .left-132vw {left: 132vw;}  .left-133vw {left: 133vw;}  .left-134vw {left: 134vw;}  .left-135vw {left: 135vw;}
+.left-136vw {left: 136vw;}  .left-137vw {left: 137vw;}  .left-138vw {left: 138vw;}  .left-139vw {left: 139vw;}  .left-140vw {left: 140vw;}
+.left-141vw {left: 141vw;}  .left-142vw {left: 142vw;}  .left-143vw {left: 143vw;}  .left-144vw {left: 144vw;}  .left-145vw {left: 145vw;}
+.left-146vw {left: 146vw;}  .left-147vw {left: 147vw;}  .left-148vw {left: 148vw;}  .left-149vw {left: 149vw;}  .left-150vw {left: 150vw;}
+.left-151vw {left: 151vw;}  .left-152vw {left: 152vw;}  .left-153vw {left: 153vw;}  .left-154vw {left: 154vw;}  .left-155vw {left: 155vw;}
+.left-156vw {left: 156vw;}  .left-157vw {left: 157vw;}  .left-158vw {left: 158vw;}  .left-159vw {left: 159vw;}  .left-160vw {left: 160vw;}
+.left-161vw {left: 161vw;}  .left-162vw {left: 162vw;}  .left-163vw {left: 163vw;}  .left-164vw {left: 164vw;}  .left-165vw {left: 165vw;}
+.left-166vw {left: 166vw;}  .left-167vw {left: 167vw;}  .left-168vw {left: 168vw;}  .left-169vw {left: 169vw;}  .left-170vw {left: 170vw;}
+.left-171vw {left: 171vw;}  .left-172vw {left: 172vw;}  .left-173vw {left: 173vw;}  .left-174vw {left: 174vw;}  .left-175vw {left: 175vw;}
+.left-176vw {left: 176vw;}  .left-177vw {left: 177vw;}  .left-178vw {left: 178vw;}  .left-179vw {left: 179vw;}  .left-180vw {left: 180vw;}
+.left-181vw {left: 181vw;}  .left-182vw {left: 182vw;}  .left-183vw {left: 183vw;}  .left-184vw {left: 184vw;}  .left-185vw {left: 185vw;}
+.left-186vw {left: 186vw;}  .left-187vw {left: 187vw;}  .left-188vw {left: 188vw;}  .left-189vw {left: 189vw;}  .left-190vw {left: 190vw;}
+.left-191vw {left: 191vw;}  .left-192vw {left: 192vw;}  .left-193vw {left: 193vw;}  .left-194vw {left: 194vw;}  .left-195vw {left: 195vw;}
+.left-196vw {left: 196vw;}  .left-197vw {left: 197vw;}  .left-198vw {left: 198vw;}  .left-199vw {left: 199vw;}  .left-200vw {left: 200vw;}
+
 .bottom-0   {bottom: 0;}
 .right-0    {right: 0;}
 
@@ -181,13 +358,6 @@ h2.h2-not-bold{
     font-weight: 400;
 }
 
-h2.h2-normal {
-    font-size: 1em;
-    font-weight: 400;
-    text-align: left;
-    vertical-align: bottom;
-}
-
 h2.underline {
     width: 100%;
     position: relative;
@@ -207,30 +377,10 @@ h2.underline::after {
     /* background: linear-gradient(to right, #333, rgba(51, 51, 51, 0)); */
 }
 
-div.underline {
-    margin-bottom:18px
-}
-
-div.underline::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #333;
-    margin-top: -20px;
-}
-
 h2.sticky {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
-    z-index: 1;
-}
-
-div.sticky {
-    position: -webkit-sticky; /* For Safari */
-    position: sticky;
-    top: -20px;
     z-index: 1;
 }
 
@@ -628,6 +778,156 @@ div.sticky {
 .m-95       {margin:95px}          .p-95     {padding:95px}
 .m-100      {margin:100px}         .p-100    {padding:100px}
 
+
+.ml-1vwi       {margin-left: 1vw !important;} .pl-1vwi       {padding-left: 1vw !important;}
+.ml-2vwi       {margin-left: 2vw !important;} .pl-2vwi       {padding-left: 2vw !important;}
+.ml-3vwi       {margin-left: 3vw !important;} .pl-3vwi       {padding-left: 3vw !important;}
+.ml-4vwi       {margin-left: 4vw !important;} .pl-4vwi       {padding-left: 4vw !important;}
+.ml-5vwi       {margin-left: 5vw !important;} .pl-5vwi       {padding-left: 5vw !important;}
+.ml-6vwi       {margin-left: 6vw !important;} .pl-6vwi       {padding-left: 6vw !important;}
+.ml-7vwi       {margin-left: 7vw !important;} .pl-7vwi       {padding-left: 7vw !important;}
+.ml-8vwi       {margin-left: 8vw !important;} .pl-8vwi       {padding-left: 8vw !important;}
+.ml-9vwi       {margin-left: 9vw !important;} .pl-9vwi       {padding-left: 9vw !important;}
+.ml-10vwi      {margin-left: 10vw !important;} .pl-10vwi      {padding-left: 10vw !important;}
+.ml-11vwi      {margin-left: 11vw !important;} .pl-11vwi      {padding-left: 11vw !important;}
+.ml-12vwi      {margin-left: 12vw !important;} .pl-12vwi      {padding-left: 12vw !important;}
+.ml-13vwi      {margin-left: 13vw !important;} .pl-13vwi      {padding-left: 13vw !important;}
+.ml-14vwi      {margin-left: 14vw !important;} .pl-14vwi      {padding-left: 14vw !important;}
+.ml-15vwi      {margin-left: 15vw !important;} .pl-15vwi      {padding-left: 15vw !important;}
+.ml-16vwi      {margin-left: 16vw !important;} .pl-16vwi      {padding-left: 16vw !important;}
+.ml-17vwi      {margin-left: 17vw !important;} .pl-17vwi      {padding-left: 17vw !important;}
+.ml-18vwi      {margin-left: 18vw !important;} .pl-18vwi      {padding-left: 18vw !important;}
+.ml-19vwi      {margin-left: 19vw !important;} .pl-19vwi      {padding-left: 19vw !important;}
+.ml-20vwi      {margin-left: 20vw !important;} .pl-20vwi      {padding-left: 20vw !important;}
+.ml-25vwi      {margin-left: 25vw !important;} .pl-25vwi      {padding-left: 25vw !important;}
+.ml-30vwi      {margin-left: 30vw !important;} .pl-30vwi      {padding-left: 30vw !important;}
+.ml-35vwi      {margin-left: 35vw !important;} .pl-35vwi      {padding-left: 35vw !important;}
+.ml-40vwi      {margin-left: 40vw !important;} .pl-40vwi      {padding-left: 40vw !important;}
+.ml-45vwi      {margin-left: 45vw !important;} .pl-45vwi      {padding-left: 45vw !important;}
+.ml-50vwi      {margin-left: 50vw !important;} .pl-50vwi      {padding-left: 50vw !important;}
+.ml-55vwi      {margin-left: 55vw !important;} .pl-55vwi      {padding-left: 55vw !important;}
+.ml-60vwi      {margin-left: 60vw !important;} .pl-60vwi      {padding-left: 60vw !important;}
+.ml-65vwi      {margin-left: 65vw !important;} .pl-65vwi      {padding-left: 65vw !important;}
+.ml-70vwi      {margin-left: 70vw !important;} .pl-70vwi      {padding-left: 70vw !important;}
+.ml-75vwi      {margin-left: 75vw !important;} .pl-75vwi      {padding-left: 75vw !important;}
+.ml-80vwi      {margin-left: 80vw !important;} .pl-80vwi      {padding-left: 80vw !important;}
+.ml-85vwi      {margin-left: 85vw !important;} .pl-85vwi      {padding-left: 85vw !important;}
+.ml-90vwi      {margin-left: 90vw !important;} .pl-90vwi      {padding-left: 90vw !important;}
+.ml-95vwi      {margin-left: 95vw !important;} .pl-95vwi      {padding-left: 95vw !important;}
+.ml-100vwi     {margin-left: 100vw !important;} .pl-100vwi     {padding-left: 100vw !important;}
+
+.mr-1vwi       {margin-right: 1vw !important;} .pr-1vwi       {padding-right: 1vw !important;}
+.mr-2vwi       {margin-right: 2vw !important;} .pr-2vwi       {padding-right: 2vw !important;}
+.mr-3vwi       {margin-right: 3vw !important;} .pr-3vwi       {padding-right: 3vw !important;}
+.mr-4vwi       {margin-right: 4vw !important;} .pr-4vwi       {padding-right: 4vw !important;}
+.mr-5vwi       {margin-right: 5vw !important;} .pr-5vwi       {padding-right: 5vw !important;}
+.mr-6vwi       {margin-right: 6vw !important;} .pr-6vwi       {padding-right: 6vw !important;}
+.mr-7vwi       {margin-right: 7vw !important;} .pr-7vwi       {padding-right: 7vw !important;}
+.mr-8vwi       {margin-right: 8vw !important;} .pr-8vwi       {padding-right: 8vw !important;}
+.mr-9vwi       {margin-right: 9vw !important;} .pr-9vwi       {padding-right: 9vw !important;}
+.mr-10vwi      {margin-right: 10vw !important;} .pr-10vwi      {padding-right: 10vw !important;}
+.mr-11vwi      {margin-right: 11vw !important;} .pr-11vwi      {padding-right: 11vw !important;}
+.mr-12vwi      {margin-right: 12vw !important;} .pr-12vwi      {padding-right: 12vw !important;}
+.mr-13vwi      {margin-right: 13vw !important;} .pr-13vwi      {padding-right: 13vw !important;}
+.mr-14vwi      {margin-right: 14vw !important;} .pr-14vwi      {padding-right: 14vw !important;}
+.mr-15vwi      {margin-right: 15vw !important;} .pr-15vwi      {padding-right: 15vw !important;}
+.mr-16vwi      {margin-right: 16vw !important;} .pr-16vwi      {padding-right: 16vw !important;}
+.mr-17vwi      {margin-right: 17vw !important;} .pr-17vwi      {padding-right: 17vw !important;}
+.mr-18vwi      {margin-right: 18vw !important;} .pr-18vwi      {padding-right: 18vw !important;}
+.mr-19vwi      {margin-right: 19vw !important;} .pr-19vwi      {padding-right: 19vw !important;}
+.mr-20vwi      {margin-right: 20vw !important;} .pr-20vwi      {padding-right: 20vw !important;}
+.mr-25vwi      {margin-right: 25vw !important;} .pr-25vwi      {padding-right: 25vw !important;}
+.mr-30vwi      {margin-right: 30vw !important;} .pr-30vwi      {padding-right: 30vw !important;}
+.mr-35vwi      {margin-right: 35vw !important;} .pr-35vwi      {padding-right: 35vw !important;}
+.mr-40vwi      {margin-right: 40vw !important;} .pr-40vwi      {padding-right: 40vw !important;}
+.mr-45vwi      {margin-right: 45vw !important;} .pr-45vwi      {padding-right: 45vw !important;}
+.mr-50vwi      {margin-right: 50vw !important;} .pr-50vwi      {padding-right: 50vw !important;}
+.mr-55vwi      {margin-right: 55vw !important;} .pr-55vwi      {padding-right: 55vw !important;}
+.mr-60vwi      {margin-right: 60vw !important;} .pr-60vwi      {padding-right: 60vw !important;}
+.mr-65vwi      {margin-right: 65vw !important;} .pr-65vwi      {padding-right: 65vw !important;}
+.mr-70vwi      {margin-right: 70vw !important;} .pr-70vwi      {padding-right: 70vw !important;}
+.mr-75vwi      {margin-right: 75vw !important;} .pr-75vwi      {padding-right: 75vw !important;}
+.mr-80vwi      {margin-right: 80vw !important;} .pr-80vwi      {padding-right: 80vw !important;}
+.mr-85vwi      {margin-right: 85vw !important;} .pr-85vwi      {padding-right: 85vw !important;}
+.mr-90vwi      {margin-right: 90vw !important;} .pr-90vwi      {padding-right: 90vw !important;}
+.mr-95vwi      {margin-right: 95vw !important;} .pr-95vwi      {padding-right: 95vw !important;}
+.mr-100vwi     {margin-right: 100vw !important;} .pr-100vwi     {padding-right: 100vw !important;}
+
+.ml-1vw       {margin-left: 1vw} .pl-1vw       {padding-left: 1vw}
+.ml-2vw       {margin-left: 2vw} .pl-2vw       {padding-left: 2vw}
+.ml-3vw       {margin-left: 3vw} .pl-3vw       {padding-left: 3vw}
+.ml-4vw       {margin-left: 4vw} .pl-4vw       {padding-left: 4vw}
+.ml-5vw       {margin-left: 5vw} .pl-5vw       {padding-left: 5vw}
+.ml-6vw       {margin-left: 6vw} .pl-6vw       {padding-left: 6vw}
+.ml-7vw       {margin-left: 7vw} .pl-7vw       {padding-left: 7vw}
+.ml-8vw       {margin-left: 8vw} .pl-8vw       {padding-left: 8vw}
+.ml-9vw       {margin-left: 9vw} .pl-9vw       {padding-left: 9vw}
+.ml-10vw      {margin-left: 10vw} .pl-10vw      {padding-left: 10vw}
+.ml-11vw      {margin-left: 11vw} .pl-11vw      {padding-left: 11vw}
+.ml-12vw      {margin-left: 12vw} .pl-12vw      {padding-left: 12vw}
+.ml-13vw      {margin-left: 13vw} .pl-13vw      {padding-left: 13vw}
+.ml-14vw      {margin-left: 14vw} .pl-14vw      {padding-left: 14vw}
+.ml-15vw      {margin-left: 15vw} .pl-15vw      {padding-left: 15vw}
+.ml-16vw      {margin-left: 16vw} .pl-16vw      {padding-left: 16vw}
+.ml-17vw      {margin-left: 17vw} .pl-17vw      {padding-left: 17vw}
+.ml-18vw      {margin-left: 18vw} .pl-18vw      {padding-left: 18vw}
+.ml-19vw      {margin-left: 19vw} .pl-19vw      {padding-left: 19vw}
+.ml-20vw      {margin-left: 20vw} .pl-20vw      {padding-left: 20vw}
+.ml-25vw      {margin-left: 25vw} .pl-25vw      {padding-left: 25vw}
+.ml-30vw      {margin-left: 30vw} .pl-30vw      {padding-left: 30vw}
+.ml-35vw      {margin-left: 35vw} .pl-35vw      {padding-left: 35vw}
+.ml-40vw      {margin-left: 40vw} .pl-40vw      {padding-left: 40vw}
+.ml-45vw      {margin-left: 45vw} .pl-45vw      {padding-left: 45vw}
+.ml-50vw      {margin-left: 50vw} .pl-50vw      {padding-left: 50vw}
+.ml-55vw      {margin-left: 55vw} .pl-55vw      {padding-left: 55vw}
+.ml-60vw      {margin-left: 60vw} .pl-60vw      {padding-left: 60vw}
+.ml-65vw      {margin-left: 65vw} .pl-65vw      {padding-left: 65vw}
+.ml-70vw      {margin-left: 70vw} .pl-70vw      {padding-left: 70vw}
+.ml-75vw      {margin-left: 75vw} .pl-75vw      {padding-left: 75vw}
+.ml-80vw      {margin-left: 80vw} .pl-80vw      {padding-left: 80vw}
+.ml-85vw      {margin-left: 85vw} .pl-85vw      {padding-left: 85vw}
+.ml-90vw      {margin-left: 90vw} .pl-90vw      {padding-left: 90vw}
+.ml-95vw      {margin-left: 95vw} .pl-95vw      {padding-left: 95vw}
+.ml-100vw     {margin-left: 100vw} .pl-100vw     {padding-left: 100vw}
+
+.mr-1vw       {margin-right: 1vw} .pr-1vw       {padding-right: 1vw}
+.mr-2vw       {margin-right: 2vw} .pr-2vw       {padding-right: 2vw}
+.mr-3vw       {margin-right: 3vw} .pr-3vw       {padding-right: 3vw}
+.mr-4vw       {margin-right: 4vw} .pr-4vw       {padding-right: 4vw}
+.mr-5vw       {margin-right: 5vw} .pr-5vw       {padding-right: 5vw}
+.mr-6vw       {margin-right: 6vw} .pr-6vw       {padding-right: 6vw}
+.mr-7vw       {margin-right: 7vw} .pr-7vw       {padding-right: 7vw}
+.mr-8vw       {margin-right: 8vw} .pr-8vw       {padding-right: 8vw}
+.mr-9vw       {margin-right: 9vw} .pr-9vw       {padding-right: 9vw}
+.mr-10vw      {margin-right: 10vw} .pr-10vw      {padding-right: 10vw}
+.mr-11vw      {margin-right: 11vw} .pr-11vw      {padding-right: 11vw}
+.mr-12vw      {margin-right: 12vw} .pr-12vw      {padding-right: 12vw}
+.mr-13vw      {margin-right: 13vw} .pr-13vw      {padding-right: 13vw}
+.mr-14vw      {margin-right: 14vw} .pr-14vw      {padding-right: 14vw}
+.mr-15vw      {margin-right: 15vw} .pr-15vw      {padding-right: 15vw}
+.mr-16vw      {margin-right: 16vw} .pr-16vw      {padding-right: 16vw}
+.mr-17vw      {margin-right: 17vw} .pr-17vw      {padding-right: 17vw}
+.mr-18vw      {margin-right: 18vw} .pr-18vw      {padding-right: 18vw}
+.mr-19vw      {margin-right: 19vw} .pr-19vw      {padding-right: 19vw}
+.mr-20vw      {margin-right: 20vw} .pr-20vw      {padding-right: 20vw}
+.mr-25vw      {margin-right: 25vw} .pr-25vw      {padding-right: 25vw}
+.mr-30vw      {margin-right: 30vw} .pr-30vw      {padding-right: 30vw}
+.mr-35vw      {margin-right: 35vw} .pr-35vw      {padding-right: 35vw}
+.mr-40vw      {margin-right: 40vw} .pr-40vw      {padding-right: 40vw}
+.mr-45vw      {margin-right: 45vw} .pr-45vw      {padding-right: 45vw}
+.mr-50vw      {margin-right: 50vw} .pr-50vw      {padding-right: 50vw}
+.mr-55vw      {margin-right: 55vw} .pr-55vw      {padding-right: 55vw}
+.mr-60vw      {margin-right: 60vw} .pr-60vw      {padding-right: 60vw}
+.mr-65vw      {margin-right: 65vw} .pr-65vw      {padding-right: 65vw}
+.mr-70vw      {margin-right: 70vw} .pr-70vw      {padding-right: 70vw}
+.mr-75vw      {margin-right: 75vw} .pr-75vw      {padding-right: 75vw}
+.mr-80vw      {margin-right: 80vw} .pr-80vw      {padding-right: 80vw}
+.mr-85vw      {margin-right: 85vw} .pr-85vw      {padding-right: 85vw}
+.mr-90vw      {margin-right: 90vw} .pr-90vw      {padding-right: 90vw}
+.mr-95vw      {margin-right: 95vw} .pr-95vw      {padding-right: 95vw}
+.mr-100vw     {margin-right: 100vw} .pr-100vw     {padding-right: 100vw}
+
+
 /*
 // ####################################################################################################
 // #                                          paper academic                                          #
@@ -635,9 +935,7 @@ div.sticky {
 */
 body.academic{
     font-family: Arial, sans-serif;
-    /* font-family: Helvetica, arial, freesans, clean, sans-serif; */
     /* margin: 60px auto; */
-    line-height: 1.4;
     margin: 30px auto 60px auto; 
     /* text-align: center;  */
     padding: 0;
@@ -863,22 +1161,188 @@ table td div{
 .w-18 {width: 18% !important;}
 .w-19 {width: 19% !important;}
 .w-20 {width: 20% !important;}
+.w-21 {width: 21% !important;}
+.w-22 {width: 22% !important;}
+.w-23 {width: 23% !important;}
+.w-24 {width: 24% !important;}
 .w-25 {width: 25% !important;}
+.w-26 {width: 26% !important;}
+.w-27 {width: 27% !important;}
+.w-28 {width: 28% !important;}
+.w-29 {width: 29% !important;}
 .w-30 {width: 30% !important;}
+.w-31 {width: 31% !important;}
+.w-32 {width: 32% !important;}
+.w-33 {width: 33% !important;}
+.w-34 {width: 34% !important;}
 .w-35 {width: 35% !important;}
+.w-36 {width: 36% !important;}
+.w-37 {width: 37% !important;}
+.w-38 {width: 38% !important;}
+.w-39 {width: 39% !important;}
 .w-40 {width: 40% !important;}
+.w-41 {width: 41% !important;}
+.w-42 {width: 42% !important;}
+.w-43 {width: 43% !important;}
+.w-44 {width: 44% !important;}
 .w-45 {width: 45% !important;}
+.w-46 {width: 46% !important;}
+.w-47 {width: 47% !important;}
+.w-48 {width: 48% !important;}
+.w-49 {width: 49% !important;}
 .w-50 {width: 50% !important;}
+.w-51 {width: 51% !important;}
+.w-52 {width: 52% !important;}
+.w-53 {width: 53% !important;}
+.w-54 {width: 54% !important;}
 .w-55 {width: 55% !important;}
+.w-56 {width: 56% !important;}
+.w-57 {width: 57% !important;}
+.w-58 {width: 58% !important;}
+.w-59 {width: 59% !important;}
 .w-60 {width: 60% !important;}
+.w-61 {width: 61% !important;}
+.w-62 {width: 62% !important;}
+.w-63 {width: 63% !important;}
+.w-64 {width: 64% !important;}
 .w-65 {width: 65% !important;}
+.w-66 {width: 66% !important;}
+.w-67 {width: 67% !important;}
+.w-68 {width: 68% !important;}
+.w-69 {width: 69% !important;}
 .w-70 {width: 70% !important;}
+.w-71 {width: 71% !important;}
+.w-72 {width: 72% !important;}
+.w-73 {width: 73% !important;}
+.w-74 {width: 74% !important;}
 .w-75 {width: 75% !important;}
+.w-76 {width: 76% !important;}
+.w-77 {width: 77% !important;}
+.w-78 {width: 78% !important;}
+.w-79 {width: 79% !important;}
 .w-80 {width: 80% !important;}
+.w-81 {width: 81% !important;}
+.w-82 {width: 82% !important;}
+.w-83 {width: 83% !important;}
+.w-84 {width: 84% !important;}
 .w-85 {width: 85% !important;}
+.w-86 {width: 86% !important;}
+.w-87 {width: 87% !important;}
+.w-88 {width: 88% !important;}
+.w-89 {width: 89% !important;}
 .w-90 {width: 90% !important;}
+.w-91 {width: 91% !important;}
+.w-92 {width: 92% !important;}
+.w-93 {width: 93% !important;}
+.w-94 {width: 94% !important;}
 .w-95 {width: 95% !important;}
+.w-96 {width: 96% !important;}
+.w-97 {width: 97% !important;}
+.w-98 {width: 98% !important;}
+.w-99 {width: 99% !important;}
 .w-100 {width: 100% !important;}
+
+
+.w-1vw {width: 1vw !important;}
+.w-2vw {width: 2vw !important;}
+.w-3vw {width: 3vw !important;}
+.w-4vw {width: 4vw !important;}
+.w-5vw {width: 5vw !important;}
+.w-6vw {width: 6vw !important;}
+.w-7vw {width: 7vw !important;}
+.w-8vw {width: 8vw !important;}
+.w-9vw {width: 9vw !important;}
+.w-10vw {width: 10vw !important;}
+.w-11vw {width: 11vw !important;}
+.w-12vw {width: 12vw !important;}
+.w-13vw {width: 13vw !important;}
+.w-14vw {width: 14vw !important;}
+.w-15vw {width: 15vw !important;}
+.w-16vw {width: 16vw !important;}
+.w-17vw {width: 17vw !important;}
+.w-18vw {width: 18vw !important;}
+.w-19vw {width: 19vw !important;}
+.w-20vw {width: 20vw !important;}
+.w-21vw {width: 21vw !important;}
+.w-22vw {width: 22vw !important;}
+.w-23vw {width: 23vw !important;}
+.w-24vw {width: 24vw !important;}
+.w-25vw {width: 25vw !important;}
+.w-26vw {width: 26vw !important;}
+.w-27vw {width: 27vw !important;}
+.w-28vw {width: 28vw !important;}
+.w-29vw {width: 29vw !important;}
+.w-30vw {width: 30vw !important;}
+.w-31vw {width: 31vw !important;}
+.w-32vw {width: 32vw !important;}
+.w-33vw {width: 33vw !important;}
+.w-34vw {width: 34vw !important;}
+.w-35vw {width: 35vw !important;}
+.w-36vw {width: 36vw !important;}
+.w-37vw {width: 37vw !important;}
+.w-38vw {width: 38vw !important;}
+.w-39vw {width: 39vw !important;}
+.w-40vw {width: 40vw !important;}
+.w-41vw {width: 41vw !important;}
+.w-42vw {width: 42vw !important;}
+.w-43vw {width: 43vw !important;}
+.w-44vw {width: 44vw !important;}
+.w-45vw {width: 45vw !important;}
+.w-46vw {width: 46vw !important;}
+.w-47vw {width: 47vw !important;}
+.w-48vw {width: 48vw !important;}
+.w-49vw {width: 49vw !important;}
+.w-50vw {width: 50vw !important;}
+.w-51vw {width: 51vw !important;}
+.w-52vw {width: 52vw !important;}
+.w-53vw {width: 53vw !important;}
+.w-54vw {width: 54vw !important;}
+.w-55vw {width: 55vw !important;}
+.w-56vw {width: 56vw !important;}
+.w-57vw {width: 57vw !important;}
+.w-58vw {width: 58vw !important;}
+.w-59vw {width: 59vw !important;}
+.w-60vw {width: 60vw !important;}
+.w-61vw {width: 61vw !important;}
+.w-62vw {width: 62vw !important;}
+.w-63vw {width: 63vw !important;}
+.w-64vw {width: 64vw !important;}
+.w-65vw {width: 65vw !important;}
+.w-66vw {width: 66vw !important;}
+.w-67vw {width: 67vw !important;}
+.w-68vw {width: 68vw !important;}
+.w-69vw {width: 69vw !important;}
+.w-70vw {width: 70vw !important;}
+.w-71vw {width: 71vw !important;}
+.w-72vw {width: 72vw !important;}
+.w-73vw {width: 73vw !important;}
+.w-74vw {width: 74vw !important;}
+.w-75vw {width: 75vw !important;}
+.w-76vw {width: 76vw !important;}
+.w-77vw {width: 77vw !important;}
+.w-78vw {width: 78vw !important;}
+.w-79vw {width: 79vw !important;}
+.w-80vw {width: 80vw !important;}
+.w-81vw {width: 81vw !important;}
+.w-82vw {width: 82vw !important;}
+.w-83vw {width: 83vw !important;}
+.w-84vw {width: 84vw !important;}
+.w-85vw {width: 85vw !important;}
+.w-86vw {width: 86vw !important;}
+.w-87vw {width: 87vw !important;}
+.w-88vw {width: 88vw !important;}
+.w-89vw {width: 89vw !important;}
+.w-90vw {width: 90vw !important;}
+.w-91vw {width: 91vw !important;}
+.w-92vw {width: 92vw !important;}
+.w-93vw {width: 93vw !important;}
+.w-94vw {width: 94vw !important;}
+.w-95vw {width: 95vw !important;}
+.w-96vw {width: 96vw !important;}
+.w-97vw {width: 97vw !important;}
+.w-98vw {width: 98vw !important;}
+.w-99vw {width: 99vw !important;}
+.w-100vw {width: 100vw !important;}
 
 
 .h-10 {height: 10px !important;}
@@ -950,3 +1414,104 @@ table td div{
 .h-580 {height: 580px !important;}
 .h-590 {height: 590px !important;}
 .h-600 {height: 600px !important;}
+
+.h-1vh {height: 1vh !important;}
+.h-2vh {height: 2vh !important;}
+.h-3vh {height: 3vh !important;}
+.h-4vh {height: 4vh !important;}
+.h-5vh {height: 5vh !important;}
+.h-6vh {height: 6vh !important;}
+.h-7vh {height: 7vh !important;}
+.h-8vh {height: 8vh !important;}
+.h-9vh {height: 9vh !important;}
+.h-10vh {height: 10vh !important;}
+.h-11vh {height: 11vh !important;}
+.h-12vh {height: 12vh !important;}
+.h-13vh {height: 13vh !important;}
+.h-14vh {height: 14vh !important;}
+.h-15vh {height: 15vh !important;}
+.h-16vh {height: 16vh !important;}
+.h-17vh {height: 17vh !important;}
+.h-18vh {height: 18vh !important;}
+.h-19vh {height: 19vh !important;}
+.h-20vh {height: 20vh !important;}
+.h-21vh {height: 21vh !important;}
+.h-22vh {height: 22vh !important;}
+.h-23vh {height: 23vh !important;}
+.h-24vh {height: 24vh !important;}
+.h-25vh {height: 25vh !important;}
+.h-26vh {height: 26vh !important;}
+.h-27vh {height: 27vh !important;}
+.h-28vh {height: 28vh !important;}
+.h-29vh {height: 29vh !important;}
+.h-30vh {height: 30vh !important;}
+.h-31vh {height: 31vh !important;}
+.h-32vh {height: 32vh !important;}
+.h-33vh {height: 33vh !important;}
+.h-34vh {height: 34vh !important;}
+.h-35vh {height: 35vh !important;}
+.h-36vh {height: 36vh !important;}
+.h-37vh {height: 37vh !important;}
+.h-38vh {height: 38vh !important;}
+.h-39vh {height: 39vh !important;}
+.h-40vh {height: 40vh !important;}
+.h-41vh {height: 41vh !important;}
+.h-42vh {height: 42vh !important;}
+.h-43vh {height: 43vh !important;}
+.h-44vh {height: 44vh !important;}
+.h-45vh {height: 45vh !important;}
+.h-46vh {height: 46vh !important;}
+.h-47vh {height: 47vh !important;}
+.h-48vh {height: 48vh !important;}
+.h-49vh {height: 49vh !important;}
+.h-50vh {height: 50vh !important;}
+.h-51vh {height: 51vh !important;}
+.h-52vh {height: 52vh !important;}
+.h-53vh {height: 53vh !important;}
+.h-54vh {height: 54vh !important;}
+.h-55vh {height: 55vh !important;}
+.h-56vh {height: 56vh !important;}
+.h-57vh {height: 57vh !important;}
+.h-58vh {height: 58vh !important;}
+.h-59vh {height: 59vh !important;}
+.h-60vh {height: 60vh !important;}
+.h-61vh {height: 61vh !important;}
+.h-62vh {height: 62vh !important;}
+.h-63vh {height: 63vh !important;}
+.h-64vh {height: 64vh !important;}
+.h-65vh {height: 65vh !important;}
+.h-66vh {height: 66vh !important;}
+.h-67vh {height: 67vh !important;}
+.h-68vh {height: 68vh !important;}
+.h-69vh {height: 69vh !important;}
+.h-70vh {height: 70vh !important;}
+.h-71vh {height: 71vh !important;}
+.h-72vh {height: 72vh !important;}
+.h-73vh {height: 73vh !important;}
+.h-74vh {height: 74vh !important;}
+.h-75vh {height: 75vh !important;}
+.h-76vh {height: 76vh !important;}
+.h-77vh {height: 77vh !important;}
+.h-78vh {height: 78vh !important;}
+.h-79vh {height: 79vh !important;}
+.h-80vh {height: 80vh !important;}
+.h-81vh {height: 81vh !important;}
+.h-82vh {height: 82vh !important;}
+.h-83vh {height: 83vh !important;}
+.h-84vh {height: 84vh !important;}
+.h-85vh {height: 85vh !important;}
+.h-86vh {height: 86vh !important;}
+.h-87vh {height: 87vh !important;}
+.h-88vh {height: 88vh !important;}
+.h-89vh {height: 89vh !important;}
+.h-90vh {height: 90vh !important;}
+.h-91vh {height: 91vh !important;}
+.h-92vh {height: 92vh !important;}
+.h-93vh {height: 93vh !important;}
+.h-94vh {height: 94vh !important;}
+.h-95vh {height: 95vh !important;}
+.h-96vh {height: 96vh !important;}
+.h-97vh {height: 97vh !important;}
+.h-98vh {height: 98vh !important;}
+.h-99vh {height: 99vh !important;}
+.h-100vh {height: 100vh !important;}
