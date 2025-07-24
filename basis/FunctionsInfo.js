@@ -84,6 +84,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "htmlManipulation"
     },
     {
+        "name": "popup",
+        "docstring": "opens a popup with a custom header and message. The popup can be closed by (a) clicking the close button, (b) anywhere outside the popup, (c) pressing the Escape key.",
+        "parameters": "header, message",
+        "region": "popup"
+    },
+    {
         "name": ".depth",
         "docstring": "returns the max depth of an array.\nAs this function uses recursion you can limit the level of recursions, default limit is 9.",
         "parameters": "limit_Recursions",

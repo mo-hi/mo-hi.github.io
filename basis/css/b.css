@@ -971,6 +971,76 @@ body.academic textarea.script {
 
 /*
 // ####################################################################################################
+// #                                              popup                                               #
+// ####################################################################################################
+*/
+/* PoUp Container covers the entire viewport. is initially hidden */
+.popup-container {
+  /* Initially hidden and transparent */
+  display: flex; /* Keep flex to center content */
+  opacity: 0;
+  visibility: hidden; /* Hide from screen readers and interaction when closed */
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Smooth transition */
+
+  position: fixed; /* Stay in place even when scrolling */
+  z-index: 1000; /* High z-index to ensure it's on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  backdrop-filter: blur(5px); /* Optional: Blurs background */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+.popup-container.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* actual popup */
+.popup-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be responsive */
+  max-width: 500px; /* Max width for larger screens */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 8px;
+  position: relative; /* Needed for close button positioning */
+  transform: translateY(20px); /* Start slightly off-position */
+  transition: transform 0.3s ease-out; /* Smooth slide-in effect */
+  /* z-index: 1001; */
+}
+
+/* When the popup is active, content slides into place */
+.popup-container.active .popup-content {
+  transform: translateY(0);
+}
+
+/* Close button */
+.popup-close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  transition: color 0.2s; /* Smooth color change on hover */
+}
+
+.popup-close-button:hover,
+.popup-close-button:focus {
+  color: black;
+  text-decoration: none;
+}
+
+/*
+// ####################################################################################################
 // #                                               svg                                                #
 // ####################################################################################################
 */

@@ -483,6 +483,54 @@ function isBlank(str) {
     return !/[^\t\r\n\v\f ]/.test(str);
   }
 // ####################################################################################################
+// region popup                                                                                           #
+// ####################################################################################################
+
+/**
+opens a popup with a custom header and message. The popup can be closed by (a) clicking the close button, (b) anywhere outside the popup, (c) pressing the Escape key.
+*/
+function popup(header, message) {
+    if (header === undefined) header = "Pop-up";
+    if (message === undefined) message = "This is a pop-up message.";
+    let popup = document.createElement("div");
+    popup.id = "myPopup";
+    popup.className = "popup-container";
+    popup.innerHTML = `
+    <div class="popup-content">
+        <span class="popup-close-button">&times;</span>
+        <h2>${header}</h2>
+        <p>${message}</p>
+    </div>
+    `;
+    document.body.appendChild(popup);
+    popup.classList.add("active");
+
+    // Add event listener to close the popup when clicking anywhere (= the popup container)
+    document.getElementsByClassName("popup-container")[0].addEventListener("click", _closePopup_skvzqplyj48xk28)
+
+    document.addEventListener("keydown", function escListener(event) {
+        if (event.key === "Escape") {
+            _closePopup_i93nf(popup) ;
+            document.removeEventListener("keydown", escListener);}
+    });
+}
+
+function _closePopup_skvzqplyj48xk28 (event) {
+    let popupContainer = document.getElementsByClassName("popup-container")[0];
+    let popupCloseButton = document.getElementsByClassName("popup-close-button")[0];
+    if (event.target === popupContainer || event.target === popupCloseButton) {
+        let popup = document.getElementById("myPopup");
+        if (popup) _closePopup_i93nf(popup)
+    }
+}
+
+function _closePopup_i93nf(popup) {
+        popup.classList.remove("active");
+            setTimeout(() => {
+                popup.remove();
+            }, 300); // Match the duration of the fade-out transition
+} 
+// ####################################################################################################
 // region Array                                                                                      #
 // ####################################################################################################
 

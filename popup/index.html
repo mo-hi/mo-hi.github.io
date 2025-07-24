@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My HTML Page</title>
+    <link rel="stylesheet" href="../basis/css/b.css">
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        div.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        textarea    {background-color: var(--color-background); color: var(--color-text);}
+        #id-end     {background-color: var(--color-background); color: var(--color-text);}
+    </style>
+</head>
+<body class="academic wr-800-400">
+    <h1>Pop-up</h1>
+    <!-- headers------------------------------------------------------------------->
+    <section class="">
+        <h2 class="underline sticky">About</h2>
+        <p>
+            This is a simple HTML page with a pop-up feature. The pop-up can be triggered by clicking a button, and it will display a message.
+            The pop-up can be closed by clicking the close button or anywhere outside the pop-up or by pressing the Escape key.
+        </p>
+        <p>
+            The pop-up is styled using b.CSS, and the functionality is implemented using b.JS. 
+        </p>
+    </section>
+
+    <!-- text------------------------------------------------------------------------>
+    <section  id ="id-popUp">
+        <a class="btn blue" onclick="popup('Hallo', 'This is a pop up :-)')">Click to open the Pop Up</a>
+    </section>
+    <br>
+    HTML
+    <div id = "id-show" class="h-100"></div>
+
+    <p id="id-end" class="js-fill wr-1600-400 h-50 fixed bottom-0 mb-0i" style="z-index: 2;border-top: 1px solid grey;">
+        {{id-end-index}}
+    </p>
+
+
+</body>
+<script src="../basis/js/b.js"></script>
+<script src="../textGeneral.js"></script>
+<script>
+    Auto_Fill(FromFile_textGeneral_js)
+    ShowHTMLinTextArea(document.getElementById("id-popUp"), document.getElementById("id-show"))
+</script>
+
+</body>
+</html>
