@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mario Hamidi">
+    <title>nav.js buttons</title>
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/navColors.css">
+    <link rel="stylesheet" href="../basis/css/b.css">
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+        textarea    {background-color: var(--color-background); color: var(--color-text);}
+    </style>
+</head>
+<body class="academic wr-800-400">
+    <div id="id-nav">
+        <div class="fixed wr-800-400 top-0">
+            <nav>
+                <a href="" onclick="">Home</a>
+                <a href="" onclick="">Edit</a>
+                <drop>
+                    <a onclick="_nav_toggleDown(this)">Stuff</a>
+                    <down>
+                        <a href="" onclick="">Link 1</a>
+                        <a href="" onclick="">Link 2</a>
+                        <a href="" onclick="">Link 3</a>
+                    </down>
+                </drop>
+                <a class="btn blue mt-7" onclick="DownloadFile('FileName.txt')">Save File</a>
+                <a href="" onclick="">Open File</a>
+                <a href="" onclick="">Open Files</a>
+            </nav>
+        </div>
+    </div>  
+
+    <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
+    <h2 class="inline-block">nav.css</h2>
+    <h2 class="inline-block not-bold"> (with buttons download and upload)</h2>
+    
+    <div id = 'id-start' class="auto-fill">
+        <!-- filled via script-->
+    </div>
+
+    <p>
+        The navbar of this page contains buttons for file upload and download. 
+    </p>
+    <p>
+        The button style is defined in <c>basis/css/b.css</c> and invoked by the <c>class="btn blue mt-6"</c>.
+        The classes have no effect on the functionality of the buttons, it only styles them. I. e. you can attach any
+        function to the <c>onclick</c> attribute of any div element for file download or upload.
+    </p>
+    HTML
+    <div id="id-show" class="h-300"></div>
+
+    JS 
+    <div id="id-show-script" class="h-140"></div>
+
+    <div id = 'id-fixed' class="auto-fill">
+        <!-- filled via script-->
+    </div>
+
+    <div id = 'id-click' class="auto-fill">
+        <!-- filled via script-->
+    </div>
+
+    <br><hr>
+    <section>
+        <p id="id-end">
+            {{id-end}}
+        </p>
+    </section>
+    {{very-end}}
+    </body>
+    <!-- js libs -->
+    <script src="../basis/js/b.js"> </script>
+
+    <!-- this project -->
+    <script src="js/nav.js"></script>
+
+    <!-- HTML Auto Fill Text -->
+    <script src="js/textNav.js"></script>
+    <script src="../textGeneral.js"></script>
+    
+    <script id = "id-script">
+        function DownloadFile(filename) {
+            let text = "Hello, this is a test file content.";
+            clsFiles.download(text, filename)
+        }
+    </script>
+
+    <script>
+        Auto_Fill(FromFile_textNav_JS)
+        Auto_Fill(FromFile_textGeneral_js)
+
+        ShowHTMLinTextArea(document.getElementById("id-nav"), document.getElementById("id-show"))
+        ShowHTMLinTextArea(document.getElementById("id-script"), document.getElementById("id-show-script"))
+
+    </script>
+
+</html>

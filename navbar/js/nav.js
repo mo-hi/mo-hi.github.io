@@ -125,10 +125,37 @@ function _ulist_dropdown(li, item, count,  numbering) {
 }
 
 function addEventListener_ClickTouch(element, functionName) {
-    element.addEventListener('click', functionName)
+    // element.addEventListener('click', functionName)
+    element.addEventListener('click', function(event) {
+        event.preventDefault();
+        functionName(event);
+    });
+
     element.addEventListener('touchstart', function(event) {
-  event.preventDefault(); // Prevent mouse events
-  functionName(event);     // Call your function
-});
+        event.preventDefault(); // Prevent mouse events
+        functionName(event);     // Call your function
+    });
     return element
+}
+
+
+
+// ################################################################
+// Download File                                                  #
+// ################################################################
+
+class clsFiles {
+    static download(text, filename) {
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        // element.setAttribute('download', filename);
+
+        element.download = filename;
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
 }
