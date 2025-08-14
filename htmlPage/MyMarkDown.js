@@ -21,8 +21,44 @@ toHTML(markupText) {
     text = text.replace(new RegExp('\n', "g") , '<br>')
     // multi space
     text = text.replace(/ {2,}/g, function(match) {return '&nbsp;'.repeat(match.length);})
+
+    let loopCount = 0; let maxLoop = 1000
+
+    // tables
+    loopCount = 0;
+    while (text.includes('#table') && text.includes('#/table')) {
+        loopCount += 1; if (loopCount > maxLoop) break
+
+        let tableContent = text.between('#table', '#/table');
+        if (tableContent) {
+            let htmlTable = ''
+            let newLine = wenn(tableContent.includes('\n'), '\n', '<br>');
+            let rows = tableContent.split(newLine)
+            if (rows[0] != '' || rows[2] != '#' || rows[rows.length - 1] != '') {
+                rows = []
+                htmlTable = tableContent}
+
+            if (rows.length > 0) {
+                htmlTable = '<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">';
+                // Header row
+                let headerRow = rows[1].split('#').slice(1)
+                htmlTable += '<tr>' + headerRow.map(cell => `<th>${cell.trim()}</th>`).join('') + '</tr>';
+                // Data rows
+                for (let i = 3; i < rows.length; i++) {
+                    let cells = rows[i].split('#').slice(1)
+                    // let cells = rows[i].split('#').filter(cell => cell.trim());
+                    htmlTable += '<tr>' + cells.map(cell => `<td>${cell.trim()}</td>`).join('') + '</tr>';
+                }
+                htmlTable += '</table>';}
+
+            text = text.replace('#table' + tableContent + '#/table', htmlTable)
+        }
+    }
+
     // header
+    loopCount = 0;
     while (text.includes('##')) {
+        loopCount += 1; if (loopCount > maxLoop) break
         let header = text.between('##', '<br>')
         text = text.replace('##' + header, '<h2>' + header.trim() + '</h2>')}
 
@@ -140,6 +176,7 @@ _PatternsFound3(text, patternL) {
 HTMLtoMyMarkdown(htmlText) {
     assert(typOf(htmlText) == 'str')
     let markupText = ""
+
     markupText = this._BackToMyMarkDown_FeaturesWithoutBrackets_Apply(htmlText)
 
     markupText = this._BackToMyMarkDown_Patterns2_Apply(markupText)
@@ -160,7 +197,31 @@ _BackToMyMarkDown_FeaturesWithoutBrackets_Apply(text) {
         let header = text.between('<h2>', '</h2>\n')
         text = text.replace('<h2>' + header + '</h2>', '## ' + header.trim())}
 
-    return text
+    if (true) {
+        let maxTableLoops = 10; let idx = 0
+        for (let i = 1; i <= maxTableLoops; i++) {
+            idx = text.indexOf('<table', idx)
+            let table = text.slice(idx).between('<table', '</table>')
+            let rows0 = table.split('<tr>')
+            if (rows0.length > 1) {
+                let headers = new MyMarkDown_FunctionHelpers().headers(table)
+                
+                let data = new MyMarkDown_FunctionHelpers().data(table)
+
+                if (headers.length > 0 && data.length > 0) {
+                    let tableMarkup = new MyMarkDown_FunctionHelpers().tableMarkup(headers, data)
+                    text = text.replace('<table' + table + '</table>', tableMarkup )}
+            }
+            idx = text.indexOf('</table') + '</table>'.length
+        }
+
+        if (true) {
+            // text = text.replace(/&lt;/g, '<')
+            // text = text.replace(/&gt;/g, '>')
+            }
+        
+        return text
+    }
 }
 
 _BackToMyMarkDown_Patterns2_Apply(text) {
@@ -193,4 +254,44 @@ _BackToMyMarkDown_Patterns3_Apply(text) {
     return text
 }
     
+    }
+
+    class MyMarkDown_FunctionHelpers {
+        constructor() {
+        }
+
+        headers(htmlTable) {
+            let rows0 = htmlTable.split('<tr>')
+            let headers0 = rows0[1].split('<th>')
+            let headers = [];
+            for (let i = 1; i < headers0.length; i++) {
+                let header = headers0[i].until('</th>').trim()
+                if (header != '') headers.push(header)
+            }
+        return headers;
+        }
+
+        data(htmlTable) {
+            let rows0 = htmlTable.split('<tr>')
+            let data = [];
+            for (let i = 2; i < rows0.length; i++) {
+                let cells0 = rows0[i].split('<td>')
+                let cells = []
+                for (let j = 1; j < cells0.length; j++) {
+                    let cell = cells0[j].until('</td>')
+                    cells.push(cell)
+                }
+                if (cells.length > 0) {data.push(cells)}
+            }
+        return data;
+        }
+
+        tableMarkup(headers, data) {
+            let tableMarkup = '#table\n#' + headers.join('#') + '\n#\n'
+            for (let row of data) {
+                tableMarkup  += '#' + row.join('#') + '\n'
+            }
+            tableMarkup  += '#/table'
+            return tableMarkup;
+        }
     }

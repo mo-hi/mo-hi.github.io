@@ -104,15 +104,15 @@
     <section class="mb-100">
     <h2 class="underline sticky">MarkDown</h2>
     <h3>Markdown to HTML</h3>
-    <div id="id-markdown-use" class = "h-120"></div>
+    <div id="id-markdown-use" class = "h-20"></div>
     <table class="w-100">
         <tr>
             <td class="w-50">Source</td>
             <td class="w-50">Back from HTML</td>
         </tr>
         <tr>
-            <td class="w-50 h-200"><textarea id="id-markdown-textarea"  class="h-200 w-95"></textarea></td>
-            <td class="w-50 h-200"><textarea id="id-markdown-textarea-back" class="h-200 w-95"></textarea></td>
+            <td class="w-50 h-200"><textarea id="id-markdown-textarea"  class="h-400 w-95"></textarea></td>
+            <td class="w-50 h-200"><textarea id="id-markdown-textarea-back" class="h-400 w-95"></textarea></td>
         </tr>
     </table>
     <div id = "id-diff">
@@ -120,17 +120,11 @@
     </div>
     
     <div class="mt-15">
-
-    <table class="w-100">
-        <tr>
-            <td class="w-50">HTML Code</td>
-            <td class="w-50">HTML Output</td>
-        </tr>
-        <tr>
-            <td class="w-50 h-200"><div id="id-markdown-output-code" class="h-280 border w-95"></div></td>
-            <td class="w-50 h-200"><div id="id-markdown-output-html" class="h-280 border w-95"></td>
-        </tr>
-    </table>
+    HTML Code
+    <div id="id-markdown-output-code" class="h-280 border w-95"></div></td>
+    <br>
+    HTML Output
+    <div id="id-markdown-output-html" class="h-600 border w-95"></td>
 
     </section>
 
@@ -208,18 +202,27 @@
         document.getElementById("id-markdown-output-code"))
     }
 
-    textareaSource.value = "" +
-        "## This is a header\n" +
-        "New Lines are automatically taken over\n" +
-        "   Mulit     Spaces    are     taken     over\n" +
-        "[Links::https://www.example.com] can be added\n\n" +
-        "You can add an emtpy checkbox: [ ]\n" + 
-        "You can add an filled checkbox: [x]\n\n" +
-        "[Links::https://www.example.com] can be added\n\n" +
-        "Add pictures: [(200x100)pic2.png]\n"
+    textareaSource.value = `
+## This is a header
+New Lines are automatically taken over
+   Mulit     Spaces    are     taken     over
+[Links::https://www.example.com] can be added
 
-    
-    
+You can add an emtpy checkbox: [ ]
+You can add an filled checkbox: [x]
+
+[Links::https://www.example.com] can be added
+
+Add pictures: [(200x100)pic2.png]
+
+#table
+#header 1#heaeder 2
+#
+#val 1#val 2
+#val A#val B
+##val B
+#/table
+`;
 </script>
 
 <script>
