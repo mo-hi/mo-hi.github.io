@@ -28,9 +28,9 @@
                         <a href="" onclick="">Link 3</a>
                     </down>
                 </drop>
-                <a class="btn blue mt-7" onclick="DownloadFile('FileName.txt')">Save File</a>
-                <a href="" onclick="">Open File</a>
-                <a href="" onclick="">Open Files</a>
+                <a class="btn blue mt-7 mx-4" onclick="DownloadFile('FileName.txt')">Save File</a>
+                <a class="btn blue mt-7 mx-4" onclick="UploadFile1()">Open File</a>
+                <a class="btn blue mt-7 mx-4" onclick="UploadFile2()">Open another File</a>
             </nav>
         </div>
     </div>  
@@ -51,11 +51,17 @@
         The classes have no effect on the functionality of the buttons, it only styles them. I. e. you can attach any
         function to the <c>onclick</c> attribute of any div element for file download or upload.
     </p>
+    <p>
+        Output for "open file" will be logged to the console. The output for "open another file" will be 
+        shown below.
+    </p>
+    <div id="id-open-another-file-output" class="h-200 border"></div>
+    <br>
     HTML
     <div id="id-show" class="h-300"></div>
 
     JS 
-    <div id="id-show-script" class="h-140"></div>
+    <div id="id-show-script" class="h-420"></div>
 
     <div id = 'id-fixed' class="auto-fill">
         <!-- filled via script-->
@@ -84,9 +90,27 @@
     <script src="../textGeneral.js"></script>
     
     <script id = "id-script">
-        function DownloadFile(filename) {
-            let text = "Hello, this is a test file content.";
-            clsFiles.download(text, filename)
+        function DownloadFile(fileName) {
+            let fileContent = "Hello, this is a test file content.";
+            clsFiles.download(fileContent, fileName)
+        }
+
+        function UploadFile1() {
+            clsFiles.upload(function(fileContent, file) {
+                console.log('File 1 name:', file.name);
+                console.log('File 1 content:', fileContent);
+            });
+        }
+
+        function UploadFile2() {
+            clsFiles.upload(function(fileContent, file) {
+                document.getElementById('id-open-another-file-output').innerText = 
+                    "File 2 name:" + file.name + "\n\n";
+                document.getElementById('id-open-another-file-output').innerText += 
+                    "File 2 content:\n" + fileContent;
+                document.getElementById('id-open-another-file-output').innerText += 
+                    fileContent;
+            });
         }
     </script>
 

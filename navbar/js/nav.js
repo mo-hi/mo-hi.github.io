@@ -145,9 +145,9 @@ function addEventListener_ClickTouch(element, functionName) {
 // ################################################################
 
 class clsFiles {
-    static download(text, filename) {
+    static download(fileContent, filename) {
         let element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
         // element.setAttribute('download', filename);
 
         element.download = filename;
@@ -158,4 +158,25 @@ class clsFiles {
 
         document.body.removeChild(element);
     }
+
+    static upload(callback) {
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.style.display = 'none';
+
+        input.addEventListener('change', function(event) {
+            let file = event.target.files[0];
+            if (!file) return;
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                callback(e.target.result, file);
+            };
+            reader.readAsText(file);
+        });
+
+        document.body.appendChild(input);
+        input.click();
+        document.body.removeChild(input);
+    }
 }
+
