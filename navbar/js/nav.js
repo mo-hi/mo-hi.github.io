@@ -168,10 +168,41 @@ class clsFiles {
             let file = event.target.files[0];
             if (!file) return;
             let reader = new FileReader();
-            reader.onload = function(e) {
-                callback(e.target.result, file);
-            };
             reader.readAsText(file);
+            
+            reader.onload = function(e) {
+                callback(reader, file);
+                // callback(e.target, file);  works also
+            };
+        
+        });
+
+        document.body.appendChild(input);
+        input.click();
+        document.body.removeChild(input);
+    }
+
+    static uploadMultiple(callback) {
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.multiple = true;
+        input.style.display = 'none';
+
+        input.addEventListener('change', function(event) {
+            let files = event.target.files;
+            if (files.length === 0) return;
+            let fileReaders = []
+            for (let i = 0; i < files.length; i++) {
+                fileReaders.push(new FileReader())
+                fileReaders[i].readAsText(files[i]);
+            
+                // reader.readAsText(file);
+            }
+            fileReaders[files.length-1].onload = function() {
+                    callback(fileReaders, files);
+                };
+            // callback(files);
+
         });
 
         document.body.appendChild(input);
@@ -180,3 +211,27 @@ class clsFiles {
     }
 }
 
+
+
+//    static uploadMultiple(callback) {
+//         let input = document.createElement('input');
+//         input.type = 'file';
+//         input.multiple = true;
+//         input.style.display = 'none';
+
+//         input.addEventListener('change', function(event) {
+//             let files = event.target.files;
+//             if (files.length === 0) return;
+//             for (let file of files) {
+//                 let reader = new FileReader();
+//                 reader.onload = function(e) {
+//                     callback(e.target.result, file);
+//                 };
+//                 reader.readAsText(file);
+//             }
+//         });
+
+//         document.body.appendChild(input);
+//         input.click();
+//         document.body.removeChild(input);
+//     }

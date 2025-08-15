@@ -29,8 +29,8 @@
                     </down>
                 </drop>
                 <a class="btn blue mt-7 mx-4" onclick="DownloadFile('FileName.txt')">Save File</a>
-                <a class="btn blue mt-7 mx-4" onclick="UploadFile1()">Open File</a>
-                <a class="btn blue mt-7 mx-4" onclick="UploadFile2()">Open another File</a>
+                <a class="btn blue mt-7 mx-4" onclick="UploadFile()">Open File</a>
+                <a class="btn blue mt-7 mx-4" onclick="UploadFiles()">Open multiple Files</a>
             </nav>
         </div>
     </div>  
@@ -52,6 +52,11 @@
         function to the <c>onclick</c> attribute of any div element for file download or upload.
     </p>
     <p>
+        Input for the download button is the text in the following textarea. The file will be saved (downloaded) with 
+        the content of the textarea.
+    </p>
+    <textarea id="id-textarea" class="h-160 w-100 auto-fill" placeholder="Type here the text to be downloaded as file..."></textarea>
+    <p>
         Output for "open file" will be logged to the console. The output for "open another file" will be 
         shown below.
     </p>
@@ -61,7 +66,7 @@
     <div id="id-show" class="h-300"></div>
 
     JS 
-    <div id="id-show-script" class="h-420"></div>
+    <div id="id-show-script" class="h-450"></div>
 
     <div id = 'id-fixed' class="auto-fill">
         <!-- filled via script-->
@@ -91,25 +96,29 @@
     
     <script id = "id-script">
         function DownloadFile(fileName) {
-            let fileContent = "Hello, this is a test file content.";
+            let fileContent = document.getElementById('id-textarea').value;
             clsFiles.download(fileContent, fileName)
         }
 
-        function UploadFile1() {
-            clsFiles.upload(function(fileContent, file) {
-                console.log('File 1 name:', file.name);
-                console.log('File 1 content:', fileContent);
+        function UploadFile() {
+            clsFiles.upload(function(fileReader, file) {
+                let output = ""
+                output += "File name: " + file.name + "\n\n";
+                output += "File content:\n" + fileReader.result;
+
+                document.getElementById('id-open-another-file-output').innerText = output;
             });
         }
 
-        function UploadFile2() {
-            clsFiles.upload(function(fileContent, file) {
-                document.getElementById('id-open-another-file-output').innerText = 
-                    "File 2 name:" + file.name + "\n\n";
-                document.getElementById('id-open-another-file-output').innerText += 
-                    "File 2 content:\n" + fileContent;
-                document.getElementById('id-open-another-file-output').innerText += 
-                    fileContent;
+        function UploadFiles() {
+            clsFiles.uploadMultiple(function(fileReaders, files) {
+                let output = "Files uploaded:\n";
+
+                for (let i = 0; i < files.length; i++) {
+                    output += "File name: " + files[i].name + "\n";
+                    output += "File content:\n" + fileReaders[i].result + "\n\n";
+                }
+                document.getElementById('id-open-another-file-output').innerText = output;
             });
         }
     </script>
