@@ -60,11 +60,11 @@
         Output for "open file" will be logged to the console. The output for "open another file" will be 
         shown below.
     </p>
-    <div id="id-open-another-file-output" class="h-200 border"></div>
+    <div id="id-open-file-output" class="h-200 border p-5"></div>
     <br>
     HTML
     <div id="id-show" class="h-300"></div>
-
+    <br>
     JS 
     <div id="id-show-script" class="h-450"></div>
 
@@ -94,34 +94,35 @@
     <script src="js/textNav.js"></script>
     <script src="../textGeneral.js"></script>
     
-    <script id = "id-script">
-        function DownloadFile(fileName) {
-            let fileContent = document.getElementById('id-textarea').value;
-            clsFiles.download(fileContent, fileName)
-        }
+<script id="id-script">
+  function DownloadFile(fileName) {
+    const fileContent = document.getElementById('id-textarea').value;
+    clsFiles.download(fileContent, fileName);
+  }
 
-        function UploadFile() {
-            clsFiles.upload(function(fileReader, file) {
-                let output = ""
-                output += "File name: " + file.name + "\n\n";
-                output += "File content:\n" + fileReader.result;
+  async function UploadFile() {
+    let ret = await clsFiles.upload()
+    if (!ret) return
 
-                document.getElementById('id-open-another-file-output').innerText = output;
-            });
-        }
+    let {file, content} = ret[0]
+    document.getElementById('id-open-file-output').innerText = 
+        `File name: ${file.name}\n\nFile content:\n${content}`.substring(0, 200);
+  }
 
-        function UploadFiles() {
-            clsFiles.uploadMultiple(function(fileReaders, files) {
-                let output = "Files uploaded:\n";
+  async function UploadFiles() {
+    let ret = await clsFiles.upload(true)
+    if (!ret) return
 
-                for (let i = 0; i < files.length; i++) {
-                    output += "File name: " + files[i].name + "\n";
-                    output += "File content:\n" + fileReaders[i].result + "\n\n";
-                }
-                document.getElementById('id-open-another-file-output').innerText = output;
-            });
-        }
-    </script>
+    let out = ''
+    for (let i=0; i<ret.length; i++) {
+      let {file, content} = ret[i]
+      out += `File ${i+1} name: ${file.name}\n\nFile content:\n${content}\n\n---\n\n`.substring(0, 200);
+    }
+
+    document.getElementById('id-open-file-output').innerText = out
+  }
+</script>
+
 
     <script>
         Auto_Fill(FromFile_textNav_JS)

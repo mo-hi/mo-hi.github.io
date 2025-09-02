@@ -144,94 +144,61 @@ function addEventListener_ClickTouch(element, functionName) {
 // Download File                                                  #
 // ################################################################
 
-class clsFiles {
-    static download(fileContent, filename) {
-        let element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
-        // element.setAttribute('download', filename);
+// class clsFiles {
+//     static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {
+//         // fileContent can be string, ArrayBuffer, Uint8Array or Blob
+//         const blob = fileContent instanceof Blob
+//             ? fileContent
+//             : new Blob([fileContent], { type: mimeType });
 
-        element.download = filename;
-        element.style.display = 'none';
-        document.body.appendChild(element);
+//         const url = URL.createObjectURL(blob);
+//         const element = document.createElement('a');
+//         element.style.display = 'none';
+//         element.href = url;
+//         element.download = filename || 'download';
 
-        element.click();
+//         document.body.appendChild(element);
+//         element.click();
+//         document.body.removeChild(element);
 
-        document.body.removeChild(element);
-    }
+//         // Release ObjectURL after short time
+//         setTimeout(() => URL.revokeObjectURL(url), 1000);
+//     }
 
-    static upload(callback) {
-        let input = document.createElement('input');
-        input.type = 'file';
-        input.style.display = 'none';
-
-        input.addEventListener('change', function(event) {
-            let file = event.target.files[0];
-            if (!file) return;
-            let reader = new FileReader();
-            reader.readAsText(file);
-            
-            reader.onload = function(e) {
-                callback(reader, file);
-                // callback(e.target, file);  works also
-            };
-        
-        });
-
-        document.body.appendChild(input);
-        input.click();
-        document.body.removeChild(input);
-    }
-
-    static uploadMultiple(callback) {
-        let input = document.createElement('input');
-        input.type = 'file';
-        input.multiple = true;
-        input.style.display = 'none';
-
-        input.addEventListener('change', function(event) {
-            let files = event.target.files;
-            if (files.length === 0) return;
-            let fileReaders = []
-            for (let i = 0; i < files.length; i++) {
-                fileReaders.push(new FileReader())
-                fileReaders[i].readAsText(files[i]);
-            
-                // reader.readAsText(file);
-            }
-            fileReaders[files.length-1].onload = function() {
-                    callback(fileReaders, files);
-                };
-            // callback(files);
-
-        });
-
-        document.body.appendChild(input);
-        input.click();
-        document.body.removeChild(input);
-    }
-}
-
-
-
-//    static uploadMultiple(callback) {
-//         let input = document.createElement('input');
-//         input.type = 'file';
-//         input.multiple = true;
-//         input.style.display = 'none';
-
-//         input.addEventListener('change', function(event) {
-//             let files = event.target.files;
-//             if (files.length === 0) return;
-//             for (let file of files) {
-//                 let reader = new FileReader();
-//                 reader.onload = function(e) {
-//                     callback(e.target.result, file);
-//                 };
+//     static readFiles(files) {
+//         const readers = Array.from(files).map(file => {
+//             return new Promise((resolve, reject) => {
+//                 const reader = new FileReader();
+//                 reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader
+//                 reader.onerror = () => resolve(null);
 //                 reader.readAsText(file);
-//             }
+//             });
 //         });
 
-//         document.body.appendChild(input);
-//         input.click();
-//         document.body.removeChild(input);
+//         return Promise.all(readers);
 //     }
+
+//     // must be callled with await or inside async function
+//     static upload(multiple=false) {
+//         return new Promise(function (resolve) {
+//             var input = document.createElement('input');
+//             input.type = 'file';
+//             if (multiple) input.multiple = true
+//             input.style.display = 'none';
+
+//             input.addEventListener('change', async function (e) {
+//                 if (!input.files || input.files.length === 0) {
+//                     input.remove(); resolve([]); return;}
+                
+//                 let files = input.files;
+//                 input.remove();
+
+//                 let result = await clsFiles.readFiles(files);
+//                 resolve(result);
+//             }, { once: true });
+
+//             document.body.appendChild(input);
+//             input.click();
+//             });
+//     }
+// }

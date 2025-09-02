@@ -81,6 +81,7 @@ function debounce(func, delay) {
 /**
 returns all event listeners of the current page. The function uses the native getEventListeners function of Chrome DevTools. 
 The function is for develooment purposes only and should not be used in production code.
+This function can only be used within the Chrome DevTools.
 */
 function getAllEventListeners() {
     function xdivStr(element) {
@@ -128,6 +129,103 @@ function getAllEventListeners() {
     return data
 }
   
+// ####################################################################################################
+// region classFiles                                                                                      #
+// ####################################################################################################
+
+class clsFiles {
+
+        /** 
+    clsFiles
+    clsFiles is a class with static methods to download and upload files.
+    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.
+    */
+    aboutMe() {
+        // i do nothing
+    }
+
+    /**
+    clsFiles
+    triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.
+    Application Example:
+       clsFiles.download("Hello, world!", "hello.txt");
+    */
+    static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {
+        // fileContent can be string, ArrayBuffer, Uint8Array or Blob
+        const blob = fileContent instanceof Blob
+            ? fileContent
+            : new Blob([fileContent], { type: mimeType });
+
+        const url = URL.createObjectURL(blob);
+        const element = document.createElement('a');
+        element.style.display = 'none';
+        element.href = url;
+        element.download = filename || 'download';
+
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+
+        // Release ObjectURL after short time
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    static _readFiles(files) {
+        const readers = Array.from(files).map(file => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader
+                reader.onerror = () => resolve(null);
+                reader.readAsText(file);
+            });
+        });
+
+        return Promise.all(readers);
+    }
+
+    /**
+    clsFiles
+    triggers a read (upload to browser) of a file or multiple files.
+    The method returns a promise that resolves to an array of objects, each containing the file and its content.
+    If no files are selected, it resolves to an empty array.
+    Application Example 1:
+       async function UploadFile() {
+            let ret = await clsFiles.upload()
+            if (!ret) return
+            let {file, content} = ret[0]
+        }
+    Application Example:
+        async function UploadFiles() {
+            let ret = await clsFiles.upload(true)
+            if (!ret) return
+            for (let i=0; i < ret.length; i++) {
+                let {file, content} = ret[i]
+            }
+        }
+    */
+    static upload(multiple=false) {
+        return new Promise(function (resolve) {
+            var input = document.createElement('input');
+            input.type = 'file';
+            if (multiple) input.multiple = true
+            input.style.display = 'none';
+
+            input.addEventListener('change', async function (e) {
+                if (!input.files || input.files.length === 0) {
+                    input.remove(); resolve([]); return;}
+                
+                let files = input.files;
+                input.remove();
+
+                let result = await clsFiles._readFiles(files);
+                resolve(result);
+            }, { once: true });
+
+            document.body.appendChild(input);
+            input.click();
+            });
+    }
+}
 // ####################################################################################################
 // region content_divTable                                                                                #
 // ####################################################################################################
@@ -442,9 +540,9 @@ function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
 }
 
 /**
-Modifies your html page by adding a textarea with a div's innerHTML.
+Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown
 */
-function ShowHTMLinTextArea(divToExpose, divToAppend, outer) {
+function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false) {
     let textarea = document.createElement('textarea');
     textarea.id = 'htmlSource';
     textarea.spellcheck = false;

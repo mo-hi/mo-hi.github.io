@@ -37,15 +37,15 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": "getAllEventListeners",
-        "docstring": "returns all event listeners of the current page. The function uses the native getEventListeners function of Chrome DevTools. \nThe function is for develooment purposes only and should not be used in production code.",
+        "docstring": "returns all event listeners of the current page. The function uses the native getEventListeners function of Chrome DevTools. \nThe function is for develooment purposes only and should not be used in production code.\nThis function can only be used within the Chrome DevTools.",
         "parameters": "",
         "region": "basis"
     },
     {
         "name": "b_divTable",
-        "docstring": "return a div table. Provide either cols or json! <br>\nWhen cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>\nWith json is provided, a table with the json dataset is returend. <br>",
+        "docstring": "clsFiles\n    dummy as workaround for regex bug. first docstring is not recognized correctly.\n    */\n    dummy_I_DO_NOTHING() {\n        // i do nothing\n    }\n    // DUMMY_END\n\n\n    /** \n    clsFiles\n    clsFiles is a class with static methods to download and upload files.\n    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.\n    */\n    aboutMe() {\n        // i do nothing\n    }\n\n    /**\n    clsFiles\n    triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.\n    Application Example:\n       clsFiles.download(\"Hello, world!\", \"hello.txt\");\n    */\n    static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {\n        // fileContent can be string, ArrayBuffer, Uint8Array or Blob\n        const blob = fileContent instanceof Blob\n            ? fileContent\n            : new Blob([fileContent], { type: mimeType });\n\n        const url = URL.createObjectURL(blob);\n        const element = document.createElement('a');\n        element.style.display = 'none';\n        element.href = url;\n        element.download = filename || 'download';\n\n        document.body.appendChild(element);\n        element.click();\n        document.body.removeChild(element);\n\n        // Release ObjectURL after short time\n        setTimeout(() => URL.revokeObjectURL(url), 1000);\n    }\n\n    static _readFiles(files) {\n        const readers = Array.from(files).map(file => {\n            return new Promise((resolve, reject) => {\n                const reader = new FileReader();\n                reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader\n                reader.onerror = () => resolve(null);\n                reader.readAsText(file);\n            });\n        });\n\n        return Promise.all(readers);\n    }\n\n    /**\n    clsFiles\n    triggers a read (upload to browser) of a file or multiple files.\n    The method returns a promise that resolves to an array of objects, each containing the file and its content.\n    If no files are selected, it resolves to an empty array.\n    Application Example 1:\n       async function UploadFile() {\n            let ret = await clsFiles.upload()\n            if (!ret) return\n            let {file, content} = ret[0]\n        }\n    Application Example:\n        async function UploadFiles() {\n            let ret = await clsFiles.upload(true)\n            if (!ret) return\n            for (let i=0; i < ret.length; i++) {\n                let {file, content} = ret[i]\n            }\n        }\n    */\n    static upload(multiple=false) {\n        return new Promise(function (resolve) {\n            var input = document.createElement('input');\n            input.type = 'file';\n            if (multiple) input.multiple = true\n            input.style.display = 'none';\n\n            input.addEventListener('change', async function (e) {\n                if (!input.files || input.files.length === 0) {\n                    input.remove(); resolve([]); return;}\n                \n                let files = input.files;\n                input.remove();\n\n                let result = await clsFiles._readFiles(files);\n                resolve(result);\n            }, { once: true });\n\n            document.body.appendChild(input);\n            input.click();\n            });\n    }\n}\n// ####################################################################################################\n// region content_divTable                                                                                #\n// ####################################################################################################\n\n/**\nreturn a div table. Provide either cols or json! <br>\nWhen cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>\nWith json is provided, a table with the json dataset is returend. <br>",
         "parameters": "{cols, json}",
-        "region": "content_divTable"
+        "region": "classFiles"
     },
     {
         "name": "b_svg",
@@ -79,8 +79,8 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": "ShowHTMLinTextArea",
-        "docstring": "Modifies your html page by adding a textarea with a div's innerHTML.",
-        "parameters": "divToExpose, divToAppend, outer",
+        "docstring": "Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown",
+        "parameters": "divToExpose, divToAppend, outer = false",
         "region": "htmlManipulation"
     },
     {
@@ -568,5 +568,23 @@ const FromFile_FunctionsInfo_JS = [
         "docstring": "removes all items from the collection which are empty (i.e. have no keys)",
         "parameters": "",
         "region": "class Collection"
+    },
+    {
+        "name": ".aboutMe",
+        "docstring": "clsFiles is a class with static methods to download and upload files.\n    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.",
+        "parameters": "",
+        "region": "class clsFiles"
+    },
+    {
+        "name": ".download",
+        "docstring": "triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.\n    Application Example:\n       clsFiles.download(\"Hello, world!\", \"hello.txt\");",
+        "parameters": "fileContent, filename, mimeType = 'text/plain;charset=utf-8'",
+        "region": "class clsFiles"
+    },
+    {
+        "name": ".upload",
+        "docstring": "triggers a read (upload to browser) of a file or multiple files.\n    The method returns a promise that resolves to an array of objects, each containing the file and its content.\n    If no files are selected, it resolves to an empty array.\n    Application Example 1:\n       async function UploadFile() {\n            let ret = await clsFiles.upload()\n            if (!ret) return\n            let {file, content} = ret[0]\n        }\n    Application Example:\n        async function UploadFiles() {\n            let ret = await clsFiles.upload(true)\n            if (!ret) return\n            for (let i=0; i < ret.length; i++) {\n                let {file, content} = ret[i]\n            }\n        }",
+        "parameters": "multiple=false",
+        "region": "class clsFiles"
     }
 ]

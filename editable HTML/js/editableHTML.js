@@ -97,6 +97,11 @@ class cls_editableHTML_EditGroup {
     InitFromClickEvent(event) {
         let divElement = DOM_ElementFromJSEvent(event)
         if (divElement.classList.contains('js-edit') && divElement.DescendantsWithClass(".js-edit-child").length == 0) {
+            // MOHI
+            // editable test cases erstellen!
+            // dann hier das verhalten hinzufügen: bei ctrl+click auf eine editierbares feld, -> discard (die selbe action führt mich zurück)
+            // beibehalten. save nur bei ctrl+enter (save nur durch bewusste keyboard kombi)
+            // discard all weiterhin durch 'escape'
             this._constructor(divElement)
             return}
         if (divElement.classList.contains('js-edit-child')) {
@@ -177,13 +182,19 @@ class cls_editableHTML_EditGroup {
 
     Edit_CreateTeaxtarea() {
         let editableDivs = null
+        if (this.IsSingleTextDiv()) {
+        // document.querySelectorAll("textarea.temp-editable");
+            editableHTML_DiscardAll();
+        }
         this.class_edit.dataset.editMode = "active"
 
         if (this.IsSingleTextDiv())  {editableDivs = [this.class_edit]}
         if (this.IsMultiTextDiv()) {editableDivs = this.class_edit.DescendantsWithClass(".js-edit-child")}
 
         for (let editableDiv of editableDivs) {
+
             editableDiv = this._CreateTeaxtarea_prepareEditableDivDataset(editableDiv)
+
             editableDiv.appendChild(this._CreateTeaxtarea_TextareaFromEditableDiv(editableDiv))
             editableDiv.DescendantsWithTag("textarea")[0].focus()
         }
@@ -217,6 +228,8 @@ class cls_editableHTML_EditGroup {
     _CreateTeaxtarea_TextareaFromEditableDiv(editableDiv) {
         // let editableDiv = this.class_edit
         let textarea = document.createElement("textarea");
+
+        textarea.classList = "temp-editable"
         // take over dataset
         textarea.id             = editableDiv.id + "-textarea"
         textarea.value          = editableDiv.dataset.originaTextAreaValue  
@@ -233,8 +246,8 @@ class cls_editableHTML_EditGroup {
         //vertical scrollbar if needed
         textarea.style.overflowY = 'auto'; 
         textarea.style.overflowX = 'hidden';
-        if (this.IsSingleTextDiv()) {
-            textarea.onblur = function() {editableHTML_DiscardAll();}}
+        // if (this.IsSingleTextDiv()) {
+        //     textarea.onblur = function() {editableHTML_DiscardAll();}}
     
         return textarea
     }

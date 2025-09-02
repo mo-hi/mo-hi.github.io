@@ -111,6 +111,28 @@
     background-color: #ababab !important
 }
 
+
+.red { color: #e06c75; }
+.orange { color: #d19a66; }
+.yellow { color: #e5c07b; }
+.blue { color: #61afef; }
+.purple { color: #c678dd; }
+.cyan { color: #56b6c2; }
+.pink { color: #ff69b4; }
+.teal { color: #20c997; }
+.brown { color: #a0522d; }
+.lime { color: #bfff00; }
+.indigo { color: #4b0082; }
+.gold { color: #ffd700; }
+.silver { color: #c0c0c0; }
+.maroon { color: #800000; }
+.olive { color: #808000; }
+.navy { color: #000080; }
+.magenta { color: #ff00ff; }
+.turquoise { color: #40e0d0; }
+.beige { color: #f5f5dc; }
+.chocolate { color: #d2691e; }
+
 /*
 // ####################################################################################################
 // #                                             display                                              #
@@ -168,6 +190,30 @@
 .font-48 {font-size: 48px !important;}
 .font-49 {font-size: 49px !important;}
 .font-50 {font-size: 50px !important;}
+
+.font-w100 {font-weight: 100 !important;}
+.font-w150 {font-weight: 150 !important;}
+.font-w200 {font-weight: 200 !important;}
+.font-w250 {font-weight: 250 !important;}
+.font-w300 {font-weight: 300 !important;}
+.font-w350 {font-weight: 350 !important;}
+.font-w400 {font-weight: 400 !important;}
+.font-w450 {font-weight: 450 !important;}
+.font-w500 {font-weight: 500 !important;}
+.font-w550 {font-weight: 550 !important;}
+.font-w600 {font-weight: 600 !important;}
+.font-w650 {font-weight: 650 !important;}
+.font-w700 {font-weight: 700 !important;}
+.font-w750 {font-weight: 750 !important;}
+.font-w800 {font-weight: 800 !important;}
+.font-w850 {font-weight: 850 !important;}
+.font-w900 {font-weight: 900 !important;}
+.font-w950 {font-weight: 950 !important;}
+.font-w1000 {font-weight: 1000 !important;}
+.font-w1050 {font-weight: 1050 !important;}
+.font-w1100 {font-weight: 1100 !important;}
+.font-w1150 {font-weight: 1150 !important;}
+.font-w1200 {font-weight: 1200 !important;}
 
 .bold {font-weight: bold !important;}
 .not-bold {font-weight: normal !important;}
