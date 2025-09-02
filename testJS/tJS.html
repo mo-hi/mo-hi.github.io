@@ -2,13 +2,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Mario Hamidi">
+    <meta name="author" content="Mo Hi">
     <title>Test JS</title>
-    <link rel="stylesheet" href="../css/paper.css">
-    
+    <!-- <link rel="stylesheet" href="../css/paper.css"> -->
+    <link rel="stylesheet" href="../basis/css/b.css">
+    <style>
+        :root       {--color-background: #f0f0f0;--color-text: #444;}
+        body        {background-color: var(--color-background); color: var(--color-text);}
+        #id-end     {background-color: var(--color-background); color: var(--color-text);}
+        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
+    </style>
 </head>
-<body>
-    <p>This is Test JS. A super light-weight javascript class for testing your javascript code</p>
-    <p><a href="example usage/example.html">Example</a></p>
+<body class="academic wr-800-400">
+    <section>
+        <h2 class="underline">About test.js</h2>
+        <p>
+            This is Test JS, perfect for testing your html and javascript code. Link the <c>b.js</c> and
+            the <c>clsTest.js</c> filesto your html file, where you want to run the tests. 
+            <br>
+            The test report is either created in a pop up (new html page) or as a child element of your page.
+        </p>
+        <p>
+            Insert the following files in your html file:
+        </p>
+        <div id = "id-script-files-show" class = "js-fill h-60">
+
+        </div>
+        <p>
+            Add the following script:
+        </p>
+        <div id = "id-test-starter-script-show" class = "js-fill h-120">
+
+        </div>
+        <p>
+            Done. <br><br>
+            Now when you call 'test()' in our console (or another way), the tests will be excecuted and the results shown.
+        </p>
+    </section>
+    <section>
+        <h2 class="underline">Start</h2>
+        <p>
+            See the following template
+        </p>
+        <pre><code>
+            <div id="id-template"> </div>
+        </code></pre>
+        <p>
+            The script section starts with referencing the needed js files <c>b.js</c> and
+            the <c>clsTest.js</c>. Then comes the explicit part, where first a new test object is created. This test object 
+            is our test manager that is passed to the test cases function. 
+            Wihtin the testcases function, the test object is passed to every test case, like an operator/manager
+            that executes every test case by itself. The test object saves information about the excecuted tests within itself. 
+        </p>
+        <p>
+            The testcases itself are defined in a separate JavaScript file, typically named <c>testCases.js</c>. 
+            This file contains the test cases function, which receives the test manager object and executes all your individual test cases. 
+            By keeping your test cases in a dedicated file, you maintain a clean separation between your test logic and your main application code.
+        </p>
+        <p>
+            Once the test cases have been performed the results can be printed. Sine T.js is pure javascript, 
+            there's no html file created on your file system. Everything happens in your browser
+        </p>
+        <p>
+            In this version, the tests run automatically when the page loads. 
+            You don't need to manually call the `test()` function from the console. 
+            The script at the bottom of the page initializes the test manager, executes the test cases, 
+            and displays the results as soon as the page is ready.
+        </p>
+    </section>
+    <section>
+        <h2 class="underline">test cases</h2>
+        <p>
+            Next we have to write the test cases. You can set up the structure as you want. The only thing that needs to be considered is
+            that the test varibale 'myTest' must be passed to each test. 
+        </p>
+        <pre><code>
+            <div id="id-testcases"> </div>
+        </code></pre>
+    </section>
 </body>
+
+
+<div id = "id-script-files">
+    <script src = "../basis/js/b.js"></script>
+    <script src = "clsTest.js"></script>
+</div>
+
+<script id = "id-test-starter-script">
+    function test() {
+            let myTest = new clsTest()
+            testCases(myTest)
+            myTest.PrintResult() 
+    }
+
+</script>
+
+
+<script>
+    ShowHTMLinTextArea(document.getElementById("id-script-files"), document.getElementById("id-script-files-show"))
+    ShowHTMLinTextArea(document.getElementById("id-test-starter-script"), document.getElementById("id-test-starter-script-show"))
+    document.getElementById("id-template").innerText = 
+`    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>test title</title>
+    </head>
+    <body>
+        <div id="id-main" class="js-fill"></div>
+        ... html that you want to test ...
+
+    </body>
+
+    <script src="../basis/js/b.js"><\/script>
+    <script src="clsTest.js"><\/script>
+    <script src="testCases.js"><\/script>
+    ... script files that you want to test ...
+
+    <script>
+        ... script that you want to test ...
+
+        (function () {
+            let myTest = new clsTest()
+            RunTestCases(myTest)
+            // -> This will append the test report as a child element to the 
+            //    div 'id-main'  on your page
+            myTest.PrintResult('id-main') 
+            // -> This will create a popup with your test resutls
+            myTest.PrintResult() 
+        })();
+    <\/script>
+    </html>`
+    document.getElementById("id-testcases").innerText = 
+`    function RunTestCases(myTest) {
+        textCase1(myTest)
+        testCase2(myTest)
+    }
+    
+    testCase1(myTest) {
+        myTest.IsTrue(1==1, "message in case of test fails")
+    }
+
+    testCase2(myTest) {
+        let a = [1,2]
+        myTest.IsEqual([1,2], a, "message in case of test fails")
+    }`
+</script>
+
 </html>

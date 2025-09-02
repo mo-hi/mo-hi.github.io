@@ -543,6 +543,191 @@ hr.fade-grey {
 
 /*
 // ####################################################################################################
+// #                                           landing-dark                                           #
+// ####################################################################################################
+*/
+/* ===== Dark theme scope (applies only with <body class="css-landing-dark">) ===== */
+body.css-landing-dark {
+  /* design tokens */
+  --bg: #0b0d12;
+  --card: #0f131a;
+  --text: #e5e7eb;
+  --muted: #9aa4b2;
+  --line: #1f2937;
+  --accent: #60a5fa;
+  --accent-2: #34d399;
+  --code: #e5e7eb;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0,0,0,.35);
+
+  /* body acts as container */
+  margin: 0;
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  max-width: 980px;
+  padding: 48px 20px 80px;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* background + text */
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.08), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(52,211,153,.07), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* ===== Header (simplified) ===== */
+body.css-landing-dark header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+body.css-landing-dark header .logo {
+  /* h1.logo */
+  display: inline-flex;          /* shrink-wrap to content */
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;               /* horizontal padding around text */
+  height: 42px;                  /* fixed height */
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  letter-spacing: .5px;
+  font-size: 1.2rem;             /* fits h1 nicely */
+  margin: 0;                     /* reset default h1 margins */
+  margin-right: 14px;            /* space before next text */
+}
+
+
+body.css-landing-dark header .subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ===== Intro card ===== */
+body.css-landing-dark .intro {
+  padding: 18px 18px 20px;
+}
+
+body.css-landing-dark .intro p {
+  margin: 0;
+}
+
+/* ===== Grid of project cards ===== */
+body.css-landing-dark .grid {
+  margin-top: 22px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Card */
+body.css-landing-dark .card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+body.css-landing-dark .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  border-color: rgba(99,102,241,.6);
+}
+
+body.css-landing-dark .card h2 {
+  font-size: 16px;
+  margin: 0;
+  letter-spacing: .2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.css-landing-dark .card h2 .badge {
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+
+body.css-landing-dark .card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Links list inside cards */
+body.css-landing-dark ul.links {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: grid;
+  gap: 6px;
+}
+
+body.css-landing-dark ul.links li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+body.css-landing-dark ul.links li a .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--accent);
+  opacity: .9;
+}
+
+body.css-landing-dark ul.links li a:hover {
+  color: var(--accent);
+}
+
+/* ===== Footer ===== */
+body.css-landing-dark .foot {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+body.css-landing-dark .kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: rgba(148,163,184,.15);
+  border: 1px solid var(--line);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* ===== Focus styles ===== */
+body.css-landing-dark a { outline: none; }
+body.css-landing-dark a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(99,102,241,.55);
+  border-radius: 6px;
+}
+
+
+/*
+// ####################################################################################################
 // #                                          margin padding                                          #
 // ####################################################################################################
 */

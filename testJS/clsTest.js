@@ -1,6 +1,42 @@
 class clsTest {
     constructor() {
         this.cases = [];
+        this.mode = "test"
+        this.halt = false
+        this.silentCounter = 0
+    }
+
+// ##################################################################################
+// # Checker                                                                        #
+// ##################################################################################
+    SetTestMode() {
+        if (this.mode == "silent" && this.silentCounter >0) {
+            this._pushTestResult(String(this.silentCounter) + ' tests passed executed in silent mode and passed', 'passed','')}
+        this.mode = "test"
+        this._pushTestResult('<div class="navy font-w600"> Normal Test Mode activated</div>', 'passed','')
+    }
+
+    SetSilentMode() {
+        this.mode = "silent"
+        this.silentCounter = 0
+        this._pushTestResult('<div class="navy font-w600"> Silent Mode activated</div>', 'passed','')
+    }
+
+    // This will pause the program when a test failes. your dev tools must be open.
+    SetHaltOnFail() {
+        this.halt = true
+    }
+
+    Info(msg) {
+        this._pushTestResult(msg, 'information','')
+    }
+
+    Action(msg) {
+        this._pushTestResult('[ACTION] ' + msg, 'acion','')
+    }
+
+    NewLine() {
+        this._pushTestResult(' ', '-','')
     }
 
     _pushTestResult(fname, result, msg) {
@@ -9,13 +45,22 @@ class clsTest {
 
     _passed(name, msg) {
         if (msg == undefined) msg = ''
-        this._pushTestResult(name, 'passed', msg)
+        if (this.mode == "test") {
+            this._pushTestResult(name, 'passed', msg)}
+        if (this.mode == "silent") {
+            this.silentCounter += 1}
+        
     }
 
     _failed(name, msg) {
         if (msg == undefined) msg = ''
+        if (this.halt) {
+            debugger;
+        }
         this._pushTestResult(name, 'failed', msg)
     }
+
+
 
 
 // ##################################################################################
@@ -108,6 +153,26 @@ class clsTest {
         let targetDiv = document.getElementById(targetDivID)
         if (!targetDiv.classList.contains('js-fill'))  return
         targetDiv.append(this._table(tableID));
+    }
+
+    PrintToPopUp() {
+        let popup = window.open("", "myPopup", "width=800,height=600");
+        let doc = popup.document;
+
+        // structure
+        doc.open();
+        let html = doc.createElement("html");
+        let head = doc.createElement("head");
+        let body = doc.createElement("body");
+
+        head.appendChild(this._style());  
+        body.appendChild(this._table())
+
+        // build
+        html.appendChild(head);
+        html.appendChild(body);
+        doc.appendChild(html);
+        doc.close();
     }
         
     _style() {

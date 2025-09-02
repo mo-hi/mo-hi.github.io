@@ -1,69 +1,93 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Mario Hamidi">
-    <title>MOHI</title>
-    <link rel="stylesheet" href="basis/css/b.css">
-    <style>
-        :root       {--color-background: #f0f0f0;--color-text: #444;}
-        body        {background-color: var(--color-background); color: var(--color-text);}
-        #id-end     {background-color: var(--color-background); color: var(--color-text);}
-        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Mo Hi" />
+  <title>MOHI · Personal JS Modules</title>
+  <link rel="stylesheet" href="basis/css/b.css" />
+  <!-- your dark-scope CSS file can stay as-is; just move .container styles to body -->
 </head>
-<body class="academic wr-800-400">
-    <h1 class="underline">MO-HI</h1>
-    <section>
-        <p>
-            <a href="testJS/tJS.html">T JS</a>. Super light-weight javascript class for testing javascript code.
-        </p>
-        <p>
-            <a href="basis/bJS.html">b JS</a> Basis javascript and prototype functions.
-        </p>
-        <p>
-            <a href="basis/bCSS.html">b CSS</a> basis css styling controlled by classes
-        </p>
-        <p>
-            <a href="navbar/nav Landing.html">Navbar / menubar</a>  with dropdowns
-            <p class="ml-30">
-                <a href="navbar/nav.html" class="big">hover behaviour</a>
-            </p>
-            <p class="ml-30">
-                <a href="navbar/nav fixed.html" class="big">fixed position, hover behaviour</a>
-            </p>
-            <p class="ml-30">
-                <a href="navbar/nav fixed click.html" class="big">fixed position, click behaviour</a>
-            </p>
-            <p class="ml-30">
-                <a href="navbar/nav fixed click multipart.html" class="big">fixed position, click behaviour, three parts</a>
-            </p>
-            <p class="ml-30">
-                <a href="navbar/sidebar.html" class="big">sidebar</a>
-            </p>
-            <p class="ml-30">
-                <a href="navbar/nav fixed buttons.html" class="big">buttons</a>: Download and upload buttons in the navbar.
-            </p>
-        </p>
-        </p>
-        <p>
-            <a href="divbuilder/index.html">DIV Building Blocks</a>
-        </p>
-        <p>
-            <a href="htmlTemplates/templateTable.html">HTML templates - tables</a>
-        </p>
-        <p>
-            <a href="mouseHandler/index.html">Mouse Handler</a>
-        </p>
-        <p>
-            <a href="editable HTML/editableHTML.html">Editable HTML</a>
-        </p>
-        <p>
-            <a href="htmlPage/index.html">HTML Page template</a>
-        </p>
-        <p>
-            <a href="popup/index.html">PopUp</a>
-        </p>
-    </section>
+<body class="css-landing-dark">
+  <header class="brand">
+    <h1 class="logo">MOHI</h1>
+    <p class="subtitle">Personal JavaScript modules</p>
+  </header>
+
+  <section class="intro">
+    <p>Lightweight utilities and UI bits I use across small projects. Everything below is plain JS/CSS.</p>
+  </section>
+
+  <main class="grid">
+    <article class="card">
+      <h2>Testing <span class="badge">utility</span></h2>
+      <p>Super light-weight class for testing JavaScript code snippets.</p>
+      <ul class="links">
+        <li><a href="testJS/tJS.html"><span class="dot"></span><span>T&nbsp;JS</span></a></li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Base JS <span class="badge">core</span></h2>
+      <p>Prototype helpers and small primitives used everywhere.</p>
+      <ul class="links">
+        <li><a href="basis/bJS.html"><span class="dot"></span><span>b&nbsp;JS</span></a></li>
+        <li><a href="popup/index.html"><span class="dot"></span><span>PopUp</span></a></li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Base CSS <span class="badge">styles</span></h2>
+      <p>Class-driven CSS foundation for quick prototyping.</p>
+      <ul class="links">
+        <li><a href="basis/bCSS.html"><span class="dot"></span><span>b&nbsp;CSS</span></a></li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Navbar / Menubar <span class="badge">navigation</span></h2>
+      <p>Hover & click variants, fixed layouts, and a sidebar.</p>
+      <ul class="links">
+        <li><a href="navbar/nav Landing.html"><span class="dot"></span><span>Overview / landing</span></a></li>
+        <li><a href="navbar/nav.html"><span class="dot"></span><span>Hover behaviour</span></a></li>
+        <li><a href="navbar/nav fixed.html"><span class="dot"></span><span>Fixed + hover</span></a></li>
+        <li><a href="navbar/nav fixed click.html"><span class="dot"></span><span>Fixed + click</span></a></li>
+        <li><a href="navbar/nav fixed click multipart.html"><span class="dot"></span><span>Fixed + click (3 parts)</span></a></li>
+        <li><a href="navbar/sidebar.html"><span class="dot"></span><span>Sidebar</span></a></li>
+        <li><a href="navbar/nav fixed buttons.html"><span class="dot"></span><span>Navbar buttons (upload/download)</span></a></li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>DIV Building Blocks <span class="badge">layout</span></h2>
+      <p>Composable divs for quick page structures.</p>
+      <ul class="links">
+        <li><a href="divbuilder/index.html"><span class="dot"></span><span>Blocks</span></a></li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>HTML Templates <span class="badge">templates</span></h2>
+      <p>Ready-to-use patterns for tables and pages.</p>
+      <ul class="links">
+        <li><a href="htmlTemplates/templateTable.html"><span class="dot"></span><span>Tables</span></a></li>
+        <li><a href="htmlPage/index.html"><span class="dot"></span><span>HTML page template</span></a></li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Utilities <span class="badge">helpers</span></h2>
+      <p>Small modules that make UIs nicer to use.</p>
+      <ul class="links">
+        <li><a href="mouseHandler/index.html"><span class="dot"></span><span>Mouse Handler</span></a></li>
+        <li><a href="editable HTML/editableHTML.html"><span class="dot"></span><span>Editable HTML</span></a></li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <span><span class="kbd">//</span> Built with plain JS & CSS. No frameworks.</span>
+    <span>© <script>document.write(new Date().getFullYear())</script> Mo-Hi</span>
+  </footer>
 </body>
 </html>
