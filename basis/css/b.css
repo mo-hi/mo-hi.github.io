@@ -154,153 +154,17 @@ body.css-doc-dark {
   --bg-1: #222222;    /* brightness step 1 */
   --bg-2: #444444;    /* brightness step 2 */
   --bg-3: #666666;    /* brightness step 3 */
+  --bg-sticky: rgba(11,13,18,.9);
+  --bg-tr-odd: var(--bg-1);
+  --bg-note: rgba(96,165,250,.08);
 
-  margin: 0;
-  font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  max-width: 980px;
-  padding: 40px 20px 80px;
-  margin-left: auto;
-  margin-right: auto;
+  --border-note: rgba(96,165,250,.25);
 
   background:
     radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.08), transparent 60%),
     radial-gradient(1000px 500px at 100% 0%, rgba(52,211,153,.07), transparent 60%),
     var(--bg);
-  color: var(--text);
 }
-
-/* ===== Header ===== */
-body.css-doc-dark h1,
-body.css-doc-dark h2,
-body.css-doc-dark h3 {
-  color: var(--header);
-}
-
-/* Section spacing */
-body.css-doc-dark section { margin-top: 24px; padding-top: 8px; }
-
-/* Paragraphs & links */
-body.css-doc-dark p { margin: 0 0 10px 0; }
-body.css-doc-dark a { color: var(--accent); text-decoration: none; }
-body.css-doc-dark a:hover { text-decoration: underline; }
-
-/* Inline code tag (<c>) */
-body.css-doc-dark c,
-body.css-doc-dark code,
-body.css-doc-dark kbd,
-body.css-doc-dark .kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-body.css-doc-dark c {
-  background: rgba(148,163,184,.15);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 0 .35rem;
-}
-
-/* Underline + Sticky (renamed to avoid using original utility classes) */
-body.css-doc-dark .h-underline {
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 3px;
-  margin-bottom: 8px;
-}
-body.css-doc-dark .h-sticky {
-  position: sticky;
-  top: 0;
-  background: linear-gradient(to bottom, rgba(11,13,18,.9), rgba(11,13,18,.75));
-  backdrop-filter: blur(4px);
-  border-bottom: 2px solid var(--line);
-  z-index: 10;
-  padding-bottom: 3px;
-  border-radius: 8px 8px 0 0;
-}
-
-/* Table container + table */
-body.css-doc-dark .table-wrap {
-  overflow-x: auto;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  margin: 8px 0 12px;
-}
-body.css-doc-dark .doc-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
-}
-body.css-doc-dark .doc-table thead th {
-  text-align: left;
-  padding: 10px 12px;
-  background: #131823;
-  color: var(--text);
-  border-bottom: 1px solid var(--line);
-}
-body.css-doc-dark .doc-table td {
-  padding: 10px 12px;
-  border-top: 1px solid var(--line);
-  color: var(--text);
-}
-body.css-doc-dark .doc-table tbody tr:nth-child(odd) td {
-  background: rgba(255,255,255,.02);
-}
-
-/* Code panels */
-body.css-doc-dark .codepanel {
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
-  margin-top: 8px;
-}
-body.css-doc-dark .codepanel textarea, p.codepanel {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  color: var(--text);
-  border: none;
-  outline: none;
-  resize: none;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-body.css-doc-dark .codepanel textarea.script { background: #111827; }
-
-
-/* Note box */
-body.css-doc-dark .note {
-  background: rgba(96,165,250,.08);
-  border: 1px solid rgba(96,165,250,.25);
-  border-radius: 10px;
-  padding: 10px 12px;
-  color: var(--text);
-}
-
-/* Footer */
-body.css-doc-dark .foot {
-  margin-top: 28px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* Diff highlight (your script uses <span class="red">...) */
-body.css-doc-dark .red { color: #f87171; }
-
-/* Focus styles */
-body.css-doc-dark a:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(99,102,241,.55);
-  border-radius: 6px;
-}
-
 
 /*
 // ####################################################################################################
@@ -323,69 +187,130 @@ body.css-doc-light {
   --bg-1: #fafafa;  /* darkness step 1 */
   --bg-2: #f3f4f6;  /* darkness step 2 */
   --bg-3: #e5e7eb;  /* darkness step 3 */
- 
+  --bg-sticky: rgba(255,255,255,.85);
+  --bg-tr-odd:  var(--bg-1);
+  --bg-note: rgba(37,99,235,.06);
 
-  margin: 0;
-  font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  max-width: 980px;
-  padding: 40px 20px 80px;
-  margin-left: auto;
-  margin-right: auto;
+  --border-note: rgba(37,99,235,.2);
 
   background:
     radial-gradient(1200px 600px at 10% -10%, rgba(37,99,235,.06), transparent 60%),
     radial-gradient(1000px 500px at 100% 0%, rgba(16,185,129,.06), transparent 60%),
     var(--bg);
-  color: var(--text);
+}
+
+/*
+// ####################################################################################################
+// #                                             css-doc                                              #
+// ####################################################################################################
+*/
+.dark-light-mode-switch {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dark-light-mode-btn {
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg-2);
+  color: var(--fg);
+  border: none;
+  transition: background-color .2s, color .2s;
+}
+
+.dark-light-mode-btn:hover {
+  background: var(--bg-2);
+}
+
+.dark-light-mode-btn.light {
+  border-right: 1px solid var(--border);
+}
+
+.dark-light-mode-btn.active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+
+/* ===== Body ===== */
+body.css-doc-light,
+body.css-doc-dark {
+    margin: 0;
+    font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    max-width: 980px;
+    padding: 0px 20px 80px;
+    margin-left: auto;
+    margin-right: auto;
+
+    color: var(--text);
 }
 
 /* ===== Header ===== */
 body.css-doc-light h1,
 body.css-doc-light h2,
-body.css-doc-light h3 {
-  color: var(--header);
-}
+body.css-doc-light h3,
+body.css-doc-dark h1,
+body.css-doc-dark h2,
+body.css-doc-dark h3 {color: var(--header);}
 
 /* Section spacing */
-body.css-doc-light section { margin-top: 24px; padding-top: 8px; }
+body.css-doc-light section,
+body.css-doc-dark section {margin-top: 24px;padding-top: 8px;}
 
 /* Paragraphs & links */
-body.css-doc-light p { margin: 0 0 10px 0; }
-body.css-doc-light a { color: var(--accent); text-decoration: none; }
-body.css-doc-light a:hover { text-decoration: underline; }
+body.css-doc-light p,
+body.css-doc-dark p {margin: 0 0 10px 0;}
+
+body.css-doc-light a,
+body.css-doc-dark a {color: var(--accent);text-decoration: none;}
+
+body.css-doc-light a:hover,
+body.css-doc-dark a:hover {text-decoration: underline;}
 
 /* Inline code tag (<c>) */
 body.css-doc-light c,
 body.css-doc-light code,
 body.css-doc-light kbd,
-body.css-doc-light .kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+body.css-doc-light .kbd,
+body.css-doc-dark c,
+body.css-doc-dark code,
+body.css-doc-dark kbd,
+body.css-doc-dark .kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
 }
-body.css-doc-light c {
-  background: rgba(0,0,0,.04);
+
+body.css-doc-light c,
+body.css-doc-dark c {
+  background: var(--bg-2);
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 0 .35rem;
 }
 
-/* Underline + Sticky (renamed to avoid using original utility classes) */
-body.css-doc-light .h-underline {
+body.css-doc-light .h-underline,
+body.css-doc-dark .h-underline {
   border-bottom: 1px solid var(--line);
   padding-bottom: 3px;
   margin-bottom: 8px;
 }
-body.css-doc-light .h-sticky {
+
+body.css-doc-light .h-sticky,
+body.css-doc-dark .h-sticky {
   position: sticky;
   top: 0;
-  background: linear-gradient(to bottom, rgba(255,255,255,.95), rgba(255,255,255,.85));
+  background: var(--bg-sticky);
   backdrop-filter: blur(4px);
   border-bottom: 2px solid var(--line);
   z-index: 10;
   padding-bottom: 3px;
-  border-radius: 8px 8px 0 0;
 }
 
-/* Table container + table */
+/* Table */
+body.css-doc-dark .table-wrap,
 body.css-doc-light .table-wrap {
   overflow-x: auto;
   border-radius: 10px;
@@ -393,37 +318,45 @@ body.css-doc-light .table-wrap {
   background: var(--card);
   margin: 8px 0 12px;
 }
+body.css-doc-dark .doc-table,
 body.css-doc-light .doc-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
 }
+body.css-doc-dark .doc-table thead th,
 body.css-doc-light .doc-table thead th {
   text-align: left;
   padding: 10px 12px;
-  background: #f3f4f6;
+  background: var(--bg-2);
   color: var(--header);
   border-bottom: 1px solid var(--line);
 }
+body.css-doc-dark .doc-table td,
 body.css-doc-light .doc-table td {
   padding: 10px 12px;
   border-top: 1px solid var(--line);
   color: var(--text);
 }
+body.css-doc-dark .doc-table tbody tr:nth-child(odd) td,
 body.css-doc-light .doc-table tbody tr:nth-child(odd) td {
-  background: rgba(0,0,0,.02);
+  background: var(--bg-tr-odd);
 }
 
+
 /* Code panels */
-body.css-doc-light .codepanel {
+body.css-doc-light .codepanel,
+body.css-doc-dark .codepanel  {
   background: var(--bg-2);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 10px;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.02);
   margin-top: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14px;
 }
-body.css-doc-light .codepanel textarea, p.codepanel  {
+body.css-doc-light .codepanel textarea,
+body.css-doc-dark .codepanel textarea {
   width: 100%;
   height: 100%;
   background: transparent;
@@ -431,24 +364,24 @@ body.css-doc-light .codepanel textarea, p.codepanel  {
   border: none;
   outline: none;
   resize: none;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.9rem;
+  font-family: inherit;
+  font-size: inherit;
   line-height: 1.5;
-
 }
-body.css-doc-light .codepanel textarea.script { background: #f3f4f6; }
 
 /* Note box */
+body.css-doc-light .note,
 body.css-doc-light .note {
-  background: rgba(37,99,235,.06);
-  border: 1px solid rgba(37,99,235,.2);
+  background: var(--bg-note);
+  border: 1px solid var(--border-note);
   border-radius: 10px;
   padding: 10px 12px;
   color: var(--text);
 }
 
 /* Footer */
-body.css-doc-light .foot {
+body.css-doc-light .foot,
+body.css-doc-dark .foot {
   margin-top: 28px;
   padding-top: 16px;
   border-top: 1px dashed var(--line);
@@ -460,17 +393,6 @@ body.css-doc-light .foot {
   color: var(--muted);
   font-size: 14px;
 }
-
-/* Diff highlight (your script uses <span class="red">...) */
-body.css-doc-light .red { color: #dc2626; }
-
-/* Focus styles */
-body.css-doc-light a:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37,99,235,.4);
-  border-radius: 6px;
-}
-
 
 /*
 // ####################################################################################################

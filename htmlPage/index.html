@@ -10,7 +10,15 @@
 <body class="css-doc-dark">
 <!-- <body class="css-doc-light"> -->
 <header>
+    <header class="app-header">
+  <div>
+    <div class="dark-light-mode-switch">
+        <button class="dark-light-mode-btn light" onclick="lightMode()">light</button>
+        <button class="dark-light-mode-btn dark" onclick="darkMode()">dark</button>
+    </div>
     <h1>My html page</h1>
+    </div>
+
 </header>
 
     <main>
@@ -30,13 +38,19 @@
             <p>
                 This is a paragraph of text. It contains some <b>bold</b> text to highlight terms, some
                 <i>italic</i> text to reference or quote other sources, some <c>code</c> snippets and of course you
-                can include <a href="https://www.example.com">links</a> to other pages. You can also include
-                code panels:
+                can include <a href="https://www.example.com">links</a> to other pages. <br/>
+                You can also include code boxes:
             </p>
             <p class="codepanel">       
-                const example = "This is a code panel" 
+                const example = "This is a code boxe" 
                 function exampleFunc() { return example}
             </p>
+            <p>
+                and note boxes:
+            </p>
+            <div class="note">
+                <b>Note:</b> This page demonstrates the use of b.CSS and b.JS for styling and functionality. You can switch between light and dark modes using the buttons at the top right.
+            </div>
         </section>
 
         <section>
@@ -205,7 +219,7 @@
 
     <footer class="foot">
         <span><span class="kbd">//</span> Built with plain JS & CSS</span>
-        <span>© <script>document.write(new Date().getFullYear())</script> Mario Hamidi</span>
+        <span>© <script>document.write(new Date().getFullYear())</script> Mo Hi</span>
     </footer>
 
     <script src="../basis/js/b.js"></script>
@@ -284,7 +298,7 @@
             for (let i = 0; i < Math.max(lines_Source.length, lines_Back.length); i++) {
                 if (lines_Source[i] !== lines_Back[i]) {
                     flag = false
-                    diff.innerHTML += `<span class="red">${lines_Source[i] || ''}</span><br>`
+                    diff.innerHTML += `<span>${lines_Source[i] || ''}</span><br>`
                 }
             }
             if (flag) diff.innerHTML += `None`
@@ -349,6 +363,17 @@ Add Tables:
             });
             }
         convertPCodepanelNewlines()
+    </script>
+    <script>
+        function lightMode() {
+            document.body.removeClassX("css-doc-dark");
+            document.body.addClassX("css-doc-light");
+        }
+
+        function darkMode() {
+            document.body.removeClassX("css-doc-light");
+            document.body.addClassX("css-doc-dark");
+        }
     </script>
     </body>
     </html>
