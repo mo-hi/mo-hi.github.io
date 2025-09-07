@@ -1,20 +1,50 @@
-class MyMarkDown {
-    constructor() {
+class clsMarkDown {
+    static toHTML(markupText) {
+        assert(typOf(markupText) == 'str')
+        let htmlText = ""
+        let _this = new _MyMarkDown_FunktionHelpers()
+        htmlText = _this._remove_First_Last_NonChars(markupText)
+        htmlText = _this._remove_BlanksAtStartAndEndOfLines(htmlText)
+        htmlText = _this._MyMarkDown_FeaturesWithoutBrackets_Apply(htmlText)
+        htmlText = _this._MyMarkDown_Patterns3_Apply(htmlText, ["[", "::", "]"])
+        htmlText = _this._MyMarkDown_Patterns2_Apply(htmlText, ["[", "]"])
+
+        return htmlText;
     }
+
+    static HTMLtoMyMarkdown(htmlText) {
+        assert(typOf(htmlText) == 'str')
+        let markupText = ""
+
+        let _this = new _MyMarkDown_FunktionHelpers()
+        markupText = _this._BackToMyMarkDown_FeaturesWithoutBrackets_Apply(htmlText)
+
+        markupText = _this._BackToMyMarkDown_Patterns2_Apply(markupText)
+
+        markupText = _this._BackToMyMarkDown_Patterns3_Apply(markupText)
+
+        return markupText;
+        }
+}
 
 // ################################################################
 // MarkDown   -> HTML                                             #
 // ################################################################
 
-toHTML(markupText) {
-    assert(typOf(markupText) == 'str')
-    let htmlText = ""
-    htmlText = this._MyMarkDown_FeaturesWithoutBrackets_Apply(markupText)
-    htmlText = this._MyMarkDown_Patterns3_Apply(htmlText, ["[", "::", "]"])
-    htmlText = this._MyMarkDown_Patterns2_Apply(htmlText, ["[", "]"])
+class _MyMarkDown_FunktionHelpers {
+    _remove_First_Last_NonChars(text) {
+        while (text.startsWith('\n') || text.startsWith(' ') || text.startsWith('\t')) text = text.slice(1)
+        while (text.endsWith('\n') || text.endsWith(' ') || text.endsWith('\t')) text = text.slice(0, -1)
+        return text
+    }
 
-    return htmlText;
-}
+    _remove_BlanksAtStartAndEndOfLines(text) {
+        let lines = text.split('\n')
+        for (let i = 0; i < lines.length; i++) {
+            lines[i] = lines[i].trim()
+        }
+        return lines.join('\n')
+    }
 
  _MyMarkDown_FeaturesWithoutBrackets_Apply(text) {
     // new line
@@ -173,18 +203,7 @@ _PatternsFound3(text, patternL) {
 // ################################################################
 
 
-HTMLtoMyMarkdown(htmlText) {
-    assert(typOf(htmlText) == 'str')
-    let markupText = ""
 
-    markupText = this._BackToMyMarkDown_FeaturesWithoutBrackets_Apply(htmlText)
-
-    markupText = this._BackToMyMarkDown_Patterns2_Apply(markupText)
-
-    markupText = this._BackToMyMarkDown_Patterns3_Apply(markupText)
-
-    return markupText;
-    }
 
 _BackToMyMarkDown_FeaturesWithoutBrackets_Apply(text) {
 

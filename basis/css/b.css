@@ -135,6 +135,553 @@
 
 /*
 // ####################################################################################################
+// #                                           css-doc-dark                                           #
+// ####################################################################################################
+*/
+/* ===== Dark theme tokens ===== */
+body.css-doc-dark {
+  --bg: #0b0d12;
+  --card: #0f131a;
+  --header: #BBB;
+  --text: #e5e7eb;
+  --muted: #9aa4b2;
+  --line: #BBB;
+  --accent: #60a5fa;
+  --accent-2: #34d399;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0,0,0,.35);
+
+  --bg-1: #222222;    /* brightness step 1 */
+  --bg-2: #444444;    /* brightness step 2 */
+  --bg-3: #666666;    /* brightness step 3 */
+
+  margin: 0;
+  font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  max-width: 980px;
+  padding: 40px 20px 80px;
+  margin-left: auto;
+  margin-right: auto;
+
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.08), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(52,211,153,.07), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* ===== Header ===== */
+body.css-doc-dark h1,
+body.css-doc-dark h2,
+body.css-doc-dark h3 {
+  color: var(--header);
+}
+
+/* Section spacing */
+body.css-doc-dark section { margin-top: 24px; padding-top: 8px; }
+
+/* Paragraphs & links */
+body.css-doc-dark p { margin: 0 0 10px 0; }
+body.css-doc-dark a { color: var(--accent); text-decoration: none; }
+body.css-doc-dark a:hover { text-decoration: underline; }
+
+/* Inline code tag (<c>) */
+body.css-doc-dark c,
+body.css-doc-dark code,
+body.css-doc-dark kbd,
+body.css-doc-dark .kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+body.css-doc-dark c {
+  background: rgba(148,163,184,.15);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 .35rem;
+}
+
+/* Underline + Sticky (renamed to avoid using original utility classes) */
+body.css-doc-dark .h-underline {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3px;
+  margin-bottom: 8px;
+}
+body.css-doc-dark .h-sticky {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to bottom, rgba(11,13,18,.9), rgba(11,13,18,.75));
+  backdrop-filter: blur(4px);
+  border-bottom: 2px solid var(--line);
+  z-index: 10;
+  padding-bottom: 3px;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Table container + table */
+body.css-doc-dark .table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  margin: 8px 0 12px;
+}
+body.css-doc-dark .doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+body.css-doc-dark .doc-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  background: #131823;
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+}
+body.css-doc-dark .doc-table td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+body.css-doc-dark .doc-table tbody tr:nth-child(odd) td {
+  background: rgba(255,255,255,.02);
+}
+
+/* Code panels */
+body.css-doc-dark .codepanel {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+  margin-top: 8px;
+}
+body.css-doc-dark .codepanel textarea, p.codepanel {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+body.css-doc-dark .codepanel textarea.script { background: #111827; }
+
+
+/* Note box */
+body.css-doc-dark .note {
+  background: rgba(96,165,250,.08);
+  border: 1px solid rgba(96,165,250,.25);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--text);
+}
+
+/* Footer */
+body.css-doc-dark .foot {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Diff highlight (your script uses <span class="red">...) */
+body.css-doc-dark .red { color: #f87171; }
+
+/* Focus styles */
+body.css-doc-dark a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99,102,241,.55);
+  border-radius: 6px;
+}
+
+
+/*
+// ####################################################################################################
+// #                                          css-doc-light                                           #
+// ####################################################################################################
+*/
+/* ===== Light theme tokens ===== */
+body.css-doc-light {
+  --bg: #ffffff;
+  --card: #f9fafb;
+  --header: #111827;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: #d1d5db;
+  --accent: #2563eb;
+  --accent-2: #059669;
+  --radius: 14px;
+  --shadow: 0 4px 12px rgba(0,0,0,.08);
+
+  --bg-1: #fafafa;  /* darkness step 1 */
+  --bg-2: #f3f4f6;  /* darkness step 2 */
+  --bg-3: #e5e7eb;  /* darkness step 3 */
+ 
+
+  margin: 0;
+  font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  max-width: 980px;
+  padding: 40px 20px 80px;
+  margin-left: auto;
+  margin-right: auto;
+
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(37,99,235,.06), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(16,185,129,.06), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* ===== Header ===== */
+body.css-doc-light h1,
+body.css-doc-light h2,
+body.css-doc-light h3 {
+  color: var(--header);
+}
+
+/* Section spacing */
+body.css-doc-light section { margin-top: 24px; padding-top: 8px; }
+
+/* Paragraphs & links */
+body.css-doc-light p { margin: 0 0 10px 0; }
+body.css-doc-light a { color: var(--accent); text-decoration: none; }
+body.css-doc-light a:hover { text-decoration: underline; }
+
+/* Inline code tag (<c>) */
+body.css-doc-light c,
+body.css-doc-light code,
+body.css-doc-light kbd,
+body.css-doc-light .kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+body.css-doc-light c {
+  background: rgba(0,0,0,.04);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 .35rem;
+}
+
+/* Underline + Sticky (renamed to avoid using original utility classes) */
+body.css-doc-light .h-underline {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3px;
+  margin-bottom: 8px;
+}
+body.css-doc-light .h-sticky {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,.95), rgba(255,255,255,.85));
+  backdrop-filter: blur(4px);
+  border-bottom: 2px solid var(--line);
+  z-index: 10;
+  padding-bottom: 3px;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Table container + table */
+body.css-doc-light .table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  margin: 8px 0 12px;
+}
+body.css-doc-light .doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+body.css-doc-light .doc-table thead th {
+  text-align: left;
+  padding: 10px 12px;
+  background: #f3f4f6;
+  color: var(--header);
+  border-bottom: 1px solid var(--line);
+}
+body.css-doc-light .doc-table td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+}
+body.css-doc-light .doc-table tbody tr:nth-child(odd) td {
+  background: rgba(0,0,0,.02);
+}
+
+/* Code panels */
+body.css-doc-light .codepanel {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.02);
+  margin-top: 8px;
+}
+body.css-doc-light .codepanel textarea, p.codepanel  {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+
+}
+body.css-doc-light .codepanel textarea.script { background: #f3f4f6; }
+
+/* Note box */
+body.css-doc-light .note {
+  background: rgba(37,99,235,.06);
+  border: 1px solid rgba(37,99,235,.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--text);
+}
+
+/* Footer */
+body.css-doc-light .foot {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Diff highlight (your script uses <span class="red">...) */
+body.css-doc-light .red { color: #dc2626; }
+
+/* Focus styles */
+body.css-doc-light a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.4);
+  border-radius: 6px;
+}
+
+
+/*
+// ####################################################################################################
+// #                                         css-landing-dark                                         #
+// ####################################################################################################
+*/
+/* ===== Dark theme scope (applies only with <body class="css-landing-dark">) ===== */
+body.css-landing-dark {
+  --bg: #0b0d12;
+  --card: #1a1f29;
+  --header: #BBB;
+  --text: #e5e7eb;
+  --muted: #9aa4b2;
+  --line: #1f2937;
+  --accent: #60a5fa;
+  --accent-2: #34d399;
+  --code: #e5e7eb;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0,0,0,.35);
+
+  --bg-1: #1a2332;    /* brightness step 1 */
+  --bg-2: #1f2937;    /* brightness step 2 */
+  --bg-3: #374151;    /* brightness step 3 */
+
+  /* body acts as container */
+  margin: 0;
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  max-width: 980px;
+  padding: 48px 20px 80px;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* background + text */
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.08), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(52,211,153,.07), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* ===== Header (simplified) ===== */
+body.css-landing-dark header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+body.css-landing-dark header .logo {
+  /* h1.logo */
+  display: inline-flex;          /* shrink-wrap to content */
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;               /* horizontal padding around text */
+  height: 42px;                  /* fixed height */
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  letter-spacing: .5px;
+  font-size: 1.2rem;             /* fits h1 nicely */
+  margin: 0;                     /* reset default h1 margins */
+  margin-right: 14px;            /* space before next text */
+}
+
+
+body.css-landing-dark header .subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ===== Intro card ===== */
+body.css-landing-dark .intro {
+  padding: 18px 18px 20px;
+}
+
+body.css-landing-dark .intro p {
+  margin: 0;
+}
+
+/* ===== Grid of project cards ===== */
+body.css-landing-dark .grid {
+  margin-top: 22px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Card */
+body.css-landing-dark .card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+body.css-landing-dark .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  border-color: rgba(99,102,241,.6);
+}
+
+/* header row inside card */
+body.css-landing-dark .card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* GitHub link style */
+body.css-landing-dark .gh-link {
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 2px 8px;
+  border-radius: 6px;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+body.css-landing-dark .gh-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(96,165,250,.08);
+}
+
+
+body.css-landing-dark .card h2 {
+  font-size: 16px;
+  margin: 0;
+  letter-spacing: .2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color:var(--header);
+}
+
+body.css-landing-dark .card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Links list inside cards */
+body.css-landing-dark ul.links {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: grid;
+  gap: 6px;
+}
+
+body.css-landing-dark ul.links li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+body.css-landing-dark ul.links li a .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--accent);
+  opacity: .9;
+}
+
+body.css-landing-dark ul.links li a:hover {
+  color: var(--accent);
+}
+
+/* ===== Footer ===== */
+body.css-landing-dark .foot {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+body.css-landing-dark .kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: rgba(148,163,184,.15);
+  border: 1px solid var(--line);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* ===== Focus styles ===== */
+body.css-landing-dark a { outline: none; }
+body.css-landing-dark a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(99,102,241,.55);
+  border-radius: 6px;
+}
+
+
+/*
+// ####################################################################################################
 // #                                             display                                              #
 // ####################################################################################################
 */
@@ -440,7 +987,6 @@ h1.underline::after {
 
 h2 {
     margin: 20px 0;
-    color: #333;
     font-weight: 700;
 }
 
@@ -454,7 +1000,6 @@ h2.underline {
     font-size: 1.5em;
     font-weight: 700;
     text-align: left;
-    color: #333;
 }
 
 h2.underline::after {
@@ -540,191 +1085,6 @@ hr.fade-grey {
     background-repeat: no-repeat;
     background-size: 100% 2px;
 }
-
-/*
-// ####################################################################################################
-// #                                           landing-dark                                           #
-// ####################################################################################################
-*/
-/* ===== Dark theme scope (applies only with <body class="css-landing-dark">) ===== */
-body.css-landing-dark {
-  /* design tokens */
-  --bg: #0b0d12;
-  --card: #0f131a;
-  --text: #e5e7eb;
-  --muted: #9aa4b2;
-  --line: #1f2937;
-  --accent: #60a5fa;
-  --accent-2: #34d399;
-  --code: #e5e7eb;
-  --radius: 14px;
-  --shadow: 0 8px 24px rgba(0,0,0,.35);
-
-  /* body acts as container */
-  margin: 0;
-  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  max-width: 980px;
-  padding: 48px 20px 80px;
-  margin-left: auto;
-  margin-right: auto;
-
-  /* background + text */
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(96,165,250,.08), transparent 60%),
-    radial-gradient(1000px 500px at 100% 0%, rgba(52,211,153,.07), transparent 60%),
-    var(--bg);
-  color: var(--text);
-}
-
-/* ===== Header (simplified) ===== */
-body.css-landing-dark header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
-}
-
-body.css-landing-dark header .logo {
-  /* h1.logo */
-  display: inline-flex;          /* shrink-wrap to content */
-  align-items: center;
-  justify-content: center;
-  padding: 0 12px;               /* horizontal padding around text */
-  height: 42px;                  /* fixed height */
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: white;
-  font-weight: 800;
-  box-shadow: var(--shadow);
-  letter-spacing: .5px;
-  font-size: 1.2rem;             /* fits h1 nicely */
-  margin: 0;                     /* reset default h1 margins */
-  margin-right: 14px;            /* space before next text */
-}
-
-
-body.css-landing-dark header .subtitle {
-  margin: 0;
-  color: var(--muted);
-}
-
-/* ===== Intro card ===== */
-body.css-landing-dark .intro {
-  padding: 18px 18px 20px;
-}
-
-body.css-landing-dark .intro p {
-  margin: 0;
-}
-
-/* ===== Grid of project cards ===== */
-body.css-landing-dark .grid {
-  margin-top: 22px;
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-/* Card */
-body.css-landing-dark .card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 16px 16px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-
-body.css-landing-dark .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(0,0,0,.45);
-  border-color: rgba(99,102,241,.6);
-}
-
-body.css-landing-dark .card h2 {
-  font-size: 16px;
-  margin: 0;
-  letter-spacing: .2px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-body.css-landing-dark .card h2 .badge {
-  font-size: 12px;
-  color: var(--muted);
-  border: 1px dashed var(--line);
-  border-radius: 5px;
-  padding: 2px 6px;
-}
-
-body.css-landing-dark .card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* Links list inside cards */
-body.css-landing-dark ul.links {
-  list-style: none;
-  padding: 0;
-  margin: 6px 0 0;
-  display: grid;
-  gap: 6px;
-}
-
-body.css-landing-dark ul.links li a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--text);
-}
-
-body.css-landing-dark ul.links li a .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 99px;
-  background: var(--accent);
-  opacity: .9;
-}
-
-body.css-landing-dark ul.links li a:hover {
-  color: var(--accent);
-}
-
-/* ===== Footer ===== */
-body.css-landing-dark .foot {
-  margin-top: 28px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-body.css-landing-dark .kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  background: rgba(148,163,184,.15);
-  border: 1px solid var(--line);
-  padding: 2px 6px;
-  border-radius: 6px;
-}
-
-/* ===== Focus styles ===== */
-body.css-landing-dark a { outline: none; }
-body.css-landing-dark a:focus-visible {
-  box-shadow: 0 0 0 3px rgba(99,102,241,.55);
-  border-radius: 6px;
-}
-
 
 /*
 // ####################################################################################################

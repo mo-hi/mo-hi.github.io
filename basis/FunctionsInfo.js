@@ -319,8 +319,20 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".until",
-        "docstring": "returns a substring, starting from the beginning (index 0) and going up to, but not including, the first occurrence of a specified text",
+        "docstring": "returns a substring, starting from the beginning (index 0) and going up to, but not including, the first occurrence of a specified text\nIf the specified text is not found, it returns the entire string. If the specified text is an empty string, it also returns the entire string.",
         "parameters": "text",
+        "region": "String objects"
+    },
+    {
+        "name": ".count",
+        "docstring": "returns the number of occurrences of a specified character in the string",
+        "parameters": "c",
+        "region": "String objects"
+    },
+    {
+        "name": ".countBeginningChars",
+        "docstring": "* returns the count of characters from the beginning of the string that are in the provided list of characters.\n * If the string is empty, it returns 0.",
+        "parameters": "listOfChars",
         "region": "String objects"
     },
     {
@@ -379,7 +391,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".replaceN",
-        "docstring": "replaced all occurences of a specified text with another text up to n times. This is a alternative for regex replace, which might in some cases not work as expected.",
+        "docstring": "replaced N occurences of a specified text with another text up to n times.",
         "parameters": "re, place, n = 1000",
         "region": "String objects"
     },

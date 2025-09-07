@@ -1797,6 +1797,7 @@ Object.defineProperties(Object.prototype, {
 
 /** 
 returns a substring, starting from the beginning (index 0) and going up to, but not including, the first occurrence of a specified text
+If the specified text is not found, it returns the entire string. If the specified text is an empty string, it also returns the entire string.
 */
 Object.defineProperties(String.prototype, {
     until: {
@@ -1810,6 +1811,38 @@ Object.defineProperties(String.prototype, {
         }
     } 
 });
+
+
+/**
+returns the number of occurrences of a specified character in the string
+*/
+Object.defineProperties(String.prototype, {
+    count: {
+        value: function(c) {
+            return this.split(c).length - 1;
+        }
+    }
+});
+/** 
+ * returns the count of characters from the beginning of the string that are in the provided list of characters.
+ * If the string is empty, it returns 0.
+*/
+Object.defineProperties(String.prototype, {
+    countBeginningChars: {
+        value: function(listOfChars) {
+            if (this.length === 0) return 0;
+
+            let count = 0;
+            for (let i = 0; i < this.length; i++) {
+                if (listOfChars.includes(this[i])) {
+                    count++;} 
+                else {
+                    break}
+            }
+            return count;
+        }
+    }
+    });
 
 /** 
 returns a substring, starting from, but not including, the first occurrence of a specified text until the end of the ego string
@@ -1948,7 +1981,7 @@ Object.defineProperties(String.prototype, {
 });
 
 /**
-replaced all occurences of a specified text with another text up to n times. This is a alternative for regex replace, which might in some cases not work as expected.
+replaced N occurences of a specified text with another text up to n times.
 */
 Object.defineProperties(String.prototype, {
     replaceN: {

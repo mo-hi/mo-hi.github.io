@@ -1,211 +1,299 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Mo Hi">
     <title>My HTML Page</title>
-    <link rel="stylesheet" href="../basis/css/b.css">
-    <style>
-        :root       {--color-background: #f0f0f0;--color-text: #444;}
-        body        {background-color: var(--color-background); color: var(--color-text);}
-        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
-        div.sticky   {background-color: var(--color-background); color: var(--color-text);}
-        textarea    {background-color: var(--color-background); color: var(--color-text);}
-        #id-end     {background-color: var(--color-background); color: var(--color-text);}
-    </style>
+    <link rel="stylesheet" href="../basis/css/b.css"/>
 </head>
-<body class="academic wr-800-400">
+<body class="css-doc-dark">
+<!-- <body class="css-doc-light"> -->
+<header>
     <h1>My html page</h1>
-    <!-- headers------------------------------------------------------------------->
-    <section class="mb-100">
-        <h2 class="">header</h2>
-        <h2 class="underline">underline header</h2>
-        <h2 class="underline sticky">underline sticky header</h2>
-        <h2 class="inline-block">inline Header </h2>
-        <h2 class="inline-block h2-not-bold"> (with not bold part)</h2>
+</header>
+
+    <main>
+        <!-- headers------------------------------------------------------------------->
+        <section class="section">
+            <h2>header</h2>
+            <h2 class="h-underline">underline header</h2>
+            <h2 class="h-underline h-sticky">underline sticky header</h2>
+            <br/>
+        </section>
+
+        <!-- text------------------------------------------------------------------------>
+        <section class="section">
+            <h2 class="h-underline h-sticky">Text</h2>
+
+            <h3>Standard Text</h3>
+            <p>
+                This is a paragraph of text. It contains some <b>bold</b> text to highlight terms, some
+                <i>italic</i> text to reference or quote other sources, some <c>code</c> snippets and of course you
+                can include <a href="https://www.example.com">links</a> to other pages. You can also include
+                code panels:
+            </p>
+            <p class="codepanel">       
+                const example = "This is a code panel" 
+                function exampleFunc() { return example}
+            </p>
+        </section>
+
+        <section>
+        <h2 class="h-underline h-sticky">Auto Fill</h2>
+        <p>
+            You can automatically fill test using the <c>Auto_Fil</c> function. It can be seamlessly integrated into your html.
+
+        </p>
+        <p id="id-text-01">
+            -> {{text-01}} {{text-02}}
+        </p>
         <br>
-        <div class="underline">
-            <h2 class="inline-block">inline underline Header </h2>
-            <h2 class="inline-block h2-not-bold"> (with not bold part)</h2>
-        </div>
-
-        <div class="underline sticky">
-            <h2 class="inline-block">inline underline sticky Header </h2>
-            <h2 class="inline-block h2-not-bold"> (with not bold part)</h2>
-        </div>
-    </section>
-
-    <!-- text------------------------------------------------------------------------>
-    <section class="mb-100">
-        <h2 class="underline sticky">Text</h2>
-        <h3>Standard Text</h3>
         <p>
-            This is a paragraph of text. It contains some <b>bold</b> text to highlight terms, some <i>italic</i> text to reference or quote other sources,
-            some <c>code</c> and of course you can include <a href="https://www.example.com">links</a> to other pages.
+             The text <b>data</b> must be a list of dictionaries. In this case there's one dictionary element, with two keys: text-01 and text-02
         </p>
-        <h3>AutoFill Text</h3>
-        <p id = "id-text-01">
-            {{text-01}} {{text-02}}
-        </p>
-
-        <p id = "id-text-02">
-            {{text-01}} <br>
+        <p class="codepanel">
+         let textToFill = [
+            {
+                "text-01":"This text was filled in via the Auto_Fill function. ",
+                "text-02":"And this text was also filled in via the Auto_Fill function. "
+            }
         </p>
 
-        
-        <h3>AutoFill Table</h3>
         <p>
-            The Auto_Fill function works also for tables. As the repeatiton happens on the table body, you need to provide
-            the table body id to the Auti_Fill function<br><br>
-            <table class="border border-cells border-headers padding-5 w-100">
-                <thead>
-                    <tr>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th>River</th>
-                        <th>Food</th>
-                    </tr>
-                </thead>
-                <tbody id="id-tbody-01">
-                    <tr>
-                        <td>{{Country}}</td>
-                        <td>{{City}}</td>
-                        <td>{{River}}</td>
-                        <td>{{Food}}</td>
-                    </tr>
-                </tbody>
+            In your <b>html</b> you need to provide the target id and the keys in double curly brackets {{key}}:
+        </p>
+        <p class="codepanel">
+            &lt;p id="id-text-01"&gt;
+                -> {{text-01}} {{text-02}} 
+            &lt;/p&gt;</pre>
+        </p>
+        <p> 
+            In your <b>script</b> part you have to call<c>Auto_Fill</c>
+        </p>
+        <p class="codepanel">
+            Auto_Fill(textToFill,"id-text-01")
+        </p>
+        <br/>
+
+        <p>
+            The Auto_Fill function works also for mutliple entries. This table was filled via AutoFill:
+        </p>
+        <div class="table-wrap">
+            <table class="doc-table">
+            <thead>
+                <tr>
+                <th>Country</th>
+                <th>City</th>
+                <th>River</th>
+                <th>Food</th>
+                </tr>
+            </thead>
+            <tbody id="id-tbody-01">
+                <tr>
+                <td>{{Country}}</td>
+                <td>{{City}}</td>
+                <td>{{River}}</td>
+                <td>{{Food}}</td>
+                </tr>
+            </tbody>
             </table>
+        </div>
+        <br/>
+        <p>
+            The data:
+        </p>
+        <p class="codepanel">
+            let tableToFill = [
+                {"Country": "Germany", "City": "Munich", "River": "Isar", "Food": "Beer"},
+                {"Country": "France", "City": "Paris", "River": "Seine", "Food": "Baguette"},
+                {"Country": "Italy", "City": "Rome", "River": "Tiber", "Food": "Pasta"},
+                {"Country": "Spain", "City": "Madrid", "River": "Manzanares", "Food": "Paella"},
+                {"Country": "Japan", "City": "Tokyo", "River": "Sumida", "Food": "Sushi"},
+                {"Country": "USA", "City": "New York", "River": "Hudson", "Food": "Burger"}
+            ]
+        </p>    
+        <p>
+        The html:
+        <p class="codepanel">
+                &lt;table&gt;
+                    &lt;thead&gt;
+                        &lt;tr&gt;
+                            &lt;th&gt;Country&lt;/th&gt;
+                            &lt;th&gt;City&lt;/th&gt;
+                            &lt;th&gt;River&lt;/th&gt;
+                            &lt;th&gt;Food&lt;/th&gt;
+                        &lt;/tr&gt;
+                    &lt;/thead&gt;
+                    &lt;tbody id="id-tbody-01"&gt;
+                        &lt;tr&gt;
+                            &lt;td&gt;{{Country}}&lt;/td&gt;
+                            &lt;td&gt;{{City}}&lt;/td&gt;
+                            &lt;td&gt;{{River}}&lt;/td&gt;
+                            &lt;td&gt;{{Food}}&lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/tbody&gt;
+                &lt;/table&gt;
         </p>
 
-        <h3>Show Ego HTML Code</h3>
-        <div id = "id-html-code">
-            <div>
-                <div>
+        <p>
+            The code:
+        </p>
+        <p class="codepanel">
+            Auto_Fill(tableToFill,"id-tbody-01")
+        </p>
+        </section>
+
+        <section>
+            <h2 class="h-underline h-sticky">Show Ego Code</h2>
+            <p id="id-html-code">
+
                     With the function <c>ShowHTMLinTextArea</c> you can display the html code of the ego html page, 
                     explaining the structure of your site. In contrast to Auto_Fill you need to pass over the actual
                     DOM elements, the source element whos innerHTML shall be exposed and the target div where the innerHTML
-                    shall be shown. It's usefull to also add a height class to the target (<c>h-180</c>)
-                </div>
-                
-                <br>
+                    shall be shown.
+            </p>
+            <br/>
+            HTML
+            <div id="id-html-code-show" class="codepanel h-140">
+
             </div>
+            <br/>
+            <p>
+                The function <c>ShowHTMLinTextArea</c> works also for script parts. When the third argument is set to true,
+                then the outerHTML is shown.
+            </p>
+            JS
+            <div id="id-script-code-show-outer" class="codepanel h-140">
+
+            </div>
+        </section>
+
+        <!-- markdown------------------------------------------------------------------->
+        <section>
+        <h2 class="h-underline h-sticky">MarkDown</h2>
+        <p>
+            The class <c>clsMarkDown</c> can convert markdown text to HTML and back from HTML to markdown.
+            The functionality is demonstrated below:
+        </p>
+        <div id="id-markdown-use" class="h-20"></div>
+
+        <div class="table-wrap">
+            <table class="doc-table">
+            <tr>
+                <td class="w-50">Source (markdown)</td>
+                <td class="w-50">Back from HTML</td>
+            </tr>
+            <tr>
+                <td><textarea id="id-markdown-textarea" class="h-400 w-100"></textarea></td>
+                <td><textarea id="id-markdown-textarea-back" class="h-400 w-100"></textarea></td>
+            </tr>
+            <tr>
+                <td>HTML Code</td>
+                <td>HTML Output</td>
+            </tr>
+            <tr>
+                <td><div id="id-markdown-output-code" class="codepanel h-400"></div></td>
+                <td><div id="id-markdown-output-html" class="codepanel h-700"></div></td>
+            </tr>
+            </table>
         </div>
-        <div id = "id-html-code-show" class = "h-180"></div>
 
-        <h3> Show Ego Javascript Code</h3>
-        The function <c>ShowHTMLinTextArea</c> works also for script parts. If a script element was identified, 
-        then by default the backgroundcolor is grey.
-        <div id = "id-script-code-show" class = "h-160"></div>
-        <br>
-        When you set the second argument to true, then the outerHTML is shown
-        <div id = "id-script-code-show-outer" class = "h-180"></div>
-    </section>
+        <div id="id-diff"></div>
+        </section>
+    </main>
 
-    <!-- markdown------------------------------------------------------------------------>
-    <section class="mb-100">
-    <h2 class="underline sticky">MarkDown</h2>
-    <h3>Markdown to HTML</h3>
-    <div id="id-markdown-use" class = "h-20"></div>
-    <table class="w-100">
-        <tr>
-            <td class="w-50">Source</td>
-            <td class="w-50">Back from HTML</td>
-        </tr>
-        <tr>
-            <td class="w-50 h-200"><textarea id="id-markdown-textarea"  class="h-400 w-95"></textarea></td>
-            <td class="w-50 h-200"><textarea id="id-markdown-textarea-back" class="h-400 w-95"></textarea></td>
-        </tr>
-    </table>
-    <div id = "id-diff">
+    <footer class="foot">
+        <span><span class="kbd">//</span> Built with plain JS & CSS</span>
+        <span>© <script>document.write(new Date().getFullYear())</script> Mario Hamidi</span>
+    </footer>
 
-    </div>
-    
-    <div class="mt-15">
-    HTML Code
-    <div id="id-markdown-output-code" class="h-280 border w-95"></div></td>
-    <br>
-    HTML Output
-    <div id="id-markdown-output-html" class="h-600 border w-95"></td>
+    <script src="../basis/js/b.js"></script>
+    <script src="MyMarkDown.js"></script>
 
-    </section>
-
-</body>
-<script src="../basis/js/b.js"></script>
-<script src="MyMarkDown.js"></script>
-
-<!-- Autofill-->
-<script >
-    let textToFill = [
+    <!-- Autofill-->
+    <script>
+        let textToFill = [
         {
             "text-01":"This text was filled in via the Auto_Fill function. ",
-            "text-02":" It is repacing the {{key}} in your html. The text data must be a list of dictionaries. In this case there's one dictionary element."
+            "text-02":"And this text was also filled in via the Auto_Fill function. "
         }
-    ]
-    Auto_Fill(textToFill,"id-text-01")
+        ]
+        Auto_Fill(textToFill,"id-text-01")
 
+        textToFill = [
+        { "text-01": "You can create repeatative text by mutliple dictionaries" },
+        { "text-01": "For each element the complete innerHTML of your target ID will be duplicated" },
+        { "text-01": "This is the third" },
+        { "text-01": "... and the fourth element" }
+        ]
+        Auto_Fill(textToFill,"id-text-02")
 
-    textToFill = [
-        {
-            "text-01": "You can create repeatative text by mutliple dictionaries"
-        },
-        {
-            "text-01": "For each element the complete innerHTML of your target ID will be duplicated"
-        },
-        {
-            "text-01": "This is the third"
-        },
-        {
-            "text-01": "... and the fourth element"
+        let tableToFill = [
+        {"Country": "Germany", "City": "Munich", "River": "Isar", "Food": "Beer"},
+        {"Country": "France", "City": "Paris", "River": "Seine", "Food": "Baguette"},
+        {"Country": "Italy", "City": "Rome", "River": "Tiber", "Food": "Pasta"},
+        {"Country": "Spain", "City": "Madrid", "River": "Manzanares", "Food": "Paella"},
+        {"Country": "Japan", "City": "Tokyo", "River": "Sumida", "Food": "Sushi"},
+        {"Country": "USA", "City": "New York", "River": "Hudson", "Food": "Burger"}
+        ]
+        Auto_Fill(tableToFill,"id-tbody-01")
+    </script>
+
+    <script id="id-script-code">
+        function div (id) {return document.getElementById(id)}
+        //
+        ShowHTMLinTextArea(div("id-html-code"), div("id-html-code-show"))
+        ShowHTMLinTextArea(div("id-script-code"), div("id-script-code-show-outer"), true)
+    </script>
+
+    <script id="id-script-markdown">
+        function div (id) {return document.getElementById(id)}
+        //
+        ShowHTMLinTextArea(div("markdown-html"), div("markdown-html-show"))
+        ShowHTMLinTextArea(div("id-script-markdown"), div("markdown-js-show"), true)
+        // the actual use of the MyMarkDown class:
+        div("markdown-html").innerHTML = clsMarkDown.toHTML(div("markdown-html").innerHTML)
+    </script>
+
+    <script>
+        const textareaSource = document.getElementById("id-markdown-textarea")
+        const markdownOutputHTML = document.getElementById("id-markdown-output-html")
+        const textarea_back = document.getElementById("id-markdown-textarea-back")
+
+        function handleTextareaChange() {
+            let htmlContent = clsMarkDown.toHTML(textareaSource.value)
+            markdownOutputHTML.innerHTML = htmlContent
+            textarea_back.value = clsMarkDown.HTMLtoMyMarkdown(htmlContent)
+
+            if (document.getElementById("id-markdown-output-code").firstElementChild) {
+                document.getElementById("id-markdown-output-code").firstElementChild.remove()
+            }
+            ShowHTMLinTextArea(document.getElementById("id-markdown-output-html"), 
+                document.getElementById("id-markdown-output-code"))
+            checkDifferences()
         }
-    ]
-    Auto_Fill(textToFill,"id-text-02")
 
-    let tableToFill = [
-    {"Country": "Germany", "City": "Munich", "River": "Isar", "Food": "Beer"},
-    {"Country": "France", "City": "Paris", "River": "Seine", "Food": "Baguette"},
-    {"Country": "Italy", "City": "Rome", "River": "Tiber", "Food": "Pasta"},
-    {"Country": "Spain", "City": "Madrid", "River": "Manzanares", "Food": "Paella"},
-    {"Country": "Japan", "City": "Tokyo", "River": "Sumida", "Food": "Sushi"},
-    {"Country": "USA", "City": "New York", "River": "Hudson", "Food": "Burger"}
-    ]
-    Auto_Fill(tableToFill,"id-tbody-01")
-</script>
+        function checkDifferences() {
+            let lines_Source = textareaSource.value.split('\n')
+            let lines_Back = textarea_back.value.split('\n')
+            let diff = document.getElementById("id-diff")
+            diff.innerHTML = "<b>Differences</b><br>"
 
-<script id = "id-script-code">
-    ShowHTMLinTextArea(document.getElementById("id-html-code"), 
-    document.getElementById("id-html-code-show"))
-    
-    ShowHTMLinTextArea(document.getElementById("id-script-code"), 
-    document.getElementById("id-script-code-show"))
+            let flag = true
+            for (let i = 0; i < Math.max(lines_Source.length, lines_Back.length); i++) {
+                if (lines_Source[i] !== lines_Back[i]) {
+                    flag = false
+                    diff.innerHTML += `<span class="red">${lines_Source[i] || ''}</span><br>`
+                }
+            }
+            if (flag) diff.innerHTML += `None`
+        }
 
-    ShowHTMLinTextArea(document.getElementById("id-script-code"), 
-    document.getElementById("id-script-code-show-outer"), true)
-</script>
-
-
-<script>
-    const textareaSource = document.getElementById("id-markdown-textarea")
-    // const markdownOutputCode = document.getElementById("id-markdown-output-code")     will not be directly used
-    const markdownOutputHTML = document.getElementById("id-markdown-output-html")
-    const textarea_back = document.getElementById("id-markdown-textarea-back")
-
-    function handleTextareaChange() {
-        // Convert the textarea content to HTML
-        let htmlContent = new MyMarkDown().toHTML(textareaSource.value);
-        // Update the output div with the converted HTML
-        markdownOutputHTML.innerHTML = htmlContent;
-        // Update the back textarea with the markdown representation of the HTML
-        textarea_back.value = new MyMarkDown().HTMLtoMyMarkdown(htmlContent);
-
-        if (document.getElementById("id-markdown-output-code").firstElementChild) {
-            document.getElementById("id-markdown-output-code").firstElementChild.remove()}
-        ShowHTMLinTextArea(document.getElementById("id-markdown-output-html"), 
-        document.getElementById("id-markdown-output-code"))
-    }
-
-    textareaSource.value = `
-## This is a header
+        textareaSource.value = 
+`## This is a header
 New Lines are automatically taken over
-   Mulit     Spaces    are     taken     over
+Mulit     Spaces    are     taken     over
 [Links::https://www.example.com] can be added
 
 You can add an emtpy checkbox: [ ]
@@ -215,6 +303,7 @@ You can add an filled checkbox: [x]
 
 Add pictures: [(200x100)pic2.png]
 
+Add Tables:
 #table
 #header 1#heaeder 2
 #
@@ -222,33 +311,44 @@ Add pictures: [(200x100)pic2.png]
 #val A#val B
 ##val B
 #/table
-`;
-</script>
+    `
+        handleTextareaChange()
+        textareaSource.addEventListener('input', handleTextareaChange)
 
-<script>
-    handleTextareaChange()
-    textareaSource.addEventListener('input', handleTextareaChange)
+        // let lines_Source = textareaSource.value.split('\n')
+        // let lines_Back = textarea_back.value.split('\n')
+        // let diff = document.getElementById("id-diff")
+        // diff.innerHTML = "<b>Differences</b><br>"
 
+        // let flag = true
+        // for (let i = 0; i < Math.max(lines_Source.length, lines_Back.length); i++) {
+        // if (lines_Source[i] !== lines_Back[i]) {
+        //     flag = false
+        //     diff.innerHTML += `<span class="red">${lines_Source[i] || ''}</span><br>`
+        // }
+        // }
+        // if (flag) diff.innerHTML += `None`
+    </script>
+    <script>
+        function convertPCodepanelNewlines() {
+            document.querySelectorAll("p.codepanel").forEach(el => {
+                let beforenewline = el.innerHTML.until('\n')
+                if (beforenewline == el.innerHTML) return  // no newlines, do nothing{
+                
+                if (beforenewline == "" || beforenewline.containsOnly([" ", "\t"])) {
+                    el.textContent = el.textContent.after('\n')}
+                
+                // modify indent (optional)
+                el.innerHTML = el.innerHTML.replaceAll('\t', '    ')
+                let n = el.innerHTML.countBeginningChars([' '])
+                el.innerHTML = el.innerHTML.replaceAll(' '.repeat(n), '');
 
-</script>
-<script>
-    let lines_Source = textareaSource.value.split('\n')
-    let lines_Back = textarea_back.value.split('\n')
-    let diff = document.getElementById("id-diff")
-    diff.innerHTML = "<b>Differences</b><br>";
-
-    let notIdentical = []; let flag = true
-    for (let i = 0; i < Math.max(lines_Source.length, lines_Back.length); i++) {
-        if (lines_Source[i] !== lines_Back[i]) {
-            flag = false
-            diff.innerHTML += `<span class="red">${lines_Source[i] || ''}</span><br>`;
-        } 
-    }
-    if (flag) diff.innerHTML += `None`;
-    
-
-    // ShowHTMLinTextArea(document.getElementById("id-markdown-output-html"), 
-    //     document.getElementById("id-markdown-output-code"))
-</script>
-</body>
-</html>
+                // transform for HTML
+                el.innerHTML = el.innerHTML.replaceAll(' ', "&nbsp;");
+                el.innerHTML = el.innerHTML.replaceN('\n', '<br/>', el.innerHTML.count('\n')-1);
+            });
+            }
+        convertPCodepanelNewlines()
+    </script>
+    </body>
+    </html>
