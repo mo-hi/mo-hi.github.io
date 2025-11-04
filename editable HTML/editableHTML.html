@@ -286,14 +286,225 @@
                         </tbody>
                     </table>
                 </div>
-                <br>
-                <br>
                 HTML:
                 <div id="show-06" class="h-400"></div>
                 <br>
                 JS:
                 <div id="show-js-06" class="h-140"></div>
-
+        <!-- --------------------------------------------------------------------------------------- -->
+                <h2 class="underline sticky">Example 7: table without events</h2>
+                <p>
+                    .... 
+                </p>
+                <div  id="root-07">
+                    <table id="id-07" class="border border-cells padding-5 w-600px">
+                        <tbody>
+                            <tr id="id-node-table" class="js-edit w-15" data-editable-link="link-07">
+                                <td >
+                                    <div class="inline-block js-edit-btn" data-editable-link="link-07"> 
+                                        <a class="btn blue" onclick="clsEDIT.ButtonClick(this)" data-button-type="edit">
+                                            {{svg-icon-edit-18}}
+                                        </a>
+                                        <a class="btn blue hidden" onclick="clsEDIT.ButtonClick(this)" data-button-type="save">
+                                            {{svg-icon-save-18}}
+                                        </a>
+                                        <a class="btn blue hidden" onclick="clsEDIT.ButtonClick(this)" data-button-type="discard">
+                                            {{svg-icon-discard-12}}
+                                        </a>
+                                    </div> 
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-25">
+                                    some other text
+                                </td>
+                            </tr>
+                            <tr id="id-node-table" class="js-edit w-15" data-editable-link="link-07b">
+                                <td >
+                                    <div class="inline-block js-edit-btn" data-editable-link="link-07b"> 
+                                        <div class="btn blue js-event" onclick="clsEDIT.ButtonClick(this)" data-button-type="edit">
+                                            {{svg-icon-edit-18}}
+                                        </div>
+                                        <div class="btn blue js-event hidden" onclick="clsEDIT.ButtonClick(this)" data-button-type="save">
+                                            {{svg-icon-save-18}}
+                                        </div>
+                                        <div class="btn blue js-event hidden" onclick="clsEDIT.ButtonClick(this)" data-button-type="discard">
+                                            {{svg-icon-discard-12}}
+                                        </div>
+                                    </div> 
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-20">
+                                    some other text
+                                </td>
+                                <td class="js-edit-child w-25">
+                                    some other text
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+                HTML:
+                <div id="show-07" class="h-400"></div>
+                <br>
+                JS:
+                <div id="show-js-07" class="h-140"></div>
+    <section>
+    <h2 class="underline sticky">Overview</h2>
+    <p>
+        Here#s an voerview of all available classes and data-attributes you can use to configure Editable HTML
+    </p>   
+    <p>
+        <b>Classes:</b>
+        <ul>
+            <li><c>js-edit</c>: class to identify editable divs</li>
+            <li><c>js-edit-child</c>: class to identify editable divs that are part of a multi-edit group</li>
+            <li><c>js-event</c>: class to identify elements that get eventlisteners</li>
+            <li><c>js-edit-btn</c>: class to identify button containers</li>
+        </ul>
+    </p>
+    <p>
+        <b>Data-Attributes:</b>
+        <ul>
+            <li><c>data-editable-link</c>: data-attribute to link editable divs with button containers and discard buttons</li>
+            <li><c>data-edit-only-when-control-pressed</c>: data-attribute to configure if ctrl key must be pressed to enter edit mode</li>
+        </ul>
+    </p>
+    <p>
+        <b>Keyboard Events:</b>
+        <ul>
+            <li><c>Ctrl + Click</c>: enter edit mode (if configured)</li>
+            <li><c>Ctrl + Enter</c> or <c>Ctrl + Blankspace</c>: save changes</li>
+            <li><c>Esc</c>: discard changes</li>
+        </ul>
+    </p>
+    <p>
+        <b>Supported Configurations:</b>
+        <ul>
+            <li><b>Simple div</b>: click inside div to edit, ctrl + enter/blankspace to save, esc to discard
+                <ul>
+                    <li><c>id="id-01"</c></li>
+                    <ul>
+                        <li><c>div class="js-edit js-event"</c></li>
+                        <ul>... editable content ...</ul>
+                    </ul>
+                </ul>
+            </li>
+            <li><b>Multiple divs</b>: click inside any div to edit, ctrl + enter/blankspace to save, esc to discard
+                <ul>
+                    <li><c>id="id-02"</c></li>
+                    <ul>
+                        <li><c>div class="js-edit js-event"</c></li>
+                        <ul>... editable content ...</ul>
+                        <li><c>div class="js-edit js-event"</c></li>
+                        <ul>... editable content ...</ul>
+                        <li><c>div class="js-edit js-event"</c></li>
+                        <ul>... editable content ...</ul>
+                    </ul>
+                </ul>
+            </li>
+            <li><b>Multi-edit divs</b>: click inside any div to edit, ctrl + enter/blankspace to save, esc to discard
+                <ul>
+                    <li><c>id="id-02b"</c></li>
+                    <ul>
+                        <li><c>div class="js-edit"</c></li>
+                        <ul>
+                            <li><c>div class="js-edit-child js-event"</c></li>
+                            <ul>... editable content ...</ul>
+                            <li><c>div class="js-edit-child js-event"</c></li>
+                            <ul>... editable content ...</ul>
+                            <li><c>div class="js-edit-child js-event"</c></li>
+                            <ul>... editable content ...</ul>
+                        </ul>
+                    </ul>
+                </ul>
+            </li>
+            <li><b>Div with buttons</b>: click edit button to edit, save button to save, discard button to discard
+                <ul>
+                    <li><c>id="id-03"</c></li>
+                    <ul>
+                        <li><c>div class="js-edit-btn" data-editable-link="link-03"</c></li>
+                        <ul>
+                            <li><c>div class="js-event"</c></li>
+                            <ul>... edit button ...</ul>
+                            <li><c>div class="js-event hidden"</c></li>
+                            <ul>... save button ...</ul>
+                            <li><c>div class="js-event hidden"</c></li>
+                            <ul>... discard button ...</ul>
+                        </ul>
+                        <li><c>div class="js-edit" data-editable-link="link-03"</c></li>
+                        <ul>... editable content ...</ul>
+                    </ul>
+                </ul>
+            </li>
+            <li><b>Multiple divs with buttons</b>: click edit button to edit, save button to save, discard button to discard
+                <ul>
+                    <li><c>id="id-05"</c></li>
+                    <ul>
+                        <li><c>div class="js-edit-btn" data-editable-link="link-05"</c></li>
+                        <ul>
+                            <li><c>div class="js-event"</c></li>
+                            <ul>... edit button ...</ul>
+                            <li><c>div class="js-event hidden"</c></li>
+                            <ul>... save button ...</ul>
+                            <li><c>div class="js-event hidden"</c></li>
+                            <ul>... discard button ...</ul>
+                        </ul>
+                        <li><c>div class="js-edit" data-editable-link="link-05"</c></li>
+                        <ul>
+                            <li><c>div class="js-edit-child"</c></li>
+                            <ul>... editable content ...</ul>
+                            <li><c>div class="js-edit-child"</c></li>
+                            <ul>... editable content ...</ul>
+                            <li><c>div class="js-edit-child"</c></li>
+                            <ul>... editable content ...</ul>
+                        </ul>
+                    </ul>
+                </ul>
+            </li>
+            <li><b>Special Case Multiple divs: table</b>: click edit button to edit, save button to save, discard button to discard
+                <ul>
+                    <li><c>id="id-06"</c></li>
+                    <ul>
+                        <li><c>div class="js-edit-btn" data-editable-link="link-06"</c></li>
+                        <ul>
+                            <li><c>div class="js-event"</c></li>
+                            <ul>... edit button ...</ul>
+                            <li><c>div class="js-event hidden"</c></li>
+                            <ul>... save button ...</ul>
+                            <li><c>div class="js-event hidden"</c></li>
+                            <ul>... discard button ...</ul>
+                        </ul>
+                        <li><c>tr class="js-edit" data-editable-link="link-06"</c></li>
+                        <ul>
+                            <li><c>td class="js-edit-child"</c></li>
+                            <ul>... editable content ...</ul>
+                            <li><c>td class="js-edit-child"</c></li>
+                            <ul>... editable content ...</ul>
+                            <li><c>td class="js-edit-child"</c></li>
+                            <ul>... editable content ...</ul>
+                            <li><c>td class="js-edit-child"</c></li>
+                            <ul>... editable content ...</ul>
+                        </ul>
+                    </ul>
+                </ul>
+        </ul>
+    </p>
+    </section>
        
     <section>
         <p id="id-end" class="auto-fill">
@@ -309,12 +520,12 @@
 
 <script>
     // auto generation
-    for (let id of ["01", "02","02b","03", "04", "05", "06"]) {
+    for (let id of ["01", "02","02b","03", "04", "05", "06", "07"]) {
         ShowHTMLinTextArea(document.getElementById("root-" + id), document.getElementById("show-" + id))}
 
     Auto_Fill(FromFile_textGeneral_js,"id-end")
         
-    for (let id of ["id-01", "id-02", "root-03", "root-04", "root-05", "id-06"]) {
+    for (let id of ["id-01", "id-02", "root-03", "root-04", "root-05", "id-06", "id-07"]) {
         Auto_Fill(b_svg([12,18,24]),id)} 
 </script>
 <script id = "id-js-01">
@@ -373,8 +584,12 @@
     // assert (EditGroup.HasButtons())
 </script> 
 
+<script id = "id-js-07">
+    // no script necessary, but you need to make the class 
+</script> 
+
 <script>
-    for (let id of ["01", "02", "02b", "03", "04", "05", "06"]) {
+    for (let id of ["01", "02", "02b", "03", "04", "05", "06", "07"]) {
         ShowHTMLinTextArea(document.getElementById("id-js-" + id), document.getElementById("show-js-" + id))} 
 </script>
 
@@ -403,9 +618,9 @@
 
     // key events
     document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') editableHTML_DiscardAll()
+    if (event.key === 'Escape') clsEDIT.DiscardAll()
 
-    if (event.ctrlKey && (event.key === 'Enter' || event.key === ' ')) editableHTML_SaveAllText()
+    if (event.ctrlKey && (event.key === 'Enter' || event.key === ' ')) clsEDIT.SaveAll()
     }); 
 
 </script>
