@@ -132,6 +132,29 @@
 .turquoise { color: #40e0d0; }
 .beige { color: #f5f5dc; }
 .chocolate { color: #d2691e; }
+.black { color: #000000; }
+
+.red-important { color: #e06c75 !important; }
+.orange-important { color: #d19a66 !important; }
+.yellow-important { color: #e5c07b !important; }
+.blue-important { color: #61afef !important; }
+.purple-important { color: #c678dd !important; }
+.cyan-important { color: #56b6c2 !important; }
+.pink-important { color: #ff69b4 !important; }
+.teal-important { color: #20c997 !important; }
+.brown-important { color: #a0522d !important; }
+.lime-important { color: #bfff00 !important; }
+.indigo-important { color: #4b0082 !important; }
+.gold-important { color: #ffd700 !important; }
+.silver-important { color: #c0c0c0 !important; }
+.maroon-important { color: #800000 !important; }
+.olive-important { color: #808000 !important; }
+.navy-important { color: #000080 !important; }
+.magenta-important { color: #ff00ff !important; }
+.turquoise-important { color: #40e0d0 !important; }
+.beige-important { color: #f5f5dc !important; }
+.chocolate-important { color: #d2691e !important; }
+.black-important { color: #000000 !important; }
 
 /*
 // ####################################################################################################

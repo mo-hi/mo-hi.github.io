@@ -479,20 +479,25 @@ In looks up to 100 parents to find the element with the class 'js-event'.
 If force is set to true, the function will return the clickd element even if it does not have the class 'js-event'. In this case, the function will not look up.
 */
 function DOM_ElementFromJSEvent(event, force = false) {
-    let divElement = null;
+    let divElement = null; let tmp_divElement = null
     if (event instanceof MouseEvent) divElement = event.target;     // if eventlistener was used
     if (event instanceof PointerEvent) divElement = event.target;   // if eventlistener was used
     if (event instanceof HTMLElement) divElement = event;           // if setAttribute / direct HTML was used
     if (event instanceof TouchEvent) divElement = event.target;     // if eventlistener was used
-    
+    tmp_divElement = divElement
+
     if (divElement == null) return
     if (force) return divElement
 
     /// target may be pointing to childrean of the intended target. Loop Up 100 parents.
-    for (i = 0; i < 100; i++) {
-        if (!divElement.classList.contains('js-event')) divElement = divElement.parentElement}     
+    for (let i = 0; i < 100; i++) {
+        if (!divElement.classList.contains('js-event')) 
+            if (divElement.parentElement === null) {
+                divElement = tmp_divElement
+                break;}
+
+            divElement = divElement.parentElement}     
     
-    if (!divElement.classList.contains('js-event')) return
     return divElement
 }
 
