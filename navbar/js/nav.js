@@ -35,17 +35,18 @@ function _nav_toggleDown(event) {
 
     _nav_CloseOtherOpenDropdowns(divElement)
 
-    // class 'nav-js-active' is used (instead data attribute) to allow CSS to style the dropdown (hide/show)
+    // class 'nav-js-active' is used 
+    // (1) in  CSS to style the dropdown (hide/show)
+    // (2) in  JS to set z-index of sidebar when top navbar active -> nav gets 'nav-js-active', but sidebar doesn't
     
-    //explicit toogle (multiple actions)
+    //Toogle navbar
     if (divElement.parentElement.classList.contains('nav-js-active')) {
         divElement.parentElement.classList.remove('nav-js-active');
-        divElement.closest('nav').classList.remove('nav-js-active');
-        // Add any additional logic needed when closing the dropdown here
+        if (divElement.closest('nav') != null) divElement.closest('nav').classList.remove('nav-js-active');
+
     } else {
         divElement.parentElement.classList.add('nav-js-active');
-        divElement.closest('nav').classList.add('nav-js-active');
-        // Add any additional logic needed when opening the dropdown here
+        if (divElement.closest('nav') != null) divElement.closest('nav').classList.add('nav-js-active');
     }
 
     //explicit toogle (extended logic)
