@@ -192,6 +192,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "Array objects"
     },
     {
+        "name": ".AsCollection",
+        "docstring": "return a collection representing the array content. The ego content must be a list of dictionaries.",
+        "parameters": "",
+        "region": "Array objects"
+    },
+    {
         "name": ".keys",
         "docstring": "returns an array of the object's own keys.",
         "parameters": "",
@@ -411,6 +417,12 @@ const FromFile_FunctionsInfo_JS = [
         "name": ".toggle",
         "docstring": "toggles the string between two specified texts, 'a' and 'b'. There's no return value.",
         "parameters": "a, b",
+        "region": "String objects"
+    },
+    {
+        "name": ".shrinkTo",
+        "docstring": "returns a shrinked string representation. If the string length is less than or equal to maxLength, it returns the original string.\nIf the string length exceeds maxLength, it truncates the string to fit within maxLength by preserving the start and end segments and inserting '...' in between.\nThe minimum value for maxLength is 10.",
+        "parameters": "maxLength",
         "region": "String objects"
     },
     {

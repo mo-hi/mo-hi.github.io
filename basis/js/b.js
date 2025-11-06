@@ -595,6 +595,7 @@ opens a popup with a custom header and message. The popup can be closed by (a) c
 function popup(header, message) {
     if (header === undefined) header = "Pop-up";
     if (message === undefined) message = "This is a pop-up message.";
+    
     let popup = document.createElement("div");
     popup.id = "myPopup";
     popup.className = "popup-container";
@@ -608,31 +609,40 @@ function popup(header, message) {
     document.body.appendChild(popup);
     popup.classList.add("active");
 
-    // Add event listener to close the popup when clicking anywhere (= the popup container)
-    document.getElementsByClassName("popup-container")[0].addEventListener("click", _closePopup_skvzqplyj48xk28)
-
-    document.addEventListener("keydown", function escListener(event) {
-        if (event.key === "Escape") {
-            _closePopup_i93nf(popup) ;
-            document.removeEventListener("keydown", escListener);}
-    });
-}
-
-function _closePopup_skvzqplyj48xk28 (event) {
-    let popupContainer = document.getElementsByClassName("popup-container")[0];
+    //cache elements for reuse in inner functions
+    let popupContainer = document.getElementById("myPopup");
     let popupCloseButton = document.getElementsByClassName("popup-close-button")[0];
-    if (event.target === popupContainer || event.target === popupCloseButton) {
-        let popup = document.getElementById("myPopup");
-        if (popup) _closePopup_i93nf(popup)
+
+    //=====================================================================
+    // Inner function block                                               |
+    //=====================================================================
+    function _closePopup() {
+        popup.classList.remove("active");
+        popupContainer.removeEventListener("click", _closePopup_OnClick);
+        document.removeEventListener("keydown", _escListener);
+        setTimeout(() => popup.remove(), 300); // Match the duration of the fade-out transition
     }
+    function _closePopup_OnClick (event) {
+
+        if (event.target === popupContainer || event.target === popupCloseButton) {
+            if (popup) _closePopup()
+        }
+    }
+    function _escListener(event) {
+        if (event.key === "Escape") {
+            _closePopup();}
+    }
+
+    //=====================================================================
+    // Inner function block end                                           |
+    //=====================================================================
+
+    // Add event listener to close the popup when clicking anywhere (= the popup container)
+    popupContainer.addEventListener("click", _closePopup_OnClick)
+    document.addEventListener("keydown", _escListener);
 }
 
-function _closePopup_i93nf(popup) {
-        popup.classList.remove("active");
-            setTimeout(() => {
-                popup.remove();
-            }, 300); // Match the duration of the fade-out transition
-} 
+
 // ####################################################################################################
 // region Array                                                                                      #
 // ####################################################################################################
@@ -954,6 +964,22 @@ Object.defineProperties(Array.prototype, {
                 for (let i = 0; i<n;i++) {
                     this.removeX(element)}
             }
+        }
+    }
+});
+
+/**
+return a collection representing the array content. The ego content must be a list of dictionaries.
+ */
+Object.defineProperties(Array.prototype, {
+    AsCollection: {
+        value: function() {
+            let ret = new Collection()
+            for (let item of this) {
+                assert (typOf(item) == 'dict')
+                ret.push(item)
+            }
+            return ret
         }
     }
 });
@@ -2063,4 +2089,24 @@ Object.defineProperties(String.prototype, {
             return String(this)
         }
     } 
+});
+
+/**
+returns a shrinked string representation. If the string length is less than or equal to maxLength, it returns the original string.
+If the string length exceeds maxLength, it truncates the string to fit within maxLength by preserving the start and end segments and inserting '...' in between.
+The minimum value for maxLength is 10.
+ */
+Object.defineProperties(String.prototype, {
+    shrinkTo: {
+        value: function(maxLength) { 
+            if (maxLength == undefined || typOf(maxLength) != 'int') maxLength = 10
+            if (maxLength < 10) maxLength = 10
+
+            let str = String(this);
+            if (str.length <= maxLength) return str
+
+            let dot3 = '...';
+            return str.substring(0, maxLength-dot3.length-2) + dot3 + str.substring(str.length-3, str.length-1);
+        }
+    }
 });
