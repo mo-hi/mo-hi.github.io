@@ -42,6 +42,12 @@ function assert(condition, message) {
     
     throw new Error(message)
 }
+/**
+returns true if all values are equal
+ */
+function allEqual(...values) {
+    return values.every(value => value === values[0]);
+}
 
 /**
 returns a dictionary with the keys from keys and values from values. Length of keys and values must be equal.
@@ -514,34 +520,107 @@ function DOM_RemoveClassFromAll(className) {
 // ####################################################################################################
 
 /**
-Modifies your html page by filling in the values of the provided list of dictionaries.
+Modifies your html page by filling in the values of the provided list of dictionaries. <br>
+1) Reads div(elementId).innerHTML as template <br>
+2) Clears div(elementId).innerHTML = '' <br>
+3) Fills everything in one pass by repalcing {{key}} with the corresponding value from each dictionary in listOfDictionaries <br>
+Available options: <br>
+- append: boolean, if true, appends to existing content instead of clearing it first <br>
 */
-function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
-    let container = document.getElementById(elementId);
-    if (elementId == "body") container = document.body
+
+function Auto_Fill(listOfDictionaries, elementId, options) {
+    if (elementId === undefined) elementId = ""
+    if (options === undefined) options = {}
+    if (options.append === undefined) options.append = false
+
+    // get the container div
+    let container = null
+    if (elementId === "") container = document.body
+    else container = document.getElementById(elementId);
     if (!container) return 
     if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
   
-    let template = container.innerHTML
-    let lastVaues = {}
-    
+
+    // normalize input data to be always a list
     if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
     if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
 
-    container.innerHTML = "";
+    // store template as container attribute and clear innerHTML
+    if (!container._autoFillTemplate) container._autoFillTemplate = container.innerHTML;
+    const template = container._autoFillTemplate; // local immutable reference
+    if (!options.append) container.innerHTML = "";
+
+    // do the magic
     listOfDictionaries.forEach(item => {
         let nextString = template
     
         for (let key in item) {
-            if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
-                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
-            else {
-                nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), item[key])}
-            
-            lastVaues[key] = item[key]
-            }
+            const safeKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // AI hint: replace regex chars in key as they may break the regex below
+            nextString = nextString.replace(new RegExp(`{{${safeKey}}}`, 'g'), item[key])}     
+
         container.innerHTML += nextString
     });
+}
+
+
+// function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
+
+    
+//     let container = document.getElementById(elementId);
+//     if (elementId == "body") container = document.body
+//     if (!container) return 
+//     if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+  
+//     let template = container.innerHTML
+//     let lastVaues = {}
+    
+//     if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
+//     if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
+
+//     container.innerHTML = "";
+//     listOfDictionaries.forEach(item => {
+//         let nextString = template
+    
+//         for (let key in item) {
+//             if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
+//                 nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
+//             else {
+//                 nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), item[key])}
+            
+//             lastVaues[key] = item[key]
+//             }
+//         container.innerHTML += nextString
+//     });
+// }
+
+function Auto_Fill_Batch(listOfDictionaries, elementId = "body", batchSize = 50, intervalMs = 1000, compareKeys = []) {
+    let container = document.getElementById(elementId);
+    if (elementId == "body") container = document.body
+    if (!container) return 
+    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+
+    if (AutoFillBatchTimers[elementId]) {
+        clearInterval(AutoFillBatchTimers[elementId]);
+        delete AutoFillBatchTimers[elementId];
+    }
+
+    let index = 0;
+    let timer = setInterval(() => {
+        let batch = listOfDictionaries.slice(index, index + batchSize);
+        if (batch.length === 0) {
+            clearInterval(timer);
+            delete AutoFillBatchTimers[elementId];
+            return;
+        }
+
+        Auto_Fill(batch, elementId, compareKeys);
+
+        index += batchSize;
+
+        
+    }, intervalMs);
+
+    AutoFillBatchTimers[elementId] = timer;
 }
 
 /**

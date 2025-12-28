@@ -156,6 +156,34 @@
         <p class="codepanel">
             Auto_Fill(tableToFill,"id-tbody-01")
         </p>
+        <br/>
+        <h2 class="h-underline h-sticky">Auto Fill Batch</h2>
+        <p>
+            Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill.
+            Auto_Fill_Batch processes the data in batches per second. Here is an example of how to use Auto_Fill_Batch to fill a table with 600 entries:
+        </p>
+        <div class="table-wrap">
+            <table class="doc-table">
+            <thead>
+                <tr>
+                <th>Country</th>
+                <th>City</th>
+                <th>River</th>
+                <th>Food</th>
+                </tr>
+            </thead>
+            <tbody id="id-tbody-batch">
+                <tr>
+                <td>{{Country}}</td>
+                <td>{{City}}</td>
+                <td>{{River}}</td>
+                <td>{{Food}}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <br/>
+        <p>
         </section>
 
         <section>
@@ -252,6 +280,20 @@
         {"Country": "USA", "City": "New York", "River": "Hudson", "Food": "Burger"}
         ]
         Auto_Fill(tableToFill,"id-tbody-01")
+    </script>
+
+    <!-- Auto_Fill_Batch -->
+    <script>
+        let tableToFill_Batch = []
+
+        for (let i=1; i<=120; i++) {
+            tableToFill_Batch.push(
+                {"Country": `Country ${i}`, "City": `City ${i}`, "River": `River ${i}`, "Food": `Food ${i}`}
+            )
+        }
+
+    // Auto_Fill_Batch(tableToFill_Batch,"id-tbody-batch", 20, 1000)  // batch size 100. Interval is 100mx per default
+    Auto_Fill(tableToFill_Batch,"id-tbody-batch")
     </script>
 
     <script id="id-script-code">

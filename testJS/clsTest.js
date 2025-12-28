@@ -7,7 +7,43 @@ class clsTest {
     }
 
 // ##################################################################################
-// # Checker                                                                        #
+// # Operations                                                                     #
+// ##################################################################################
+    PrintToPopUp() {
+        let popup = window.open("", "myPopup", "width=800,height=600");
+        let doc = popup.document;
+
+        // structure
+        doc.open();
+        let html = doc.createElement("html");
+        let head = doc.createElement("head");
+        let body = doc.createElement("body");
+
+        head.appendChild(this._style());  
+        body.appendChild(this._table())
+
+        // build
+        html.appendChild(head);
+        html.appendChild(body);
+        doc.appendChild(html);
+        doc.close();
+    }
+
+    RunTestCases(testcasesAsList, resetfunction, prefix = '_testCase_', testSeperator = ' '.repeat(50)) {
+        for (let fn of testcasesAsList) {
+            let name = fn.name.after(prefix)
+            this.NewLine()
+            this.TestHeadline(name)
+            // this.Equal(true, true, '<b>' + name + ' - Start</b>');
+            resetfunction
+            fn(this);
+        }
+        this.NewLine() 
+    }
+
+
+// ##################################################################################
+// # Modes                                                                          #
 // ##################################################################################
     SetTestMode() {
         if (this.mode == "silent" && this.silentCounter >0) {
@@ -27,12 +63,20 @@ class clsTest {
         this.halt = true
     }
 
+    // ##################################################################################
+    // # Dummy Lines                                                                    #
+    // ##################################################################################
+
     Info(msg) {
         this._pushTestResult(msg, 'information','')
     }
 
     Action(msg) {
         this._pushTestResult('[ACTION] ' + msg, 'acion','')
+    }
+
+    TestHeadline(testName) {
+        this._pushTestResult('<b>' + testName + ' - Start</b>', '-','')
     }
 
     NewLine() {
@@ -155,25 +199,7 @@ class clsTest {
         targetDiv.append(this._table(tableID));
     }
 
-    PrintToPopUp() {
-        let popup = window.open("", "myPopup", "width=800,height=600");
-        let doc = popup.document;
 
-        // structure
-        doc.open();
-        let html = doc.createElement("html");
-        let head = doc.createElement("head");
-        let body = doc.createElement("body");
-
-        head.appendChild(this._style());  
-        body.appendChild(this._table())
-
-        // build
-        html.appendChild(head);
-        html.appendChild(body);
-        doc.appendChild(html);
-        doc.close();
-    }
         
     _style() {
         let style = document.createElement('style');

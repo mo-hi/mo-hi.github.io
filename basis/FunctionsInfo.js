@@ -18,6 +18,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "basis"
     },
     {
+        "name": "allEqual",
+        "docstring": "returns true if all values are equal",
+        "parameters": "...values",
+        "region": "basis"
+    },
+    {
         "name": "dictionary",
         "docstring": "returns a dictionary with the keys from keys and values from values. Length of keys and values must be equal.",
         "parameters": "keys, values",
@@ -73,8 +79,8 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": "Auto_Fill",
-        "docstring": "Modifies your html page by filling in the values of the provided list of dictionaries.",
-        "parameters": "listOfDictionaries, elementId = \"body\", compareKeys = []",
+        "docstring": "Modifies your html page by filling in the values of the provided list of dictionaries. <br>\n1) Reads div(elementId).innerHTML as template <br>\n2) Clears div(elementId).innerHTML = '' <br>\n3) Fills everything in one pass by repalcing {{key}} with the corresponding value from each dictionary in listOfDictionaries <br>\nAvailable options: <br>\n- append: boolean, if true, appends to existing content instead of clearing it first <br>",
+        "parameters": "listOfDictionaries, elementId, options",
         "region": "htmlManipulation"
     },
     {

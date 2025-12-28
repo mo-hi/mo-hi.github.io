@@ -529,10 +529,12 @@
         Auto_Fill(b_svg([12,18,24]),id)} 
 </script>
 <script id = "id-js-01">
-    // let EDIT = new functions_editableHTML()
-    // EDIT.Init('id-01') 
-
     new functions_editableHTML().Init('id-01');
+    // This will add eventlisteners to all divs with class js-edit inside the node container with id 'id-01'.
+    // Eventlisteners are based on the b.js function 'addEventListener_ClickAndTouch()' whichcombines:
+    // addEventListener('click', ...) 
+    // addEventListener('touchstart', ...)
+    //
 
 </script>
 <script id = "id-js-02">
