@@ -519,6 +519,9 @@ function DOM_RemoveClassFromAll(className) {
 // region htmlManipulation                                                                                #
 // ####################################################################################################
 
+// Auto_Fill batch timers registry
+const Registry_AutoFillBatchTimers = {};
+
 /**
 Modifies your html page by filling in the values of the provided list of dictionaries. <br>
 1) Reads div(elementId).innerHTML as template <br>
@@ -527,101 +530,93 @@ Modifies your html page by filling in the values of the provided list of diction
 Available options: <br>
 - append: boolean, if true, appends to existing content instead of clearing it first <br>
 */
+function Auto_Fill(listOfDictionaries, elementId, configOptions) {
+    const input_norm = _Auto_Fill_Normalize(listOfDictionaries, elementId, configOptions)
+    if (input_norm === null) return
+    const {
+        container: div,
+        data: listOfDicts,
+        opts: options
+    } = input_norm;
 
-function Auto_Fill(listOfDictionaries, elementId, options) {
-    if (elementId === undefined) elementId = ""
-    if (options === undefined) options = {}
-    if (options.append === undefined) options.append = false
-
-    // get the container div
-    let container = null
-    if (elementId === "") container = document.body
-    else container = document.getElementById(elementId);
-    if (!container) return 
-    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
-  
-
-    // normalize input data to be always a list
-    if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
-    if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
-
-    // store template as container attribute and clear innerHTML
-    if (!container._autoFillTemplate) container._autoFillTemplate = container.innerHTML;
-    const template = container._autoFillTemplate; // local immutable reference
-    if (!options.append) container.innerHTML = "";
+    // store template as div-container attribute and clear innerHTML
+    if (!div._autoFillTemplate) div._autoFillTemplate = div.innerHTML;
+    const template = div._autoFillTemplate; // local immutable reference
+    if (!options.append) div.innerHTML = "";
 
     // do the magic
-    listOfDictionaries.forEach(item => {
+    listOfDicts.forEach(item => {
         let nextString = template
     
         for (let key in item) {
             const safeKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // AI hint: replace regex chars in key as they may break the regex below
             nextString = nextString.replace(new RegExp(`{{${safeKey}}}`, 'g'), item[key])}     
 
-        container.innerHTML += nextString
+        div.innerHTML += nextString
     });
 }
 
 
-// function Auto_Fill(listOfDictionaries, elementId = "body", compareKeys = []) {
+function Auto_Fill_Batch(listOfDictionaries, elementId, configOptions) {
+    const input_norm = _Auto_Fill_Normalize(listOfDictionaries, elementId, configOptions)
+    if (input_norm === null) return
+    const {
+        container: div,
+        data: listOfDicts,
+        opts: options
+    } = input_norm;
 
-    
-//     let container = document.getElementById(elementId);
-//     if (elementId == "body") container = document.body
-//     if (!container) return 
-//     if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
-  
-//     let template = container.innerHTML
-//     let lastVaues = {}
-    
-//     if (!['list', 'dict'].includes(typOf(listOfDictionaries))) return
-//     if (typOf(listOfDictionaries) == 'dict') listOfDictionaries = [listOfDictionaries]
-
-//     container.innerHTML = "";
-//     listOfDictionaries.forEach(item => {
-//         let nextString = template
-    
-//         for (let key in item) {
-//             if (compareKeys.includes(key) && lastVaues[key] == item[key]) {
-//                 nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), '')}
-//             else {
-//                 nextString = nextString.replace(new RegExp(`{{${key}}}`, 'g'), item[key])}
-            
-//             lastVaues[key] = item[key]
-//             }
-//         container.innerHTML += nextString
-//     });
-// }
-
-function Auto_Fill_Batch(listOfDictionaries, elementId = "body", batchSize = 50, intervalMs = 1000, compareKeys = []) {
-    let container = document.getElementById(elementId);
-    if (elementId == "body") container = document.body
-    if (!container) return 
-    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
-
-    if (AutoFillBatchTimers[elementId]) {
-        clearInterval(AutoFillBatchTimers[elementId]);
-        delete AutoFillBatchTimers[elementId];
+    // stop existing batch loader for this container
+    if (Registry_AutoFillBatchTimers[elementId]) {
+        clearInterval(Registry_AutoFillBatchTimers[elementId]);
+        delete Registry_AutoFillBatchTimers[elementId];
     }
 
     let index = 0;
-    let timer = setInterval(() => {
-        let batch = listOfDictionaries.slice(index, index + batchSize);
+
+    const timer = setInterval(() => {
+        const batch = listOfDicts.slice(index, index + options.batchSize);
+
         if (batch.length === 0) {
             clearInterval(timer);
-            delete AutoFillBatchTimers[elementId];
-            return;
-        }
+            delete Registry_AutoFillBatchTimers[elementId];
+            return;}
 
-        Auto_Fill(batch, elementId, compareKeys);
+        Auto_Fill(batch, elementId, { append: true });
 
-        index += batchSize;
+        index += options.batchSize;
+    }, options.intervalMs);
 
-        
-    }, intervalMs);
-
-    AutoFillBatchTimers[elementId] = timer;
+    // register timer
+    Registry_AutoFillBatchTimers[elementId] = timer;
 }
+
+function _Auto_Fill_Normalize(data, elementId, opts) {
+    if (elementId === undefined) elementId = ""
+    if (opts === undefined) opts = {}
+    if (opts.append === undefined) opts.append = false
+    if (opts.batchSize === undefined) opts.batchSize = 20
+    if (opts.intervalMs === undefined) opts.intervalMs = 100
+
+    // get the container div
+    let container = null
+    if (elementId === "") container = document.body
+    else container = document.getElementById(elementId);
+    if (!container) return null
+    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+  
+
+    // normalize input data to be always a list
+    if (!['list', 'dict'].includes(typOf(data))) return
+    if (typOf(data) == 'dict') data = [data]
+
+    return {
+        container,
+        data,
+        opts
+    };
+}
+
 
 /**
 Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown

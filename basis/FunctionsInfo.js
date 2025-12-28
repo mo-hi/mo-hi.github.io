@@ -80,7 +80,7 @@ const FromFile_FunctionsInfo_JS = [
     {
         "name": "Auto_Fill",
         "docstring": "Modifies your html page by filling in the values of the provided list of dictionaries. <br>\n1) Reads div(elementId).innerHTML as template <br>\n2) Clears div(elementId).innerHTML = '' <br>\n3) Fills everything in one pass by repalcing {{key}} with the corresponding value from each dictionary in listOfDictionaries <br>\nAvailable options: <br>\n- append: boolean, if true, appends to existing content instead of clearing it first <br>",
-        "parameters": "listOfDictionaries, elementId, options",
+        "parameters": "listOfDictionaries, elementId, configOptions",
         "region": "htmlManipulation"
     },
     {
