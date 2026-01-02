@@ -48,16 +48,10 @@ const FromFile_FunctionsInfo_JS = [
         "region": "basis"
     },
     {
-        "name": "b_divTable",
-        "docstring": "clsFiles\n    dummy as workaround for regex bug. first docstring is not recognized correctly.\n    */\n    dummy_I_DO_NOTHING() {\n        // i do nothing\n    }\n    // DUMMY_END\n\n\n    /** \n    clsFiles\n    clsFiles is a class with static methods to download and upload files.\n    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.\n    */\n    aboutMe() {\n        // i do nothing\n    }\n\n    /**\n    clsFiles\n    triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.\n    Application Example:\n       clsFiles.download(\"Hello, world!\", \"hello.txt\");\n    */\n    static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {\n        // fileContent can be string, ArrayBuffer, Uint8Array or Blob\n        const blob = fileContent instanceof Blob\n            ? fileContent\n            : new Blob([fileContent], { type: mimeType });\n\n        const url = URL.createObjectURL(blob);\n        const element = document.createElement('a');\n        element.style.display = 'none';\n        element.href = url;\n        element.download = filename || 'download';\n\n        document.body.appendChild(element);\n        element.click();\n        document.body.removeChild(element);\n\n        // Release ObjectURL after short time\n        setTimeout(() => URL.revokeObjectURL(url), 1000);\n    }\n\n    static _readFiles(files) {\n        const readers = Array.from(files).map(file => {\n            return new Promise((resolve, reject) => {\n                const reader = new FileReader();\n                reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader\n                reader.onerror = () => resolve(null);\n                reader.readAsText(file);\n            });\n        });\n\n        return Promise.all(readers);\n    }\n\n    /**\n    clsFiles\n    triggers a read (upload to browser) of a file or multiple files.\n    The method returns a promise that resolves to an array of objects, each containing the file and its content.\n    If no files are selected, it resolves to an empty array.\n    Application Example 1:\n       async function UploadFile() {\n            let ret = await clsFiles.upload()\n            if (!ret) return\n            let {file, content} = ret[0]\n        }\n    Application Example:\n        async function UploadFiles() {\n            let ret = await clsFiles.upload(true)\n            if (!ret) return\n            for (let i=0; i < ret.length; i++) {\n                let {file, content} = ret[i]\n            }\n        }\n    */\n    static upload(multiple=false) {\n        return new Promise(function (resolve) {\n            var input = document.createElement('input');\n            input.type = 'file';\n            if (multiple) input.multiple = true\n            input.style.display = 'none';\n\n            input.addEventListener('change', async function (e) {\n                if (!input.files || input.files.length === 0) {\n                    input.remove(); resolve([]); return;}\n                \n                let files = input.files;\n                input.remove();\n\n                let result = await clsFiles._readFiles(files);\n                resolve(result);\n            }, { once: true });\n\n            document.body.appendChild(input);\n            input.click();\n            });\n    }\n}\n// ####################################################################################################\n// region content_divTable                                                                                #\n// ####################################################################################################\n\n/**\nreturn a div table. Provide either cols or json! <br>\nWhen cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>\nWith json is provided, a table with the json dataset is returend. <br>",
-        "parameters": "{cols, json}",
-        "region": "classFiles"
-    },
-    {
         "name": "b_svg",
-        "docstring": "returns svg markup for various icons. The function has two Use Cases: <br><br>\n\n(1) returns a <b>string</b> for a given icon name and a given size. Example: \n<code>b_svg(\"svg-icon-edit\") = \"...//svg code...width=24 height=24 ...\" <br>\n        b_svg(\"svg-icon-edit\", 16) = \"...//svg code...width=16 height=16 ...\"  \n</code> <br>\n\n(2) returns a <b>dictionary</b>. The keys are the svg name, the value is the return value from Use Case 1. Example:\n<code> b_svg() = { \"svg-icon-edit-24\": \"....\", \"svg-icon-grid-24\": \"...\", ...} <br>\nb_svg([16,24]) = { \"svg-icon-edit-16\": \"...\", \"svg-icon-grid-16\": \"...\", \"svg-icon-edit-24\": \"...\", ...} </code> \n\nThe follwoing icon names are available (among others):<br>\nsvg-icon-edit<br>\nsvg-icon-grid<br>\nsvg-icon-menu<br>\nsvg-icon-search<br>\nsvg-icon-filter<br>\nsvg-icon-download<br>\nsvg-icon-upload<br>\nsvg-icon-save<br>\nsvg-icon-discard<br>",
+        "docstring": "clsFiles\n    dummy as workaround for regex bug. first docstring is not recognized correctly.\n    */\n    dummy_I_DO_NOTHING() {\n        // i do nothing\n    }\n    // DUMMY_END\n\n\n    /** \n    clsFiles\n    clsFiles is a class with static methods to download and upload files.\n    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.\n    */\n    aboutMe() {\n        // i do nothing\n    }\n\n    /**\n    clsFiles\n    triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.\n    Application Example:\n       clsFiles.download(\"Hello, world!\", \"hello.txt\");\n    */\n    static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {\n        // fileContent can be string, ArrayBuffer, Uint8Array or Blob\n        const blob = fileContent instanceof Blob\n            ? fileContent\n            : new Blob([fileContent], { type: mimeType });\n\n        const url = URL.createObjectURL(blob);\n        const element = document.createElement('a');\n        element.style.display = 'none';\n        element.href = url;\n        element.download = filename || 'download';\n\n        document.body.appendChild(element);\n        element.click();\n        document.body.removeChild(element);\n\n        // Release ObjectURL after short time\n        setTimeout(() => URL.revokeObjectURL(url), 1000);\n    }\n\n    static _readFiles(files) {\n        const readers = Array.from(files).map(file => {\n            return new Promise((resolve, reject) => {\n                const reader = new FileReader();\n                reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader\n                reader.onerror = () => resolve(null);\n                reader.readAsText(file);\n            });\n        });\n\n        return Promise.all(readers);\n    }\n\n    /**\n    clsFiles\n    triggers a read (upload to browser) of a file or multiple files.\n    The method returns a promise that resolves to an array of objects, each containing the file and its content.\n    If no files are selected, it resolves to an empty array.\n    Application Example 1:\n       async function UploadFile() {\n            let ret = await clsFiles.upload()\n            if (!ret) return\n            let {file, content} = ret[0]\n        }\n    Application Example:\n        async function UploadFiles() {\n            let ret = await clsFiles.upload(true)\n            if (!ret) return\n            for (let i=0; i < ret.length; i++) {\n                let {file, content} = ret[i]\n            }\n        }\n    */\n    static upload(multiple=false) {\n        return new Promise(function (resolve) {\n            var input = document.createElement('input');\n            input.type = 'file';\n            if (multiple) input.multiple = true\n            input.style.display = 'none';\n\n            input.addEventListener('change', async function (e) {\n                if (!input.files || input.files.length === 0) {\n                    input.remove(); resolve([]); return;}\n                \n                let files = input.files;\n                input.remove();\n\n                let result = await clsFiles._readFiles(files);\n                resolve(result);\n            }, { once: true });\n\n            document.body.appendChild(input);\n            input.click();\n            });\n    }\n}\n// ####################################################################################################\n// region content_svg                                                                                     #\n// ####################################################################################################\n\n/**\nreturns svg markup for various icons. The function has two Use Cases: <br><br>\n\n(1) returns a <b>string</b> for a given icon name and a given size. Example: \n<code>b_svg(\"svg-icon-edit\") = \"...//svg code...width=24 height=24 ...\" <br>\n        b_svg(\"svg-icon-edit\", 16) = \"...//svg code...width=16 height=16 ...\"  \n</code> <br>\n\n(2) returns a <b>dictionary</b>. The keys are the svg name, the value is the return value from Use Case 1. Example:\n<code> b_svg() = { \"svg-icon-edit-24\": \"....\", \"svg-icon-grid-24\": \"...\", ...} <br>\nb_svg([16,24]) = { \"svg-icon-edit-16\": \"...\", \"svg-icon-grid-16\": \"...\", \"svg-icon-edit-24\": \"...\", ...} </code> \n\nThe follwoing icon names are available (among others):<br>\nsvg-icon-edit<br>\nsvg-icon-grid<br>\nsvg-icon-menu<br>\nsvg-icon-search<br>\nsvg-icon-filter<br>\nsvg-icon-download<br>\nsvg-icon-upload<br>\nsvg-icon-save<br>\nsvg-icon-discard<br>",
         "parameters": "name, size",
-        "region": "content_svg"
+        "region": "classFiles"
     },
     {
         "name": "DOM_Replace",
@@ -204,6 +198,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "Array objects"
     },
     {
+        "name": ".transpose",
+        "docstring": "* return the transposed version of a 2D array. The array must be rectangular and have only two dimensions.",
+        "parameters": "",
+        "region": "Array objects"
+    },
+    {
         "name": ".keys",
         "docstring": "returns an array of the object's own keys.",
         "parameters": "",
@@ -337,7 +337,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": ".count",
-        "docstring": "returns the number of occurrences of a specified character in the string",
+        "docstring": "returns the number of occurrences of a specified character in the string.\nIf the string is empty, it returns 0.",
         "parameters": "c",
         "region": "String objects"
     },
@@ -368,7 +368,7 @@ const FromFile_FunctionsInfo_JS = [
     {
         "name": ".isDigit",
         "docstring": "returns true if the ego string is a digit, false otherwise",
-        "parameters": "",
+        "parameters": "DecimalSeperator",
         "region": "String objects"
     },
     {
@@ -486,15 +486,9 @@ const FromFile_FunctionsInfo_JS = [
         "region": "DivTables objects"
     },
     {
-        "name": ".b_divTable_AddRows",
-        "docstring": "adds new rows to a table. \nIf liste is a list of dictionaries, then the innerHTML of each cell will be set to the value of the \nkey identical to the header.",
-        "parameters": "liste",
-        "region": "DivTables objects"
-    },
-    {
         "name": ".b_HeaderIndex",
         "docstring": "return the index of the header with the given name.\nIf the header is not found, it returns -1.",
-        "parameters": "headerName",
+        "parameters": "headerName, CaseSensitive=false",
         "region": "DivTables objects"
     },
     {

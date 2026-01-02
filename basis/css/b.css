@@ -17,6 +17,19 @@
     transition: 0.3s;
 }
 
+.btn.green:focus, .btn.green:hover {
+    color: #fff;
+    background-color: #198754;
+    border-color: #fff;
+}
+
+.btn.green,.btnS.green,.btnXS.green {
+    color: #198754;
+    background-color: transparent;
+    border-color: #198754;
+    transition: 0.3s;
+}
+
 .btn, .btnS, .btnXS {
     display: inline-block;
     border: 1px solid ;

@@ -33,23 +33,22 @@ function NAV_AddGenericClickFunction(targetID, clickfunction) {
 function _nav_toggleDown(event) {
     let divElement = DOM_ElementFromJSEvent(event, true)
 
+    //Close other open dropdowns
     _nav_CloseOtherOpenDropdowns(divElement)
 
-    // class 'nav-js-active' is used 
-    // (1) in  CSS to style the dropdown (hide/show)
-    // (2) in  JS to set z-index of sidebar when top navbar active -> nav gets 'nav-js-active', but sidebar doesn't
-    
     //Toogle navbar
     if (divElement.parentElement.classList.contains('nav-js-active')) {
         divElement.parentElement.classList.remove('nav-js-active');
-        if (divElement.closest('nav') != null) divElement.closest('nav').classList.remove('nav-js-active');
+        if (divElement.closest('nav') != null) 
+            divElement.closest('nav').classList.remove('nav-js-active');
 
     } else {
         divElement.parentElement.classList.add('nav-js-active');
-        if (divElement.closest('nav') != null) divElement.closest('nav').classList.add('nav-js-active');
+        if (divElement.closest('nav') != null) 
+            divElement.closest('nav').classList.add('nav-js-active');
     }
 
-    //explicit toogle (extended logic)
+    //explicit z-index toogle (extended logic if there is a navbar and a sidebar)
     if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) {
         let sidebar = document.querySelector('.sidebar')
         if (divElement.closest('nav').classList.contains('nav-js-active')) {
@@ -139,67 +138,3 @@ function addEventListener_ClickTouch(element, functionName) {
     return element
 }
 
-
-
-// ################################################################
-// Download File                                                  #
-// ################################################################
-
-// class clsFiles {
-//     static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {
-//         // fileContent can be string, ArrayBuffer, Uint8Array or Blob
-//         const blob = fileContent instanceof Blob
-//             ? fileContent
-//             : new Blob([fileContent], { type: mimeType });
-
-//         const url = URL.createObjectURL(blob);
-//         const element = document.createElement('a');
-//         element.style.display = 'none';
-//         element.href = url;
-//         element.download = filename || 'download';
-
-//         document.body.appendChild(element);
-//         element.click();
-//         document.body.removeChild(element);
-
-//         // Release ObjectURL after short time
-//         setTimeout(() => URL.revokeObjectURL(url), 1000);
-//     }
-
-//     static readFiles(files) {
-//         const readers = Array.from(files).map(file => {
-//             return new Promise((resolve, reject) => {
-//                 const reader = new FileReader();
-//                 reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader
-//                 reader.onerror = () => resolve(null);
-//                 reader.readAsText(file);
-//             });
-//         });
-
-//         return Promise.all(readers);
-//     }
-
-//     // must be callled with await or inside async function
-//     static upload(multiple=false) {
-//         return new Promise(function (resolve) {
-//             var input = document.createElement('input');
-//             input.type = 'file';
-//             if (multiple) input.multiple = true
-//             input.style.display = 'none';
-
-//             input.addEventListener('change', async function (e) {
-//                 if (!input.files || input.files.length === 0) {
-//                     input.remove(); resolve([]); return;}
-                
-//                 let files = input.files;
-//                 input.remove();
-
-//                 let result = await clsFiles.readFiles(files);
-//                 resolve(result);
-//             }, { once: true });
-
-//             document.body.appendChild(input);
-//             input.click();
-//             });
-//     }
-// }

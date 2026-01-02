@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIV BUILDER</title>
+    <link rel="stylesheet" href="../basis/css/b.css">
     <style>
         :root       {--color-background: #f0f0f0;--color-text: #444;}
         body        {background-color: var(--color-background); color: var(--color-text);}
@@ -13,64 +14,158 @@
 </head>
 <body class="academic wr-800-400">
     <h1>div Builder</h1>
-    <section>
-        <h2 class="underline sticky">tables</h2>
-        <h3>Auto_Fill</h2>
-        <div id="id-table-01">
-            <div id="table-01">
-                <table class="border border-cells border-headers padding-5 w-100">
-                    <thead>
-                        <tr>
-                            <th>Country</th>
-                            <th>City</th>
-                            <th>River</th>
-                            <th>Food</th>
-                        </tr>
-                    </thead>
-                    <tbody id="id-tbody-01">
-                        <tr>
-                            <td>{{Country}}</td>
-                            <td>{{City}}</td>
-                            <td>{{River}}</td>
-                            <td>{{Food}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <br>
-        HTML Code:
-        <div id="show-01" class="h-320"></div>
-        <br>
-        JS Code:
-        <code class="mt-1i">
-            Auto_Fill(FromFile_jsonData_js,"id-tbody-01")  
-        </code>
+    <h2 class="sticky underline">Tables</h2>
+    <p>
+        Simple way to build HTML tables from JSON data or arrays. You can set headers, add rows, or build a full table in one go.
+        The table data is provided inside a dictionary with the keys "headers", "rows", "cols" or "json" representing the table structure.
+        The following examples are beased on:
+    </p>
+    <div id = "show-script-config" class="mt-1i h-60">
+    </div>
 
-        <!-- --------------------------------------------------------------------------------------- -->
-        <h3>build_table - headers and rows</h3>
-        <div id ="id-build-table">
-            <!--  -->
-        </div>
-        <br>JS Code:
-        <div id = "show-script-01" class="mt-1i h-140">
-            <!--  -->
-        </div>
+    <h3>headers and rows</h3>
+    <p>
+        The most simple way is an empty table. With the following code you get a table with three headers "header 1", "header 2", and "header 3" and four empty rows:
+    </p>
+    <div id = "show-script-empty" class="mt-1i h-100">
+    </div>
+    <br/>
+    <div id ="id-build-table-empty"></div>
+    <br/><br/>
 
-        <!-- --------------------------------------------------------------------------------------- -->
-        <h3>build_table - all in one</h3>
-        <div id ="id-build-table2">
-            <!--  -->
-        </div>
-        <br>JS Code:
-        <div id = "show-script-02" class="mt-1i h-140">
-            <!--  -->
-        </div>
-    </section>
 
-    <section class="h-100 mb-100">
-        <!-- empty -->
-    </section>
+    <p>
+        Next we create a table with headers and rows, provided by arrays:
+    </p>
+    <div id = "show-script-HandR" class="mt-1i h-180">
+    </div>
+    <br/>
+    <div id ="id-build-table-HandR"></div>
+    <br/><br/>
+
+
+    <p>
+        And also with headers and cols, provided by arrays. The table will be built column-wise in this case:
+    </p>
+    <div id = "show-script-CandR" class="mt-1i h-180">
+    </div>
+    <br/>
+    <div id ="id-build-table-CandR"></div>
+    <br/><br/>
+
+    <h3>json</h3>
+    <p>
+        Now we build a table from JSON data. The keys of the JSON objects will be used as headers and the values as rows. 
+        The keys are commulated from all json items to build the full header list.
+        Note in the example below that eacht JSON item does not need to have all keys. Missing values will be filled with empty strings, i. e. blank table cells.
+    </p>
+    <div id = "show-script-JSON" class="mt-1i h-220">
+    </div>
+    <br/>
+    <div id ="id-build-JSON"></div>
+    <br/><br/>
+
+    <h2 class="sticky underline">Tables Handler</h2>
+    <h3>InsertRow</h3>
+    <p>
+        InsertRow let's you  insert a row into a table.
+    </p>
+    <div id = "show-script-InserRow" class="mt-1i h-120">
+    </div>
+    <br/>
+    <div>
+        <table id = "id-InserRow" class="border border-cells border-headers padding-5 w-100">
+            <thead>
+                <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Das ist</td>
+                    <td>das Haus</td>
+                    <td>vom Nikolaus</td>
+                </tr>
+                <tr>
+                    <td>Ich</td>
+                    <td>und</td>
+                    <td>du</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <br/><br/>
+
+
+    <h3>Make Rows Editable</h3>
+    <p>
+        Make Rows editable adds the <c>contenteditable="true"</c> attribute to each cell of the table rows.
+    </p>
+    <div id = "show-script-MakeRowsEditable" class="mt-1i h-80">
+    </div>
+    <br/>
+    <div>
+        <table id = "id-MakeRowsEditable" class="border border-cells border-headers padding-5 w-100">
+            <thead>
+                <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Das ist</td>
+                    <td>das Haus</td>
+                    <td>vom Nikolaus</td>
+                </tr>
+                <tr>
+                    <td>Ich</td>
+                    <td>und</td>
+                    <td>du</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <br/><br/>
+
+
+    <h3>Set Table Style - col Widths</h3>
+    <p>
+        Set Table Style - col Widths sets the width of each column of the table.
+    </p>
+    <div id = "show-script-TableStyle-ColWidth" class="mt-1i h-80">
+    </div>
+    <br/>
+    <div>
+        <table id = "id-TableStyle-ColWidth" class="border border-cells border-headers padding-5 w-100">
+            <thead>
+                <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Das ist</td>
+                    <td>das Haus</td>
+                    <td>vom Nikolaus</td>
+                </tr>
+                <tr>
+                    <td>Ich</td>
+                    <td>und</td>
+                    <td>du</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <br/><br/>
        
     <section id="id-end" class="wr-800-400 h-50 fixed bottom-0 mb-0i" style="z-index: 2;border-top: 1px solid grey;">
         <p id="id-end" class="auto-fill">
@@ -79,26 +174,78 @@
     </section>
 
 </body>
-<script src="js/getBasis.js"></script>
-<script src="js/jsonData.js"></script>
+<script src="../basis/js/b.js"></script>
 <script src="../textGeneral.js"></script>
-<script id ="id-script-01">
-    let table = b_divTable({cols:FromFile_jsonData_js[0].keys().length})
-    table.b_divTable_SetHeaders(FromFile_jsonData_js[0].keys())
-    table.b_divTable_AddRows(FromFile_jsonData_js)
+
+<script id="id-table-config">
+    let table = null
+    let tableConfig = {}
+</script>
+
+<script id ="id-table-empty">
+    table = clsDivBuilder.BuildTable({})
     table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
-    document.getElementById("id-build-table").append(table)
+    document.getElementById("id-build-table-empty").append(table)
 </script>
-<script id ="id-script-02">
-    let table2 = b_divTable({json:FromFile_jsonData_js})
-    table2.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
-    document.getElementById("id-build-table2").append(table2)
+    
+<script id ="id-table-HandR">
+    tableConfig = {}
+    tableConfig.headers = ["A", "B", "C"]
+    tableConfig.rows = [
+        ["Das ist", "das Haus", "vom Nikolaus"],
+        ["Ich", "und", "du"]]
+    table = clsDivBuilder.BuildTable(tableConfig)
+    table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
+    document.getElementById("id-build-table-HandR").append(table)
 </script>
+
+<script id ="id-table-CandR">
+    tableConfig = {}
+    tableConfig.headers = ["A", "B"]
+    tableConfig.cols = [
+        ["Das ist", "das Haus", "vom Nikolaus"],
+        ["Ich", "und", "du"]]
+    table = clsDivBuilder.BuildTable(tableConfig)
+    table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
+    document.getElementById("id-build-table-CandR").append(table)
+</script>
+
+<script id ="id-table-JSON">
+    tableConfig = {}
+    tableConfig.json = [
+    {"Country": "Germany", "City": "Munich", "River": "Isar"},
+    {"Country": "France", "City": "Paris", "Food": "Baguette"},
+    {"Country": "Japan", "River": "Sumida", "Food": "Sushi"},
+    {"City": "New York", "River": "Hudson", "Food": "Burger"}
+]
+    table = clsDivBuilder.BuildTable(tableConfig)
+    table.classList.add("border", "border-cells", "border-headers", "padding-5", "w-100")
+    document.getElementById("id-build-JSON").append(table)
+</script>
+
+<script id ="id-table-InserRow">
+    table = document.getElementById("id-InserRow")
+    clsDivHandler.InsertRow(table, ["Das ist", "eine neue", "Zeile"])
+    clsDivHandler.InsertRow(table, {"A": "Kaffee", "C": "Tee"})
+
+    clsDivHandler.InsertRow(table, {"A": "Das ist", "B": "eine neue Zeile", "C": "am Anfang"}, 0)
+</script>
+
+<script id ="id-table-MakeRowsEditable">
+    table = document.getElementById("id-MakeRowsEditable")
+    clsDivHandler.MakeRowsEditable(table, {rowIndexes: [0,2]})   // make the header and the second row editable
+</script>
+
+<script id ="id-table-TableStyle-ColWidth">
+    table = document.getElementById("id-TableStyle-ColWidth")
+    clsDivHandler.SetTableStyle(table, {colWidths: ["10%", "70%", "20%"]})
+</script>
+
+
 <script>
-    ShowHTMLinTextArea(document.getElementById("id-table-01"), document.getElementById("show-01"))
-    ShowHTMLinTextArea(document.getElementById("id-script-01"), document.getElementById("show-script-01"))
-    ShowHTMLinTextArea(document.getElementById("id-script-02"), document.getElementById("show-script-02"))
-    Auto_Fill(FromFile_jsonData_js,"id-tbody-01")
+    for (let key of ["config", "empty", "HandR", "CandR", "JSON", "InserRow", "MakeRowsEditable", "TableStyle-ColWidth"]) {
+        ShowHTMLinTextArea(document.getElementById("id-table-" + key), document.getElementById("show-script-" + key))}
+
     Auto_Fill(FromFile_textGeneral_js,"id-end")
 </script>
 </body>

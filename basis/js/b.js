@@ -42,6 +42,31 @@ function assert(condition, message) {
     
     throw new Error(message)
 }
+
+
+function ValidateSCHEMA(config, SCHEMA) {
+    let allowedKeys = Object.keys(SCHEMA)
+
+    for (let key of Object.keys(config)) {
+        if (!allowedKeys.includes(key)) {
+            console.log("Key not allowed in config: " + key)
+            return false;}
+
+        if (typOf(config[key]) != SCHEMA[key].typOf) {  
+            console.log("Key " + key + " has wrong type. Expected: " + SCHEMA[key].typOf + ", found: " + typOf(config[key]))
+            return false;}
+    }
+
+    for (let key of allowedKeys) {
+        if (SCHEMA[key].required && config[key] === null) {     // null includes undefined, but not vice versa
+            console.log("Key " + key + " is required but not provided.")
+            return false;
+        }
+    }
+    return true;
+}
+
+
 /**
 returns true if all values are equal
  */
@@ -233,75 +258,6 @@ class clsFiles {
     }
 }
 // ####################################################################################################
-// region content_divTable                                                                                #
-// ####################################################################################################
-
-/**
-return a div table. Provide either cols or json! <br>
-When cols[int] is provided,  an empty table with cols collums and 0 rows is returned <br>
-With json is provided, a table with the json dataset is returend. <br>
-*/
-function b_divTable({cols, json}) {
-    let f = new b_divTable_functionContainer()
-    assert(!(cols !== undefined && json !== undefined))
-    assert(!(cols == undefined && json == undefined))
-    
-    if (cols) return f.TableEmpty_Cols(cols)
-
-    if (json) {
-        assert(typOf(json) == "list")
-        json.every(item => assert(typOf(item) == 'dict'))
-        let table = f.Skeleton(0, json[0].keys().length)
-        table.b_divTable_SetHeaders(json[0].keys())
-        table.b_divTable_AddRows(json)
-        return table}
-
-    assert(false)
-}
-
-
-
-class b_divTable_functionContainer {
-    constructor () {
-        // nothing, it's a function Container
-    }
-    
-    TableEmpty_Cols(cols) {
-        assert(typOf(cols) == 'int')
-        let table = this.Skeleton(0, cols)
-        return table;
-    }
-
-    Skeleton(rows, cols) {
-        let thead = document.createElement('thead')
-        thead = this.Rows(thead, 'th', 1, cols)
-        
-        let tbody = document.createElement('tbody');
-        tbody = this.Rows(tbody, 'td', rows, cols)
-    
-        let table = document.createElement('table')
-        table.appendChild(thead)
-        table.appendChild(tbody);
-    
-        return table;
-    }
-    
-    Rows(anchor, tx, Nrows, Ncols) {
-        if (tx == 'th') assert(Nrows == 1)
-    
-        let row = document.createElement('tr')
-        for (let r = 0; r < Nrows; r++) {
-            row = document.createElement('tr')
-            for (let i = 0; i<Ncols; i++) {
-                row.appendChild(document.createElement(tx))}
-            anchor.appendChild(row)
-        }
-        return anchor
-    }
-}
-
-
-// ####################################################################################################
 // region content_svg                                                                                     #
 // ####################################################################################################
 
@@ -449,6 +405,193 @@ function _svg_All(sizes, dict) {
     return ret
 }
 // ####################################################################################################
+// region divHandler                                                                                      #
+// ####################################################################################################
+
+/*
+headers: array of strings, representing the headers of the table
+cols: array of arrays of strings, representing the columns of the table, where the first array is the first column
+rows: array of arrays of strings, representing the rows of the table, where the first array is the first row
+
+You can provide headers. If not, then ["header 1", "header 2", "header 3"] will be set by default
+You can provide rows or cols, but not both. If you provide neither, an empty table with four empty rows will be created.
+*/
+class clsDivBuilder {
+    static BuildTable(config) {
+        let SCHEMA = {
+            headers: {typOf: 'list', required: false},
+            cols: {typOf: 'list', required: false},
+            rows: {typOf: 'list', required: false},
+            json: {typOf: 'list', required: false}}
+        if (ValidateSCHEMA(config, SCHEMA) == false) return;
+
+        let headers = ["header 1", "header 2", "header 3"]
+        let rows = [["", "", ""], ["", "", ""], ["", "", ""], ["", "", ""]]
+        let json = [
+            {"header 1": "", "header 2": "", "header 3": ""},
+            {"header 1": "", "header 2": "", "header 3": ""},
+            {"header 1": "", "header 2": "", "header 3": ""},
+            {"header 1": "", "header 2": "", "header 3": ""}
+        ]
+
+        if (config.json && (config.cols || config.rows)) 
+            return null
+        if (config.json && !config.headers) 
+            headers = this._AllKeysFromJSON(config.json)
+        if (config.headers) 
+            headers = config.headers;
+        if (config.cols && config.rows)
+            return null
+        if (config.rows) 
+            rows = config.rows;
+        if (config.cols)
+            rows = config.cols.transpose();
+        if (config.json) {
+            rows = []
+            for (let item of config.json) {
+                let row = [];
+                for (let header of headers) {
+                    row.push(item[header] || "");}
+                rows.push(row);}
+        }
+
+        let table = document.createElement("table");
+        table.appendChild(this._tableHeaders(headers));
+        table.appendChild(this._tableBody(rows));
+        return table;
+    }
+
+    static _tableHeaders(headers) {
+        let thead = document.createElement("thead");
+        thead.appendChild(this._tableRow(headers, "th"));
+        return thead;
+    }
+
+    static _tableBody(rows) {
+        let tbody = document.createElement("tbody");
+        rows.forEach(row => {tbody.appendChild(this._tableRow(row, "td"));});
+        return tbody;
+    }
+
+    static _tableRow(values, tx) {
+        const tr = document.createElement("tr");
+        values.forEach(value => {tr.appendChild(this._tableCell(value, tx));});
+        return tr;
+    }
+
+    static _tableCell(value, tag) {
+        const cell = document.createElement(tag);
+        cell.textContent = value;
+        return cell;
+    }
+
+    static _AllKeysFromJSON(json) {
+        let allKeys = new Set();
+        json.forEach(item => {
+            Object.keys(item).forEach(key => allKeys.add(key));
+        });
+        return Array.from(allKeys);
+    }
+}
+
+
+
+class clsDivHandler {
+
+    static _InsertRow_Validate(table, rowAsListOrDict, index) {
+        if (!(table instanceof HTMLTableElement)) {
+            console.error("The provided table is not a valid HTMLTableElement.");
+            return;}
+        if (rowAsListOrDict == null || (typOf(rowAsListOrDict) != 'list' && typOf(rowAsListOrDict) != 'dict')) {
+            console.error("The provided row is not a valid list or dict.");
+            return;}
+        if (index !== undefined && (typOf(index) != 'int' || index < 0 || index > table.rows.length)) {
+            console.error("The provided index is not valid.");
+            return;}
+    }
+
+    static InsertRow(table, rowAsListOrDict, index) {
+        this._InsertRow_Validate(table, rowAsListOrDict, index)
+        
+        let rowIndex = wenn(index === undefined,table.rows.length-1, index) 
+        let headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerHTML);
+        let tbody = table.querySelector('tbody');
+        let row = tbody.insertRow(rowIndex);
+        
+        // Handle dictionary row. Cells will be filled according to header names.
+        // Dictionary must not match headers exactly. Missing keys will result in empty cells.
+        if (typOf(rowAsListOrDict) == 'dict') {
+            for (let j = 0; j < headers.length; j++) {
+                let cell = row.insertCell();
+                let key = headers[j];
+                cell.innerHTML = rowAsListOrDict[key] || "";
+            }
+            return;
+        }
+
+        // Handle list row. Cells will be filled in order.
+        // List (order of entries) must match headers exactly
+        if (typOf(rowAsListOrDict) == 'list') {
+            if (rowAsListOrDict.length != headers.length) {
+                console.error("The provided row list length does not match the number of table headers.");
+                return;}
+
+            for (let j = 0; j < rowAsListOrDict.length; j++) {
+                let cell = row.insertCell();
+                cell.innerHTML = rowAsListOrDict[j];
+            }
+            return;
+        }
+    }
+
+    static MakeRowsEditable(table, options) {
+        let SCHEMA = {
+            rowIndexes: {typOf: 'list', required: false}
+            //other schemas my be added
+        }
+        if (ValidateSCHEMA(options, SCHEMA) == false) return;
+
+        if (options.rowIndexes) {
+            for (let i = 0; i < options.rowIndexes.length; i++) {
+                let rowIndex = options.rowIndexes[i];
+                let row = table.rows[rowIndex];
+                for (let j = 0; j < row.cells.length; j++) {
+                    let cell = row.cells[j];
+                    cell.contentEditable = true;
+                }
+            }
+        }
+    }
+
+    static SetTableStyle(table, options) {
+        let SCHEMA = {
+            colWidths: {typOf: 'list', required: false}
+            //other schemas my be added
+        }
+        if (ValidateSCHEMA(options, SCHEMA) == false) return;
+
+        if (options.colWidths) {
+            if (options.colWidths.length != table.rows[0].cells.length) {
+                console.error("The provided colWidths list length does not match the number of table headers.");
+                return;}
+
+            // Ensure percentage widths work as expected
+            table.style.tableLayout = 'fixed';
+            table.style.width = '100%';
+
+            for (let i = 0; i < options.colWidths.length; i++) {
+                // Ensure valid layout: ["50%", "30%", "20%"]
+                if (typOf(options.colWidths[i]) !== 'str' && !options.colWidths[i].includes('%')) {
+                    console.error("The provided colWidths list contains non-percentage values.");
+                    return;}
+
+                table.rows[0].cells[i].style.width = options.colWidths[i]
+            }
+        }
+    }
+}
+   //MOHI: replaces protoDivTable and protoDOMTable functions
+// ####################################################################################################
 // region DOM                                                                                             #
 // ####################################################################################################
 
@@ -542,7 +685,7 @@ function Auto_Fill(listOfDictionaries, elementId, configOptions) {
     // store template as div-container attribute and clear innerHTML
     if (!div._autoFillTemplate) div._autoFillTemplate = div.innerHTML;
     const template = div._autoFillTemplate; // local immutable reference
-    if (!options.append) div.innerHTML = "";
+    if (!options.append || div.innerHTML == div._autoFillTemplate) div.innerHTML = ""; // clear only if not appending and if content is different from template, i.e. not the first time here
 
     // do the magic
     listOfDicts.forEach(item => {
@@ -1057,6 +1200,34 @@ Object.defineProperties(Array.prototype, {
         }
     }
 });
+
+/**
+ * return the transposed version of a 2D array. The array must be rectangular and have only two dimensions.
+ */
+Object.defineProperties(Array.prototype, {
+    transpose: {
+        value: function() {
+            if (this.length == 0) 
+                return []
+            if (this.Shape() == false) {
+                console.log('Array is not rectangular')   
+                return null}
+            if (this.depth() != 2) {
+                console.log('Array is not 2D')   
+                return null}
+            
+            // logic: Array of rows -> Array of columns
+            let transposed = []
+            for (let i = 0; i < this.Shape()[1]; i++) {
+                transposed.push([])
+                for (let j = 0; j < this.Shape()[0]; j++) {
+                    transposed[i].push(this[j][i])
+                }
+            }
+            return transposed
+        }
+    }
+});
 // ####################################################################################################
 // region Collection                                                                                 #
 // ####################################################################################################
@@ -1566,49 +1737,20 @@ Element.prototype.b_divTable_SetHeaders = function(liste) {
         headerCells[i].innerHTML = liste[i]}
 }
 
-
-/** 
-adds new rows to a table. 
-If liste is a list of dictionaries, then the innerHTML of each cell will be set to the value of the 
-key identical to the header.
-*/
-Element.prototype.b_divTable_AddRows = function(liste) {
-    assert(this.tagName == 'TABLE');
-
-    let tbody = this.querySelector('tbody');
-    
-    // Handle 2D array
-    if (typOf(liste) == 'list' && typOf(liste[0]) == 'list') {
-        // to be implemented
-        return
-    }
-
-    // Handle list of dictionaries
-    if ((typOf(liste) == 'list' && typOf(liste[0]) == 'dict')) {
-        let headers = Array.from(this.querySelectorAll('thead th')).map(th => th.innerHTML);
-
-        for (let i = 0; i < liste.length; i++) {
-            let row = tbody.insertRow();
-            for (let j = 0; j < headers.length; j++) {
-                let cell = row.insertCell();
-                let key = headers[j];
-                cell.innerHTML = liste[i][key];
-            }
-        }
-        return 
-    }
-}
-
 /**
 return the index of the header with the given name.
 If the header is not found, it returns -1.
  */
 
-Element.prototype.b_HeaderIndex = function(headerName) {
+Element.prototype.b_HeaderIndex = function(headerName, CaseSensitive=false) {
     assert(this.tagName == 'TABLE');
     let headers = Array.from(this.querySelectorAll('thead th'));
     for (let i = 0; i < headers.length; i++) {
-        if (headers[i].innerHTML == headerName) return i;
+        if (CaseSensitive) {
+            if (headers[i].innerHTML == headerName) return i;
+        } else {
+            if (headers[i].innerHTML.toLowerCase() == headerName.toLowerCase()) return i;
+        }
     }
     return -1; // Header not found
 }
@@ -1919,11 +2061,13 @@ Object.defineProperties(String.prototype, {
 
 
 /**
-returns the number of occurrences of a specified character in the string
+returns the number of occurrences of a specified character in the string.
+If the string is empty, it returns 0.
 */
 Object.defineProperties(String.prototype, {
     count: {
         value: function(c) {
+            if (c == '') return 0
             return this.split(c).length - 1;
         }
     }
@@ -2001,11 +2145,23 @@ returns true if the ego string is a digit, false otherwise
 */
 Object.defineProperties(String.prototype, {
     isDigit: {
-        value: function() {
-            for (let c of this) {
-                if (!'0123456789'.includes(c)) return false
+        value: function(DecimalSeperator) {
+            if (DecimalSeperator != undefined) assert (DecimalSeperator == ',' || DecimalSeperator == '.')
+            else DecimalSeperator = ''
+            
+            let allowedDigits = '0123456789'
+            const allowedChars = allowedDigits + DecimalSeperator
+
+            if (this.count(DecimalSeperator) > 1) return false
+
+            for (let i = 0; i < this.length; i++) {
+                let c = this.charAt(i)
+
+                if (i == 0 && c == DecimalSeperator) return false
+                if (i == this.length - 1 && c == DecimalSeperator) return false
+                if (!allowedChars.includes(c)) return false
             }
-            return true
+            return this.length > 0;  // if the string (= this) is empty return false, otherwise true
           }
         }
 });
