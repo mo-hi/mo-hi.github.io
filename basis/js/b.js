@@ -544,6 +544,27 @@ class clsDivHandler {
         }
     }
 
+    static _RemoveRow_Validate(table, index) {
+        if (!(table instanceof HTMLTableElement)) {
+            console.error("The provided table is not a valid HTMLTableElement.");
+            return;}
+        if (index !== undefined && (typOf(index) != 'int' || index < 0 || index > table.rows.length)) {
+            console.error("The provided index is not valid.");
+            return;}
+    }
+
+    static RemoveRow(table, index) {
+        this._RemoveRow_Validate(table, index);
+
+        let tbody = table.querySelector('tbody');
+        if (!tbody || tbody.rows.length === 0) return;
+
+        let rowIndex = wenn(index === undefined, tbody.rows.length - 1, index);
+
+        tbody.deleteRow(rowIndex);
+        }
+
+
     static MakeRowsEditable(table, options) {
         let SCHEMA = {
             rowIndexes: {typOf: 'list', required: false}
@@ -674,7 +695,7 @@ Available options: <br>
 - append: boolean, if true, appends to existing content instead of clearing it first <br>
 */
 function Auto_Fill(listOfDictionaries, elementId, configOptions) {
-    const input_norm = _Auto_Fill_Normalize(listOfDictionaries, elementId, configOptions)
+    const input_norm = _Auto_Fill_Harmonize(listOfDictionaries, elementId, configOptions)
     if (input_norm === null) return
     const {
         container: div,
@@ -699,9 +720,11 @@ function Auto_Fill(listOfDictionaries, elementId, configOptions) {
     });
 }
 
-
+/**
+Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill. Auto_Fill_Batch processes the data in batches per second
+ */
 function Auto_Fill_Batch(listOfDictionaries, elementId, configOptions) {
-    const input_norm = _Auto_Fill_Normalize(listOfDictionaries, elementId, configOptions)
+    const input_norm = _Auto_Fill_Harmonize(listOfDictionaries, elementId, configOptions)
     if (input_norm === null) return
     const {
         container: div,
@@ -734,22 +757,28 @@ function Auto_Fill_Batch(listOfDictionaries, elementId, configOptions) {
     Registry_AutoFillBatchTimers[elementId] = timer;
 }
 
-function _Auto_Fill_Normalize(data, elementId, opts) {
-    if (elementId === undefined) elementId = ""
+function Auto_Fill_Function(functionToCall, elementId) {
+        let container = _Auto_Fill_Harmonize_Container(elementId)
+
+        const matches = container.innerHTML.match(/\{\{(.+?)\}\}/g); // matches = ['{{3|6}}', '{{2|5}}', '{{12|7}}']
+        if (!matches) return null;
+        for (let match of matches) {
+            let key = match.slice('{{'.length, -1*'{{'.length);
+            let value = functionToCall(key);
+            container.innerHTML = container.innerHTML.replace(match, value);
+        }
+}
+
+function _Auto_Fill_Harmonize(data, elementId, opts) {
     if (opts === undefined) opts = {}
     if (opts.append === undefined) opts.append = false
     if (opts.batchSize === undefined) opts.batchSize = 20
     if (opts.intervalMs === undefined) opts.intervalMs = 100
 
     // get the container div
-    let container = null
-    if (elementId === "") container = document.body
-    else container = document.getElementById(elementId);
-    if (!container) return null
-    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
-  
+    let container = _Auto_Fill_Harmonize_Container(elementId)
 
-    // normalize input data to be always a list
+    // Harmonize input data to be always a list
     if (!['list', 'dict'].includes(typOf(data))) return
     if (typOf(data) == 'dict') data = [data]
 
@@ -759,6 +788,15 @@ function _Auto_Fill_Normalize(data, elementId, opts) {
         opts
     };
 }
+
+function _Auto_Fill_Harmonize_Container(elementId) {
+    if (elementId === undefined) elementId = ""
+    let container = null
+    if (elementId === "") container = document.body
+    else container = document.getElementById(elementId);
+    if (!container) return null
+    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+    return container}
 
 
 /**

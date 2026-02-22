@@ -70,11 +70,44 @@
     <p>
         InsertRow let's you  insert a row into a table.
     </p>
-    <div id = "show-script-InserRow" class="mt-1i h-120">
+    <div id = "show-script-InsertRow" class="mt-1i h-120">
     </div>
     <br/>
     <div>
-        <table id = "id-InserRow" class="border border-cells border-headers padding-5 w-100">
+        <table id = "id-InsertRow" class="border border-cells border-headers padding-5 w-100">
+            <thead>
+                <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Das ist</td>
+                    <td>das Haus</td>
+                    <td>vom Nikolaus</td>
+                </tr>
+                <tr>
+                    <td>Ich</td>
+                    <td>und</td>
+                    <td>du</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <br/><br/>
+
+    <h3>RemoveRow</h3>
+    <p>
+        RemoveRow let's you remove a row in a table.
+    </p>
+    <div id = "show-script-RemoveRow" class="mt-1i h-80">
+    </div>
+    <br/>
+    <div>
+        <table id = "id-RemoveRow" class="border border-cells border-headers padding-5 w-100">
             <thead>
                 <tr>
                     <th>A</th>
@@ -223,12 +256,17 @@
     document.getElementById("id-build-JSON").append(table)
 </script>
 
-<script id ="id-table-InserRow">
-    table = document.getElementById("id-InserRow")
+<script id ="id-table-InsertRow">
+    table = document.getElementById("id-InsertRow")
     clsDivHandler.InsertRow(table, ["Das ist", "eine neue", "Zeile"])
     clsDivHandler.InsertRow(table, {"A": "Kaffee", "C": "Tee"})
 
     clsDivHandler.InsertRow(table, {"A": "Das ist", "B": "eine neue Zeile", "C": "am Anfang"}, 0)
+</script>
+
+<script id ="id-table-RemoveRow">
+    table = document.getElementById("id-RemoveRow")
+    clsDivHandler.RemoveRow(table, 0)
 </script>
 
 <script id ="id-table-MakeRowsEditable">
@@ -243,7 +281,7 @@
 
 
 <script>
-    for (let key of ["config", "empty", "HandR", "CandR", "JSON", "InserRow", "MakeRowsEditable", "TableStyle-ColWidth"]) {
+    for (let key of ["config", "empty", "HandR", "CandR", "JSON", "InsertRow", "RemoveRow", "MakeRowsEditable", "TableStyle-ColWidth"]) {
         ShowHTMLinTextArea(document.getElementById("id-table-" + key), document.getElementById("show-script-" + key))}
 
     Auto_Fill(FromFile_textGeneral_js,"id-end")

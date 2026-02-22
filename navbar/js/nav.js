@@ -1,3 +1,14 @@
+class clsNAV {
+    constructor(targetID, data) {
+        this.targetID = targetID
+        this.data = data
+    }
+
+    static Sidebar = NAV_Sidebar
+    static AddGenericClickFunction = NAV_AddGenericClickFunction
+}
+
+
 function NAV_Sidebar(targetID, data,
     {numbering = true, idPrefix = "", idPostfix = ""} = {}) {
     let ul = document.getElementById(targetID)

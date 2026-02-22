@@ -27,7 +27,7 @@
     <h2 class="underline sticky">About Mouse Handler</h2>
     <p>
         Mouse Handler provides simplified usage of mousce click events. In the current version clicks take take longer
-        than 0.3 seconds are considered as text marking actions, ignoring the click. Other may be added. 
+        than 0.3 seconds are ignoring the click (are considered as text marking actions). Other may be added. 
         To use Mouse Handler in your project, just add the following script reference to your project:
     </p>
     <code class="w-70">
@@ -99,12 +99,11 @@
 
 <!-- application -->
 <script id="id-js-application">
-    let MH = new clsMouseHandler(function_Click);
     (function () {
             for (i = 1; i<110;i++) {
                 div = document.getElementById("id-"+String(i))
                 // Mouse Handler per div. Both events are needed to prevent text selection being mistaken for a click
-                MH.addEventListeners(div)
+                clsMouseHandler.addEventListeners(div, function_Click)
                 // alternative: native event listeners
                 // div.addEventListener('mousedown', MH.MouseDown)
                 // div.addEventListener('mouseup', MH.MouseUp)
@@ -122,7 +121,7 @@
     (function () {
             for (i = 1; i<110;i++) {
                 div = document.getElementById("id2-"+String(i))
-                new clsMouseHandler().addEventListeners(div, function_Click2)
+                clsMouseHandler.addEventListeners(div, function_Click2)
                 }
             })();
 </script>

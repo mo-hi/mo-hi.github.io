@@ -78,6 +78,12 @@ const FromFile_FunctionsInfo_JS = [
         "region": "htmlManipulation"
     },
     {
+        "name": "Auto_Fill_Batch",
+        "docstring": "Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill. Auto_Fill_Batch processes the data in batches per second",
+        "parameters": "listOfDictionaries, elementId, configOptions",
+        "region": "htmlManipulation"
+    },
+    {
         "name": "ShowHTMLinTextArea",
         "docstring": "Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown",
         "parameters": "divToExpose, divToAppend, outer = false",

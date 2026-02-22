@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="author" content="Mo Hi">
-    <title>My HTML Page</title>
+    <title>My HTML Page (broken)</title>
     <link rel="stylesheet" href="../basis/css/b.css"/>
 </head>
 <body class="css-doc-dark">
@@ -157,11 +157,45 @@
             Auto_Fill(tableToFill,"id-tbody-01")
         </p>
         <br/>
+        <h2 class="h-underline h-sticky">Auto Fill Function</h2>
+        <p>
+            Auto_Fill_Function is an extension of Auto_Fill to handle complex data structures. The usage is similar to Auto_Fill.
+            Auto_Fill_Function passes the value of the variable to the provided function and repalces the variable with the returned value.
+        </p>
+        <p>
+            The html:
+        </p>
+        <div id="show-html-AutoFillFunction" class="codepanel h-120">
+
+        </div>
+        <p>
+            The code:
+        </p>
+        <div id="show-script-AutoFillFunction" class="codepanel h-80">
+
+        </div>
+        <br/>
+        <div id="html-AutoFillFunction">
+            3 + 6 = {{3|6}}
+            <br/>
+            2 + 5 = {{2|5}}
+            <br/>
+            12 + 7 = {{12|7}}
+
+        </div>
         <h2 class="h-underline h-sticky">Auto Fill Batch</h2>
         <p>
             Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill.
             Auto_Fill_Batch processes the data in batches per second. Here is an example of how to use Auto_Fill_Batch to fill a table with 600 entries:
+            The html is identical to the previous Auto Fill example.
         </p>
+        <p>
+            The code:
+        </p>
+        <div id="show-script-AutoFillBatch" class="codepanel h-180">
+
+        </div>
+        <br/>
         <div class="table-wrap">
             <table class="doc-table">
             <thead>
@@ -182,8 +216,8 @@
             </tbody>
             </table>
         </div>
-        <br/>
-        <p>
+
+
         </section>
 
         <section>
@@ -280,10 +314,12 @@
         {"Country": "USA", "City": "New York", "River": "Hudson", "Food": "Burger"}
         ]
         Auto_Fill(tableToFill,"id-tbody-01")
+        function div (id) {return document.getElementById(id)}
+        ShowHTMLinTextArea(div("html-AutoFillFunction"), div("show-html-AutoFillFunction"))
     </script>
 
     <!-- Auto_Fill_Batch -->
-    <script>
+    <script id ="id-script-auto-fill-batch">
         let tableToFill_Batch = []
 
         for (let i=1; i<=120; i++) {
@@ -292,8 +328,14 @@
             )
         }
 
-    Auto_Fill_Batch(tableToFill_Batch,"id-tbody-batch", {batchSize: 1, intervalMs: 1000})  // batch size 100. Interval is 100mx per default
-    // Auto_Fill(tableToFill_Batch,"id-tbody-batch")
+        // batch size 100. Interval is 100ms per default
+        Auto_Fill_Batch(tableToFill_Batch,"id-tbody-batch", {batchSize: 1, intervalMs: 1000})  
+    </script>
+
+    <script id="id-script-auto-fill-function">
+        function foo (val) { return Number(val.split('|')[0]) + Number(val.split('|')[1]) }
+
+        Auto_Fill_Function(foo, "html-AutoFillFunction", {batchSize: 1, intervalMs: 1000})
     </script>
 
     <script id="id-script-code">
@@ -301,7 +343,12 @@
         //
         ShowHTMLinTextArea(div("id-html-code"), div("id-html-code-show"))
         ShowHTMLinTextArea(div("id-script-code"), div("id-script-code-show-outer"), true)
+        ShowHTMLinTextArea(div("id-script-auto-fill-batch"), div("show-script-AutoFillBatch"))
+
+        ShowHTMLinTextArea(div("id-script-auto-fill-function"), div("show-script-AutoFillFunction"))
     </script>
+
+
 
     <script id="id-script-markdown">
         function div (id) {return document.getElementById(id)}
