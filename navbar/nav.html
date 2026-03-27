@@ -14,41 +14,55 @@
         textarea    {background-color: var(--color-background); color: var(--color-text);}
     </style>
 </head>
-<body class="academic wr-800-400 js-fill">  
-    <div id="id-nav">
-        <nav>
-            <a href="" onclick="">Home</a>
-            <a href="" onclick="">Edit</a>
-            <drop>
-                <a href="">Stuff</a>
-                <downH>
-                    <a href="" onclick="">Link 1</a>
-                    <a href="" onclick="">Link 2</a>
-                    <a href="" onclick="">Link 3</a>
-                </downH>
-            </drop>
-            <a href="" onclick="">Articles</a>
-            <drop>
-                <a href="">More</a>
-                <downH>
-                    <a href="" onclick="">Link 1</a>
-                    <a href="" onclick="">Link 2</a>
-                    <a href="" onclick="">Link 3</a>
-                </downH>
-            </drop>
-        </nav>
+<body class="academic wr-800-400 js-fill mt-0i">  
+    <div id = "id-show">
+        <div id="id-nav">
+            <nav>
+                <a onclick="navbar_home()">Home</a>
+                <a onclick="navbar_fixed()">fixed</a>
+                <drop>
+                    <a href="">Stuff</a>
+                    <downH>
+                        <a href="" onclick="">Link 1</a>
+                        <a href="" onclick="">Link 2</a>
+                        <a href="" onclick="">Link 3</a>
+                    </downH>
+                </drop>
+                <a href="" onclick="">Articles</a>
+                <drop>
+                    <a href="">More</a>
+                    <downH>
+                        <a href="" onclick="">Link 1</a>
+                        <a href="" onclick="">Link 2</a>
+                        <a href="" onclick="">Link 3</a>
+                    </downH>
+                </drop>
+            </nav>
+        </div>
     </div>
 
-    <h2>nav.css</h2>
+    <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
+    
+    <h2 id = 'id-h2'>nav</h2>
     <div id = 'id-start'>
-        {{nav-start}}
+    <p>
+        <b>nav.css</b> lets you create navigation bars/menubars at the top of your HTML page and sidebars using CSS and Javascript.
+        It avoids using generic div tags and instead employs custom HTML elements like &lt;drop&gt; and &lt;down&gt; for a more semantic approach.
+    </p>
+    <p>
+        To use nav.css, simply copy the css into your project or insert <a href="https://mo-hi.github.io/navbar/css/navColors.css"> nav.css </a> into your HTML page.
+        Colors are defined in a separate <a href="https://mo-hi.github.io/navbar/css/navColors.css"> navColors.css </a>.\
+    </p>
+    <code><pre style="font-size: 0.85rem;">
+    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/nav.css">link</a>
+    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/navColors.css">link</a></pre>
+    </code>
     </div>
-
     <p>
         The navbar of this page for example is created with the following
     </p>
     HTML
-    <div id="id-show" class="h-340 js-fill"></div>
+    <div id="id-show-out" class="h-340 js-fill"></div>
     
     <p><span style='font-size:30px;color:orange'>&#9888;</span> Be aware that this navbar not 'fixed', i. e. if you scroll down on your page, 
         then the navbar will scroll up with the rest of the page.
@@ -76,6 +90,31 @@
         Auto_Fill(FromFile_textNav_JS)
         Auto_Fill(FromFile_textGeneral_js)
 
-        ShowHTMLinTextArea(document.getElementById("id-nav"), document.getElementById("id-show"))
+        ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"))
     // </script>
+
+    <script>
+        let nav = document.getElementById("id-nav")
+        let h2 = document.getElementById("id-h2")
+
+        function navbar_fixed() {
+            nav.classList.add("fixed", "wr-800-400", "top-0")
+            h2.classList.add("mt-82i")
+            h2.innerHTML = "nav - fixed"
+            UpdateHTMLBlock()
+        }
+
+        function navbar_home() {
+            nav.classList.remove("fixed", "wr-800-400", "top-0")
+            h2.classList.remove("mt-82i")
+            h2.innerHTML = "nav"
+            UpdateHTMLBlock()
+        }
+
+        function UpdateHTMLBlock() {
+            document.getElementById("id-show-out").innerHTML = ""
+            ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"))
+    // 
+        }
+    </script>
 </html>
