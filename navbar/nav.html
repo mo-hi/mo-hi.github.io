@@ -51,7 +51,7 @@
     </p>
     <p>
         To use nav.css, simply copy the css into your project or insert <a href="https://mo-hi.github.io/navbar/css/navColors.css"> nav.css </a> into your HTML page.
-        Colors are defined in a separate <a href="https://mo-hi.github.io/navbar/css/navColors.css"> navColors.css </a>.\
+        Colors are defined in a separate <a href="https://mo-hi.github.io/navbar/css/navColors.css"> navColors.css </a>.
     </p>
     <code><pre style="font-size: 0.85rem;">
     &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/nav.css">link</a>
@@ -64,9 +64,16 @@
     HTML
     <div id="id-show-out" class="h-340 js-fill"></div>
     
-    <p><span style='font-size:30px;color:orange'>&#9888;</span> Be aware that this navbar not 'fixed', i. e. if you scroll down on your page, 
+    <p id = "id-p-not-fixed">
+        This navbar not fixed. If you scroll down on your page, 
         then the navbar will scroll up with the rest of the page.
-        If you want the navbar to be fixed, then use the <a href="https://github.com/mo-hi/mo-hi.github.io">nav fix position</a></p>
+        If you want the navbar to be fixed, then click on this navbar and choose 'fixed'.
+    </p>
+    <p id="id-p-fixed" class="hidden">
+        This navbar is fixed. 
+        If you scroll down on your page, then the navbar will not scroll with the rest of the page.
+        If you want to return to the original state, then click on this navbar and choose 'Home'.
+    </p>
     <br><hr>
     <section>
         <p id="id-end">
@@ -86,8 +93,6 @@
     <script src="js/textNav.js"></script>
     <script src="../textGeneral.js"></script>
     <script>
-        
-        Auto_Fill(FromFile_textNav_JS)
         Auto_Fill(FromFile_textGeneral_js)
 
         ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"))
@@ -96,11 +101,15 @@
     <script>
         let nav = document.getElementById("id-nav")
         let h2 = document.getElementById("id-h2")
+        let p_not_fixed = document.getElementById("id-p-not-fixed")
+        let p_fixed = document.getElementById("id-p-fixed")
 
         function navbar_fixed() {
             nav.classList.add("fixed", "wr-800-400", "top-0")
             h2.classList.add("mt-82i")
             h2.innerHTML = "nav - fixed"
+            p_fixed.classList.remove("hidden")
+            p_not_fixed.classList.add("hidden")
             UpdateHTMLBlock()
         }
 
@@ -108,6 +117,8 @@
             nav.classList.remove("fixed", "wr-800-400", "top-0")
             h2.classList.remove("mt-82i")
             h2.innerHTML = "nav"
+            p_fixed.classList.add("hidden")
+            p_not_fixed.classList.remove("hidden")
             UpdateHTMLBlock()
         }
 
