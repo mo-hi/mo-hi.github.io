@@ -5,6 +5,7 @@
     <meta name="author" content="Mo Hi">
     <title>nav css</title>
     <link rel="stylesheet" href="../basis/css/b.css">
+    <link rel="stylesheet" href="css/navPage.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/navColors.css">
     <style>
@@ -19,23 +20,25 @@
         <div id="id-nav">
             <nav>
                 <a onclick="navbar_home()">Home</a>
+                <a onclick="navbar_static()">static</a>
                 <a onclick="navbar_fixed()">fixed</a>
-                <drop>
-                    <a href="">Stuff</a>
-                    <downH>
-                        <a href="" onclick="">Link 1</a>
-                        <a href="" onclick="">Link 2</a>
-                        <a href="" onclick="">Link 3</a>
-                    </downH>
+                <a onclick="navbar_hover()">hover</a>
+                <a onclick="navbar_click()">click</a>
+                <drop class="hover">
+                    <a >DropDown</a>
+                    <down>
+                        <a>Link 1</a>
+                        <a>Link 2</a>
+                        <a>Link 3</a>
+                    </down>
                 </drop>
-                <a href="" onclick="">Articles</a>
-                <drop>
-                    <a href="">More</a>
-                    <downH>
-                        <a href="" onclick="">Link 1</a>
-                        <a href="" onclick="">Link 2</a>
-                        <a href="" onclick="">Link 3</a>
-                    </downH>
+                <drop class="hover">
+                    <a >More</a>
+                    <down>
+                        <a>Link 1</a>
+                        <a>Link 2</a>
+                        <a>Link 3</a>
+                    </down>
                 </drop>
             </nav>
         </div>
@@ -44,6 +47,16 @@
     <p>&nbsp;</p>             <!--  without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     
     <h2 id = 'id-h2'>nav</h2>
+    <div class="nav-status-bar">
+        <span id="status-static" class="badge active">static</span>
+        <span id="status-fixed" class="badge mr-40">fixed</span>
+        <span id="status-hover" class="badge active">hoverable</span>
+        <span id="status-click" class="badge">click-toggle</span>
+    </div>
+
+    HTML of THIS navbar
+    <div id="id-show-out" class="h-400 js-fill"></div>
+    <p>&nbsp;</p>
     <div id = 'id-start'>
     <p>
         <b>nav.css</b> lets you create navigation bars/menubars at the top of your HTML page and sidebars using CSS and Javascript.
@@ -58,16 +71,13 @@
     &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/navColors.css">link</a></pre>
     </code>
     </div>
-    <p>
-        The navbar of this page for example is created with the following
-    </p>
-    HTML
-    <div id="id-show-out" class="h-340 js-fill"></div>
-    
-    <p id = "id-p-not-fixed">
+    <p id = "id-p-static">
         This navbar not fixed. If you scroll down on your page, 
         then the navbar will scroll up with the rest of the page.
         If you want the navbar to be fixed, then click on this navbar and choose 'fixed'.
+    </p>
+    <p id = "id-p-hover">
+        This navbar reacts to hover
     </p>
     <p id="id-p-fixed" class="hidden">
         This navbar is fixed. 
@@ -99,26 +109,75 @@
     // </script>
 
     <script>
+        let dropItems = ["DropDown", "More"]
         let nav = document.getElementById("id-nav")
         let h2 = document.getElementById("id-h2")
-        let p_not_fixed = document.getElementById("id-p-not-fixed")
+        let p_static = document.getElementById("id-p-static")
         let p_fixed = document.getElementById("id-p-fixed")
-
-        function navbar_fixed() {
-            nav.classList.add("fixed", "wr-800-400", "top-0")
-            h2.classList.add("mt-82i")
-            h2.innerHTML = "nav - fixed"
-            p_fixed.classList.remove("hidden")
-            p_not_fixed.classList.add("hidden")
-            UpdateHTMLBlock()
-        }
+        let drops = nav.querySelectorAll('drop')
+        let tag_static = document.getElementById("status-static")
+        let tag_fixed = document.getElementById("status-fixed")
+        let tag_hover = document.getElementById("status-hover")
+        let tag_click = document.getElementById("status-click")
 
         function navbar_home() {
             nav.classList.remove("fixed", "wr-800-400", "top-0")
+            drops.forEach(drop => drop.classList.add("hover"))
+
             h2.classList.remove("mt-82i")
             h2.innerHTML = "nav"
             p_fixed.classList.add("hidden")
             p_not_fixed.classList.remove("hidden")
+
+            tag_fixed.classList.remove("active")
+            tag_hover.classList.add("active")
+            tag_click.classList.remove("active")
+            UpdateHTMLBlock()
+        }
+
+        function navbar_static() {
+            nav.classList.remove("fixed", "wr-800-400", "top-0")
+            h2.classList.remove("mt-82i")
+
+            p_fixed.classList.add("hidden")
+            p_static.classList.remove("hidden")
+
+            tag_fixed.classList.remove("active")
+            tag_static.classList.add("active")
+
+            UpdateHTMLBlock()
+        }
+
+        function navbar_fixed() {
+            nav.classList.add("fixed", "wr-800-400", "top-0")
+            h2.classList.add("mt-82i")
+
+            p_fixed.classList.remove("hidden")
+            p_static.classList.add("hidden")
+
+            tag_fixed.classList.add("active")
+            tag_static.classList.remove("active")
+
+            UpdateHTMLBlock()
+        }
+
+        function navbar_click() {
+            AddOnClickAttribute(dropItems)
+            drops.forEach(drop => drop.classList.remove("hover"))
+
+            tag_hover.classList.remove("active")
+            tag_click.classList.add("active")
+
+            UpdateHTMLBlock()
+        }
+
+        function navbar_hover() {
+            RemoveOnClickAttribute(dropItems)
+            drops.forEach(drop => drop.classList.add("hover"))
+
+            tag_hover.classList.add("active")
+            tag_click.classList.remove("active")
+
             UpdateHTMLBlock()
         }
 
@@ -127,5 +186,29 @@
             ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"))
     // 
         }
+
+        function AddOnClickAttribute(navTexts) {
+            let navItems = document.querySelectorAll('nav a')
+
+            for (let i = 0; i < navItems.length; i++) {
+                if (navTexts.includes(navItems[i].innerHTML)) {
+                    navItems[i].setAttribute('onclick', '_nav_toggleDown(this)');
+                }
+                
+            }
+        }
+
+        function RemoveOnClickAttribute(navTexts) {
+            let navItems = document.querySelectorAll('nav a');
+
+            navItems.forEach(item => {
+                if (navTexts.includes(item.innerHTML)) {
+                    item.removeAttribute('onclick');
+                }
+            });
+        }
     </script>
 </html>
+
+<!-- Don't do <a href=""></a>. 
+href="" tells the browser to reload the current page breaking the navbar configuration. -->
