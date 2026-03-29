@@ -31,7 +31,7 @@ function NAV_AddGenericClickFunction(targetID, clickfunction) {
         return
     }
     
-    let drops = ul.querySelectorAll('drop')
+    let drops = ul.querySelectorAll('drop');
     if (drops.length > 0) {
         for (let drop of drops) {
             addEventListener_ClickTouch(drop, clickfunction);
@@ -72,7 +72,7 @@ function _nav_toggleDown(event) {
 }
 
 function _nav_CloseOtherOpenDropdowns(divElement) {
-    for (let drop of document.querySelectorAll('nav drop')) {
+    for (let drop of document.querySelectorAll('nav drop, nav div.drop')) {
         if (divElement.parentElement === drop) continue;
         drop.classList.remove('nav-js-active');
     }

@@ -5,12 +5,12 @@ nav {
     overflow: hidden;
   }
   
-nav > a, nav > drop {
+nav > a, nav > div.drop, nav > drop {
     float: left;
     position: static;
   }
   
-nav > a, nav > drop a {
+nav > a, nav > div.drop a, nav > drop a {
     position: static;
     display: inline-block;
     text-align: center;
@@ -18,25 +18,25 @@ nav > a, nav > drop a {
     text-decoration: none;
   }
 
-nav > drop > a::after {
+nav > div.drop > a::after, nav > drop > a::after {
     content: " \25BC";
   }
   
-nav > drop > down {
+nav > div.drop > div.down, nav > drop > down {
     display: none;
     position: absolute;
     min-width: 160px;
     z-index: 1;
   }
   
-nav > drop > down a {
+nav > div.drop > div.down a, nav > drop > down a {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
   }
   
-nav > drop.hover:hover down {
+nav > div.drop.hover:hover div.down, nav > drop.hover:hover down {
     display: block;
   }
 
@@ -92,11 +92,11 @@ nav > info {
   content: "\25BC";
 }
 
-drop down {
+div.drop div.down, drop down {
   display:none;
 }
 
-drop.nav-js-active > down {
+div.drop.nav-js-active > div.down, drop.nav-js-active > down {
   display:block;
   z-index: 1;
 }
