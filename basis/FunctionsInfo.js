@@ -86,7 +86,13 @@ const FromFile_FunctionsInfo_JS = [
     {
         "name": "ShowHTMLinTextArea",
         "docstring": "Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown",
-        "parameters": "divToExpose, divToAppend, outer = false",
+        "parameters": "divToExpose, divToAppend, outer = false, pretty = false",
+        "region": "htmlManipulation"
+    },
+    {
+        "name": "formatHTML",
+        "docstring": "* AI: Helper to add indentation and newlines to raw HTML strings",
+        "parameters": "html",
         "region": "htmlManipulation"
     },
     {

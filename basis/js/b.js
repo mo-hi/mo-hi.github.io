@@ -802,7 +802,10 @@ function _Auto_Fill_Harmonize_Container(elementId) {
 /**
 Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown
 */
-function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false) {
+function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = false) {
+    if (!(divToExpose instanceof HTMLElement)) return
+    if (!(divToAppend instanceof HTMLElement)) return
+
     let textarea = document.createElement('textarea');
     textarea.id = 'htmlSource';
     textarea.spellcheck = false;
@@ -810,20 +813,48 @@ function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false) {
     textarea.style.height = '100%';
 
     let htmlSource = undefined
-    if (typOf(divToExpose) == 'str') {
-        htmlSource = divToExpose}
-    if (divToExpose instanceof HTMLElement) {
-        htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
-        if (divToExpose.tagName.toLowerCase() === 'script') {
-            textarea.classList.add('script') 
-        }
+    htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
+    if (htmlSource == undefined) 
+        return
+    if (divToExpose.tagName.toLowerCase() === 'script')
+        textarea.classList.add('script') 
+
+    if (pretty) {
+        let flatHTML = htmlSource.replace(/[\n\t\r]/g, "").replace(/\s+/g, " ").trim();
+        htmlSource = formatHTML(flatHTML);
     }
-    if (htmlSource == undefined) return
+    
     
     textarea.value = _filteredLines(htmlSource, '#IGNORE')
     if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
     divToAppend.appendChild(textarea);   
     return textarea                                                                                                                                        
+}
+
+/**
+ * AI: Helper to add indentation and newlines to raw HTML strings
+ */
+function formatHTML(html) {
+    let tab = '    '; // 4 spaces
+    let result = '';
+    let indent = '';
+
+    // Split by tags
+    html.split(/>\s*</).forEach(function(element) {
+        if (element.match(/^\/\w/)) {
+            // Closing tag: decrease indent
+            indent = indent.substring(tab.length);
+        }
+
+        result += indent + '<' + element + '>\n';
+
+        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("br")) {
+            // Opening tag (and not self-closing): increase indent
+            indent += tab;
+        }
+    });
+
+    return result.substring(1, result.length - 2); // Clean up extra brackets/newlines
 }
 
 function _filteredLines(text, filterWord) {
