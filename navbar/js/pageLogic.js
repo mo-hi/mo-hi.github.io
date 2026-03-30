@@ -20,13 +20,22 @@ function navbar_static() {
 
 function navbar_fixed() {
     tag_static.classList.remove("active")
+    tag_autoclose.classList.remove("active")
     tag_fixed.classList.add("active")
     Update()
 }
 
 function navbar_click() {
     tag_hover.classList.remove("active")
+    tag_autoclose.classList.remove("active")
     tag_click.classList.add("active")
+    Update()
+}
+
+function navbar_autoclose() {
+    tag_click.classList.remove("active")
+    tag_hover.classList.remove("active")
+    tag_autoclose.classList.add("active")
     Update()
 }
 
@@ -69,7 +78,7 @@ function UpdateNavBlock() {
     // static of fixed
     if (tag_fixed.classList.contains("active")) {
         parentNav.classList.add("fixed", "wr-800-400", "top-0")
-        let statusbar = document.getElementById('id-status')
+        let statusbar = document.getElementById('id-status1')
         statusbar.classList.remove("mt-30i")
         statusbar.classList.add("mt-82i")
     }
@@ -96,11 +105,18 @@ function UpdateNavBlock() {
     // hover of clickable
     let drops = parentNav.querySelectorAll('drop, div.drop');
     if (tag_hover.classList.contains("active")) {
-        drops.forEach(drop => drop.classList.add("hover"))
+        drops.forEach(drop => drop.classList.add("hover-toggle"))
     }
 
     if (tag_click.classList.contains("active")) {
-        _AddOnClickAttribute()
+        drops.forEach(drop => drop.classList.add("click-toggle"))
+        _nav_initClickListeners()
+    }
+
+    if (tag_autoclose.classList.contains("active")) {
+        drops.forEach(drop => drop.classList.add("click-toggle"))
+        drops.forEach(drop => drop.classList.add("auto-close"))
+        _nav_initClickListeners()
     }
 }
 
@@ -123,7 +139,7 @@ function _Template_Reset() {
     let parentNav = document.getElementById("id-nav")
     parentNav.innerHTML = ""    
     parentNav.className = "";
-    let statusbar = document.getElementById('id-status')
+    let statusbar = document.getElementById('id-status1')
     statusbar.classList.remove("mt-82i")
     statusbar.classList.add("mt-30i")
     return parentNav

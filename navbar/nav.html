@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/navPage.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/navColors.css">
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
     <style>
         :root       {--color-background: #f0f0f0;--color-text: #444;}
         body        {background-color: var(--color-background); color: var(--color-text);}
@@ -22,7 +25,7 @@
                 <a onclick="navbar_home()">Home</a>
                 <a>Link</a></a>
                 <a>Call</a>
-                <drop class="hover">
+                <drop class="hover-toggle">
                     <a >DropDown</a>
                     <down>
                         <a>Link 1</a>
@@ -36,11 +39,15 @@
 
   <!--    <p>&nbsp;</p>             without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     
-    <div id = 'id-status' class="nav-status-bar mt-30i">
+    <div id = 'id-status1' class="nav-status-bar mt-30i">
         <span id="status-static" class="badge active" onclick="navbar_static()">static</span>
         <span id="status-fixed" class="badge mr-30" onclick="navbar_fixed()">fixed</span>
-        <span id="status-hover" class="badge active" onclick="navbar_hover()">hoverable</span>
-        <span id="status-click" class="badge mr-30" onclick="navbar_click()">click-toggle</span>
+        <span id="status-hover" class="badge active" onclick="navbar_hover()">hover</span>
+        <span id="status-click" class="badge" onclick="navbar_click()">click</span>
+        <span id="status-autoclose" class="badge" onclick="navbar_autoclose()">click close</span>
+    </div>
+
+    <div id = 'id-status2' class="nav-status-bar">
         <span id="status-1" class="badge active" onclick="One()">1</span>
         <span id="status-2" class="badge mr-30" onclick="Two()">2</span>
         <span id="status-old" class="badge active" onclick="OldTemplate()">old</span>
@@ -93,6 +100,7 @@
         const tag_fixed = document.getElementById("status-fixed")
         const tag_hover = document.getElementById("status-hover")
         const tag_click = document.getElementById("status-click")
+        const tag_autoclose = document.getElementById("status-autoclose")
         const tag_old = document.getElementById("status-old")
         const tag_new = document.getElementById("status-new")
         const tag_1 = document.getElementById("status-1")

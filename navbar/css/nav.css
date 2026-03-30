@@ -36,7 +36,7 @@ nav > div.drop > div.down a, nav > drop > down a {
     text-align: left;
   }
   
-nav > div.drop.hover:hover div.down, nav > drop.hover:hover down {
+nav > div.drop.hover-toggle:hover div.down, nav > drop.hover-toggle:hover down {
     display: block;
   }
 

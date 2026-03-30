@@ -41,45 +41,68 @@ function NAV_AddGenericClickFunction(targetID, clickfunction) {
     assert(false)
 }
 
+function _nav_CloseAllDropdowns(exceptElement = null) {
+    for (let drop of document.querySelectorAll('nav .nav-js-active')) {
+        if (!exceptElement || exceptElement.parentElement !== drop)
+            drop.classList.remove('nav-js-active');
+    }
+}
+
 function _nav_toggleDown(event) {
+    // stop default browser behavior after clicking on href, etc...
+    if (event instanceof Event) event.preventDefault();
+    // get clicked element
     let divElement = DOM_ElementFromJSEvent(event, true)
 
-    //Close other open dropdowns
-    _nav_CloseOtherOpenDropdowns(divElement)
+    //close other open dropdowns
+    _nav_CloseAllDropdowns(divElement)
+    // for (let drop of document.querySelectorAll('nav .nav-js-active')) {
+    //     if (divElement.parentElement != drop)
+    //         drop.classList.remove('nav-js-active');
+    // }
 
-    //Toogle navbar
-    if (divElement.parentElement.classList.contains('nav-js-active')) {
-        divElement.parentElement.classList.remove('nav-js-active');
-        if (divElement.closest('nav') != null) 
-            divElement.closest('nav').classList.remove('nav-js-active');
+    //toggle navbar menu
+    let navActiveState = divElement.parentElement.classList.toggle('nav-js-active');
+    //toggle navbar status
+    let nav = divElement.closest('nav');
+    if (nav)
+        nav.classList.toggle('nav-js-active', navActiveState);
 
-    } else {
-        divElement.parentElement.classList.add('nav-js-active');
-        if (divElement.closest('nav') != null) 
-            divElement.closest('nav').classList.add('nav-js-active');
-    }
-
-    //explicit z-index toogle (extended logic if there is a navbar and a sidebar)
+    //z-index toogle if there is a navbar and a sidebar
     if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) {
         let sidebar = document.querySelector('.sidebar')
-        if (divElement.closest('nav').classList.contains('nav-js-active')) {
-            sidebar.classList.add('z--1')
-        } else {
-            sidebar.classList.remove('z--1')
-        }
-    
+        sidebar.classList.toggle('z--1', navActiveState)
     }
 }
 
-function _nav_CloseOtherOpenDropdowns(divElement) {
-    for (let drop of document.querySelectorAll('nav drop, nav div.drop')) {
-        if (divElement.parentElement === drop) continue;
-        drop.classList.remove('nav-js-active');
-    }
+function _nav_initClickListeners() {
+    //stnadard dropdown behavior
+    let navItems = document.querySelectorAll('nav .drop.click-toggle > a, nav drop.click-toggle > a'); 
+    navItems.forEach(item => {
+        item.removeEventListener('click', _nav_toggleDown);
+        item.addEventListener('click', _nav_toggleDown);
+    });
+
+    // autoclose dropdown, i. e. dropdown closed after subitem click
+    let subItems= document.querySelectorAll(
+        'nav .drop.click-toggle.auto-close .down > a,\
+        nav drop.click-toggle.auto-close down > a'); 
+    subItems.forEach(item => {
+        item.removeEventListener('click', _nav_CloseAllDropdowns);
+        item.addEventListener('click', _nav_CloseAllDropdowns);
+    });
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    _nav_initClickListeners()
+});
+
+
 
 function _nav_IsTopNavBar(divElement) {
-    return divElement.tagName.toLowerCase() === 'a';
+    return divElement.tagName.toLowerCase() === 'a' && !!divElement.closest('nav');
+    // return divElement.tagName.toLowerCase() === 'a';
 }
 
 function _nav_IsThereSidebar() {
@@ -137,15 +160,18 @@ function _ulist_dropdown(li, item, count,  numbering) {
 
 function addEventListener_ClickTouch(element, functionName) {
     // element.addEventListener('click', functionName)
-    element.addEventListener('click', function(event) {
-        event.preventDefault();
-        functionName(event);
-    });
+    // element.addEventListener('click', function(event) {
+    //     event.preventDefault();
+    //     functionName(event);
+    // });
 
-    element.addEventListener('touchstart', function(event) {
-        event.preventDefault(); // Prevent mouse events
-        functionName(event);     // Call your function
-    });
+    // element.addEventListener('touchstart', function(event) {
+    //     event.preventDefault(); // Prevent mouse events
+    //     functionName(event);     // Call your function
+    // });
+    element.addEventListener('click', functionName);
+    element.addEventListener('touchstart', functionName, { passive: false });
+
     return element
 }
 
