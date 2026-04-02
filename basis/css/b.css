@@ -1049,31 +1049,42 @@ hr.fade-grey {
 // #                                              layout                                              #
 // ####################################################################################################
 */
-.bs-layout {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+:root {
+    --width-mobile: min(92%, 450px);
 }
 
-.bs-layout > .bs-row,
-.bs-layout .bs-col > .bs-row {
-    display: flex;
-    flex-direction: row;
+body {
+    background-color: var(--color-bg-body);
+    color: var(--color-text-main);
+    transition: background-color 0.3s ease; /* Smoothly fade between themes */
 }
 
-.bs-layout .bs-row > .bs-col {
-    display: flex;
-    flex-direction: column;
+/* This selector targets ANY class that starts with "w-responsive-" */
+[class^="w-responsive-"] {
+    background-color: var(--color-bg-main);
+    width: var(--width-mobile);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    box-shadow: 0 4px 6px var(--color-shadow);
+    /* border-radius: 8px; */
+    box-sizing: border-box; /* Ensures padding doesn't break width */
 }
 
-
+/* 4. Desktop Overrides (Last = Most Powerful) */
+@media (min-width: 768px) {
+    .w-responsive-s  { width: 600px;  max-width: 95%; }
+    .w-responsive-m  { width: 900px;  max-width: 95%; }
+    .w-responsive-l  { width: 1200px; max-width: 95%; }
+    .w-responsive-xl { width: 1600px; max-width: 95%; }
+}
 
 /*
 // ####################################################################################################
 // #                                          margin padding                                          #
 // ####################################################################################################
 */
+.m-0        {margin:0px}           .p-0      {padding:0px}
 .m-1        {margin:1px}           .p-1      {padding:1px}
 .m-2        {margin:2px}           .p-2      {padding:2px}
 .m-3        {margin:3px}           .p-3      {padding:3px}
@@ -1344,7 +1355,7 @@ hr.fade-grey {
 .mr-95i      {margin-right: 95px !important;} .pr-95i      {padding-right: 95px !important;}
 .mr-100i     {margin-right: 100px !important;} .pr-100i     {padding-right: 100px !important;}
 
-
+.m-0i        {margin:0px !important}           .p-0i      {padding:0px !important}
 .m-1i        {margin:1px !important}           .p-1i      {padding:1px !important}
 .m-2i        {margin:2px !important}           .p-2i      {padding:2px !important}
 .m-3i        {margin:3px !important}           .p-3i      {padding:3px !important}
@@ -1697,12 +1708,12 @@ hr.fade-grey {
 // #                                          paper academic                                          #
 // ####################################################################################################
 */
-body.academic{
+/* body.academic{
     font-family: Arial, sans-serif;
     font-size: 16px;
-    /* margin: 60px auto; */
+    /* margin: 60px auto; 
     margin: 30px auto 60px auto; 
-    /* text-align: center;  */
+    /* text-align: center;  
     padding: 0;
     background-color: #f0f0f0;
     color: #444;
@@ -1730,7 +1741,7 @@ body.academic textarea.script {
     font-family: monospace;
     padding: 2px 5px;
     line-height: 15pt;
-}
+} */
 
 /*
 // ####################################################################################################
@@ -1937,39 +1948,66 @@ table td div{
 
 /*
 // ####################################################################################################
+// #                                              themes                                              #
+// ####################################################################################################
+*/
+/* color template */
+
+/* Light 1: The Original (Brightest) */
+:root, .theme-light-1 {
+    --color-bg-body: #f5f5f5; /* Very light gray */
+    --color-bg-main: #ffffff; /* Pure white */
+    --color-text-main: #333333;
+    --color-shadow: rgba(0, 0, 0, 0.08);
+}
+
+/* Light 2: Soft Gray */
+.theme-light-2 {
+    --color-bg-body: #e8e8e8; 
+    --color-bg-main: #fcfcfc; /* Off-white */
+    --color-text-main: #2d2d2d;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Light 3: Concrete/Muted */
+.theme-light-3 {
+    --color-bg-body: #d6d6d6;
+    --color-bg-main: #eeeeee; /* Light gray canvas */
+    --color-text-main: #222222;
+    --color-shadow: rgba(0, 0, 0, 0.12);
+}
+
+/* DARK THEMES (Increasing Darkness) */
+
+/* Dark 1: Charcoal / Midnight (Transition point) */
+.theme-dark-1 {
+    --color-bg-body: #3c3f41; 
+    --color-bg-main: #4e5154; /* Lighter charcoal canvas */
+    --color-text-main: #f0f0f0;
+    --color-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Dark 2: Deep Slate */
+.theme-dark-2 {
+    --color-bg-body: #1e1e1e;
+    --color-bg-main: #2d2d2d; /* Subtle dark gray canvas */
+    --color-text-main: #e0e0e0;
+    --color-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* Dark 3: Obsidian (Darkest) */
+.theme-dark-3 {
+    --color-bg-body: #0a0a0a; /* Almost black */
+    --color-bg-main: #161616; /* Very dark canvas */
+    --color-text-main: #cccccc;
+    --color-shadow: rgba(0, 0, 0, 0.6);
+}
+
+/*
+// ####################################################################################################
 // #                                           width height                                           #
 // ####################################################################################################
 */
-/* For screens smaller than 600px */
-@media (max-width: 500px) {
-    .wr-1600-400 {
-        width: 400px;
-    }
-    }
-/* For screens larger than 600px */
-@media (min-width: 501px) {
-    .wr-1600-400  {
-        width: 1600px;
-    }
-    }
-
-
-
-
-/* For screens smaller than 600px */
-@media (max-width: 500px) {
-    .wr-800-400 {
-        width: 400px;
-    }
-    }
-/* For screens larger than 600px */
-@media (min-width: 501px) {
-    .wr-800-400  {
-        width: 800px;
-    }
-    }
-
-
 .w-100px {width: 100px !important;}
 .w-150px {width: 150px !important;}
 .w-200px {width: 200px !important;}

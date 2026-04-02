@@ -8,69 +8,80 @@
     <link rel="stylesheet" href="css/navPage.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/navColors.css">
-    <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="../basis/css-libs/bulma-prefixed.css"> -->
     <style>
-        :root       {--color-background: #f0f0f0;--color-text: #444;}
-        body        {background-color: var(--color-background); color: var(--color-text);}
+
         h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
         textarea    {background-color: var(--color-background); color: var(--color-text);}
     </style>
 </head>
-<body class="academic wr-800-400 js-fill mt-0i">  
-    <div id = "id-show">
-        <div id="id-nav">
+<!-- <body class="bulma-has-background-light bulma-container">   -->
+<body class="theme-dark-2">
+    <main class="w-responsive-xl js-fill mt-0i">
+
+    <section id = "id-show">
+        <div id="id-nav" class="">
             <nav>
                 <a onclick="navbar_home()">Home</a>
-                <a>Link</a></a>
+                <a>Link</a>
                 <a>Call</a>
-                <drop class="hover-toggle">
-                    <a >DropDown</a>
-                    <down>
+                <div class="drop hover-toggle">
+                    <a>DropDown</a>
+                    <div class="down">
                         <a>Link 1</a>
                         <a>Link 2</a>
                         <a>Link 3</a>
-                    </down>
-                </drop>
+                    </div>
+                </div>
             </nav>
+</div>
         </div>
-    </div>
+    </section>
 
   <!--    <p>&nbsp;</p>             without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
-    
-    <div id = 'id-status1' class="nav-status-bar mt-30i">
-        <span id="status-static" class="badge active" onclick="navbar_static()">static</span>
-        <span id="status-fixed" class="badge mr-30" onclick="navbar_fixed()">fixed</span>
-        <span id="status-hover" class="badge active" onclick="navbar_hover()">hover</span>
-        <span id="status-click" class="badge" onclick="navbar_click()">click</span>
-        <span id="status-autoclose" class="badge" onclick="navbar_autoclose()">click close</span>
-    </div>
+    <section class="p-10">
+        <div id = 'id-status1' class="nav-status-bar mt-30i">
+            <span id="status-static" class="badge active" onclick="navbar_static()">static</span>
+            <span id="status-fixed" class="badge mr-30" onclick="navbar_fixed()">fixed</span>
+            <span id="status-hover" class="badge active" onclick="navbar_hover()">hover</span>
+            <span id="status-click" class="badge" onclick="navbar_click()">click</span>
+            <span id="status-autoclose" class="badge mr-30" onclick="navbar_autoclose()">click close</span>
+            <span id="status-1" class="badge active" onclick="NumberNavs(1)">1</span>
+            <span id="status-2" class="badge" onclick="NumberNavs(2)">2</span>
+            <span id="status-3" class="badge mr-30" onclick="NumberNavs(3)">3</span>
+            <span id="status-gap" class="badge hidden" onclick="Gap(0)">no gap</span>
+            <span id="status-gap10" class="badge hidden" onclick="Gap(10)">gap-10</span>
+            <span id="status-gap20" class="badge mr-30 hidden" onclick="Gap(20)">gap-20</span>
 
-    <div id = 'id-status2' class="nav-status-bar">
-        <span id="status-1" class="badge active" onclick="One()">1</span>
-        <span id="status-2" class="badge mr-30" onclick="Two()">2</span>
-        <span id="status-old" class="badge active" onclick="OldTemplate()">old</span>
-        <span id="status-new" class="badge" onclick="NewTemplate()">new</span>
-    </div>
+        </div>
 
-    HTML of THIS navbar
-    <div id="id-show-out" class="h-400 js-fill"></div>
-    <p>&nbsp;</p>
-    <div id = 'id-start'>
-    <p>
-        <b>nav.css</b> lets you create navigation bars/menubars at the top of your HTML page and sidebars using CSS and Javascript.
-        It avoids using generic div tags and instead employs custom HTML elements like &lt;drop&gt; and &lt;down&gt; for a more semantic approach.
-    </p>
-    <p>
-        To use nav.css, simply copy the css into your project or insert <a href="https://mo-hi.github.io/navbar/css/navColors.css"> nav.css </a> into your HTML page.
-        Colors are defined in a separate <a href="https://mo-hi.github.io/navbar/css/navColors.css"> navColors.css </a>.
-    </p>
-    <code><pre style="font-size: 0.85rem;">
-    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/nav.css">link</a>
-    &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/navColors.css">link</a></pre>
-    </code>
-    </div>
+        <div id = 'id-status2' class="nav-status-bar">
+
+        </div>
+    </section>
+
+    <section class="p-10"> 
+        HTML of THIS navbar
+        <div id="id-show-out" class="h-400 js-fill">
+
+        </div>
+    </section>
+
+
+    <section id = 'id-start' class="p-10">
+        <p>
+            <b>nav.css</b> lets you create navigation bars/menubars at the top of your HTML page and sidebars using CSS and Javascript.
+            It avoids using generic div tags and instead employs custom HTML elements like &lt;drop&gt; and &lt;down&gt; for a more semantic approach.
+        </p>
+        <p>
+            To use nav.css, simply copy the css into your project or insert <a href="https://mo-hi.github.io/navbar/css/navColors.css"> nav.css </a> into your HTML page.
+            Colors are defined in a separate <a href="https://mo-hi.github.io/navbar/css/navColors.css"> navColors.css </a>.
+        </p>
+        <code class="p-0"><pre style="font-size: 0.85rem;">
+        &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/nav.css">link</a>
+        &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/navColors.css">link</a></pre>
+        </code>
+    </section>
     <br><hr>
     <section>
         <p id="id-end">
@@ -79,6 +90,7 @@
     </section>
     {{very-end}}
     </section>
+    </main>  
 </body>
     <!-- js libs -->
     <script src="../basis/js/b.js"> </script>
@@ -101,13 +113,15 @@
         const tag_hover = document.getElementById("status-hover")
         const tag_click = document.getElementById("status-click")
         const tag_autoclose = document.getElementById("status-autoclose")
-        const tag_old = document.getElementById("status-old")
-        const tag_new = document.getElementById("status-new")
         const tag_1 = document.getElementById("status-1")
         const tag_2 = document.getElementById("status-2")
+        const tag_3 = document.getElementById("status-3")
+        const tag_gap = document.getElementById("status-gap")
+        const tag_gap10 = document.getElementById("status-gap10")
+        const tag_gap20 = document.getElementById("status-gap20")
 
-        const tagsAll = [tag_static, tag_fixed, tag_hover, tag_click, tag_old, tag_new, tag_1, tag_2]
-        const tags_default_active = [tag_static, tag_hover, tag_1, tag_old]
+        const tagsAll = [tag_static, tag_fixed, tag_hover, tag_click, tag_1, tag_2, tag_3, tag_gap10, tag_gap20 ]
+        const tags_default_active = [tag_static, tag_hover, tag_1]
     </script>
     <script src="js/pageLogic.js"></script>
 </html>   

@@ -1,4 +1,4 @@
-nav { 
+nav, :has(> nav) { 
     background-color: #38444d; 
 }
 

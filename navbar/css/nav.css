@@ -1,9 +1,56 @@
+/* Any element with the .nav-fixed class that is also the direct parent of a nav 
+*/
+.nav-fixed:has( nav) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.nav-multi:has( nav)  {
+    display: flex;
+    align-items: center;    
+   /*  justify-content: flex-start; Default: everything to the left*/
+    justify-content: space-between; /* Default: everything to the left */
+    box-sizing: border-box;
+}
+
+.nav-multi.nav-gap-5 {gap: 5%}
+.nav-multi.nav-gap-10 {gap: 10%}
+.nav-multi.nav-gap-15 {gap: 15%}
+.nav-multi.nav-gap-20 {gap: 20%}
+.nav-multi.nav-gap-25 {gap: 25%}
+.nav-multi.nav-gap-30 {gap: 30%}
+.nav-multi.nav-gap-35 {gap: 35%}
+.nav-multi.nav-gap-40 {gap: 40%}
+
+.nav-multi nav.nav-middle {
+    margin: 0 auto; 
+    display: flex;
+    align-items: center;
+}
+
+.nav-multi  nav.nav-right {
+    margin-left: auto;
+}
+
 nav {
     display: block;
     list-style-type: none;
     padding: 0;
     overflow: hidden;
   }
+
+/* override when parent has class multi-nav */
+.nav-multi nav {
+    display: flex;
+    align-items: center;
+    overflow: visible; /* Required so dropdowns don't get cut off! */
+    height: 100%;      /* Ensure it fills the parent bar height */
+}
   
 nav > a, nav > div.drop, nav > drop {
     float: left;
