@@ -802,7 +802,7 @@ function _Auto_Fill_Harmonize_Container(elementId) {
 /**
 Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown
 */
-function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = false) {
+function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = false, textAreaClassName) {
     if (!(divToExpose instanceof HTMLElement)) return
     if (!(divToAppend instanceof HTMLElement)) return
 
@@ -811,6 +811,7 @@ function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = fa
     textarea.spellcheck = false;
     textarea.style.width = '100%';
     textarea.style.height = '100%';
+    if (textAreaClassName) textarea.className = textAreaClassName
 
     let htmlSource = undefined
     htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
