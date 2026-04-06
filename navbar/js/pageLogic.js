@@ -78,6 +78,17 @@ function Gap(n) {
     Update()
 }
 
+function Slim(n) {
+    tag_slim.classList.remove("active")
+    tag_normal.classList.remove("active")
+    tag_compact.classList.remove("active")
+    if (n == 2) tag_slim.classList.add("active")
+    if (n == 0) tag_normal.classList.add("active")
+    if (n == 1) tag_compact.classList.add("active")
+    Update()
+
+}
+
 
 function UpdateNavBlock() {
     let parentNav = _Template_Reset()
@@ -90,7 +101,7 @@ function UpdateNavBlock() {
         statusbar.classList.add("mt-82i")
     }
     
-    // 1 or 2 navs (and new and old templates insice _CreateNavExample)
+    // 1,2 or 3 navs
     if (tag_1.classList.contains("active") ) 
         parentNav.appendChild(_CreateNavExample())
     
@@ -140,11 +151,19 @@ function UpdateNavBlock() {
     if (tag_gap20.classList.contains("active")) {
         parentNav.classList.add("nav-gap-20")
     }
+
+    // gap in case of nav-slim and nav-compact
+    if (tag_slim.classList.contains("active")) {
+        parentNav.classList.add("nav-slim")
+    }
+    if (tag_compact.classList.contains("active")) {
+        parentNav.classList.add("nav-compact")
+    }
 }
 
 function UpdateHTMLBlock() {
     document.getElementById("id-show-out").innerHTML = ""
-    ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"), false, true)
+    ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"), false, true,  "code")
 }
 
 function _AddOnClickAttribute() {
@@ -187,15 +206,18 @@ function _CreateNavExample() {
     drop.appendChild(down)
     nav.appendChild(drop)
 
+    nav.appendChild(_CreateLink("Button", "", "", "nav-btn"))
+
     return nav
 
 }
 
-function _CreateLink(text, href, conlick) {
+function _CreateLink(text, href, conlick, className) {
     let a = document.createElement('a')
     a.innerHTML = text
     if (href) a.href = href
     if (conlick) a.setAttribute('onclick', conlick)
+    if (className) a.className = className
     return a
 }
 

@@ -1,33 +1,56 @@
+/* THIS CSS imust become OBSOLETE. 
+Colors are defined on top of nav.css and overwritten in root of 
+the html file if wanted */
+
+nav > a.nav-btn, 
+/* Warm */
+nav > a.nav-btn-red    { --color-nav-btn-bg: #dc3545; }
+nav > a.nav-btn-orange { --color-nav-btn-bg: #fd7e14; }
+nav > a.nav-btn-yellow { --color-nav-btn-bg: #ffc107; }
+
+/* Cold */
+nav > a.nav-btn-green  { --color-nav-btn-bg: #28a745; }
+nav > a.nav-btn-teal   { --color-nav-btn-bg: #20c997; }
+nav > a.nav-btn-cyan   { --color-nav-btn-bg: #17a2b8; }
+nav > a.nav-btn,
+nav > a.nav-btn-blue   { --color-nav-btn-bg: #007bff; }
+nav > a.nav-btn-purple { --color-nav-btn-bg: #6f42c1; }
+nav > a.nav-btn-pink   { --color-nav-btn-bg: #e83e8c; }
+
+/* Neutral */
+nav > a.nav-btn-dark   { --color-nav-btn-bg: #343a40; }
+nav > a.nav-btn-gray   { --color-nav-btn-bg: #6c757d; }
+
+
 nav, :has(> nav) { 
-    background-color: #38444d; 
+    background-color: var(--color-nav-bg);
+    color: var(--color-nav-font)
 }
 
-nav > a, 
-nav > drop > a, 
-nav > div.drop > a { 
-    color: white; 
+nav > div.drop > div.down { 
+    color: var(--color-nav-font); 
+    background-color: var(--color-nav-bg); 
 }
 
+nav > div.drop > div.down > a { 
+    color: var(--color-nav-font); 
+    background-color: var(--color-nav-down-bg); 
+}
 
 nav > a:hover, 
-nav > drop > a:hover, 
-nav > div.drop > a:hover { 
-    background-color: red; 
+nav > div.drop > a:hover, 
+nav > div.drop > div.down > a:hover { 
+    background-color: color-mix(in srgb, var(--color-nav-bg, #000), white 15%);
 }
 
-nav > drop > down, 
-nav > div.drop > div.down { 
-    background-color: #f9f9f9; 
-}
+nav > a[class^="nav-btn"] {
+    transition: filter 0.2s, transform 0.1s;
+    background-color: var(--color-nav-btn-bg);
+    color: var(--color-nav-btn-font);
+} 
 
-nav > drop > down a, 
-nav > div.drop > div.down a { 
-    color: black; 
-}
-
-nav > drop > down a:hover, 
-nav > div.drop > div.down a:hover { 
-    background-color: red; 
+nav > a[class^="nav-btn"]:hover {
+    background-color: color-mix(in srgb, var(--color-nav-btn-bg, #000), white 15%);
 }
 
 nav > info { 

@@ -1,6 +1,13 @@
+:root {
+    --color-nav-bg: #343a40;
+    --color-nav-down-bg: #374151;
+
+    --color-nav-font: white;
+}
+
 /* Any element with the .nav-fixed class that is also the direct parent of a nav 
 */
-.nav-fixed:has( nav) {
+.nav-fixed:has(nav) {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,12 +17,26 @@
 }
 
 
-.nav-multi:has( nav)  {
+.nav-multi:has(nav)  {
     display: flex;
     align-items: center;    
    /*  justify-content: flex-start; Default: everything to the left*/
     justify-content: space-between; /* Default: everything to the left */
     box-sizing: border-box;
+}
+
+.nav-slim nav > a,
+.nav-slim nav > .drop > a,
+.nav-slim nav > .drop > .down > a,
+.nav-slim nav > info {
+    padding: 5px 10px;  /* 5px vertical, 10px horizontal */
+}
+
+.nav-compact nav > a,
+.nav-compact nav > .drop > a,
+.nav-compact nav > .drop > .down > a,
+.nav-compact nav > info {
+    padding: 10px 14px; /* 10px vertical, 14px horizontal */
 }
 
 .nav-multi.nav-gap-5 {gap: 5%}
@@ -94,6 +115,39 @@ nav > info {
   padding: 14px 16px;
 }
 
+/* Buttons*/
+nav > a[class^="nav-btn"] {
+/* nav > a.nav-btn { */
+    margin: 6px 8px; 
+    padding: 8px 16px; 
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* Compact Button Style */
+.nav-compact nav > a[class^="nav-btn"] {
+    margin: 4px 8px; 
+    padding: 6px 14px; 
+}
+
+/* Hover & Active states */
+nav > a[class^="nav-btn"]:hover {
+    filter: brightness(1.2);
+}
+
+nav > a[class^="nav-btn"]:active {
+    transform: translateY(1px);
+}
+
+
+/* Handling the "Slim" version */
+.nav-slim nav > a[class^="nav-btn"] {
+    margin: 2px 8px; 
+    padding: 4px 12px;
+}
 
 /* Sidebar */
 
