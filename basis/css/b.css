@@ -955,7 +955,7 @@ body.css-landing-dark a:focus-visible {
   }
 
 .hidden {
-    display: none
+    display: none !important
 }
 
 .hidden-i {
