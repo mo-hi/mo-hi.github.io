@@ -307,7 +307,7 @@ class cls_editableHTML_EditGroup {
         editableDiv.dataset.height = ''
     }
 
-    Discard() {
+    async Discard() {
         if (this.IsSingleTextDiv()) {
             this.div_class_edit.dataset.editMode = ''
             this._Discard_Single(this.div_class_edit)
@@ -384,14 +384,16 @@ class clsEDIT {
         return types.includes(buttonType)
     }
 
-    static DiscardAll(includeButtons = false) {
-            document.querySelectorAll('.js-edit[data-edit-mode="active"]').forEach(divElement => {
-        let EditGroup = new cls_editableHTML_EditGroup(divElement)
-        if (!EditGroup.HasButtons() || includeButtons) EditGroup.Discard()
-    });
+    static async DiscardAll(includeButtons = false) {
+        let elements = document.querySelectorAll('.js-edit[data-edit-mode="active"]')
+
+        for (let divElement of elements) {
+            let EditGroup = new cls_editableHTML_EditGroup(divElement)
+            if (!EditGroup.HasButtons() || includeButtons) await EditGroup.Discard()
+        }
     }
 
-    static SaveAll(includeButtons = false) {
+    static async SaveAll(includeButtons = false) {
         document.querySelectorAll('.js-edit[data-edit-mode="active"]').forEach(divElement => {
             let EditGroup = new cls_editableHTML_EditGroup(divElement)
             if (!EditGroup.HasButtons() || includeButtons) EditGroup.Save()
