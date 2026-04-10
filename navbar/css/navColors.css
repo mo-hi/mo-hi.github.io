@@ -23,8 +23,8 @@ nav > a.nav-btn-gray   { --color-nav-btn-bg: #6c757d; }
 
 
 nav, :has(> nav) { 
+    color: var(--color-nav-font);
     background-color: var(--color-nav-bg);
-    color: var(--color-nav-font)
 }
 
 nav > div.drop > div.down { 

@@ -1,38 +1,71 @@
+:root {
+    --color-badge-bg: white;
+    --color-badge-font: #64748b;
+
+    --color-badge-bg-checked: #2563eb;
+    --color-badge-font-checked: white;
+}
+
+/* form default override */
+form {
+  margin: 0;
+}
+
 .nav-status-bar {
     margin-bottom: 15px;
     display: flex;
     gap: 8px; /* Space between stickers */
 }
 
-.nav-status-bar .badge {
-    font-family: sans-serif;
-    font-size: 0.75rem;
-    font-weight: bold;
-    padding: 4px 12px;
-    border-radius: 16px;
+.multi-badge {
+  display: inline-flex;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: sans-serif;
+  font-size: 0.75rem;
+}
+
+/* Hide the actual circles */
+.multi-badge input[type="radio"] {
+  display: none;
+}
+
+/* Default look for all labels */
+.multi-badge label {
+  padding: 4px 10px;
+  cursor: pointer;
+  background: var(--color-badge-bg);
+  color: var(--color-badge-font);
+  font-weight: 600;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    
-    /* Inactive State: Grey */
-    background-color: #e0e0e0;
-    color: #777;
-    border: 1px solid #ccc;
-
-    /* cursor: pointer; */
-    cursor: default;
+  border-right: 1px solid #e2e8f0;
 }
 
-.badge.active {
-    /* Active State: Light Blue */
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.multi-badge label:last-of-type {
+  border-right: none;
 }
 
-/* The Hover Effect */
-.badge:hover {
-    filter: brightness(90%); /* Slightly dims the color */
-    transform: translateY(-1px); /* Subtle "lift" effect */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds a tiny shadow */
+/* The Magic: Highlight the label immediately following the checked radio */
+.multi-badge input[type="radio"]:checked + label {
+  background: var(--color-badge-bg-checked);
+  color: var(--color-badge-font-checked);
 }
+
+
+.multi-badge label:hover {
+  filter: brightness(95%); 
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  z-index: 10; 
+} 
+
+
+
+
+
+
+
+
+/* Nav Status Bar V0.1 */
+

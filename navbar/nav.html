@@ -7,16 +7,25 @@
     <link rel="stylesheet" href="../basis/css/b.css">
     <link rel="stylesheet" href="css/navPage.css">
     <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/navColors.css">
-    <!-- <link rel="stylesheet" href="../basis/css-libs/bulma-prefixed.css"> -->
     <style>
         /* b.css override colors */
         :root, body.dark {
             --color-bg-body: var(--color-zinc-950);
             --color-bg-main: var(--color-zinc-900);
+            --color-text: var(--color-zinc-100);
 
             --color-nav-bg: var(--color-gray-800); 
             --color-nav-down-bg: var(--color-gray-700); 
+            --color-nav-font: var(--color-zinc-200);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+
+            --color-badge-bg: var(--color-gray-50);
+            --color-badge-font: var(--color-gray-500);
+
+            --color-badge-bg-checked: var(--color-cyan-100);
+            --color-badge-font-checked: var(--color-cyan-900);
 
             --color-textarea-code-bg: var(--color-zinc-800);
             --color-textarea-code-text: var(--color-zinc-300);
@@ -26,8 +35,7 @@
             --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
             --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
 
-            --color-text: var(--color-zinc-100);
-            --color-nav-font: var(--color-zinc-200);
+
         }
     </style>
 </head>
@@ -37,7 +45,7 @@
     <section id = "id-show">
         <div id="id-nav" class="nav-color-neutral">
             <nav>
-                <a onclick="navbar_home()">Home</a>
+                <a onclick="Reset()">Home</a>
                 <a>Link</a>
                 <a>Call</a>
                 <div class="drop hover-toggle">
@@ -56,20 +64,54 @@
   <!--    <p>&nbsp;</p>             without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     <section class="p-10">
         <div id = 'id-status1' class="nav-status-bar mt-30i">
-            <span id="status-static" class="badge active" onclick="navbar_static()">static</span>
-            <span id="status-fixed" class="badge mr-30" onclick="navbar_fixed()">fixed</span>
-            <span id="status-hover" class="badge active" onclick="navbar_hover()">hover</span>
-            <span id="status-click" class="badge" onclick="navbar_click()">click</span>
-            <span id="status-autoclose" class="badge mr-30" onclick="navbar_autoclose()">click close</span>
-            <span id="status-1" class="badge active" onclick="NumberNavs(1)">1</span>
-            <span id="status-2" class="badge" onclick="NumberNavs(2)">2</span>
-            <span id="status-3" class="badge mr-30" onclick="NumberNavs(3)">3</span>
-            <span id="status-normal" class="badge active" onclick="Slim(0)">Normal</span>
-            <span id="status-compact" class="badge" onclick="Slim(1)">Compact</span>
-            <span id="status-slim" class="badge mr-30" onclick="Slim(2)">Slim</span>
-            <span id="status-gap" class="badge hidden active" onclick="Gap(0)">no gap</span>
-            <span id="status-gap10" class="badge hidden" onclick="Gap(10)">gap-10</span>
-            <span id="status-gap20" class="badge mr-30 hidden" onclick="Gap(20)">gap-20</span>
+            <form id = 'id-form-position' class="multi-badge mr-30" onchange="Update(event)">
+                <input type="radio" name="position" id="id-static" value="static" checked>
+                <label for="id-static">static</label>
+
+                <input type="radio" name="position" id="id-fixed" value="fixed">
+                <label for="id-fixed">fixed</label>
+            </form>
+            <form id = 'id-form-interaction' class="multi-badge mr-30" onchange="Update(event)">
+                <input type="radio" name="interaction" id="id-hover" value="hover" checked>
+                <label for="id-hover">hover</label>
+
+                <input type="radio" name="interaction" id="id-click" value="click">
+                <label for="id-click">click</label>
+
+                <input type="radio" name="interaction" id="id-autoclose" value="close">
+                <label for="id-autoclose">click close</label>
+            </form>
+            <form id = 'id-form-navNum' class="multi-badge mr-30" onchange="Update(event)">
+                <input type="radio" name="navNum" id="id-1" value="1" checked>
+                <label for="id-1">1</label>
+
+                <input type="radio" name="navNum" id="id-2" value="2">
+                <label for="id-2">2</label>
+
+                <input type="radio" name="navNum" id="id-3" value="3">
+                <label for="id-3">3</label>
+            </form>
+
+            <form id = 'id-form-slimMode' class="multi-badge mr-30" onchange="Update(event)">
+                <input type="radio" name="slimMode" id="id-normal" value="normal" checked>
+                <label for="id-normal">Normal</label>
+
+                <input type="radio" name="slimMode" id="id-compact" value="compact">
+                <label for="id-compact">Compact</label>
+
+                <input type="radio" name="slimMode" id="id-slim" value="slim">
+                <label for="id-slim">Slim</label>
+            </form>
+            <form id = 'id-form-gapSize' class="multi-badge hidden" onchange="Update(event)">
+                <input type="radio" name="gapSize" id="id-gap" value="0" checked>
+                <label for="id-gap">no gap</label>
+
+                <input type="radio" name="gapSize" id="id-gap10" value="10">
+                <label for="id-gap10">gap-10</label>
+
+                <input type="radio" name="gapSize" id="id-gap20" value="20">
+                <label for="id-gap20">gap-20</label>
+            </form>
         </div>
     </section>
 
@@ -120,27 +162,22 @@
     <script src="../textGeneral.js"></script>
     <script>
         Auto_Fill(FromFile_textGeneral_js)
-
-        ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"),false, false, "code")
-    </script>
+</script>
     <script>
-        const tag_static = document.getElementById("status-static")
-        const tag_fixed = document.getElementById("status-fixed")
-        const tag_hover = document.getElementById("status-hover")
-        const tag_click = document.getElementById("status-click")
-        const tag_autoclose = document.getElementById("status-autoclose")
-        const tag_1 = document.getElementById("status-1")
-        const tag_2 = document.getElementById("status-2")
-        const tag_3 = document.getElementById("status-3")
-        const tag_gap = document.getElementById("status-gap")
-        const tag_gap10 = document.getElementById("status-gap10")
-        const tag_gap20 = document.getElementById("status-gap20")
-        const tag_normal = document.getElementById("status-normal")
-        const tag_slim = document.getElementById("status-slim")
-        const tag_compact = document.getElementById("status-compact")
-
-        const tagsAll = [tag_static, tag_fixed, tag_hover, tag_click, tag_1, tag_2, tag_3, tag_gap10, tag_gap20 ]
-        const tags_default_active = [tag_static, tag_hover, tag_1]
+        const config = {
+            position: document.querySelector('input[name="position"]:checked').value,
+            interaction: document.querySelector('input[name="interaction"]:checked').value,
+            navNum: document.querySelector('input[name="navNum"]:checked').value,
+            slimMode: document.querySelector('input[name="slimMode"]:checked').value,
+            gapSize: document.querySelector('input[name="gapSize"]:checked').value
+        }
     </script>
     <script src="js/pageLogic.js"></script>
+    <script>
+        // this ovverrides the html navbar
+        Reset()
+
+        // use this, when you manually change the nav html (for test purposes)
+        // ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"),false, false, "code")
+    </script>
 </html>   

@@ -3,6 +3,39 @@
     --color-nav-down-bg: #374151;
 
     --color-nav-font: white;
+    
+    --color-nav-btn-bg:#007bff;
+    --color-nav-btn-font: white;
+}
+
+/* Color of the nav */
+:has(> nav),
+nav, 
+nav > a,
+nav > div.drop > a { 
+    color: var(--color-nav-font);
+    background-color: var(--color-nav-bg);
+}
+
+nav > div.drop > div.down > a { 
+    color: var(--color-nav-font); 
+    background-color: var(--color-nav-down-bg); 
+}
+
+nav > a:hover, 
+nav > div.drop > a:hover, 
+nav > div.drop > div.down > a:hover { 
+    filter: brightness(1.6);
+}
+
+nav > a[class^="nav-btn"] {
+    transition: filter 0.2s, transform 0.1s;
+    background-color: var(--color-nav-btn-bg);
+    color: var(--color-nav-btn-font);
+} 
+
+nav > a[class^="nav-btn"]:hover {
+    background-color: color-mix(in srgb, var(--color-nav-btn-bg, #000), white 15%);
 }
 
 /* Any element with the .nav-fixed class that is also the direct parent of a nav 

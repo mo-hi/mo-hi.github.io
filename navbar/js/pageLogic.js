@@ -1,100 +1,30 @@
-function navbar_home() {
-    for (let tag of tagsAll) {
-        tag.classList.remove("active")}
-
-    for (let tag of tags_default_active) {
-        tag.classList.add("active")}
+function Reset() {
+    document.getElementById('id-form-position').reset()
+    document.getElementById('id-form-interaction').reset()
+    document.getElementById('id-form-navNum').reset()
+    document.getElementById('id-form-slimMode').reset()
+    document.getElementById('id-form-gapSize').reset()
     Update()
 }
 
 function Update() {
+    UpdateConfig() 
     UpdateNavBlock()
     UpdateHTMLBlock()
 }
 
-function navbar_static() {
-    tag_fixed.classList.remove("active")
-    tag_static.classList.add("active")
-    Update()
+function UpdateConfig() {
+    config["position"] = document.querySelector('input[name="position"]:checked').value
+    config["interaction"] = document.querySelector('input[name="interaction"]:checked').value
+    config["navNum"] = parseInt(document.querySelector('input[name="navNum"]:checked').value)
+    config["slimMode"] = document.querySelector('input[name="slimMode"]:checked').value
+    config["gapSize"] = parseInt(document.querySelector('input[name="gapSize"]:checked').value)
 }
-
-function navbar_fixed() {
-    tag_static.classList.remove("active")
-    tag_autoclose.classList.remove("active")
-    tag_fixed.classList.add("active")
-    Update()
-}
-
-function navbar_click() {
-    tag_hover.classList.remove("active")
-    tag_autoclose.classList.remove("active")
-    tag_click.classList.add("active")
-    Update()
-}
-
-function navbar_autoclose() {
-    tag_click.classList.remove("active")
-    tag_hover.classList.remove("active")
-    tag_autoclose.classList.add("active")
-    Update()
-}
-
-function navbar_hover() {
-    tag_hover.classList.add("active")
-    tag_click.classList.remove("active")
-    tag_autoclose.classList.remove("active")
-    Update()
-}
-
-function NumberNavs(n) {
-    tag_1.classList.remove("active")
-    tag_2.classList.remove("active")
-    tag_3.classList.remove("active")
-    tag_gap.classList.remove("active")
-    tag_gap10.classList.remove("active")
-    tag_gap20.classList.remove("active")
-    tag_gap.classList.add("hidden")
-    tag_gap10.classList.add("hidden")
-    tag_gap20.classList.add("hidden")
-    if (n == 1) tag_1.classList.add("active")
-    if (n == 2) tag_2.classList.add("active")
-    if (n == 3) {
-        tag_3.classList.add("active")
-        tag_gap.classList.add("active")
-        tag_gap.classList.remove("hidden")
-        tag_gap10.classList.remove("hidden")
-        tag_gap20.classList.remove("hidden")
-    }
-    Update()
-}
-
-function Gap(n) {
-    tag_gap.classList.remove("active")
-    tag_gap10.classList.remove("active")
-    tag_gap20.classList.remove("active")
-    if (n == 0) tag_gap.classList.add("active")
-    if (n == 10) tag_gap10.classList.add("active")
-    if (n == 20) tag_gap20.classList.add("active")
-    Update()
-}
-
-function Slim(n) {
-    tag_slim.classList.remove("active")
-    tag_normal.classList.remove("active")
-    tag_compact.classList.remove("active")
-    if (n == 2) tag_slim.classList.add("active")
-    if (n == 0) tag_normal.classList.add("active")
-    if (n == 1) tag_compact.classList.add("active")
-    Update()
-
-}
-
 
 function UpdateNavBlock() {
     let parentNav = _Template_Reset()
 
-    // static of fixed
-    if (tag_fixed.classList.contains("active")) {
+    if (config["position"] == "fixed") {
         parentNav.classList.add("nav-fixed", "w-responsive-xl")
         let statusbar = document.getElementById('id-status1')
         statusbar.classList.remove("mt-30i")
@@ -102,13 +32,13 @@ function UpdateNavBlock() {
     }
     
     // 1,2 or 3 navs
-    if (tag_1.classList.contains("active") ) 
+    if (parseInt(config["navNum"]) == 1)
         parentNav.appendChild(_CreateNavExample())
     
-    if (tag_2.classList.contains("active") || tag_3.classList.contains("active"))
+    if (parseInt(config["navNum"]) > 1)
         parentNav.classList.add("nav-multi")
     
-    if (tag_2.classList.contains("active") ) {
+    if (parseInt(config["navNum"]) == 2) {
         let navLeft = _CreateNavExample()
         let navRight = _CreateNavExample()
         navRight.classList.add("nav-right")
@@ -116,7 +46,7 @@ function UpdateNavBlock() {
         parentNav.appendChild(navRight)
     }
 
-    if (tag_3.classList.contains("active")) {
+    if (parseInt(config["navNum"]) == 3) {
         let navLeft = _CreateNavExample()
         let navCenter = _CreateNavExample()
         let navRight = _CreateNavExample()
@@ -128,35 +58,35 @@ function UpdateNavBlock() {
     }
 
     // hover of clickable
-    let drops = parentNav.querySelectorAll('drop, div.drop');
-    if (tag_hover.classList.contains("active")) {
+    let drops = parentNav.querySelectorAll('div.drop');
+    if (config["interaction"] == "hover") {
         drops.forEach(drop => drop.classList.add("hover-toggle"))
     }
 
-    if (tag_click.classList.contains("active")) {
+    if (config["interaction"] == "click") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
         _nav_initClickListeners()
     }
 
-    if (tag_autoclose.classList.contains("active")) {
+    if (config["interaction"] == "close") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
         drops.forEach(drop => drop.classList.add("auto-close"))
         _nav_initClickListeners()
     }
 
     // gap in case of three nav parts
-    if (tag_gap10.classList.contains("active")) {
+    if (parseInt(config["gap"]) == 10) {
         parentNav.classList.add("nav-gap-10")
     }
-    if (tag_gap20.classList.contains("active")) {
+    if (parseInt(config["gap"]) == 20) {
         parentNav.classList.add("nav-gap-20")
     }
 
     // gap in case of nav-slim and nav-compact
-    if (tag_slim.classList.contains("active")) {
+    if (config["slimMode"] == "slim") {
         parentNav.classList.add("nav-slim")
     }
-    if (tag_compact.classList.contains("active")) {
+    if (config["slimMode"] == "compact") {
         parentNav.classList.add("nav-compact")
     }
 }
@@ -164,15 +94,6 @@ function UpdateNavBlock() {
 function UpdateHTMLBlock() {
     document.getElementById("id-show-out").innerHTML = ""
     ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"), false, true,  "code")
-}
-
-function _AddOnClickAttribute() {
-    let parentNav = document.getElementById("id-nav")
-    let drop_as = parentNav.querySelectorAll('drop > a, div.drop > a');
-
-    for (let i = 0; i < drop_as.length; i++) {
-        drop_as[i].setAttribute('onclick', '_nav_toggleDown(this)');            
-    }
 }
 
 
@@ -190,7 +111,7 @@ function _Template_Reset() {
 function _CreateNavExample() {
     let nav = document.createElement('nav')
 
-    nav.appendChild(_CreateLink("Home", "", "navbar_home()"))
+    nav.appendChild(_CreateLink("Home", "", "Reset()"))
     nav.appendChild(_CreateLink("Link"))
     nav.appendChild(_CreateLink("Call"))
 
@@ -206,10 +127,9 @@ function _CreateNavExample() {
     drop.appendChild(down)
     nav.appendChild(drop)
 
-    nav.appendChild(_CreateLink("Button", "", "", "nav-btn"))
+    nav.appendChild(_CreateLink("Button", "", "", "nav-btn-blue"))
 
     return nav
-
 }
 
 function _CreateLink(text, href, conlick, className) {
