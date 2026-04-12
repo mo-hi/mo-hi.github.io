@@ -9,6 +9,8 @@ returns the type of a variable as a string. The following types are recognized:
 function typOf(variable, extendedInfo = false) {
     if (Array.isArray(variable)) {
         return 'list'} // javascript 'Array'
+    if (variable instanceof HTMLElement) {
+        return 'div'}
     if (typeof variable === 'object' && variable !== null) {
         return 'dict'} // javascript 'Object'
     if (typeof variable === 'string') {
@@ -23,7 +25,8 @@ function typOf(variable, extendedInfo = false) {
         return 'undefined'}
     if (typeof variable === 'function') {
         return 'function'}
-    
+
+
     throw new Error('Unknown type of variable: ' + variable)
 }
 
@@ -422,7 +425,8 @@ class clsDivBuilder {
             headers: {typOf: 'list', required: false},
             cols: {typOf: 'list', required: false},
             rows: {typOf: 'list', required: false},
-            json: {typOf: 'list', required: false}}
+            json: {typOf: 'list', required: false}
+        }
         if (ValidateSCHEMA(config, SCHEMA) == false) return;
 
         let headers = ["header 1", "header 2", "header 3"]
@@ -491,6 +495,28 @@ class clsDivBuilder {
             Object.keys(item).forEach(key => allKeys.add(key));
         });
         return Array.from(allKeys);
+    }
+
+
+    static BuildTextArea(config) {
+        let SCHEMA = {
+            id: {typOf: 'str', required: false},
+            className: {typOf: 'str', required: false},
+            value: {typOf: 'str', required: false},
+            spellcheck: {typOf: 'bool', required: false},
+            width: {typOf: 'str', required: false},
+            height: {typOf: 'str', required: false}
+        };
+        if (ValidateSCHEMA(config, SCHEMA) == false) return;
+
+        let textarea = document.createElement("textarea");
+        textarea.id = config.id || "";
+        textarea.className = config.className || "";
+        textarea.spellcheck = config.spellcheck || false;
+        textarea.style.width = config.width || "100%";
+        textarea.style.height = config.height || "100%";
+        textarea.value = config.value || "";
+        return textarea;
     }
 }
 
@@ -802,16 +828,13 @@ function _Auto_Fill_Harmonize_Container(elementId) {
 /**
 Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown
 */
-function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = false, textAreaClassName) {
+function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = false, textAreaClassName = "") {
     if (!(divToExpose instanceof HTMLElement)) return
     if (!(divToAppend instanceof HTMLElement)) return
 
-    let textarea = document.createElement('textarea');
-    textarea.id = 'htmlSource';
-    textarea.spellcheck = false;
-    textarea.style.width = '100%';
-    textarea.style.height = '100%';
-    if (textAreaClassName) textarea.className = textAreaClassName
+    let textarea = clsDivBuilder.BuildTextArea({
+        id: 'htmlSource', className: textAreaClassName, spellcheck: false, 
+        width: '100%', height: '100%'});
 
     let htmlSource = undefined
     htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
@@ -831,6 +854,55 @@ function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = fa
     divToAppend.appendChild(textarea);   
     return textarea                                                                                                                                        
 }
+
+
+function ExposeHTML(config) {
+    let SCHEMA = {
+        divToExpose: {typOf: 'div', required: true},
+        divToAppend: {typOf: 'div', required: true},
+        id: {typOf: 'str', required: false},
+        outer: {typOf: 'bool', required: false},
+        pretty: {typOf: 'bool', required: false},
+        textAreaClassName: {typOf: 'str', required: false},
+        synchWithTarget: {typOf: 'bool', required: false}
+    };
+    if (ValidateSCHEMA(config, SCHEMA) == false) return;
+
+    let divToExpose = config.divToExpose;
+    let divToAppend = config.divToAppend;
+    let id = config.id || "";
+    let outer = config.outer || false;
+    let pretty = config.pretty || false;
+    let textAreaClassName = config.textAreaClassName || "";
+    let synchWithTarget = config.synchWithTarget || false;
+
+    let textarea = clsDivBuilder.BuildTextArea({
+        id: id, className: textAreaClassName, spellcheck: false, 
+        width: '100%', height: '100%'});
+
+    let htmlSource = undefined
+    htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
+    if (htmlSource == undefined) 
+        return
+    if (divToExpose.tagName.toLowerCase() === 'script')
+        textarea.classList.add('script') 
+
+    if (pretty) {
+        let flatHTML = htmlSource.replace(/[\n\t\r]/g, "").replace(/\s+/g, " ").trim();
+        htmlSource = formatHTML(flatHTML);
+    }
+    if (synchWithTarget) {
+        textarea.addEventListener('input', () => {
+            divToExpose.innerHTML = textarea.value;
+        });
+    }
+    
+    textarea.value = _filteredLines(htmlSource, '#IGNORE')
+    if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+    divToAppend.appendChild(textarea);   
+    return textarea                                                                                                                                        
+}
+
 
 /**
  * AI: Helper to add indentation and newlines to raw HTML strings
