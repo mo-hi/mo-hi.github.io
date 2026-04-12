@@ -4,6 +4,9 @@
 
     --color-badge-bg-checked: #2563eb;
     --color-badge-font-checked: white;
+
+    --color-badge-info-bg-checked: #2563eb;
+    --color-badge-info-font-checked: white;
 }
 
 /* form default override */
@@ -26,7 +29,7 @@ form {
 }
 
 /* Hide the actual circles */
-.multi-badge input[type="radio"] {
+.multi-badge input {
   display: none;
 }
 
@@ -37,8 +40,8 @@ form {
   background: var(--color-badge-bg);
   color: var(--color-badge-font);
   font-weight: 600;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
   border-right: 1px solid #e2e8f0;
 }
 
@@ -47,11 +50,10 @@ form {
 }
 
 /* The Magic: Highlight the label immediately following the checked radio */
-.multi-badge input[type="radio"]:checked + label {
+.multi-badge input:checked + label{
   background: var(--color-badge-bg-checked);
   color: var(--color-badge-font-checked);
 }
-
 
 .multi-badge label:hover {
   filter: brightness(95%); 
@@ -59,13 +61,3 @@ form {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   z-index: 10; 
 } 
-
-
-
-
-
-
-
-
-/* Nav Status Bar V0.1 */
-

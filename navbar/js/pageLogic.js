@@ -14,7 +14,7 @@ function Update() {
 }
 
 function UpdateConfig() {
-    config["position"] = document.querySelector('input[name="position"]:checked').value
+    config["fixed"] = document.getElementById('id-fixed').checked
     config["interaction"] = document.querySelector('input[name="interaction"]:checked').value
     config["navNum"] = parseInt(document.querySelector('input[name="navNum"]:checked').value)
     config["slimMode"] = document.querySelector('input[name="slimMode"]:checked').value
@@ -24,7 +24,7 @@ function UpdateConfig() {
 function UpdateNavBlock() {
     let parentNav = _Template_Reset()
 
-    if (config["position"] == "fixed") {
+    if (config["fixed"]) {
         parentNav.classList.add("nav-fixed", "w-responsive-xl")
         let statusbar = document.getElementById('id-status1')
         statusbar.classList.remove("mt-30i")
@@ -37,6 +37,8 @@ function UpdateNavBlock() {
     
     if (parseInt(config["navNum"]) > 1)
         parentNav.classList.add("nav-multi")
+        document.getElementById('id-form-gapSize').classList.remove("hidden")
+        document.getElementById('id-form-gapSize').classList.add("hidden")
     
     if (parseInt(config["navNum"]) == 2) {
         let navLeft = _CreateNavExample()
@@ -44,6 +46,8 @@ function UpdateNavBlock() {
         navRight.classList.add("nav-right")
         parentNav.appendChild(navLeft)
         parentNav.appendChild(navRight)
+        document.getElementById('id-form-gapSize').classList.remove("hidden")
+        document.getElementById('id-form-gapSize').classList.add("hidden")
     }
 
     if (parseInt(config["navNum"]) == 3) {
@@ -55,30 +59,36 @@ function UpdateNavBlock() {
         parentNav.appendChild(navLeft)
         parentNav.appendChild(navCenter)
         parentNav.appendChild(navRight)
+        document.getElementById('id-form-gapSize').classList.remove("hidden")
     }
 
     // hover of clickable
     let drops = parentNav.querySelectorAll('div.drop');
     if (config["interaction"] == "hover") {
         drops.forEach(drop => drop.classList.add("hover-toggle"))
+        document.getElementById('id-info-javascript-needed').classList.remove("hidden")
+        document.getElementById('id-info-javascript-needed').classList.add("hidden")
     }
 
     if (config["interaction"] == "click") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
         _nav_initClickListeners()
+        document.getElementById('id-info-javascript-needed').classList.remove("hidden")
+  
     }
 
     if (config["interaction"] == "close") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
         drops.forEach(drop => drop.classList.add("auto-close"))
         _nav_initClickListeners()
+        document.getElementById('id-info-javascript-needed').classList.remove("hidden")
     }
 
     // gap in case of three nav parts
-    if (parseInt(config["gap"]) == 10) {
+    if (parseInt(config["gapSize"]) == 10) {
         parentNav.classList.add("nav-gap-10")
     }
-    if (parseInt(config["gap"]) == 20) {
+    if (parseInt(config["gapSize"]) == 20) {
         parentNav.classList.add("nav-gap-20")
     }
 
@@ -93,7 +103,13 @@ function UpdateNavBlock() {
 
 function UpdateHTMLBlock() {
     document.getElementById("id-show-out").innerHTML = ""
-    ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"), false, true,  "code")
+    // ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"), false, true,  "code")
+    ExposeHTML({
+        divToExpose: document.getElementById("id-show"), 
+        divToAppend: document.getElementById("id-show-out"),
+        pretty: true, 
+        textAreaClassName: "code",
+        synchWithTarget: true})
 }
 
 

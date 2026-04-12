@@ -42,33 +42,33 @@
 <!-- <body class="bulma-has-background-light bulma-container">   -->
 <body class="dark">
     <main class="w-responsive-xl js-fill mt-0i">
-    <section id = "id-show">
-        <div id="id-nav" class="nav-color-neutral">
-            <nav>
-                <a onclick="Reset()">Home</a>
-                <a>Link</a>
-                <a>Call</a>
-                <div class="drop hover-toggle">
-                    <a>DropDown</a>
-                    <div class="down">
-                        <a>Link 1</a>
-                        <a>Link 2</a>
-                        <a>Link 3</a>
+        <section id = "id-show">
+            <div id="id-nav" class="nav-color-neutral">
+                <nav>
+                    <a onclick="Reset()">Home</a>
+                    <a>Link</a>
+                    <a>Call</a>
+                    <div class="drop hover-toggle">
+                        <a>DropDown</a>
+                        <div class="down">
+                            <a>Link 1</a>
+                            <a>Link 2</a>
+                            <a>Link 3</a>
+                        </div>
                     </div>
-                </div>
-                <a class="nav-btn-blue">Button</a>
-            </nav>
-        </div>
-    </section>
+                    <a class="nav-btn-blue">Button</a>
+                </nav>
+            </div>
+        </section>
 
   <!--    <p>&nbsp;</p>             without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     <section class="p-10">
         <div id = 'id-status1' class="nav-status-bar mt-30i">
             <form id = 'id-form-position' class="multi-badge mr-30" onchange="Update(event)">
-                <input type="radio" name="position" id="id-static" value="static" checked>
-                <label for="id-static">static</label>
+                <!-- <input type="radio" name="position" id="id-static" value="static" checked>
+                <label for="id-static">static</label> -->
 
-                <input type="radio" name="position" id="id-fixed" value="fixed">
+                <input type="checkbox" name="position" id="id-fixed" value="fixed">
                 <label for="id-fixed">fixed</label>
             </form>
             <form id = 'id-form-interaction' class="multi-badge mr-30" onchange="Update(event)">
@@ -112,34 +112,33 @@
                 <input type="radio" name="gapSize" id="id-gap20" value="20">
                 <label for="id-gap20">gap-20</label>
             </form>
+            <div id = 'id-info-javascript-needed' class="hidden">
+                Javascript needed
+            </div>
+
         </div>
     </section>
 
     <section class="p-10">
         <p class="m-0 mb-5i">
-            HTML of THIS navbar:
+            HTML of THIS navbar.
         </p> 
-        
-        <div id="id-show-out" class="h-400 w-80 js-fill">
+        <div id="id-show-out" class="h-420 w-80 js-fill mb-20i">
+        </div>
 
+        <p>
+            CSS of THIS navbar:
+            <div id="id-textarea-css-ref" class="h-100 w-80 js-fill mb-20i">
+            </div>
+        </p>
+
+        <p class="m-0 mb-5i">
+            Javascript of THIS navbar:
+        </p> 
+        <div id="id-show-out-js" class="h-100 w-80 js-fill">
         </div>
     </section>
 
-
-    <section id = 'id-start' class="p-10 w-80">
-        <p>
-            <b>nav.css</b> lets you create navigation bars/menubars at the top of your HTML page and sidebars using CSS and Javascript.
-            It avoids using generic div tags and instead employs custom HTML elements like &lt;drop&gt; and &lt;down&gt; for a more semantic approach.
-        </p>
-        <p>
-            To use nav.css, simply copy the css into your project or insert <a href="https://mo-hi.github.io/navbar/css/navColors.css"> nav.css </a> into your HTML page.
-            Colors are defined in a separate <a href="https://mo-hi.github.io/navbar/css/navColors.css"> navColors.css </a>.
-        </p>
-        <code class="p-0"><pre style="font-size: 0.85rem;">
-        &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/nav.css">link</a>
-        &lt;link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/navColors.css"&gt;    | <a href="https://mo-hi.github.io/navbar/css/navColors.css">link</a></pre>
-        </code>
-    </section>
     <br><hr>
     <section>
         <p id="id-end">
@@ -152,7 +151,6 @@
 </body>
     <!-- js libs -->
     <script src="../basis/js/b.js"> </script>
-
     <!-- this project -->
     <script src="js/nav.js"></script>
 
@@ -165,7 +163,7 @@
 </script>
     <script>
         const config = {
-            position: document.querySelector('input[name="position"]:checked').value,
+            fixed: document.getElementById('id-fixed').checked,
             interaction: document.querySelector('input[name="interaction"]:checked').value,
             navNum: document.querySelector('input[name="navNum"]:checked').value,
             slimMode: document.querySelector('input[name="slimMode"]:checked').value,
@@ -176,7 +174,19 @@
     <script>
         // this ovverrides the html navbar
         Reset()
+        let TA = clsDivBuilder.BuildTextArea({
+            value: `<link rel="stylesheet" href="https://mo-hi.github.io/basis/css/b.css">
+                    <link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css">`.trimPlus([' <']),
+            className: "code"
+        })
+        document.getElementById("id-textarea-css-ref").appendChild(TA)
 
+        let SC = clsDivBuilder.BuildTextArea({
+            value: `<link rel="stylesheet" href="https://mo-hi.github.io/basis/js/b.js">
+                    <link rel="stylesheet" href="https://mo-hi.github.io/navbar/js/nav.js">`.trimPlus([' <']),
+            className: "code"
+        })
+        document.getElementById("id-show-out-js").appendChild(SC)
         // use this, when you manually change the nav html (for test purposes)
         // ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"),false, false, "code")
     </script>
