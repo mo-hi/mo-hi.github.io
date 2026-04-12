@@ -42,12 +42,13 @@
 <!-- <body class="bulma-has-background-light bulma-container">   -->
 <body class="dark">
     <main class="w-responsive-xl js-fill mt-0i">
+        <!-- this navbar will be ovewritten by script (only for back up) -->
         <section id = "id-show">
-            <div id="id-nav" class="nav-color-neutral">
+            <div id="id-nav" class="">
                 <nav>
-                    <a onclick="Reset()">Home</a>
-                    <a>Link</a>
-                    <a>Call</a>
+                    <a href="https://mo-hi.github.io/">MoHi</a>
+                    <a onclick="Reset(); Update()">Reset</a>
+                    <a>...</a>
                     <div class="drop hover-toggle">
                         <a>DropDown</a>
                         <div class="down">
@@ -61,13 +62,9 @@
             </div>
         </section>
 
-  <!--    <p>&nbsp;</p>             without top and left attribute, position:fixed will attach to this 'nearest' elemet. -->
     <section class="p-10">
         <div id = 'id-status1' class="nav-status-bar mt-30i">
             <form id = 'id-form-position' class="multi-badge mr-30" onchange="Update(event)">
-                <!-- <input type="radio" name="position" id="id-static" value="static" checked>
-                <label for="id-static">static</label> -->
-
                 <input type="checkbox" name="position" id="id-fixed" value="fixed">
                 <label for="id-fixed">fixed</label>
             </form>
@@ -126,27 +123,13 @@
         <div id="id-show-out" class="h-420 w-80 js-fill mb-20i">
         </div>
 
-        <p>
-            CSS of THIS navbar:
-            <div id="id-textarea-css-ref" class="h-100 w-80 js-fill mb-20i">
-            </div>
-        </p>
+        <textarea-js type="css"></textarea-js>
 
-        <p class="m-0 mb-5i">
-            Javascript of THIS navbar:
-        </p> 
-        <div id="id-show-out-js" class="h-100 w-80 js-fill">
-        </div>
+        <textarea-js type="js"></textarea-js>
     </section>
 
-    <br><hr>
-    <section>
-        <p id="id-end">
-            {{id-end}}
-        </p>
-    </section>
-    {{very-end}}
-    </section>
+    <footer-js></footer-js>
+
     </main>  
 </body>
     <!-- js libs -->
@@ -154,39 +137,16 @@
     <!-- this project -->
     <script src="js/nav.js"></script>
 
+    <!-- this site (not needed to make nav.js work)-->
+    <script>
 
-    <!-- HTML Auto Fill Text -->
-    <script src="js/textNav.js"></script>
-    <script src="../textGeneral.js"></script>
-    <script>
-        Auto_Fill(FromFile_textGeneral_js)
-</script>
-    <script>
-        const config = {
-            fixed: document.getElementById('id-fixed').checked,
-            interaction: document.querySelector('input[name="interaction"]:checked').value,
-            navNum: document.querySelector('input[name="navNum"]:checked').value,
-            slimMode: document.querySelector('input[name="slimMode"]:checked').value,
-            gapSize: document.querySelector('input[name="gapSize"]:checked').value
-        }
     </script>
+    <script src="../htmlElements.js"></script>
     <script src="js/pageLogic.js"></script>
     <script>
-        // this ovverrides the html navbar
         Reset()
-        let TA = clsDivBuilder.BuildTextArea({
-            value: `<link rel="stylesheet" href="https://mo-hi.github.io/basis/css/b.css">
-                    <link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css">`.trimPlus([' <']),
-            className: "code"
-        })
-        document.getElementById("id-textarea-css-ref").appendChild(TA)
-
-        let SC = clsDivBuilder.BuildTextArea({
-            value: `<link rel="stylesheet" href="https://mo-hi.github.io/basis/js/b.js">
-                    <link rel="stylesheet" href="https://mo-hi.github.io/navbar/js/nav.js">`.trimPlus([' <']),
-            className: "code"
-        })
-        document.getElementById("id-show-out-js").appendChild(SC)
+        // this ovverrides the html navbar above
+        Update()
         // use this, when you manually change the nav html (for test purposes)
         // ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"),false, false, "code")
     </script>

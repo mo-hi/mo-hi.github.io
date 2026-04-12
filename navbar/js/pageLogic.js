@@ -1,19 +1,26 @@
+const config = {
+    fixed: document.getElementById('id-fixed').checked,
+    interaction: document.querySelector('input[name="interaction"]:checked').value,
+    navNum: document.querySelector('input[name="navNum"]:checked').value,
+    slimMode: document.querySelector('input[name="slimMode"]:checked').value,
+    gapSize: document.querySelector('input[name="gapSize"]:checked').value
+}
+
 function Reset() {
     document.getElementById('id-form-position').reset()
     document.getElementById('id-form-interaction').reset()
     document.getElementById('id-form-navNum').reset()
     document.getElementById('id-form-slimMode').reset()
     document.getElementById('id-form-gapSize').reset()
-    Update()
 }
 
 function Update() {
-    UpdateConfig() 
-    UpdateNavBlock()
-    UpdateHTMLBlock()
+    _UpdateConfig() 
+    _UpdateNavBlock()
+    _UpdateHTMLBlock()
 }
 
-function UpdateConfig() {
+function _UpdateConfig() {
     config["fixed"] = document.getElementById('id-fixed').checked
     config["interaction"] = document.querySelector('input[name="interaction"]:checked').value
     config["navNum"] = parseInt(document.querySelector('input[name="navNum"]:checked').value)
@@ -21,7 +28,7 @@ function UpdateConfig() {
     config["gapSize"] = parseInt(document.querySelector('input[name="gapSize"]:checked').value)
 }
 
-function UpdateNavBlock() {
+function _UpdateNavBlock() {
     let parentNav = _Template_Reset()
 
     if (config["fixed"]) {
@@ -101,7 +108,7 @@ function UpdateNavBlock() {
     }
 }
 
-function UpdateHTMLBlock() {
+function _UpdateHTMLBlock() {
     document.getElementById("id-show-out").innerHTML = ""
     // ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"), false, true,  "code")
     ExposeHTML({
@@ -126,10 +133,10 @@ function _Template_Reset() {
 
 function _CreateNavExample() {
     let nav = document.createElement('nav')
-
-    nav.appendChild(_CreateLink("Home", "", "Reset()"))
-    nav.appendChild(_CreateLink("Link"))
-    nav.appendChild(_CreateLink("Call"))
+    
+    nav.appendChild(_CreateLink("MoHi", "https://mo-hi.github.io/"))
+    nav.appendChild(_CreateLink("Reset", "", "Reset(); Update()"))
+    nav.appendChild(_CreateLink("..."))
 
     let drop = document.createElement('div')
     drop.classList.add("drop")
