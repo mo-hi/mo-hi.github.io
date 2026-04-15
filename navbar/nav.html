@@ -21,11 +21,11 @@
             --color-nav-btn-bg:var(--color-blue-600);
             --color-nav-btn-font: white;
 
-            --color-badge-bg: var(--color-gray-50);
-            --color-badge-font: var(--color-gray-500);
+            --color-pill-bg: var(--color-gray-50);
+            --color-pill-font: var(--color-gray-500);
 
-            --color-badge-bg-checked: var(--color-cyan-100);
-            --color-badge-font-checked: var(--color-cyan-900);
+            --color-pill-bg-checked: var(--color-cyan-100);
+            --color-pill-font-checked: var(--color-cyan-900);
 
             --color-textarea-code-bg: var(--color-zinc-800);
             --color-textarea-code-text: var(--color-zinc-300);
@@ -63,12 +63,12 @@
         </section>
 
     <section class="p-10">
-        <div id = 'id-status1' class="nav-status-bar mt-30i">
-            <form id = 'id-form-position' class="multi-badge mr-30" onchange="Update(event)">
+        <div id = 'id-status1' class="selection-pill-bar mt-30i">
+            <form id = 'id-form-position' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="checkbox" name="position" id="id-fixed" value="fixed">
                 <label for="id-fixed">fixed</label>
             </form>
-            <form id = 'id-form-interaction' class="multi-badge mr-30" onchange="Update(event)">
+            <form id = 'id-form-interaction' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="radio" name="interaction" id="id-hover" value="hover" checked>
                 <label for="id-hover">hover</label>
 
@@ -78,7 +78,7 @@
                 <input type="radio" name="interaction" id="id-autoclose" value="close">
                 <label for="id-autoclose">click close</label>
             </form>
-            <form id = 'id-form-navNum' class="multi-badge mr-30" onchange="Update(event)">
+            <form id = 'id-form-navNum' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="radio" name="navNum" id="id-1" value="1" checked>
                 <label for="id-1">1</label>
 
@@ -89,7 +89,7 @@
                 <label for="id-3">3</label>
             </form>
 
-            <form id = 'id-form-slimMode' class="multi-badge mr-30" onchange="Update(event)">
+            <form id = 'id-form-slimMode' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="radio" name="slimMode" id="id-normal" value="normal" checked>
                 <label for="id-normal">Normal</label>
 
@@ -99,7 +99,7 @@
                 <input type="radio" name="slimMode" id="id-slim" value="slim">
                 <label for="id-slim">Slim</label>
             </form>
-            <form id = 'id-form-gapSize' class="multi-badge hidden" onchange="Update(event)">
+            <form id = 'id-form-gapSize' class="selection-pill hidden" onchange="Update(event)">
                 <input type="radio" name="gapSize" id="id-gap" value="0" checked>
                 <label for="id-gap">no gap</label>
 

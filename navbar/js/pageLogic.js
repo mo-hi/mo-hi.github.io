@@ -14,18 +14,18 @@ function Reset() {
     document.getElementById('id-form-gapSize').reset()
 }
 
-function Update() {
-    _UpdateConfig() 
-    _UpdateNavBlock()
-    _UpdateHTMLBlock()
-}
-
 function _UpdateConfig() {
     config["fixed"] = document.getElementById('id-fixed').checked
     config["interaction"] = document.querySelector('input[name="interaction"]:checked').value
     config["navNum"] = parseInt(document.querySelector('input[name="navNum"]:checked').value)
     config["slimMode"] = document.querySelector('input[name="slimMode"]:checked').value
     config["gapSize"] = parseInt(document.querySelector('input[name="gapSize"]:checked').value)
+}
+
+function Update() {
+    _UpdateConfig() 
+    _UpdateNavBlock()
+    _UpdateHTMLBlock()
 }
 
 function _UpdateNavBlock() {
@@ -134,9 +134,9 @@ function _Template_Reset() {
 function _CreateNavExample() {
     let nav = document.createElement('nav')
     
-    nav.appendChild(_CreateLink("MoHi", "https://mo-hi.github.io/"))
+    nav.appendChild(_CreateLink("MOHI", "https://mo-hi.github.io/"))
     nav.appendChild(_CreateLink("Reset", "", "Reset(); Update()"))
-    nav.appendChild(_CreateLink("..."))
+    nav.appendChild(_CreateLink("other"))
 
     let drop = document.createElement('div')
     drop.classList.add("drop")

@@ -1311,6 +1311,45 @@ main {
     .w-responsive-m  { width: 900px;  max-width: 95%; }
     .w-responsive-l  { width: 1200px; max-width: 95%; }
     .w-responsive-xl { width: 1600px; max-width: 95%; }
+    .w-responsive-full { width: 100%; }
+}
+
+/* The wrapper for the columns */
+section.row {
+    display: flex;
+    flex-direction: row; /* Aligns columns horizontally */
+    width: 100%;
+    min-height: 100vh;   /* Ensures it takes full height of the screen */
+}
+
+/* The individual columns */
+section.col {
+    /* DEFAULT: Grow to fill space equally */
+    flex: 1; 
+    padding: 10px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* OVERRIDE: If the class contains "w-", stop growing and use the width */
+section.col[class*="w-"] {
+    flex: 0 0 auto;
+}
+
+/* Optional: Add a divider or different background for clarity */
+section.col:first-child {
+    border-right: 1px solid #444; 
+}
+
+/* Responsive: Stack columns on top of each other on mobile */
+@media (max-width: 768px) {
+    section.row {
+        flex-direction: column;
+    }
+    section.col {
+        border-right: none;
+        border-bottom: 1px solid #444;
+    }
 }
 
 /*
@@ -2069,6 +2108,76 @@ body.academic textarea.script {
 
 /*
 // ####################################################################################################
+// #                                          selectionPill                                           #
+// ####################################################################################################
+*/
+:root {
+    --color-pill-bg: white;
+    --color-pill-font: #64748b;
+
+    --color-pill-bg-checked: #2563eb;
+    --color-pill-font-checked: white;
+
+    --color-pill-info-bg-checked: #2563eb;
+    --color-pill-info-font-checked: white;
+}
+
+/* form default override */
+form {
+  margin: 0;
+}
+
+.selection-pill-bar {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 8px; /* Space between stickers */
+}
+
+.selection-pill {
+  display: inline-flex;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: sans-serif;
+  font-size: 0.75rem;
+}
+
+/* Hide the actual circles */
+.selection-pill input {
+  display: none;
+}
+
+/* Default look for all labels */
+.selection-pill label {
+  padding: 4px 10px;
+  cursor: pointer;
+  background: var(--color-pill-bg);
+  color: var(--color-pill-font);
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border-right: 1px solid #e2e8f0;
+}
+
+.selection-pill label:last-of-type {
+  border-right: none;
+}
+
+/* The Magic: Highlight the label immediately following the checked radio */
+.selection-pill input:checked + label{
+  background: var(--color-pill-bg-checked);
+  color: var(--color-pill-font-checked);
+}
+
+.selection-pill label:hover {
+  filter: brightness(95%); 
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  z-index: 10; 
+} 
+
+
+/*
+// ####################################################################################################
 // #                                               svg                                                #
 // ####################################################################################################
 */
@@ -2222,7 +2331,6 @@ textarea.code {
   /* Functional Styles */
   resize: vertical;
   outline: none;
-  white-space: pre;
   overflow-x: auto;
   
   /* Firefox Scrollbar Styling */

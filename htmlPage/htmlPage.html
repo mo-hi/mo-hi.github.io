@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mo Hi">
+    <title>html Page</title>
+    <link rel="stylesheet" href="../basis/css/b.css">
+    <style>
+        /* b.css override colors */
+        :root, body.dark {
+            --color-text: var(--color-zinc-100);
+
+            --color-bg-body: var(--color-zinc-950);
+            --color-bg-main: var(--color-zinc-900);
+
+            --color-nav-bg: var(--color-gray-800); 
+            --color-nav-down-bg: var(--color-gray-700); 
+            --color-nav-font: var(--color-zinc-200);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+
+            --color-pill-bg: var(--color-gray-50);
+            --color-pill-font: var(--color-gray-500);
+
+            --color-pill-bg-checked: var(--color-cyan-100);
+            --color-pill-font-checked: var(--color-cyan-900);
+
+            --color-textarea-code-bg: var(--color-zinc-800);
+            --color-textarea-code-text: var(--color-zinc-300);
+            --color-textarea-code-border: var(--color-zinc-400);         
+            --color-textarea-code-accent: var(--color-blue-500);
+            --color-textarea-code-accent-glow: var(--color-blue-800);
+            --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+            --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+        }
+
+        body.light {
+            --color-text: var(--color-zinc-900);
+
+            --color-bg-body: var(--color-zinc-200);
+            --color-bg-main: var(--color-zinc-50);
+
+            --color-nav-bg: var(--color-gray-50); 
+            --color-nav-down-bg: var(--color-gray-100); 
+            --color-nav-font: var(--color-zinc-900);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+
+            --color-textarea-code-bg: var(--color-zinc-100);
+            --color-textarea-code-text: var(--color-zinc-800);
+            --color-textarea-code-border: var(--color-zinc-400);         
+            --color-textarea-code-accent: var(--color-blue-500);
+            --color-textarea-code-accent-glow: var(--color-blue-800);
+            --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+            --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+        }
+
+        
+    </style>
+</head>
+<body class="dark">
+    <main class="w-responsive-xl">
+        <h1>HTML</h1>
+        <p>
+            In the body we only define the theme, which is a dark theme. The main block contains the major content of the site
+        </p>
+        <p>
+            You can click on the options below to change the theme or the main width of THIS page, not how the HTML code updates.
+        </p>
+
+        <form id = 'id-form-1' class="selection-pill mr-30" onchange="Update(event)">
+            <input type="radio" name="theme" id="id-theme-1" value="dark" checked>
+            <label for="id-theme-1">dark</label>
+
+            <input type="radio" name="theme" id="id-theme-2" value="light">
+            <label for="id-theme-2">light</label>
+        </form>
+
+        <form id = 'id-form-2' class="selection-pill mr-30" onchange="Update(event)">
+            <input type="radio" name="mainWidth" id="id-mainWidth-1" value="s" >
+            <label for="id-mainWidth-1">S</label>
+
+            <input type="radio" name="mainWidth" id="id-mainWidth-2" value="m">
+            <label for="id-mainWidth-2">M</label>
+
+            <input type="radio" name="mainWidth" id="id-mainWidth-3" value="l">
+            <label for="id-mainWidth-3">L</label>
+
+            <input type="radio" name="mainWidth" id="id-mainWidth-4" value="xl" checked>
+            <label for="id-mainWidth-4">XL</label>
+
+            <input type="radio" name="mainWidth" id="id-mainWidth-5" value="full">
+            <label for="id-mainWidth-5">FULL</label>
+        </form>
+
+        <div id="id-html-code-show" class="h-80 w-94 mt-20 mb-80"></div>
+
+        <h1>Selection Pills</h1>
+        <p>
+            Selection Pills are used to select a value from a list. 
+            There are two types of selection pills supported <c>radio</c> and <c>checkbox</c>. 
+            They were already used in the form to select the theme and main width above.
+        </p>
+        <p>
+            You can click on the single pill (technically a html checkbox) or multi pill (technically a html radio).
+            The color change is pure css. You can attach your own javascript on change event (here: dummy_I_DO_NOTHING)
+        </p>
+            <div id="id-single-pill-html" class="mt-20 mb-20">
+                <form id = 'id-form-single-pill' class="selection-pill" onchange="dummy_I_DO_NOTHING(event)">
+                    <input type="checkbox" name="name-single-pill" id="id-single-pill" value="single">
+                    <label for="id-single-pill">Single Pill</label>
+                </form>
+            </div>
+
+            <div id="id-single-pill-show" class="h-100 w-94 mb-100"></div>
+
+            <div id="id-multi-pill-html" class="mt-20 mb-20">
+                <form id = 'id-form-theme' class="selection-pill" onchange="dummy_I_DO_NOTHING(event)">
+                    <input type="radio" name="name-multi-pill" id="id-multi-pill-1" value="dark" checked>
+                    <label for="id-multi-pill-1">Multi</label>
+
+                    <input type="radio" name="name-multi-pill" id="id-multi-pill-2" value="light">
+                    <label for="id-multi-pill-2">Pill</label>
+                </form>
+            </div>
+
+            <div id="id-multi-pill-show" class="h-140 w-94 mb-80"></div>
+        
+            to be coninued ...
+
+            <footer-js></footer-js>
+    </main>
+</body>
+<script src="../basis/js/b.js"></script>
+<script src="js/helper.js"></script>
+<script src="js/PageLogic.js"></script>
+<script src="../htmlElements.js"></script>
+<script>
+    ExposeHTML({
+        divToExpose: getTruncatedHTML(document.body, 1), 
+        divToAppend: document.getElementById("id-html-code-show"),
+        outer:true,
+        pretty: true, 
+        textAreaClassName: "code",})
+
+    ExposeHTML({
+        divToExpose: document.getElementById("id-single-pill-html"), 
+        divToAppend: document.getElementById("id-single-pill-show"),
+        outer:false,
+        pretty: true, 
+        textAreaClassName: "code",
+        synchWithTarget: false})
+
+    ExposeHTML({
+        divToExpose: document.getElementById("id-multi-pill-html"), 
+        divToAppend: document.getElementById("id-multi-pill-show"),
+        outer:false,
+        pretty: true, 
+        textAreaClassName: "code",
+        synchWithTarget: false})
+</script>
+</html>
