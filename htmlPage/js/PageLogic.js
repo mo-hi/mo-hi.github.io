@@ -3,7 +3,7 @@ const config = {
     mainWidth: document.querySelector('input[name="mainWidth"]:checked').value,
 }
 
-function dummy_I_DO_NOTHING() {
+function foo() {
     
 }
 

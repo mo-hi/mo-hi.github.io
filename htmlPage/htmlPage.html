@@ -27,6 +27,9 @@
             --color-pill-bg-checked: var(--color-cyan-100);
             --color-pill-font-checked: var(--color-cyan-900);
 
+            --color-c-bg: var(--color-zinc-700);
+            --color-c-font: var(--color-cyan-300);
+
             --color-textarea-code-bg: var(--color-zinc-800);
             --color-textarea-code-text: var(--color-zinc-300);
             --color-textarea-code-border: var(--color-zinc-400);         
@@ -48,6 +51,9 @@
     
             --color-nav-btn-bg:var(--color-blue-600);
             --color-nav-btn-font: white;
+
+            --color-c-bg: var(--color-zinc-300);
+            --color-c-font: var(--color-red-700);
 
             --color-textarea-code-bg: var(--color-zinc-100);
             --color-textarea-code-text: var(--color-zinc-800);
@@ -108,28 +114,55 @@
             You can click on the single pill (technically a html checkbox) or multi pill (technically a html radio).
             The color change is pure css. You can attach your own javascript on change event (here: dummy_I_DO_NOTHING)
         </p>
-            <div id="id-single-pill-html" class="mt-20 mb-20">
-                <form id = 'id-form-single-pill' class="selection-pill" onchange="dummy_I_DO_NOTHING(event)">
-                    <input type="checkbox" name="name-single-pill" id="id-single-pill" value="single">
-                    <label for="id-single-pill">Single Pill</label>
-                </form>
-            </div>
+        <div id="id-single-pill-html" class="mt-20 mb-20">
+            <form id = 'id-single-pill-form' class="selection-pill" onchange="foo(event)">
+                <input type="checkbox" name="name-single-pill" id="id-single-pill" value="single">
+                <label for="id-single-pill">Single Pill</label>
+            </form>
+        </div>
 
-            <div id="id-single-pill-show" class="h-100 w-94 mb-100"></div>
+        <div id="id-single-pill-show" class="h-100 w-94 mb-100"></div>
 
-            <div id="id-multi-pill-html" class="mt-20 mb-20">
-                <form id = 'id-form-theme' class="selection-pill" onchange="dummy_I_DO_NOTHING(event)">
-                    <input type="radio" name="name-multi-pill" id="id-multi-pill-1" value="dark" checked>
-                    <label for="id-multi-pill-1">Multi</label>
+        <div id="id-multi-pill-html" class="mt-20 mb-20">
+            <form id = 'id-multi-pill-form' class="selection-pill" onchange="foo(event)">
+                <input type="radio" name="name-multi-pill" id="id-multi-pill-1" value="1" checked>
+                <label for="id-multi-pill-1">Multi</label>
 
-                    <input type="radio" name="name-multi-pill" id="id-multi-pill-2" value="light">
-                    <label for="id-multi-pill-2">Pill</label>
-                </form>
-            </div>
+                <input type="radio" name="name-multi-pill" id="id-multi-pill-n" value="n">
+                <label for="id-multi-pill-n">Multi</label>
 
-            <div id="id-multi-pill-show" class="h-140 w-94 mb-80"></div>
+                <input type="radio" name="name-multi-pill" id="id-multi-pill-last" value="last">
+                <label for="id-multi-pill-last">Pill</label>
+            </form>
+        </div>
+
+        <div id="id-multi-pill-show" class="h-180 w-94 mb-80"></div>
         
-            to be coninued ...
+        <p class="pt-30">
+            To get the values of the pills you can use the <c>getFormValueSimple</c> and <c>getFormValue</c> functions or
+            use the corresponding javascript code. Note, that <c>getFormValue</c> needs the form id and returns an object whereas <c>getFormValueSimple</c> needs the input name and returns a string.
+            <br><br>
+            Try it!. Click on the pills in this section, call one of the following functions and see how the result changes.
+            <ul>
+                <li>
+                    <c>getFormValueSimple('name-multi-pill')</c> (works only if at least one pill is checked, i e. on mulit pills)
+                </li>
+                <li>
+                    <c>getFormValueSimple()</c> (equivalent to above)
+                </li>
+                <li>
+                    <c>getFormValue('id-multi-pill-form')</c>
+                </li>
+                <li>
+                    <c>getFormValue('id-single-pill-form')</c>
+                </li>
+            </ul> 
+            
+        </p>
+
+        <div id="id-script-getFormValue-show" class="h-320 w-94 mb-80"></div>
+        
+        to be coninued ...
 
             <footer-js></footer-js>
     </main>
@@ -142,14 +175,14 @@
     ExposeHTML({
         divToExpose: getTruncatedHTML(document.body, 1), 
         divToAppend: document.getElementById("id-html-code-show"),
-        outer:true,
+        outer: true,
         pretty: true, 
         textAreaClassName: "code",})
 
     ExposeHTML({
         divToExpose: document.getElementById("id-single-pill-html"), 
         divToAppend: document.getElementById("id-single-pill-show"),
-        outer:false,
+        outer: false,
         pretty: true, 
         textAreaClassName: "code",
         synchWithTarget: false})
@@ -157,8 +190,37 @@
     ExposeHTML({
         divToExpose: document.getElementById("id-multi-pill-html"), 
         divToAppend: document.getElementById("id-multi-pill-show"),
-        outer:false,
+        outer: false,
         pretty: true, 
+        textAreaClassName: "code",
+        synchWithTarget: false})
+
+
+</script>
+<div id = "id-script-getFormValue">
+    <script>
+        function getFormValueSimple(formName) {
+            // works only if at least one pill is checked, i. e. on mulit pills
+            if (!formName) formName = 'name-multi-pill'
+            return document.querySelector('input[name="' + formName + '"]:checked').value;
+        }
+
+        function getFormValue(formId) {
+            if (!formId) formId = 'id-multi-pill-form'
+            const form = document.getElementById(formId)
+            const formData = new FormData(form)
+            const formValues = Object.fromEntries(formData)
+            return formValues
+        }
+    </script>
+</div>
+
+<script>
+        ExposeHTML({
+        divToExpose: document.getElementById("id-script-getFormValue"), 
+        divToAppend: document.getElementById("id-script-getFormValue-show"),
+        outer: false,
+        pretty: false, 
         textAreaClassName: "code",
         synchWithTarget: false})
 </script>
