@@ -63,13 +63,34 @@
             --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
             --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
         }
-
-        
     </style>
 </head>
 <body class="dark">
     <main class="w-responsive-xl">
         <h1>HTML</h1>
+        <h2>html starting template</h2>
+        <p>
+            This is a starter template for html pages based on the basis framework b.css and b.js.
+        </p>
+        <h2>Colors</h2> 
+        <p>
+            
+            Inside the style section, the colors for the html page can be defined, by overwriting the default color variables 
+            of the b.css library. The color variables are defined throughoutin the b.css file, e. g. <c>--color-text</c>, <c>--color-bg-body</c>. 
+            It is recommended to define all colors in one place, i. e. in the style secton of your html (here) or
+            in a dedicated css file using the overwriting schema below <br> <br> 
+            
+            You can then define / overwrite the colors to your choice. Best practice is to choose colors form a harmonized color palette, so you page looks consistent.
+            b.css provies the tailwind colors <a href="https://tailwindcss.com/docs/customizing-colors">https://tailwindcss.com/docs/customizing-colors</a> using the 
+            <c>--color-*tailwindName*</c> schema, e. g. <c>--color-zinc-950</c> or <c>--color-cyan-100</c>, but there are many more.
+            <br><br>
+            By defualt the colors defiend for the <c>body.light</c> and <c>body.dark</c> class. You can also create your custom theme.
+        </p>
+
+        </p>
+        <div id="id-html-starter-show" class="h-600 w-94 mt-20 mb-80"></div>
+        
+        <h2>Body</h2> 
         <p>
             In the body we only define the theme, which is a dark theme. The main block contains the major content of the site
         </p>
@@ -171,32 +192,6 @@
 <script src="js/helper.js"></script>
 <script src="js/PageLogic.js"></script>
 <script src="../htmlElements.js"></script>
-<script>
-    ExposeHTML({
-        divToExpose: getTruncatedHTML(document.body, 1), 
-        divToAppend: document.getElementById("id-html-code-show"),
-        outer: true,
-        pretty: true, 
-        textAreaClassName: "code",})
-
-    ExposeHTML({
-        divToExpose: document.getElementById("id-single-pill-html"), 
-        divToAppend: document.getElementById("id-single-pill-show"),
-        outer: false,
-        pretty: true, 
-        textAreaClassName: "code",
-        synchWithTarget: false})
-
-    ExposeHTML({
-        divToExpose: document.getElementById("id-multi-pill-html"), 
-        divToAppend: document.getElementById("id-multi-pill-show"),
-        outer: false,
-        pretty: true, 
-        textAreaClassName: "code",
-        synchWithTarget: false})
-
-
-</script>
 <div id = "id-script-getFormValue">
     <script>
         function getFormValueSimple(formName) {
@@ -216,7 +211,71 @@
 </div>
 
 <script>
-        ExposeHTML({
+    const starterTemplate = `   <!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>template</title>
+            <link rel="stylesheet" href="b.css">
+            <style>
+            :root, body.dark {>><<
+                --color-text: var(--color-zinc-100);>><<
+                --color-bg-body: var(--color-zinc-950);>><<
+                --color-bg-main: var(--color-zinc-900);>><<
+            }>><<
+            body.light {>><<
+                --color-text: var(--color-zinc-900);>><<
+                --color-bg-body: var(--color-zinc-200);>><<
+                --color-bg-main: var(--color-zinc-50);>><<
+            }>><<
+            </style>
+        </head>
+        <body class="dark">
+            <main class="w-responsive-xl">
+                <h1>Hello, world!</h1>
+            </main>
+        </body>
+        <script src="b.js"><` + `/script>
+    </html>`;
+
+    const emptylDiv = document.createElement("div");
+
+    ExposeHTML({
+        divToExpose: emptylDiv,
+        stringToExpose: starterTemplate,
+        divToAppend: document.getElementById("id-html-starter-show"),
+        outer: true,
+        pretty: true, 
+        textAreaClassName: "code",
+        lineNumbers: true})
+
+    ExposeHTML({
+        divToExpose: getTruncatedHTML(document.body, 1), 
+        divToAppend: document.getElementById("id-html-code-show"),
+        outer: true,
+        pretty: true, 
+        textAreaClassName: "code",
+        lineNumbers: false})
+
+    ExposeHTML({
+        divToExpose: document.getElementById("id-single-pill-html"), 
+        divToAppend: document.getElementById("id-single-pill-show"),
+        outer: false,
+        pretty: true, 
+        textAreaClassName: "code",
+        synchWithTarget: false})
+
+    ExposeHTML({
+        divToExpose: document.getElementById("id-multi-pill-html"), 
+        divToAppend: document.getElementById("id-multi-pill-show"),
+        outer: false,
+        pretty: true, 
+        textAreaClassName: "code",
+        synchWithTarget: false})
+
+
+    ExposeHTML({
         divToExpose: document.getElementById("id-script-getFormValue"), 
         divToAppend: document.getElementById("id-script-getFormValue-show"),
         outer: false,

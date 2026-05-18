@@ -859,29 +859,40 @@ function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = fa
 function ExposeHTML(config) {
     let SCHEMA = {
         divToExpose: {typOf: 'div', required: true},
+        stringToExpose: {typOf: 'str', required: false},
         divToAppend: {typOf: 'div', required: true},
         id: {typOf: 'str', required: false},
         outer: {typOf: 'bool', required: false},
         pretty: {typOf: 'bool', required: false},
         textAreaClassName: {typOf: 'str', required: false},
-        synchWithTarget: {typOf: 'bool', required: false}
+        synchWithTarget: {typOf: 'bool', required: false},
+        lineNumbers: {typOf: 'bool', required: false}
     };
     if (ValidateSCHEMA(config, SCHEMA) == false) return;
 
     let divToExpose = config.divToExpose;
     let divToAppend = config.divToAppend;
+    let stringToExpose = config.stringToExpose || "";
     let id = config.id || "";
     let outer = config.outer || false;
     let pretty = config.pretty || false;
     let textAreaClassName = config.textAreaClassName || "";
     let synchWithTarget = config.synchWithTarget || false;
+    let lineNumbers = config.lineNumbers || false;
 
     let textarea = clsDivBuilder.BuildTextArea({
         id: id, className: textAreaClassName, spellcheck: false, 
         width: '100%', height: '100%'});
 
     let htmlSource = undefined
-    htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
+    if (stringToExpose != "") {
+        htmlSource = config.stringToExpose;
+    } else {
+        if (outer) {
+            htmlSource = divToExpose.outerHTML;
+        } else {
+            htmlSource = divToExpose.innerHTML;}
+    }
     if (htmlSource == undefined) 
         return
     if (divToExpose.tagName.toLowerCase() === 'script')
@@ -895,10 +906,22 @@ function ExposeHTML(config) {
         textarea.addEventListener('input', () => {
             divToExpose.innerHTML = textarea.value;
         });
+    } else {
+        textarea.readOnly = true
     }
     
     textarea.value = _filteredLines(htmlSource, '#IGNORE')
     if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+    
+    if (lineNumbers) {
+        let lineNumbersDiv = document.createElement('div');
+
+        lineNumbersDiv.classList.add('line-numbers-for-textarea');
+        let linesArr = Array.from({ length: htmlSource.split("\n").length}, (_, i) => i + 1);
+        lineNumbersDiv.innerHTML = linesArr.join("<br>");
+        divToAppend.classList.add('flex');
+        divToAppend.appendChild(lineNumbersDiv);
+    }
     divToAppend.appendChild(textarea);   
     return textarea                                                                                                                                        
 }
@@ -914,7 +937,7 @@ function formatHTML(html) {
 
     // Split by tags
     html.split(/>\s*</).forEach(function(element) {
-        if (element.match(/^\/\w/)) {
+        if (element.match(/^\/\w/) || element.startsWith("meta") || element.startsWith("link") ) {
             // Closing tag: decrease indent
             indent = indent.substring(tab.length);
         }
@@ -927,7 +950,9 @@ function formatHTML(html) {
         }
     });
 
-    return result.substring(1, result.length - 2); // Clean up extra brackets/newlines
+    result = result.substring(1, result.length - 2); // Clean up extra brackets/newlines
+    result = result.replaceAll(">>", "").replaceAll("<<", "");
+    return result
 }
 
 function _filteredLines(text, filterWord) {
