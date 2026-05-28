@@ -29,14 +29,14 @@ class clsTest {
         doc.close();
     }
 
-    RunTestCases(testcasesAsList, resetfunction, prefix = '_testCase_', testSeperator = ' '.repeat(50)) {
+    async RunTestCases(testcasesAsList, resetfunction, prefix = '_testCase_', testSeperator = ' '.repeat(50)) {
         for (let fn of testcasesAsList) {
             let name = fn.name.after(prefix)
             this.NewLine()
             this.TestHeadline(name)
             // this.Equal(true, true, '<b>' + name + ' - Start</b>');
             resetfunction
-            fn(this);
+            await fn(this);
         }
         this.NewLine() 
     }

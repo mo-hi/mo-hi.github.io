@@ -1,184 +1,132 @@
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+    <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Mo Hi">
-    <title>B CSS</title>
-    <link rel="stylesheet" href="css/b.css">
-    <style>
-        :root       {--color-background: #f0f0f0;--color-text: #444;}
-        body        {background-color: var(--color-background); color: var(--color-text);}
-        #id-end     {background-color: var(--color-background); color: var(--color-text);}
-        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
-    </style>
-</head>
-<body class="academic wr-800-400">
-    <div class="h-30"></div>
-    <!-- ----------------------------------------------------------------------------------------- -->
-    <h1>b.CSS</h1>
-    <p >
-        To use b.CSS in your project, just add the following css reference to your project. in case you also want
-        to use the icons, add the svg.js reference as well. 
-    </p>
+        <title>B CSS</title>
+    <link rel="stylesheet" href="../basis/css/b.css">
+        <style> :root, body.dark {
+         --color-text: var(--color-zinc-100);
+         --color-bg-body: var(--color-zinc-950);
+         --color-bg-main: var(--color-zinc-900);
+         }
+         body.light {
+         --color-text: var(--color-zinc-900);
+         --color-bg-body: var(--color-zinc-200);
+         --color-bg-main: var(--color-zinc-50);
+         }
+         </style>
+    </head>
+    <body class="light">
+        <main class="w-responsive-l">
+            <h1>B CSS</h1>
+            <section>
+                <h2 class="underline">Fonts</h2>
+                <p>
+                    b.css provides a variety of basic fonts, that can by applied by the classes, e. g.  <c>.font-os</c> or <c>.serif</c>.
+                </p>
+                <h2 class="font-os">Font-OS (use whatever font the OS uses for its own system menus)</h2>
+                <p class="font-os">
+                    {{text}}
+                </p>
+                <c>.font-os</c>
+                <h2 class="serif">Serif (Chrome default)</h2>
+                <p class="serif">
+                    {{text}}
+                </p>
+                <c>.serif</c>
+                <h2 class="arial">Arial</h2>
+                <p class="arial">
+                    {{text}}
+                </p>
+                <c>.arial</c>
+                <h2 class="verdana">Verdana</h2>
+                <p class="verdana">
+                    {{text}}
+                </p>
+                <c>.verdana</c>
+                <h2 class="tahoma">Tahoma</h2>
+                <p class="tahoma">
+                    {{text}}
+                </p>
+                <c>.tahoma</c>
+                <h2 class="trebuchet">Trebuchet</h2>
+                <p class="trebuchet">
+                    {{text}}
+                </p>
+                <c>.trebuchet</c>
+                <h2 class="times-new-roman">Times New Roman</h2>
+                <p class="times-new-roman">
+                    {{text}}
+                </p>
+                <c>.times-new-roman</c>
+                <h2 class="georgia">Georgia</h2>
+                <p class="georgia">
+                    {{text}}
+                </p>
+                <c>.georgia</c>
+                <h2 class="garamond">Garamond</h2>
+                <p class="garamond">
+                    {{text}}
+                </p>
+                <c>.garamond</c>
+                <h2 class="monospace">Monospace</h2>
+                <p class="monospace">
+                    {{text}}
+                </p>
+                <c>.monospace </c>
+                <h2 class="courier">Courier</h2>
+                <p class="courier">
+                    {{text}}
+                </p>
+                <c>.courier</c>
+                <h2 class="sans-serif">Sans-Serif</h2>
+                <p class="sans-serif">
+                    {{text}}
+                </p>
+                <c>.sans-serif</c>
+                <h2 class="brush-script">Brush-Script</h2>
+                <p class="brush-script">
+                    {{text}}
+                </p>
+                <c>.brush-script</c>
+            </section>
+            <section>
+                <h2>Buttons</h2> 
+                <p>
+                    b.css provides basic button styles, that can by applied by the classes, e. g.  <c>.btn</c> or <c>.btn green</c>. You can directly modify the buttons in the script below.
+                </p>
+                
+                <div id = 'id-button'>
+                    <div class="btn" onclick="foo(event)">Generic Button</div>
+                    <div class="btn blue" onclick="foo(event)">Blue Button</div>
+                    <div class="btn green" onclick="foo(event)">Green</div>
+                    <div class="btn red" onclick="foo(event)">Red</div>
+                    <div class="btn yellow" onclick="foo(event)">Yellow</div>
+                    <div class="btn gray" onclick="foo(event)">Gray</div>
+                </div>
+                <div id = 'id-button-show' class="h-160 w-80 mt-10"></div>
+            </section>
+            <section class="h-200">
 
-    <code>
-        (-link rel="stylesheet" href="https://mo-hi.github.io/bjs/css/b.css"-)   | <a href="https://mo-hi.github.io/basis/css/b.css">link </a>
-    </code>
+            </section>
+            
+            <footer-js></footer-js>
+        </main>
+    </body>
+    <script src="../basis/js/b.js"></script>
+    <script src="../htmlElements.js"></script>
+    <script>
+        let textDict = {
+            text: "Left Munich at 8:35 P. M., on 1st May, arriving at Vienna early next morning; should have arrived at 6:46, but train was an hour late. Buda-Pesth seems a wonderful place, from the glimpse which I got of it from the train and the little I could walk through the streets. I feared to go very far from the station, as we had arrived late and would start as near the correct time as possible. The impression I had was that we were leaving the West and entering the East; the most western of splendid bridges over the Danube, which is here of noble width and depth, took us among the traditions of Turkish rule."
+        }
+        Auto_Fill(textDict)
 
-    <!-- ----------------------------------------------------------------------------------------- -->
-     <section >
-        <h3>All available svgs</h3>
-        <div id="id-svgs" class="auto-fill">
-            <div class="inline-block">{{{{svg}}}}</div>
-            <div class="inline-block">{{svg}}</div>
-            <br><br>
-        </div>
-        <h3>Size 12</h3>
-        <div class="auto-fill">
-            <div class="inline-block mr-20">{{svg-icon-edit-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-grid-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-menu-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-search-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-filter-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-download-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-upload-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-save-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-discard-12}}</div>
-            <div class="inline-block mr-20">{{svg-icon-heart-12}}</div>
-        </div>
-        <h3>Size 24</h3>
-        <div class="auto-fill">
-            <div class="inline-block mr-20">{{svg-icon-edit-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-grid-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-menu-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-search-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-filter-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-download-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-upload-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-save-24}}</div>
-            <div class="inline-block mr-20">{{svg-icon-discard-24}}</div>
-        </div>
-        <h3>Size 48</h3>
-        <div class="auto-fill">
-            <div class="inline-block mr-20">{{svg-icon-edit-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-menu-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-search-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-filter-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-download-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-upload-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-save-48}}</div>
-            <div class="inline-block mr-20">{{svg-icon-discard-48}}</div>
-        </div>
-
-        <h3>Colors</h3>
-        <div id="id-colors" class="auto-fill">
-            <div class="inline-block mr-20 blue">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20 green">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20 red">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20 yellow">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20 purple">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20 orange">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20 pink">{{svg-icon-grid-48}}</div>
-            <div class="inline-block mr-20 brown">{{svg-icon-grid-48}}</div>
-        </div>
-        <div id="id-color-show" class="h-160"></div>
-    </section>
-
-    <br><br>
-    <h2>Buttons</h2>
-    <div id="repeatTable">
-        <table id = "id-{{iconname}}" class="border border-cells center w-100 p-5">
-            <tr>
-                <td class="w-5"><div class="auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}<br> svg-icon-{{iconname}}</div></td></td>
-                <td>12</td>
-                <td>18</td>
-                <td>24</td>
-                <td>36</td>
-                <td>48</td>
-            </tr>
-            <tr>
-                <td>btn</td>
-                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-12}} </div></td>
-                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-18}}</div></td>
-                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}</div></td>
-                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-36}}</div></td>
-                <td class="w-5"><div class="btn blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-48}}</div></td>
-            </tr>
-            <tr>
-                <td>btnS</td>
-                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-12}}</div></td>
-                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-18}}</div></td>
-                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}</div></td>
-                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-36}}</div></td>
-                <td class="w-5"><div class="btnS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-48}}</div></td>
-            </tr>
-            <tr>
-                <td>btnXS</td>
-                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-12}}</div></td>
-                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-18}}</div></td>
-                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-24}}</div></td>
-                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-36}}</div></td>
-                <td class="w-5"><div class="btnXS blue auto-fill" onclick="foo(this)">{{svg-icon-{{iconname}}-48}}</div></td>
-            </tr>
-            <tr>
-                <td colspan="6" id = "id-{{iconname}}-show" class="font-12 left h-300"></td>
-            </tr>
-        </table>
-        <br>
-    </div>
-
-    <section id="id-end" class="wr-800-400 h-50 fixed bottom-0 mb-0i" style="z-index: 2;border-top: 1px solid grey;">
-        <p >
-            Back to <a href="../index.html" class="mr-20"> mo-hi </a>  
-            Link to <a href="https://github.com/mo-hi/mo-hi.github.io" class="mr-20">github repo</a> 
-        </p>
-    </section>
-
-</body>
-
-<script src="js/b.js"></script>
-<script src="../textGeneral.js"></script>
-<script>
-    let colorsInnerHTML = document.getElementById("id-colors").innerHTML
-    let editInnerHTML = document.getElementById("id-{{iconname}}").innerHTML
-    let ButtonTables = [
-        {iconname:'edit'}, 
-        {iconname:'grid'},
-        {iconname:'menu'},
-        {iconname:'search'},
-        {iconname:'filter'},
-        {iconname:'download'},
-        {iconname:'upload'},
-        {iconname:'save'},
-        {iconname:'discard'}
-    ]
-    let allSVGs = []
-    for (let svgKey of b_svg().keys()) {
-        allSVGs.push({"svg":svgKey})}
-
-    Auto_Fill(allSVGs, "id-svgs")
-
-    Auto_Fill(ButtonTables, "repeatTable")
-    Auto_Fill(b_svg([12,18,24,36,48]))    
-    Auto_Fill(FromFile_textGeneral_js)       //  this is done by b.js
-
-    DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
-    DOM_Replace(['(-', '-)', '--'], ["&lt;", "&gt;", "&nbsp;&nbsp;&nbsp;&nbsp;"], ['code'])
-
-    function foo(element) {
-        let outer = element.outerHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        let td = element.parentNode;
-        let nextCell = td.nextElementSibling;
-        // nextCell.innerHTML = outer
-        let name = element.parentElement.parentElement.parentElement.parentElement.id
-        let merged = document.getElementById(name + "-merged")
-
-        merged.innerHTML = outer
-    }
-    ShowHTMLinTextArea(colorsInnerHTML, document.getElementById("id-color-show"))
-    ShowHTMLinTextArea(editInnerHTML, document.getElementById("id-edit-show"))
-    
-</script>
+        ExposeHTML({
+            divToExpose: document.getElementById("id-button"), 
+            divToAppend: document.getElementById("id-button-show"),
+            textAreaClassName: "code",
+            synchWithTarget: true
+        })
+    </script>
 </html>
-

@@ -917,7 +917,7 @@ function ExposeHTML(config) {
         let lineNumbersDiv = document.createElement('div');
 
         lineNumbersDiv.classList.add('line-numbers-for-textarea');
-        let linesArr = Array.from({ length: htmlSource.split("\n").length}, (_, i) => i + 1);
+        let linesArr = Array.from({ length: textarea.value.split("\n").length}, (_, i) => i + 1);
         lineNumbersDiv.innerHTML = linesArr.join("<br>");
         divToAppend.classList.add('flex');
         divToAppend.appendChild(lineNumbersDiv);

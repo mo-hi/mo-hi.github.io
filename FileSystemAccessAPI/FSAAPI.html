@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File System Access API</title>
+    <link rel="stylesheet" href="../basis/css/b.css">
+    <style> 
+    :root, body.dark {
+         --color-text: var(--color-zinc-100);
+         --color-bg-body: var(--color-zinc-950);
+         --color-bg-main: var(--color-zinc-900);
+         }
+    body.light {
+         --color-text: var(--color-zinc-900);
+         --color-bg-body: var(--color-zinc-200);
+         --color-bg-main: var(--color-zinc-50);
+         }
+         </style>
+</head>
+<body class="light font-os">
+    <main class="w-responsive-l">
+        <h1>Local File Editor</h1>
+        <p>
+            File System Access API simplifies the way you can read and write local data. This site is my personal learning 
+            and testing ground for the File System Access API. It is based on the documentation found at
+            <a href="https://developer.chrome.com/docs/capabilities/web-apis/file-system-access?">https://developer.chrome.com/docs/capabilities/web-apis/file-system-access? </a>.
+        </p>
+        <h2>Check availability</h2>
+        <div class="btn" onclick="Click_CheckAvailablitiy(event)">Check Availabiltiy</div> 
+        <div id= "id-p-available" class="btn-spacing inline-block"> --Result--</div>
+        <p>
+            Click on the Button to check if your browser supports the File System Access API. 
+            When your browser supports the File System Access API, you can create a connection to Read and to Write Files which is demonstrated in the following sections. Note that I 
+            intentionally do not use the <c>try-catch</c> construct in the code snippets, to solely focus on the functionality. In your own code, you should use the <c>try-catch</c> construct
+            for asynchronous functions.
+        </p>
+
+        <!----------------------------------------------------------------------------->
+        <h2>Open, Read, Create and Save File</h2>
+        <p>
+             To read a file, use <c>let [filePointer] = await window.showOpenFilePicker();</c> (the funtion returns an array, so we just take the first one). You can read the file contents and
+             display it in a textarea.
+        </p>        
+        <p>
+            To write to a file, we first need to create the file. For this, we use <c>let filePointer = await window.showSaveFilePicker();</c>.
+            We store the reference to the file to the global variable <c>filePointer</c> so we can use it later. 
+            
+            In our next function </c>SaveToFile</c>, we create a writeable stream to the file and write to it.
+        </p>
+        <div class="btn mb-5" onclick="OpenFile(event)">Open File (Create pointer to a file)</div> 
+        <div class="btn mb-5 ml-20" onclick="ReadFile(event)">Read File</div> 
+        <div class="btn mb-5 ml-20" onclick="NewfilePointer()(event)">Create New File (and store pointer)</div>
+        <div class="btn ml-20" onclick="SaveToFile(event)">Save to File</div>
+        <br>
+        <textarea id="id-textarea-file-output" class="w-70 h-200"></textarea>
+        <p id="id-status">Status: No file selected yet.</p>
+
+        <!----------------------------------------------------------------------------->
+        <h2>Javascript</h2>
+        <div id = "id-script-click-open-show" class="h-120 w-70 p-5"></div>
+        <div class="h-60"></div>
+        <div id = "id-script-click-read-show" class="h-180 w-70 p-5"></div>
+        <div class="h-60"></div>
+        <div id = "id-script-click-new-show" class="h-240 w-90 p-5"></div>
+        <div class="h-60"></div>
+        <div id = "id-script-click-write-show" class="h-240 w-90 p-5"></div>
+        <div class="h-60"></div>
+
+        <footer-js></footer-js>
+    </main>
+    <script src="../basis/js/b.js"></script>
+    <script src="../htmlElements.js"></script>
+    <script>
+        
+    </script>
+    <script>
+        function  Click_CheckAvailablitiy() {
+            if ('showOpenFilePicker' in self) {
+                document.getElementById("id-p-available").innerHTML = "✅ <c>('showOpenFilePicker' in self) == true </c>. File System Access API is supported"
+            } else {
+                document.getElementById("id-p-available").innerHTML = "❌ <c>('showOpenFilePicker' in self) == false </c>,. File System Access API is not supportedported"
+            }
+        }
+    </script>
+
+    <script id = "id-script-click-open">
+        let filePointer = null;
+
+        async function OpenFile () {
+            [filePointer] = await window.showOpenFilePicker();
+            document.getElementById('id-status').textContent = `File selected: ${filePointer.name}`;
+        }
+    </script>
+
+    <script id = "id-script-click-read">
+        async function ReadFile() {
+            if (!filePointer) {
+                document.getElementById('id-status').textContent = "Please select a file first.";
+            }
+
+            let file = await filePointer.getFile();
+            let content = await file.text();
+            document.getElementById('id-textarea-file-output').value = content
+        }
+    </script>
+
+    <script id = "id-script-click-new">
+        async function NewfilePointer() {
+                const options = {
+                    suggestedName: 'Super Mario.txt',
+                    types: [{
+                        description: 'Text documents',
+                        accept: { 'text/plain': ['.txt'] },
+                    }],
+                };
+                filePointer = await window.showSaveFilePicker(options);
+                document.getElementById('id-status').textContent = `File selected: ${filePointer.name}`;
+            }
+    </script>
+
+    <script id = "id-script-click-write">
+        async function SaveToFile() {
+            if (!filePointer) {
+                document.getElementById('id-status').textContent = "Please select a file first.";
+            }
+
+            // Create a Writeable stream to the file
+            let writable = await filePointer.createWritable();
+            // Write to file
+            writable.write(document.getElementById('id-textarea-file-output').value);
+            // Close the file
+            await writable.close();
+        }
+        </script>
+
+    <script>
+        for (let key of ["open", "read", "new", "write"]) {
+            ExposeHTML({
+                divToExpose: document.getElementById(`id-script-click-${key}`), 
+                divToAppend: document.getElementById(`id-script-click-${key}-show`),
+                outer: false,
+                pretty: false, 
+                textAreaClassName: "code",
+                synchWithTarget: false
+            })
+        }
+    </script>
+</body>
+</html>
