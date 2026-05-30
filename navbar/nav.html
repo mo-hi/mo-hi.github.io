@@ -5,7 +5,6 @@
     <meta name="author" content="Mo Hi">
     <title>nav css</title>
     <link rel="stylesheet" href="../basis/css/b.css">
-    <link rel="stylesheet" href="css/navPage.css">
     <link rel="stylesheet" href="css/nav.css">
     <style>
         /* b.css override colors */
@@ -34,8 +33,6 @@
             --color-textarea-code-accent-glow: var(--color-blue-800);
             --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
             --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
-
-
         }
     </style>
 </head>
@@ -132,14 +129,14 @@
 
     </main>  
 </body>
-    <!-- js libs -->
-    <script src="../basis/js/b.js"> </script>
-    <!-- this project -->
-    <script src="js/nav.js"></script>
-
-    <!-- this site (not needed to make nav.js work)-->
-    <script>
-
+    <div id = "id-scripts-nav">
+        <script src="../basis/js/b.js"> </script>
+        <script src="js/nav.js"></script>
+    </div>
+    <script id="id-script-init">
+    document.addEventListener('DOMContentLoaded', () => {
+        clsNav.Init()
+    });
     </script>
     <script src="../htmlElements.js"></script>
     <script src="js/pageLogic.js"></script>

@@ -79,7 +79,8 @@ function _UpdateNavBlock() {
 
     if (config["interaction"] == "click") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
-        _nav_initClickListeners()
+        clsNav.Init()
+        // _nav_initClickListeners()
         document.getElementById('id-info-javascript-needed').classList.remove("hidden")
   
     }
@@ -87,7 +88,8 @@ function _UpdateNavBlock() {
     if (config["interaction"] == "close") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
         drops.forEach(drop => drop.classList.add("auto-close"))
-        _nav_initClickListeners()
+        clsNav.Init()
+        // _nav_initClickListeners()
         document.getElementById('id-info-javascript-needed').classList.remove("hidden")
     }
 

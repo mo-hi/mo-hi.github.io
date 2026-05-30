@@ -1,4 +1,4 @@
-class clsNAV {
+class clsNav {
     constructor(targetID, data) {
         this.targetID = targetID
         this.data = data
@@ -6,7 +6,65 @@ class clsNAV {
 
     static Sidebar = NAV_Sidebar
     static AddGenericClickFunction = NAV_AddGenericClickFunction
+
+    static Init() {
+        //click toggle dropdown behavior
+        let navItems = document.querySelectorAll('nav .drop.click-toggle > a'); 
+        navItems.forEach(item => {
+            item.removeEventListener('click', this._event_toggleDown);
+            item.addEventListener('click', this._event_toggleDown);
+        });
+
+        //click toggle and autoclose dropdown behavior
+        let subItems= document.querySelectorAll('nav .drop.click-toggle.auto-close .down > a'); 
+        subItems.forEach(item => {
+            item.removeEventListener('click', this._event_removeAllActive);
+            item.addEventListener('click', this._event_removeAllActive);
+        });
+    }
+
+    static _event_removeAllActive(exceptElement = null) {
+        for (let drop of document.querySelectorAll('nav .nav-js-active')) {
+            drop.classList.remove('nav-js-active');
+        }
+    }
+
+    static _event_toggleDown(event) {
+        // stop default browser behavior after clicking on href, etc...
+        if (event instanceof Event) event.preventDefault();
+        // get clicked element
+        let divElement = DOM_ElementFromJSEvent(event, true)
+
+        let isAlreadyActive = divElement.parentElement.classList.contains('nav-js-active');
+
+        clsNav._event_removeAllActive(divElement) // don't use 'this' here (event)
+
+        //toggle navbar menu
+        let navActiveState = false;
+        if (!isAlreadyActive) {
+            divElement.parentElement.classList.add('nav-js-active');
+            navActiveState = true;
+        }
+        
+        //toggle navbar status
+        let nav = divElement.closest('nav');
+        if (nav)
+            nav.classList.toggle('nav-js-active', navActiveState);
+
+        //z-index toogle if there is a navbar and a sidebar
+        if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) {
+            let sidebar = document.querySelector('.sidebar')
+            sidebar.classList.toggle('z--1', navActiveState)
+        }
+    }
 }
+
+
+
+// ################################################################
+// dynamic sidebar                                                #
+// ################################################################
+
 
 
 function NAV_Sidebar(targetID, data,
@@ -56,10 +114,6 @@ function _nav_toggleDown(event) {
 
     //close other open dropdowns
     _nav_CloseAllDropdowns(divElement)
-    // for (let drop of document.querySelectorAll('nav .nav-js-active')) {
-    //     if (divElement.parentElement != drop)
-    //         drop.classList.remove('nav-js-active');
-    // }
 
     //toggle navbar menu
     let navActiveState = divElement.parentElement.classList.toggle('nav-js-active');
@@ -75,29 +129,6 @@ function _nav_toggleDown(event) {
     }
 }
 
-function _nav_initClickListeners() {
-    //stnadard dropdown behavior
-    let navItems = document.querySelectorAll('nav .drop.click-toggle > a, nav drop.click-toggle > a'); 
-    navItems.forEach(item => {
-        item.removeEventListener('click', _nav_toggleDown);
-        item.addEventListener('click', _nav_toggleDown);
-    });
-
-    // autoclose dropdown, i. e. dropdown closed after subitem click
-    let subItems= document.querySelectorAll(
-        'nav .drop.click-toggle.auto-close .down > a,\
-        nav drop.click-toggle.auto-close down > a'); 
-    subItems.forEach(item => {
-        item.removeEventListener('click', _nav_CloseAllDropdowns);
-        item.addEventListener('click', _nav_CloseAllDropdowns);
-    });
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    _nav_initClickListeners()
-});
-
 
 
 function _nav_IsTopNavBar(divElement) {
@@ -108,11 +139,6 @@ function _nav_IsTopNavBar(divElement) {
 function _nav_IsThereSidebar() {
     return document.querySelectorAll('.sidebar').length === 1;}
 
-
-
-// ################################################################
-// dynamic sidebar                                                #
-// ################################################################
 
 
 function _addIDToLiChildren(ul, idPrefix, idPostfix) {
