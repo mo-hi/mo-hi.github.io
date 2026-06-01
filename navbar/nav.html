@@ -5,7 +5,7 @@
     <meta name="author" content="Mo Hi">
     <title>nav css</title>
     <link rel="stylesheet" href="../basis/css/b.css">
-    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="../navbar/css/nav.css">
     <style>
         /* b.css override colors */
         :root, body.dark {
@@ -44,8 +44,10 @@
             <div id="id-nav" class="">
                 <nav>
                     <a href="https://mo-hi.github.io/">MoHi</a>
+
                     <a onclick="Reset(); Update()">Reset</a>
-                    <a>...</a>
+
+                    <a>other</a>
                     <div class="drop hover-toggle">
                         <a>DropDown</a>
                         <div class="down">
@@ -64,6 +66,19 @@
             <form id = 'id-form-position' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="checkbox" name="position" id="id-fixed" value="fixed">
                 <label for="id-fixed">fixed</label>
+            </form>
+            <form id = 'id-form-arrowDown' class="selection-pill mr-30" onchange="Update(event)">
+                <input type="radio" name="arrowDown" id="id-arrowDown-0" value="0" checked>
+                <label for="id-arrowDown-0">-</label>
+                
+                <input type="radio" name="arrowDown" id="id-arrowDown-C" value="C">
+                <label for="id-arrowDown-C">&#x25BC</label>
+
+                <input type="radio" name="arrowDown" id="arrowDown-D" value="D">
+                <label for="arrowDown-D">&#x25BD</label>
+
+                <input type="radio" name="arrowDown" id="arrowDown-E" value="E">
+                <label for="arrowDown-E">&#x25BE</label>
             </form>
             <form id = 'id-form-interaction' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="radio" name="interaction" id="id-hover" value="hover" checked>
@@ -106,37 +121,100 @@
                 <input type="radio" name="gapSize" id="id-gap20" value="20">
                 <label for="id-gap20">gap-20</label>
             </form>
-            <div id = 'id-info-javascript-needed' class="hidden">
-                Javascript needed
+            <div id = 'id-info-javascript-needed'>
+                No Javascript needed
             </div>
 
         </div>
     </section>
-
-    <section class="p-10">
-        <p class="m-0 mb-5i">
-            HTML of THIS navbar.
-        </p> 
-        <div id="id-show-out" class="h-420 w-80 js-fill mb-20i">
-        </div>
-
-        <textarea-js type="css"></textarea-js>
-
-        <textarea-js type="js"></textarea-js>
+    <section>
+        <h2>Navbar</h2>
+        <p>
+            This page demonstrates the navbar. You can interact with the navbar to see how it works and change its configuration via the selection pills. 
+            The result is shown in the following section. The corresponding HTML code will automatically adapted according to your selection. You can even diretly manupulate the 
+            content of the Navbar by changing the html code (not that this does only work for html changes and not for changes where javascript would be involded).
+        </p>
+        <p>
+            Key features:
+            <ul>
+                <li><c>hr</c> elements can be used to add horizontal seperation lines and spacing. <c>hr class="nav-spacer"</c> elements can be easily adjusetd in their widht, 
+                    by adding a <c>style</c> attribute.</li> or the b.css natie <c>w-*</c> classes, i. e. c>hr class="nav-spacer w-20"</c><br>
+                    Tis actually akes the need for multi navs obsolete.
+                </li>
+            </ul>
+        </p>    
     </section>
+    <section class="p-10">
+        HTML of THIS navbar
+        <div id="id-show-out" class="h-420 w-80 js-fill mt-5i mb-20i"></div>
+        CSS of THIS navbar
+        <div id="id-css-nav-show" class="h-100 w-80 js-fill mt-5i mb-20i"></div>
+        Javascript of this navbar (if no javascript is needed, nothing is dsiplayed here)
+        <div id="id-scripts-nav-show" class="h-100 w-80 js-fill mt-5i mb-20i"></div>
+    </section>
+    <hr>
+    <h2>Sidebar</h2>
+    <div class="btn" onclick="ToogleSidebar(event)">Show Sidebar</div>
+    <p>
+        Next the sidebar is demonstrated. The sidebar uses the same functionality as the navbar, so you can basically use the same html code from the navbar.
+        Core differences:<br>
+        <ul>
+            <li>
+                The <c>nav</c> element needs the class <c>sidebar</c>. That is the only manadtory difference.
+            </li>
+            <li>
+                The sidebar's parent element should always have the class <c>nav-fixed</c> and a defiend maximum width (e.g. 15rem). A not fiexed sidebar makes almost no sense.
+            </li>
+            <li>
+                There are no button elements in the sidebar.
+            </li>
+            <li>
+                THe sidebar currently only supports two hierarchy levels (as the navbar).
+            </li>
 
+        </ul>
+    </p>
+    <div id="id-sidebar" class="nav-fixed w-10 hidden">
+        <nav class="sidebar">
+            <a onclick="clsNav.ToogleSidebar(event)">&#x2630;</a>
+            <hr class="nav-spacer">
+            <a href="https://mo-hi.github.io/">MoHi</a>
+            <hr class="nav-divider">
+            <a onclick="Reset(); Update()">Reset</a>
+            <a> other</a>
+            <div class="drop click-toggle">
+                <a>DropDown</a>
+                <div class="down">
+                    <a>Link 1</a>
+                    <a>Link 2</a>
+                    <a>Link 3</a>
+                </div>
+            </div>
+            <hr class="nav-divider">
+            <a class="">Australia</a>
+            <div class="drop click-toggle">
+                <a>Europe</a>
+                <div class="down">
+                    <a>Germany</a>
+                    <a>France</a>
+                    <a>Italy</a>
+                </div>
+            </div>
+        </nav>
+    </div>
     <footer-js></footer-js>
 
     </main>  
 </body>
+    //
     <div id = "id-scripts-nav">
-        <script src="../basis/js/b.js"> </script>
-        <script src="js/nav.js"></script>
+        <script src="../basis/js/b.js"></script>
+        <script src="../navbar/js/nav.js"></script>
     </div>
     <script id="id-script-init">
-    document.addEventListener('DOMContentLoaded', () => {
-        clsNav.Init()
-    });
+        document.addEventListener('DOMContentLoaded', () => {
+            clsNav.Init()
+        });
     </script>
     <script src="../htmlElements.js"></script>
     <script src="js/pageLogic.js"></script>
@@ -146,5 +224,43 @@
         Update()
         // use this, when you manually change the nav html (for test purposes)
         // ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"),false, false, "code")
+    </script>
+
+    <script>
+        function ToogleSidebar(event) {
+            event.target.innerHTML = event.target.innerHTML == "Show Sidebar" ? "Hide Sidebar" : "Show Sidebar"
+            document.getElementById("id-sidebar").classList.toggle("hidden")
+        }
+    </script>
+
+    <script>
+        let links = document.querySelectorAll('link[href$=".css"]');
+
+        let combinedHTML = "";
+        links.forEach(link => {combinedHTML += link.outerHTML + "\n";});
+
+        ExposeHTML({
+            divToExpose: document.createElement('div'), // dummmy element
+            stringToExpose: combinedHTML,
+            divToAppend: document.getElementById("id-css-nav-show"),
+            outer: true,
+            pretty: false, 
+            textAreaClassName: "code",
+            synchWithTarget: false
+        })
+
+        ExposeHTML({
+            divToExpose: document.getElementById("id-scripts-nav"), 
+            divToAppend: document.getElementById("id-scripts-nav-show"),
+            pretty: false, 
+            textAreaClassName: "code",
+            synchWithTarget: false
+        })
+
+        for (let idDivShow of ["id-css-nav-show", "id-scripts-nav-show"]) {
+        
+            document.getElementById(idDivShow).firstElementChild.value = 
+            document.getElementById(idDivShow).firstElementChild.value.replaceAll("../", "https://mo-hi.github.io/")
+        }
     </script>
 </html>   

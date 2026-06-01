@@ -17,30 +17,4 @@ class FooterJS extends HTMLElement {
     }
 }
 
-class TextareaJS extends HTMLElement {
-    connectedCallback() {
-        let type = this.getAttribute('type') || 'css';
-        
-        let content = ``; let name = ``
-        if (type === 'css') {
-            content = `<link rel="stylesheet" href="https://mo-hi.github.io/basis/css/b.css">\n<link rel="stylesheet" href="https://mo-hi.github.io/navbar/css/nav.css">`;
-            name = `CSS`
-        }    
-        if (type === 'js') {
-            content = `<script src="https://mo-hi.github.io/basis/js/b.js"></script>\n<script src="https://mo-hi.github.io/navbar/js/nav.js"></script>`;
-            name = `JavaScript`
-        }
-
-        this.innerHTML = `
-            <p class="m-0 mb-5i">
-                ${name} of THIS navbar:
-            </p>
-            <div class="h-100 w-80 js-fill mb-20i">
-                <textarea class="code" spellcheck="false" style="width: 100%; height: 100%;">${content}</textarea>
-            </div>
-        `;
-    }
-}
-
 customElements.define('footer-js', FooterJS);
-customElements.define('textarea-js', TextareaJS);

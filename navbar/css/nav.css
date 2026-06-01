@@ -106,12 +106,13 @@ nav {
     height: 100%;      /* Ensure it fills the parent bar height */
 }
   
-nav > a, nav > div.drop, nav > drop {
+nav > a, nav > div.drop {
     float: left;
     position: static;
   }
   
-nav > a, nav > div.drop a, nav > drop a {
+/* nav > a, nav > div.drop a { */
+nav a, .sidebar a {
     position: static;
     display: inline-block;
     text-align: center;
@@ -119,25 +120,33 @@ nav > a, nav > div.drop a, nav > drop a {
     text-decoration: none;
   }
 
-nav > div.drop > a::after, nav > drop > a::after {
+nav.nav-style-arrow-C > div.drop > a::after {
     content: " \25BC";
   }
-  
-nav > div.drop > div.down, nav > drop > down {
+
+nav.nav-style-arrow-D > div.drop > a::after {
+    content: " \25BD";
+  }
+
+nav.nav-style-arrow-E > div.drop > a::after {
+    content: "\25BE";
+  }
+
+nav > div.drop > div.down {
     display: none;
     position: absolute;
     min-width: 160px;
     z-index: 1;
   }
   
-nav > div.drop > div.down a, nav > drop > down a {
+nav > div.drop > div.down a  {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
   }
   
-nav > div.drop.hover-toggle:hover div.down, nav > drop.hover-toggle:hover down {
+nav > div.drop.hover-toggle:hover div.down {
     display: block;
   }
 
@@ -182,26 +191,150 @@ nav > a[class^="nav-btn"]:active {
     padding: 4px 12px;
 }
 
-/* Sidebar */
 
-.sidebar {
+nav hr.nav-divider {
+    display: inline-block;
+    float: left;
+    border: none;
+    background-color: var(--color-nav-font);
+    opacity: 0.15;               /* Clean, subtle overlay line */
+    margin: 0 10px;             /* Default horizontal gap for navbar */
+    width: 1px;                 /* In a standard horizontal navbar, it's a vertical line */
+}
+nav hr.nav-divider {height: 46.5px;}
+.nav-compact nav hr.nav-divider {height: 38.4px;}
+.nav-slim nav hr.nav-divider {height: 28.4px;}
+
+nav hr.nav-spacer {
+    display: inline-block;
+    float: left;
+    border: none;
+    background: transparent; /* Strips the default divider line color */
+    opacity: 0;             /* Ensures it is completely invisible */
+    height: 1px;
+    margin: 0;              /* Reset divider margins */
+    pointer-events: none;
+}
+nav hr.nav-spacer { width: 60px; }    
+
+
+/* ==========================================
+   SIDEBAR OverRides
+   ========================================== */
+
+.nav-fixed:has(nav.sidebar) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* 1. Structural Layout & Position */
+nav.sidebar {
+    display: flex !important;     /* Force flex over standard block layout */
+    flex-direction: column;       /* Stack elements vertically */
+    align-items: stretch;         /* Elements stretch to full width */
+    width: 94%    ;             /* Standard sidebar width */
+    height: 100vh;                /* Full screen height */
+    overflow-y: auto;             /* Allow scrolling inside sidebar if menu is long */
+    overflow-x: hidden;
+    transition: width 0.3s ease; /* Smooth sliding animation */
+}
+
+div:has(nav.sidebar) {
+    transition: width 0.3s ease; /* Smooth sliding animation */
+}
+
+/* 2. Item Layout Resets */
+nav.sidebar > a, 
+nav.sidebar > div.drop {
+    float: none;                  /* Destroy the top navbar's float behavior */
+    width: 100%;                  /* Guarantee full block coverage */
+
+}
+
+nav.sidebar a {
+    display: block;               /* Change inline-block to block for vertical stacking */
+    text-align: left;             /* Sidebars traditionally read left-aligned */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* 3. Accordion Dropdown Adaptation */
+nav.sidebar > div.drop > div.down {
+    position: relative;           /* Instead of absolute floating, slide inline */
+    width: 100%;
+    min-width: 100%;
+    z-index: auto;
+    box-shadow: none;             /* Strip drop-shadow meant for floating cards */
+}
+
+/* Visual indentation for nested sidebar drop items */
+nav.sidebar > div.drop > div.down a {
+    padding-left: 28px;           /* Push sub-links inward for clear hierarchy */
+    text-align: left;
+}
+
+
+
+
+/* Sidebar override for the divider */
+nav.sidebar hr.nav-divider {
+    width: auto;                /* Let it stretch across the width */
+    height: 1px;                /* Make it a traditional horizontal line */
+    margin: 0
+}
+
+
+/* Sidebar override for the spacer */
+nav.sidebar hr.nav-spacer {
+    float: none;
+    display: block;
+    width: 100%;
+    margin: 0;
+}
+nav.sidebar  hr.nav-spacer { height: 20px; }   
+
+
+nav.sidebar.sidebar-hidden {
+    width: 50px; /* Shrinks the sidebar to exactly the width of the toggle button */
+    height: 70px !important;
+    overflow: hidden;
+}
+
+
+div:has(nav.sidebar.sidebar-hidden) {
+    width: 50px !important; /* Forces the outer container to shrink to match the button */
+    height: 50px !important;
+    overflow: hidden;
+}
+
+
+
+
+
+/* Sidebar old*/
+
+ul.sidebar {
   padding-inline-start: 0px;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.sidebar a {
-  display: list-item;
+ul.sidebar a {
+  display: block;
 }
 
-.sidebar  drop  down{
+ul.sidebar  .drop  .down{
   display: none;
   min-width: 160px;
   margin-left:16px
 }
 
-.sidebar li {
+ul.sidebar li {
   margin-bottom: 6px;
   cursor: pointer;
   -webkit-user-select: none; /* Safari 3.1+ */
@@ -211,18 +344,18 @@ nav > a[class^="nav-btn"]:active {
 }
 
 
-.sidebar drop > li::before { 
+ul.sidebar .drop > a::before { 
     content: "\25B6";
     color: black;
     display: inline-block;
     margin-right: 2px;
 }
 
- .sidebar drop > li::before{ 
+ ul.sidebar .drop > a::before{ 
   content: "\25B6";
 }
 
-.sidebar drop.nav-js-active > li::before{ 
+ul.sidebar .drop.nav-js-active > a::before{ 
   content: "\25BC";
 }
 

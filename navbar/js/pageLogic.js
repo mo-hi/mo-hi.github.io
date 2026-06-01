@@ -1,9 +1,12 @@
 const config = {
     fixed: document.getElementById('id-fixed').checked,
+    arrowDown: document.querySelector('input[name="arrowDown"]:checked').value,
     interaction: document.querySelector('input[name="interaction"]:checked').value,
     navNum: document.querySelector('input[name="navNum"]:checked').value,
     slimMode: document.querySelector('input[name="slimMode"]:checked').value,
-    gapSize: document.querySelector('input[name="gapSize"]:checked').value
+    gapSize: document.querySelector('input[name="gapSize"]:checked').value,
+
+    
 }
 
 function Reset() {
@@ -12,10 +15,12 @@ function Reset() {
     document.getElementById('id-form-navNum').reset()
     document.getElementById('id-form-slimMode').reset()
     document.getElementById('id-form-gapSize').reset()
+    document.getElementById('id-form-arrowDown').reset()
 }
 
 function _UpdateConfig() {
     config["fixed"] = document.getElementById('id-fixed').checked
+    config["arrowDown"] = document.querySelector('input[name="arrowDown"]:checked').value,
     config["interaction"] = document.querySelector('input[name="interaction"]:checked').value
     config["navNum"] = parseInt(document.querySelector('input[name="navNum"]:checked').value)
     config["slimMode"] = document.querySelector('input[name="slimMode"]:checked').value
@@ -73,15 +78,18 @@ function _UpdateNavBlock() {
     let drops = parentNav.querySelectorAll('div.drop');
     if (config["interaction"] == "hover") {
         drops.forEach(drop => drop.classList.add("hover-toggle"))
-        document.getElementById('id-info-javascript-needed').classList.remove("hidden")
-        document.getElementById('id-info-javascript-needed').classList.add("hidden")
+        document.getElementById('id-info-javascript-needed').innerHTML = "No Javascript needed"
+        document.getElementById('id-scripts-nav-show').classList.remove("hidden")
+        document.getElementById('id-scripts-nav-show').classList.add("hidden")
     }
 
     if (config["interaction"] == "click") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
         clsNav.Init()
         // _nav_initClickListeners()
-        document.getElementById('id-info-javascript-needed').classList.remove("hidden")
+        document.getElementById('id-info-javascript-needed').innerHTML = "Javascript needed"
+        document.getElementById('id-scripts-nav-show').classList.remove("hidden")
+
   
     }
 
@@ -90,7 +98,8 @@ function _UpdateNavBlock() {
         drops.forEach(drop => drop.classList.add("auto-close"))
         clsNav.Init()
         // _nav_initClickListeners()
-        document.getElementById('id-info-javascript-needed').classList.remove("hidden")
+        document.getElementById('id-info-javascript-needed').innerHTML = "Javascript needed"
+        document.getElementById('id-scripts-nav-show').classList.remove("hidden")
     }
 
     // gap in case of three nav parts
@@ -108,6 +117,23 @@ function _UpdateNavBlock() {
     if (config["slimMode"] == "compact") {
         parentNav.classList.add("nav-compact")
     }
+
+    // arrow down. can only be added after the nav is build up
+    let nav = parentNav.querySelector(':scope > nav');
+    if (config["arrowDown"] == "0") {
+        nav.classList.remove("nav-style-arrow-C")
+        nav.classList.remove("nav-style-arrow-D")
+        nav.classList.remove("nav-style-arrow-E")
+    }
+    if (config["arrowDown"] == "C") 
+        nav.classList.add("nav-style-arrow-C")
+    
+    if (config["arrowDown"] == "D") 
+        nav.classList.add("nav-style-arrow-D")
+    
+    if (config["arrowDown"] == "E") 
+        nav.classList.add("nav-style-arrow-E")
+    
 }
 
 function _UpdateHTMLBlock() {
@@ -137,6 +163,7 @@ function _CreateNavExample() {
     let nav = document.createElement('nav')
     
     nav.appendChild(_CreateLink("MOHI", "https://mo-hi.github.io/"))
+    nav.appendChild(_CreateHR("nav-divider"))
     nav.appendChild(_CreateLink("Reset", "", "Reset(); Update()"))
     nav.appendChild(_CreateLink("other"))
 
@@ -151,9 +178,9 @@ function _CreateNavExample() {
     down.appendChild(_CreateLink("Link 3"))
     drop.appendChild(down)
     nav.appendChild(drop)
-
+    nav.appendChild(_CreateHR("nav-spacer"))
     nav.appendChild(_CreateLink("Button", "", "", "nav-btn-blue"))
-
+    
     return nav
 }
 
@@ -164,6 +191,12 @@ function _CreateLink(text, href, conlick, className) {
     if (conlick) a.setAttribute('onclick', conlick)
     if (className) a.className = className
     return a
+}
+
+function _CreateHR(typ) {
+    let hr = document.createElement('hr')
+    hr.classList.add(typ)
+    return hr
 }
 
 // Don't do <a href=""></a>. 

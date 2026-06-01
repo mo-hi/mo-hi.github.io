@@ -9,7 +9,9 @@ class clsNav {
 
     static Init() {
         //click toggle dropdown behavior
-        let navItems = document.querySelectorAll('nav .drop.click-toggle > a'); 
+        let navItems = document.querySelectorAll('\
+            nav .drop.click-toggle > a,\
+            .sidebar .drop > a'); 
         navItems.forEach(item => {
             item.removeEventListener('click', this._event_toggleDown);
             item.addEventListener('click', this._event_toggleDown);
@@ -32,30 +34,36 @@ class clsNav {
     static _event_toggleDown(event) {
         // stop default browser behavior after clicking on href, etc...
         if (event instanceof Event) event.preventDefault();
-        // get clicked element
+
         let divElement = DOM_ElementFromJSEvent(event, true)
-
         let isAlreadyActive = divElement.parentElement.classList.contains('nav-js-active');
-
-        clsNav._event_removeAllActive(divElement) // don't use 'this' here (event)
-
-        //toggle navbar menu
         let navActiveState = false;
-        if (!isAlreadyActive) {
-            divElement.parentElement.classList.add('nav-js-active');
-            navActiveState = true;
-        }
-        
-        //toggle navbar status
-        let nav = divElement.closest('nav');
-        if (nav)
-            nav.classList.toggle('nav-js-active', navActiveState);
 
-        //z-index toogle if there is a navbar and a sidebar
-        if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) {
-            let sidebar = document.querySelector('.sidebar')
-            sidebar.classList.toggle('z--1', navActiveState)
+        //Navbar: close all other open dropdowns after click
+        if (clsNav._isNavbar(divElement)) {
+            clsNav._event_removeAllActive(divElement) // don't use 'this' here (event)
+            if (!isAlreadyActive) {
+                divElement.parentElement.classList.add('nav-js-active');
+                navActiveState = true;
+            }
         }
+        //Sidebar: True toggle after click
+        if (!clsNav._isNavbar(divElement)) {
+            divElement.parentElement.classList.toggle('nav-js-active');
+            // navActiveState = divElement.parentElement.classList.contains('nav-js-active');
+        }
+
+        
+
+    }
+
+    static _isNavbar(divElement) {
+        return divElement.closest('nav');
+    }
+
+    static ToogleSidebar(event) {
+        let nav = event.target.closest('nav');
+        nav.classList.toggle('sidebar-hidden');
     }
 }
 
@@ -201,3 +209,16 @@ function addEventListener_ClickTouch(element, functionName) {
     return element
 }
 
+
+
+// archiv
+
+        // //toggle navbar status
+        // if (clsNav._isNavbar(divElement))
+        //     nav.classList.toggle('nav-js-active', navActiveState);
+
+        //z-index toogle if there is a navbar and a sidebar
+    //     if (_nav_IsTopNavBar(divElement) && _nav_IsThereSidebar()) {
+    //         let sidebar = document.querySelector('.sidebar')
+    //         sidebar.classList.toggle('z--1', navActiveState)
+    //     }
