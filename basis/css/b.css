@@ -75,7 +75,7 @@
     border-radius: 3px;
 }
 
-.btn, .btn-spacing {
+.btn {
     padding: 7px 10px 5px 10px;  /* Vertical centered. 8px to correct text height */
     font-size: 16px;
 }
@@ -453,6 +453,139 @@ c {
     --color-black: #000;
     --color-white: #fff;
     }
+
+    .bg-color-green-50 {
+        background-color: var(--color-green-50);
+    }
+
+    .bg-color-green-100 {
+        background-color: var(--color-green-100);
+    }
+
+    .bg-color-green-200 {
+        background-color: var(--color-green-200);
+    }
+
+    .bg-color-green-300 {
+        background-color: var(--color-green-300);
+    }
+
+    .bg-color-green-400 {
+        background-color: var(--color-green-400);
+    }
+
+    .bg-color-green-500 {
+        background-color: var(--color-green-500);
+    }
+
+    .bg-color-green-600 {
+        background-color: var(--color-green-600);
+    }
+
+    .bg-color-green-700 {
+        background-color: var(--color-green-700);
+    }
+
+    .bg-color-green-800 {
+        background-color: var(--color-green-800);
+    }
+
+    .bg-color-green-900 {
+        background-color: var(--color-green-900);
+    }
+
+    .bg-color-green-950 {
+        background-color: var(--color-green-950);
+    }
+
+    .bg-color-red-50 {
+        background-color: var(--color-red-50);
+    }
+
+    .bg-color-red-100 {
+        background-color: var(--color-red-100);
+    }
+
+    .bg-color-red-200 {
+        background-color: var(--color-red-200);
+    }
+
+    .bg-color-red-300 {
+        background-color: var(--color-red-300);
+    }
+
+    .bg-color-red-400 {
+        background-color: var(--color-red-400);
+    }
+
+    .bg-color-red-500 {
+        background-color: var(--color-red-500);
+    }
+
+    .bg-color-red-600 {
+        background-color: var(--color-red-600);
+    }
+
+    .bg-color-red-700 {
+        background-color: var(--color-red-700);
+    }
+
+    .bg-color-red-800 {
+        background-color: var(--color-red-800);
+    }
+
+    .bg-color-red-900 {
+        background-color: var(--color-red-900);
+    }
+
+    .bg-color-red-950 {
+        background-color: var(--color-red-950);
+    }
+
+    .bg-color-yellow-50 {
+        background-color: var(--color-yellow-50);
+    }
+
+    .bg-color-yellow-100 {
+        background-color: var(--color-yellow-100);
+    }
+
+    .bg-color-yellow-200 {
+        background-color: var(--color-yellow-200);
+    }
+
+    .bg-color-yellow-300 {
+        background-color: var(--color-yellow-300);
+    }
+
+    .bg-color-yellow-400 {
+        background-color: var(--color-yellow-400);
+    }
+
+    .bg-color-yellow-500 {
+        background-color: var(--color-yellow-500);
+    }
+
+    .bg-color-yellow-600 {
+        background-color: var(--color-yellow-600);
+    }
+
+    .bg-color-yellow-700 {
+        background-color: var(--color-yellow-700);
+    }
+
+    .bg-color-yellow-800 {
+        background-color: var(--color-yellow-800);
+    }
+
+    .bg-color-yellow-900 {
+        background-color: var(--color-yellow-900);
+    }
+
+    .bg-color-yellow-950 {
+        background-color: var(--color-yellow-950);
+    }
+    
 
 /*
 // ####################################################################################################
@@ -1138,6 +1271,7 @@ body.css-landing-dark a:focus-visible {
 .right-0    {right: 0;}
 
 .flex       {display: flex;}
+.flex-wrap   {display: flex;flex-wrap: wrap;}
 .flexSB     {display: flex;justify-content: space-between}
 .flexSA     {display: flex;justify-content: space-around}
 .flexC      {display: flex;justify-content: center;}
@@ -1145,6 +1279,9 @@ body.css-landing-dark a:focus-visible {
 
 .z-1 {z-index: 1;}
 .z--1 {z-index: -1;}
+
+.float-left {float: left;}
+.float-right {float: right;}
 
 /*
 // ####################################################################################################
@@ -1410,6 +1547,63 @@ section.col:first-child {
         border-right: none;
         border-bottom: 1px solid #444;
     }
+}
+
+/*
+// ####################################################################################################
+// #                                              lists                                               #
+// ####################################################################################################
+*/
+root {
+    --color-li-color: var(--color-zinc-300);
+    --color-li-bg: var(--color-cyan-500); 
+    --color-li-bg-hover: var(--color-cyan-600);
+    --color-li-bg-active: var(--color-cyan-700);
+}
+
+ul.ul-pro, ul.ul-pro li {
+    list-style: none; /* Strip away the harsh, default browser bullet dots */
+    padding-left: 0;   /* Reset padding so we can align precisely */
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+ul.ul-pro li {
+    position: relative;
+    padding-left: 1.5rem; /* Make room for our clean custom bullet */
+    margin-bottom: 0.75rem; /* Give list items breathing room */
+    
+    /* Typography fixes */
+    font-size: 0.9375rem;   /* ~15px, perfect for a balanced technical read */
+    line-height: 1.6;       /* Loosens up the text block to prevent eye strain */
+    color: var(--color-li-color); /* Drop it just a hint below text-100 to reduce glare */
+}
+
+/* Create a sleek, modern custom bullet marker */
+ul.ul-pro li::before {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    top: 0.6em; /* Perfectly centers the bullet with the first line of text */
+    
+    width: 6px;
+    height: 6px;
+    border-radius: 50%; /* Pure round dot. Switch to 0% if you prefer a tiny terminal square */
+    
+    /* Anchor it to your theme's beautiful accent color */
+    background-color: var(--color-cyan-500); 
+    opacity: 0.8;
+}
+
+/* Second-level list items use an unfilled round marker */
+ul.ul-pro > li > ul > li::before {
+    background-color: transparent;
+    border: 1px solid var(--color-cyan-500);
+}
+
+/* Subtle extra polish: give slightly more room to items that contain inline code blocks */
+ul.ul-pro li:has(code) {
+    line-height: 1.7;
 }
 
 /*
@@ -2038,46 +2232,6 @@ section.col:first-child {
 
 /*
 // ####################################################################################################
-// #                                          paper academic                                          #
-// ####################################################################################################
-*/
-/* body.academic{
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    /* margin: 60px auto; 
-    margin: 30px auto 60px auto; 
-    /* text-align: center;  
-    padding: 0;
-    background-color: #f0f0f0;
-    color: #444;
-}
-
-body.academic code {
-    display: block;
-    background-color: #dddddd;
-    padding: 2px 5px;
-    line-height: 18pt;
-    margin-top: 10px;
-    margin-bottom: 10px
-}
-
-body.academic c {
-    background-color: #dddddd;
-    color: rgb(20, 77, 220);
-    padding: 2px 10px;
-    font-family: monospace;
-    font-size: calc(1em + 1px);
-}
-
-body.academic textarea.script {
-    background-color: #dddddd;
-    font-family: monospace;
-    padding: 2px 5px;
-    line-height: 15pt;
-} */
-
-/*
-// ####################################################################################################
 // #                                              popup                                               #
 // ####################################################################################################
 */
@@ -2345,8 +2499,36 @@ table td.left {
     text-align: left;
 }
 
-table td div{
+td.right {
+  text-align: right;
+}
+
+td.right > div{
+    display: inline-block;
+}
+
+table td > div{
     height: 100%;
+}
+
+
+
+/* Turn the row into a flexbox container */
+.table-row-flex {
+    display: flex;
+    align-items: center; /* Keeps everything vertically centered */
+    width: 100%;
+}
+
+/* Target the right-aligned columns */
+.table-row-flex .td-right {
+    /* If it's the FIRST .td-right element, push it and everything after it to the right */
+    margin-left: 20px; 
+}
+
+/* The magic trick: target only the very first occurrence of .td-right */
+.table-row-flex .td-right:first-of-type {
+    margin-left: auto;
 }
 
 /*
@@ -2354,22 +2536,40 @@ table td div{
 // #                                             textarea                                             #
 // ####################################################################################################
 */
-:root {
+:root, .dark {
   /* Theme Colors */
-  --color-textarea-code-bg: #1e1e1e;
-  --color-textarea-code-text: #d4d4d4;
-  --color-textarea-code-border: #333333;
+  --color-textarea-code-bg: #18181b;           /* tailwind zinc-900 */
+  --color-textarea-code-text: #d4d4d8;         /* tailwind zinc-300 */
+  --color-textarea-code-border: #27272a;       /* tailwind zinc-800 */
   
   /* Interaction Colors */
-  --color-textarea-code-accent: #007acc;
-  --color-textarea-code-accent-glow: rgba(0, 122, 204, 0.3);
+  --color-textarea-code-accent: #0284c7;       /* tailwind sky-600 */
+  --color-textarea-code-accent-glow: rgba(2, 132, 199, 0.3); /* tailwind sky-600/30 */
   
   /* Scrollbar Colors */
-  --color-textarea-code-scrollbar-thumb: #444444;
-  --color-textarea-code-scrollbar-thumb-hover: #555555;
+  --color-textarea-code-scrollbar-thumb: #3f3f46;       /* tailwind zinc-700 */
+  --color-textarea-code-scrollbar-thumb-hover: #52525b; /* tailwind zinc-600 */
 
   /* Line Numbers */
-  --color-line-numbers-for-textarea: #888888;
+  --color-line-numbers-for-textarea: #71717a;  /* tailwind zinc-500 */
+}
+
+.light {
+  /* Theme Colors */
+  --color-textarea-code-bg: #f4f4f5;           /* tailwind zinc-100 */
+  --color-textarea-code-text: #27272a;         /* tailwind zinc-800 */
+  --color-textarea-code-border: #d4d4d8;       /* tailwind zinc-300 */
+  
+  /* Interaction Colors (Optional: keeping accents readable in light mode) */
+  --color-textarea-code-accent: #0284c7;       /* tailwind sky-600 */
+  --color-textarea-code-accent-glow: rgba(2, 132, 199, 0.15); /* Slightly lighter glow for light backgrounds */
+  
+  /* Scrollbar Colors */
+  --color-textarea-code-scrollbar-thumb: #e4e4e7;       /* tailwind zinc-200 */
+  --color-textarea-code-scrollbar-thumb-hover: #d4d4d8; /* tailwind zinc-300 */
+
+  /* Line Numbers */
+  --color-line-numbers-for-textarea: #a1a1aa;  /* tailwind zinc-400 */
 }
 
 textarea.code {

@@ -1,41 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+    <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Mo Hi">
-    <title>B JS</title>
+    <title>b.JS</title>
     <link rel="stylesheet" href="css/b.css">
-    <style>
-        :root       {--color-background: #f0f0f0;--color-text: #444;}
-        body        {background-color: var(--color-background); color: var(--color-text);}
-        #id-end     {background-color: var(--color-background); color: var(--color-text);}
-        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
-    </style>
-</head>
-<body class="academic wr-800-400">
-    <h1>b.JS</h1>
-    <sction>
-        <h2 class="underline sticky">About b.js</h2>
-        <p>b.JS provides additional functions and prototypes for javascript To use b.JS in your project, just add the following script reference to your project:</p>
-        
-        <code>
-            (-script src="https://mo-hi.github.io/basis/js/b.js"-) (-/script-)  | <a href="https://mo-hi.github.io/basis/js/b.js">link </a>
-        </code>
-        <p> 
-            b.js generally references <b>list</b>s and <b>dictionary</b>s like in python. 
-            Technically in javascript these are arrays and objects
-            The following functions are available:
+        <style> :root, body.dark {
+            --color-text: var(--color-zinc-100);
+            --color-bg-body: var(--color-zinc-950);
+            --color-bg-main: var(--color-zinc-900);
+         }
+         body.light {
+            --color-text: var(--color-zinc-900);
+            --color-bg-body: var(--color-zinc-200);
+            --color-bg-main: var(--color-zinc-50);
+
+            --color-textarea-code-bg: var(--color-zinc-100);  
+            --color-textarea-code-text: var(--color-zinc-700);    
+            --color-textarea-code-border:var(--color-zinc-300);    
+  
+            }
+         </style>
+    </head>
+    <body class="light font-os">
+        <main class="w-responsive-l">
+            <section>
+                <h2 class="m-0 inline-block">About b.js</h2>
+                <p>
+                   b.JS provides additional functions and prototypes for javascript To use b.JS in your project, 
+                   just add the following script reference to your project: 
+                   <div id="id-bjs-script-show" class="h-40 w-80 js-fill mt-5i mb-60i"></div>  
+                </p>
+                <h2> <a href="#id-h2-autifill-basis">basis functions</a></h2>
+                <div id = "id-bjs-basis-list" class="flex-wrap gap-5i w-90">
+                    <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
+                </div>
+                <h2> <a href="#id-h2-autifill-clsBasis">clsBasis functions</a></h2>
+                <div id = "id-bjs-clsBasis-list" class="flex-wrap gap-5i w-90">
+                    <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
+                </div>
+                <h2> <a href="#id-h2-autofill">remaining Functions</a></h2>
+                <div id = "id-bjs-notConsolidated-list" class="flex-wrap gap-5i w-90">
+                    <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
+                </div>
+            </section>
+                <section>
+
+        <h2 id = "id-h2-autifill-basis" class="underline sticky" style="background-color: white;">basis functions</h2>
+        <p>
+            functions that enhance the functionality of javascript for easier development and are not directly related to the user experience.
         </p>
-    </sction>
-    
-    <section>
+        <div id="id-autofill-basis" class="auto-fill">
+            <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
+            
+            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%; height: 100%;" rows="{{codeLines}}">
+{{code}}</textarea>
+            </div>
+        </div>
+
+        <h2 id = "id-h2-autifill-clsBasis" class="underline sticky" style="background-color: white;">clsBasis</h2>
+        <p>
+            function that will in general directly affect the user experience.
+        </p>
+        <div id="id-autofill-clsBasis" class="auto-fill">
+            <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
+            
+            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%; height: 100%;" rows="{{codeLines}}">
+{{code}}</textarea>
+            </div>
+        </div>
+                    
+        <h2 id = "id-h2-autofill" class="underline sticky" style="background-color: white;">Functions</h2>
         <div id="id-autofill" class="auto-fill">
-            {{region}}
-            <h3>{{name}} ()</h3>
-            <p><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+            <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
+
+            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%; height: 100%;" rows="{{codeLines}}">
+{{code}}</textarea>
+            </div>
         </div>
     </section>
+        </main>
+    </body>
+    
+
 
     <footer-js></footer-js>
 
@@ -44,16 +97,39 @@
 <script src="js/b.js"></script>
 <script src="../htmlElements.js"></script>
 <script src="FunctionsInfo.js"></script>
+<script src="FunctionsCodeExamples.js"></script>
+<script src="pageLogic.js"></script>
 <!-- <script src="auto-fill.js"></script> -->
 <script>
+    post_FromFile_FunctionsCodeExamples()
+    let mergedFunctionsInfo = mergeListsByName (FromFile_FunctionsInfo_JS, FromFile_FunctionsCodeExamples)
 
-    Auto_Fill(FromFile_textGeneral_js,'id-end')
+    // Fill individual function sections with code and docstring
+    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-autofill-basis')
+    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-autofill-clsBasis')
+    
+    restOfFunctionsInfo = mergedFunctionsInfo.filter(
+        item => item.source !== "basis" && 
+        item.source !== "clsBasis"
+    )
+    Auto_Fill(restOfFunctionsInfo, 'id-autofill')
 
-    FromFile_FunctionsInfo_JS.prepostKey('region', '<h2 class="underline sticky">', '</h2>')
-    Auto_Fill(FromFile_FunctionsInfo_JS, 'id-autofill', ['region'])
+    // the wrapped links in the top of the page
+    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-bjs-basis-list')
+    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-bjs-clsBasis-list')
+    Auto_Fill(restOfFunctionsInfo, 'id-bjs-notConsolidated-list')
 
-    DOM_Replace(['b.JS'], ['<b>b.JS</b>'], ['p'])
-    DOM_Replace(['(-', '-)'], ["&lt;", "&gt;"], ['code'])
+    // Section "About b.js": Expose the script reference to b.js in a code block in 
+    let refToBJS = '<script src="https://mo-hi.github.io/basis/js/b.js"><\/script>'
+    ExposeHTML({
+        divToExpose: document.createElement('div'), // dummmy element
+        stringToExpose: refToBJS,
+        divToAppend: document.getElementById("id-bjs-script-show"),
+        outer: true,
+        pretty: false, 
+        textAreaClassName: "code",
+        synchWithTarget: false
+    })
 </script>
 </html>
 

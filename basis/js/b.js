@@ -1,12 +1,12 @@
 // ####################################################################################################
-// region basis                                                                                           #
+// region basis_basis                                                                                     #
 // ####################################################################################################
 
 /**
 returns the type of a variable as a string. The following types are recognized:
- list, dict, str, int, bool, null, undefined
+ list, div, dict, str, int, float, bool, null, undefined and functions
 */
-function typOf(variable, extendedInfo = false) {
+function typ(variable) {
     if (Array.isArray(variable)) {
         return 'list'} // javascript 'Array'
     if (variable instanceof HTMLElement) {
@@ -16,7 +16,7 @@ function typOf(variable, extendedInfo = false) {
     if (typeof variable === 'string') {
         return 'str'}
     if (typeof variable === 'number') {
-        return 'int'}
+        return Number.isInteger(variable) ? 'int' : 'float'}
     if (typeof variable === 'boolean') {
         return 'bool'}
     if (variable === null) {
@@ -29,6 +29,8 @@ function typOf(variable, extendedInfo = false) {
 
     throw new Error('Unknown type of variable: ' + variable)
 }
+
+function typOf(variable) {return typ(variable)}
 
 /**
 is a short hand notation / better readability for 'return condition ? trueValue : falseValue';
@@ -76,339 +78,30 @@ returns true if all values are equal
 function allEqual(...values) {
     return values.every(value => value === values[0]);
 }
-
-/**
-returns a dictionary with the keys from keys and values from values. Length of keys and values must be equal.
-*/
-function dictionary(keys, values) {
-    assert(keys.length == values.length, "Length of keys and values must be equal")
-    
-    let ret = {}
-    for (let i = 0; i < keys.length; i++) {
-        ret[keys[i]] = values[i]
-    }
-    return ret
-}
-
-/**
-returns an array of numbers from 'from' to 'to'.
-*/
-function NumbersFromTo(from, to, asString = false) {
-    let ret = [];
-    for (let i = from; i <= to; i++) {
-        ret.push(asString ? String(i) : i);
-    }
-    return ret;
-}
    
+
 /**
-delays a function call.
+creates a hard copy of a variable (instead of just creating a reference in case of list and dictionaries). 
+It is equivalent to structuredClone and mimics the 'byVal' operater in VBA, hence the name
 */
-function debounce(func, delay) {
-    let timeoutId;
-    return function(...args) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => func.apply(this, args), delay);
-    };
+function byVal(data) {
+    // If it's a primitive (string, number, boolean, null, undefined), 
+    // it's passed by value automatically. Otherwise, deep clone it.
+    if (data === null || typeof data !== "object") {
+        return data;
+    }
+    
+    return structuredClone(data);
 }
 
-/**
-returns all event listeners of the current page. The function uses the native getEventListeners function of Chrome DevTools. 
-The function is for develooment purposes only and should not be used in production code.
-This function can only be used within the Chrome DevTools.
-*/
-function getAllEventListeners() {
-    function xdivStr(element) {
-        if (element === document) return "document"
-        if (element === window)  return "window"
-        if (element.id) return element.id
-        if (element.className) return element.className.replace(/\s+/g, '.');
-        return element.tagName.toLowerCase(); // Fallback to tag name
-    }
-    const allElements = document.querySelectorAll('*');
-    let eventListeners = {};
 
-    allElements.forEach(element => {
-      const elementListeners = getEventListeners(element); // Native Chrome's getEventListeners
-      if (Object.keys(elementListeners).length > 0) eventListeners[xdivStr(element)] = elementListeners;
-    });
-  
-    return eventListeners;
-  }
-
-
-  function byVal(data) {
-    // Creates a hard copy of a variable (instead of just createing a reference in case of list and dictioaries). 
-    // It mimics the 'byVal' operater in VBA, hence the name
-    
-    if ( ["bool", "str", "int"].indexOf(typOf(data)) >-1) {
-        return data} // as they are 'hard copied' by default
-
-    if (typOf(data) == "list") {
-        let ret = []
-        for (let element of data) {
-            ret.push(byVal(element))}
-        return ret}
-    
-    if (typOf(data) == "dict") { 
-        let ret = { }
-        let keys= Object.keys(data)
-        for (let key of keys) {
-            ret[key] = byVal(data[key])}
-        return ret}
-    
-    if (typOf(data) == "function") {
-        return data.bind({});
-    }
-    return data
+class clsBasis {
+    // You can leave this completely empty 
+    // or put global variables/core settings here
 }
   
 // ####################################################################################################
-// region classFiles                                                                                      #
-// ####################################################################################################
-
-class clsFiles {
-
-        /** 
-    clsFiles
-    clsFiles is a class with static methods to download and upload files.
-    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.
-    */
-    aboutMe() {
-        // i do nothing
-    }
-
-    /**
-    clsFiles
-    triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.
-    Application Example:
-       clsFiles.download("Hello, world!", "hello.txt");
-    */
-    static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {
-        // fileContent can be string, ArrayBuffer, Uint8Array or Blob
-        const blob = fileContent instanceof Blob
-            ? fileContent
-            : new Blob([fileContent], { type: mimeType });
-
-        const url = URL.createObjectURL(blob);
-        const element = document.createElement('a');
-        element.style.display = 'none';
-        element.href = url;
-        element.download = filename || 'download';
-
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-
-        // Release ObjectURL after short time
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }
-
-    static _readFiles(files) {
-        const readers = Array.from(files).map(file => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader
-                reader.onerror = () => resolve(null);
-                reader.readAsText(file);
-            });
-        });
-
-        return Promise.all(readers);
-    }
-
-    /**
-    clsFiles
-    triggers a read (upload to browser) of a file or multiple files.
-    The method returns a promise that resolves to an array of objects, each containing the file and its content.
-    If no files are selected, it resolves to an empty array.
-    Application Example 1:
-       async function UploadFile() {
-            let ret = await clsFiles.upload()
-            if (!ret) return
-            let {file, content} = ret[0]
-        }
-    Application Example:
-        async function UploadFiles() {
-            let ret = await clsFiles.upload(true)
-            if (!ret) return
-            for (let i=0; i < ret.length; i++) {
-                let {file, content} = ret[i]
-            }
-        }
-    */
-    static upload(multiple=false) {
-        return new Promise(function (resolve) {
-            var input = document.createElement('input');
-            input.type = 'file';
-            if (multiple) input.multiple = true
-            input.style.display = 'none';
-
-            input.addEventListener('change', async function (e) {
-                if (!input.files || input.files.length === 0) {
-                    input.remove(); resolve([]); return;}
-                
-                let files = input.files;
-                input.remove();
-
-                let result = await clsFiles._readFiles(files);
-                resolve(result);
-            }, { once: true });
-
-            document.body.appendChild(input);
-            input.click();
-            });
-    }
-}
-// ####################################################################################################
-// region content_svg                                                                                     #
-// ####################################################################################################
-
-/**
-returns svg markup for various icons. The function has two Use Cases: <br><br>
-
-(1) returns a <b>string</b> for a given icon name and a given size. Example: 
-<code>b_svg("svg-icon-edit") = "...//svg code...width=24 height=24 ..." <br>
-        b_svg("svg-icon-edit", 16) = "...//svg code...width=16 height=16 ..."  
-</code> <br>
-
-(2) returns a <b>dictionary</b>. The keys are the svg name, the value is the return value from Use Case 1. Example:
-<code> b_svg() = { "svg-icon-edit-24": "....", "svg-icon-grid-24": "...", ...} <br>
-b_svg([16,24]) = { "svg-icon-edit-16": "...", "svg-icon-grid-16": "...", "svg-icon-edit-24": "...", ...} </code> 
-
-The follwoing icon names are available (among others):<br>
-svg-icon-edit<br>
-svg-icon-grid<br>
-svg-icon-menu<br>
-svg-icon-search<br>
-svg-icon-filter<br>
-svg-icon-download<br>
-svg-icon-upload<br>
-svg-icon-save<br>
-svg-icon-discard<br>
- */
-function b_svg(name, size) {
-let svg = { 
-    'svg-icon-edit': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="currentColor" stroke-width="2">
-            <path d="M16 2 l3 3 l-3 3 l-3 -3 z"/>  
-            <path d="M4 14 v3 h3 l7.5-7.5 l -3 -3 z"/>
-            <path d="M4 22h16" stroke-width="2"/>   
-        </svg>
-    `,
-    'svg-icon-grid': `
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
-            <rect x="3" y="3" width="8" height="8" rx="1" ry="1"/>
-            <rect x="13" y="3" width="8" height="8" rx="1" ry="1"/>
-            <rect x="3" y="13" width="8" height="8" rx="1" ry="1"/>
-            <rect x="13" y="13" width="8" height="8" rx="1" ry="1"/>
-        </svg>
-    `,
-    'svg-icon-menu': `
-    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path d="M3 6h18" />
-        <path d="M3 12h18" />
-        <path d="M3 18h18" />
-    </svg>
-    `,
-    'svg-icon-search': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <circle cx="10" cy="10" r="6" fill="none"/>
-            <path d="M16 16 l5 5" stroke-linecap="round"/>
-        </svg>
-    `,
-    'svg-icon-filter': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M3 6h18" />
-            <path d="M6 12h12" />
-            <path d="M9 18h6" />
-        </svg>
-    `,
-    'svg-icon-download': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path d="M12 5 v10" />
-            <path d="M6 12 l6 4 l6 -4" fill="none"/>
-            <path d="M3 20 h18" />
-        </svg>
-    `,
-    'svg-icon-upload': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path d="M12 5 v12" />
-            <path d="M6 10 l6 -4 l6 4" fill="none"/>
-            <path d="M3 20 h18" />
-        </svg>
-    `,
-    'svg-icon-save': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
-            <path d="M8 2 L4 2 L2 4 L2 20 L4 22 L20 22 L22 20 L22 4 L20 2 L12 2 L12 16" />
-            <path d = "M6 12L 12 16L 18 12"/>
-        </svg>
-    `,
-    'svg-icon-discard': `
-    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
-        <path d="M6 6 l12 12" />
-        <path d="M6 18 l12 -12" />
-    </svg>
-    `,
-    'svg-icon-heart': `
-    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
-        <path d="M 12 20
-            L 4 12
-            C -2 6 8 0 12 6 
-            C 16 0 26 6 20 12
-            z"/>
-    </svg>
-    `,
-    'svg-icon-heartFill': `
-    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="currentColor">
-        <path d="M 12 20
-            L 4 12
-            C -2 6 8 0 12 6 
-            C 16 0 26 6 20 12
-            z"/>
-    </svg>
-    `,
-    'svg-icon-check': `
-        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
-        <path d="M 4,14
-            L12,20
-            L22,6"/>
-        </svg>
-    `,
-
-}
-    if (name == undefined) return _svg_All(['24'], svg) 
-    
-    if (typOf(name) == 'list') return _svg_All(name, svg) 
-
-    if (typOf(name) != 'str') return undefined
-    
-    let sizeInName = undefined
-    if (/-\d+$/.test(name)) {   // check if name ends with '-x', where x is a number (not digit)
-        let match = name.match(/-(\d+)$/)
-        name = name.until(match[0])                 // match[0] = '-24', whole regex
-        sizeInName = parseInt( match[1], 10)}       // match[1] = '24', only capture
-    if (! svg.keys().includes(name))   return
-
-    if (size == undefined && sizeInName == undefined) size = 24
-    if (size == undefined) size = sizeInName
-
-    let svgString = svg[name].replace('width="24"', 'width="' + String(size) + '"').replace('height="24"', 'height="' + String(size) + '"')
-    return svgString
-}
-
-function _svg_All(sizes, dict) {
-    let ret = {}
-    for (let size of sizes) {
-        size = String(size)
-        for (let d of dict.keys()) {
-            ret[d + '-' + size] = dict[d].replace('width="24"', 'width="' + String(size) + '"').replace('height="24"', 'height="' + String(size) + '"')
-        }
-    }
-    return ret
-}
-// ####################################################################################################
-// region divHandler                                                                                      #
+// region class_divHandler                                                                                #
 // ####################################################################################################
 
 /*
@@ -639,74 +332,167 @@ class clsDivHandler {
 }
    //MOHI: replaces protoDivTable and protoDOMTable functions
 // ####################################################################################################
-// region DOM                                                                                             #
+// region class_Files                                                                                     #
 // ####################################################################################################
 
-/**
-replaces the content of specified tags within a given element.
-*/
-function DOM_Replace(re, place, tags) {
-    if (re == undefined || place == undefined) return -1
-    if (typOf(re) != typOf(place)) return -1
-    if (!['str', 'list'].includes(typOf(re))) return -1
-    if (tags == undefined) tags = ['div', 'a', 'p', 'th', 'td']
+class clsFiles {
 
-    if (typOf(re) == 'str') {
-        re = [re]
-        place = [place]}
- 
-    _DOM_Replacer(re, place, tags)
-  }
+        /** 
+    clsFiles
+    clsFiles is a class with static methods to download and upload files.
+    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.
+    */
+    aboutMe() {
+        // i do nothing
+    }
 
-function _DOM_Replacer(re, place, tags) {
-    tags.forEach(tag => {
-        let elements = document.querySelectorAll(tag);
-        elements.forEach(element => {
-            for (let i = 0; i<re.length; i++) {
-                element.innerHTML = [element.innerHTML].replace(re[i],place[i])[0]
+    /**
+    clsFiles
+    triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.
+    */
+    static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {
+        // fileContent can be string, ArrayBuffer, Uint8Array or Blob
+        const blob = fileContent instanceof Blob
+            ? fileContent
+            : new Blob([fileContent], { type: mimeType });
+
+        const url = URL.createObjectURL(blob);
+        const element = document.createElement('a');
+        element.style.display = 'none';
+        element.href = url;
+        element.download = filename || 'download';
+
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+
+        // Release ObjectURL after short time
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    static _readFiles(files) {
+        const readers = Array.from(files).map(file => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader
+                reader.onerror = () => resolve(null);
+                reader.readAsText(file);
+            });
+        });
+
+        return Promise.all(readers);
+    }
+
+    /**
+    clsFiles
+    triggers a read (upload to browser) of a file or multiple files.
+    The method returns a promise that resolves to an array of objects, each containing the file and its content.
+    If no files are selected, it resolves to an empty array.
+    Application Example 1:
+       async function UploadFile() {
+            let ret = await clsFiles.upload()
+            if (!ret) return
+            let {file, content} = ret[0]
+        }
+    Application Example:
+        async function UploadFiles() {
+            let ret = await clsFiles.upload(true)
+            if (!ret) return
+            for (let i=0; i < ret.length; i++) {
+                let {file, content} = ret[i]
             }
-        })
-    })
-  }
+        }
+    */
+    static upload(multiple=false) {
+        return new Promise(function (resolve) {
+            var input = document.createElement('input');
+            input.type = 'file';
+            if (multiple) input.multiple = true
+            input.style.display = 'none';
 
-/**
-returns the DOM/div element to where the event was triggered. The element must have the class 'js-event'.
-In looks up to 100 parents to find the element with the class 'js-event'.
-If force is set to true, the function will return the clickd element even if it does not have the class 'js-event'. In this case, the function will not look up.
-*/
-function DOM_ElementFromJSEvent(event, force = false) {
-    let divElement = null; let tmp_divElement = null
-    if (event instanceof MouseEvent) divElement = event.target;     // if eventlistener was used
-    if (event instanceof PointerEvent) divElement = event.target;   // if eventlistener was used
-    if (event instanceof HTMLElement) divElement = event;           // if setAttribute / direct HTML was used
-    if (event instanceof TouchEvent) divElement = event.target;     // if eventlistener was used
-    tmp_divElement = divElement
+            input.addEventListener('change', async function (e) {
+                if (!input.files || input.files.length === 0) {
+                    input.remove(); resolve([]); return;}
+                
+                let files = input.files;
+                input.remove();
 
-    if (divElement == null) return
-    if (force) return divElement
+                let result = await clsFiles._readFiles(files);
+                resolve(result);
+            }, { once: true });
 
-    /// target may be pointing to childrean of the intended target. Loop Up 100 parents.
-    for (let i = 0; i < 100; i++) {
-        if (!divElement.classList.contains('js-event')) 
-            if (divElement.parentElement === null) {
-                divElement = tmp_divElement
-                break;}
-
-            divElement = divElement.parentElement}     
-    
-    return divElement
-}
-
-/**
-removes the class from all elements of the document that have this class.
-*/
-function DOM_RemoveClassFromAll(className) {
-    if (!className.startsWith('.')) throw new Error('className must start with a "."');
-    className = className.after(".")
-    document.querySelectorAll("."+className).forEach(item => {item.classList.remove(className);});
+            document.body.appendChild(input);
+            input.click();
+            });
+    }
 }
 // ####################################################################################################
-// region htmlManipulation                                                                                #
+// region clsBasis_helpers                                                                                #
+// ####################################################################################################
+
+/**
+delays a function call.
+*/
+clsBasis.debounce = function(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+
+// ####################################################################################################
+// region clsBasis_popup                                                                                  #
+// ####################################################################################################
+
+/**
+creates a pop-up window with a header and message. The pop-up can be closed by clicking the close button, clicking outside the pop-up, or pressing the Escape key.
+*/
+clsBasis.popup = function(header, message) {
+        if (header === undefined) header = "Pop-up";
+        if (message === undefined) message = "This is a pop-up message.";
+
+        const popup = document.createElement("div");
+        popup.id = "myPopup";
+        popup.className = "popup-container";
+        popup.innerHTML = `
+            <div class="popup-content">
+                <span class="popup-close-button">&times;</span>
+                <h2>${header}</h2>
+                <p>${message}</p>
+            </div>
+        `;
+        document.body.appendChild(popup);
+        popup.classList.add("active");
+
+        const popupContainer = document.getElementById("myPopup");
+        const popupCloseButton = popupContainer.querySelector(".popup-close-button");
+
+        const closePopup = () => {
+            popup.classList.remove("active");
+            popupContainer.removeEventListener("click", handlePopupClick);
+            document.removeEventListener("keydown", handleEscKey);
+            setTimeout(() => popup.remove(), 300);
+        };
+
+        const handlePopupClick = (event) => {
+            if (event.target === popupContainer || event.target === popupCloseButton) {
+                closePopup();
+            }
+        };
+
+        const handleEscKey = (event) => {
+            if (event.key === "Escape") {
+                closePopup();
+            }
+        };
+
+        popupContainer.addEventListener("click", handlePopupClick);
+        document.addEventListener("keydown", handleEscKey);
+    }
+// ####################################################################################################
+// region document_htmlManipulation                                                                       #
 // ####################################################################################################
 
 // Auto_Fill batch timers registry
@@ -970,65 +756,49 @@ function isBlank(str) {
     return !/[^\t\r\n\v\f ]/.test(str);
   }
 // ####################################################################################################
-// region popup                                                                                           #
+// region dom_basis                                                                                       #
 // ####################################################################################################
 
 /**
-opens a popup with a custom header and message. The popup can be closed by (a) clicking the close button, (b) anywhere outside the popup, (c) pressing the Escape key.
-*/
-function popup(header, message) {
-    if (header === undefined) header = "Pop-up";
-    if (message === undefined) message = "This is a pop-up message.";
-    
-    let popup = document.createElement("div");
-    popup.id = "myPopup";
-    popup.className = "popup-container";
-    popup.innerHTML = `
-    <div class="popup-content">
-        <span class="popup-close-button">&times;</span>
-        <h2>${header}</h2>
-        <p>${message}</p>
-    </div>
-    `;
-    document.body.appendChild(popup);
-    popup.classList.add("active");
+ * Returns the DOM element where the event was triggered. When a className is provided, the its closest parent containing the className.
 
-    //cache elements for reuse in inner functions
-    let popupContainer = document.getElementById("myPopup");
-    let popupCloseButton = document.getElementsByClassName("popup-close-button")[0];
+ */
+function ElementFromJSEvent(event, className = '') {
+    let element = event instanceof Element ? event : event?.target;
 
-    //=====================================================================
-    // Inner function block                                               |
-    //=====================================================================
-    function _closePopup() {
-        popup.classList.remove("active");
-        popupContainer.removeEventListener("click", _closePopup_OnClick);
-        document.removeEventListener("keydown", _escListener);
-        setTimeout(() => popup.remove(), 300); // Match the duration of the fade-out transition
-    }
-    function _closePopup_OnClick (event) {
+    if (!element || typeof element.closest !== 'function') return null;
 
-        if (event.target === popupContainer || event.target === popupCloseButton) {
-            if (popup) _closePopup()
-        }
-    }
-    function _escListener(event) {
-        if (event.key === "Escape") {
-            _closePopup();}
-    }
+    if (!className) return element;
 
-    //=====================================================================
-    // Inner function block end                                           |
-    //=====================================================================
-
-    // Add event listener to close the popup when clicking anywhere (= the popup container)
-    popupContainer.addEventListener("click", _closePopup_OnClick)
-    document.addEventListener("keydown", _escListener);
+    let selector = className.startsWith('.') ? className : `.${className}`;
+    return element.closest(selector);
 }
 
+/**
+returns all event listeners of the current page. The function uses the native getEventListeners function of Chrome DevTools. 
+The function is for develooment purposes only and should not be used in production code.
+This function can only be used within the Chrome DevTools.
+*/
+function getAllEventListeners() {
+    function xdivStr(element) {
+        if (element === document) return "document"
+        if (element === window)  return "window"
+        if (element.id) return element.id
+        if (element.className) return element.className.replace(/\s+/g, '.');
+        return element.tagName.toLowerCase(); // Fallback to tag name
+    }
+    const allElements = document.querySelectorAll('*');
+    let eventListeners = {};
 
+    allElements.forEach(element => {
+      const elementListeners = getEventListeners(element); // Native Chrome's getEventListeners
+      if (Object.keys(elementListeners).length > 0) eventListeners[xdivStr(element)] = elementListeners;
+    });
+  
+    return eventListeners;
+  }
 // ####################################################################################################
-// region Array                                                                                      #
+// region _Array                                                                                     #
 // ####################################################################################################
 
 /** 
@@ -1395,8 +1165,40 @@ Object.defineProperties(Array.prototype, {
         }
     }
 });
+
+
+Object.defineProperties(Array.prototype, {
+    _toDictionary: {
+        value: function(values) {
+            if (this.length !== values.length) {
+                throw new Error('"_toDictionary": Length of keys and values must be equal');
+            }
+            return Object.fromEntries(this.map((key, i) => [key, values[i]]));
+        },
+        enumerable: false,   // Hides it from for...in loops
+        writable: true,      // Allows it to be overwritten if needed (good for tests)
+        configurable: true   // Allows it to be deleted or redefined later
+    }
+});
+
+Object.defineProperties(Array.prototype, {
+    _fromTo: {
+        value: function(from, to) {
+            let isInverse = from > to;
+            let length = isInverse ? (from - to + 1) : (to - from + 1);
+
+            // Array.from generates the array directly based on length and a mapping function
+            return Array.from({ length }, (_, i) => {
+                return isInverse ? (from -i) :  (from + i);
+            });
+        },
+        enumerable: false,
+        writable: true,
+        configurable: true
+    }
+});
 // ####################################################################################################
-// region Collection                                                                                 #
+// region _Collection                                                                                #
 // ####################################################################################################
 
 class Collection extends Array {
@@ -1486,7 +1288,7 @@ class Collection extends Array {
 
         let keys = array2D[0]
         for (let i = 1; i<array2D.length; i++) {
-            this.push(dictionary(keys, array2D[i]))
+            this.push(keys._toDictionary(array2D[i]))
         }
     }
 
@@ -1668,7 +1470,7 @@ class Collection extends Array {
 
 }
 // ####################################################################################################
-// region Dictionary                                                                                 #
+// region _Dictionary                                                                                #
 // ####################################################################################################
 
 /**
@@ -1760,7 +1562,7 @@ Object.defineProperties(Object.prototype, {
     } 
 }); 
 // ####################################################################################################
-// region DIV                                                                                        #
+// region _DIV                                                                                       #
 // ####################################################################################################
 
 /**
@@ -1886,7 +1688,7 @@ Element.prototype.removeClassX = function(className) {
     }
 };
 // ####################################################################################################
-// region DivTables                                                                                  #
+// region _DivTables                                                                                 #
 // ####################################################################################################
 
 /** 
@@ -1922,7 +1724,7 @@ Element.prototype.b_HeaderIndex = function(headerName, CaseSensitive=false) {
     return -1; // Header not found
 }
 // ####################################################################################################
-// region DOMTables                                                                                  #
+// region _DOMTables                                                                                 #
 // ####################################################################################################
 
 /** 
@@ -2206,7 +2008,7 @@ Object.defineProperties(Object.prototype, {
 });
 
 // ####################################################################################################
-// region String                                                                                     #
+// region _String                                                                                    #
 // ####################################################################################################
 
 /** 
