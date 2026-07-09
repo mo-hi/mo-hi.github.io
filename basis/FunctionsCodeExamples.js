@@ -75,6 +75,30 @@ let FromFile_FunctionsCodeExamples = [
         ]
     },
     {
+        name: "download",
+        code: [
+            'clsBasis.download("Hello, World!", "hello.txt", "text/plain")'
+        ]
+    },
+    {
+        name: "upload",
+        code: [
+            'let uploadFiles = await clsBasis.upload()',
+            'if (uploadFiles.length > 0) {',
+            '    let {file, content} = uploadFiles[0];',
+            '    console.log("Uploaded file:", file.name);',
+            '}',
+            '',
+            'let uploadMultipleFiles = await clsBasis.upload(true)',
+            'if (uploadMultipleFiles.length > 0) {',
+            '    for (let i = 0; i < uploadMultipleFiles.length; i++) {',
+            '        let {file, content} = uploadMultipleFiles[i];',
+            '        console.log("Uploaded file:", file.name);',
+            '    }',
+            '}'
+        ]
+    },
+    {
         name: "debounce",
         code: [
             'function myFunctionToDemonstrateDebounce() { console.log("Hello after 2 seconds"); }',
@@ -86,6 +110,24 @@ let FromFile_FunctionsCodeExamples = [
         name: "popup",
         code: [
             'clsBasis.popup("Hello World", "This is a popup message.")'
+        ]
+    },
+    {
+        name: "AutoFill",
+        code: [
+            'clsDOM.AutoFill([{ text: "World" }, { text: "Universe" }, { text: "Everyone" }], "id-multiple-entries");',
+        ]
+    },
+    {
+        name: "RemoveWithClass",
+        code: [
+            'clsDOM.RemoveWithClass("remove-me");',
+        ]
+    },
+    {
+        name: "DownloadHTML",
+        code: [
+            'clsDOM.DownloadHTML("my-document.html");',
         ]
     }
 ]

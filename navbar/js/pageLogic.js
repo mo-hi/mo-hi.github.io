@@ -37,7 +37,7 @@ function _UpdateNavBlock() {
     let parentNav = _Template_Reset()
 
     if (config["fixed"]) {
-        parentNav.classList.add("nav-fixed", "w-responsive-xl")
+        parentNav.classList.add("nav-fixed", "w-responsive-l")
         let statusbar = document.getElementById('id-status1')
         statusbar.classList.remove("mt-30i")
         statusbar.classList.add("mt-82i")

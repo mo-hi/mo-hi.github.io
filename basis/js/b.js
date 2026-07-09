@@ -99,7 +99,281 @@ class clsBasis {
     // You can leave this completely empty 
     // or put global variables/core settings here
 }
+
+class clsDOM {
+    // Class to manipulate the DOM, e.g., insert rows into tables, create textareas, etc.
+}
   
+// ####################################################################################################
+// region basis_DOM                                                                                       #
+// ####################################################################################################
+
+// Auto_Fill batch timers registry
+const Registry_AutoFillBatchTimers = {};
+
+/**
+Modifies your html page by filling in the values of the provided list of dictionaries. <br>
+1) Reads div(elementId).innerHTML as template <br>
+2) Clears div(elementId).innerHTML = '' <br>
+3) Fills everything in one pass by repalcing {{key}} with the corresponding value from each dictionary in listOfDictionaries <br>
+Available options: <br>
+- append: boolean, if true, appends to existing content instead of clearing it first <br>
+*/
+function Auto_Fill(listOfDictionaries, elementId, configOptions) {
+    const input_norm = _Auto_Fill_Harmonize(listOfDictionaries, elementId, configOptions)
+    if (input_norm === null) return
+    const {
+        container: div,
+        data: listOfDicts,
+        opts: options
+    } = input_norm;
+
+    // store template as div-container attribute and clear innerHTML
+    if (!div._autoFillTemplate) div._autoFillTemplate = div.innerHTML;
+    const template = div._autoFillTemplate; // local immutable reference
+    if (!options.append || div.innerHTML == div._autoFillTemplate) div.innerHTML = ""; // clear only if not appending and if content is different from template, i.e. not the first time here
+
+    // do the magic
+    listOfDicts.forEach(item => {
+        let nextString = template
+    
+        for (let key in item) {
+            const safeKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // AI hint: replace regex chars in key as they may break the regex below
+            nextString = nextString.replace(new RegExp(`{{${safeKey}}}`, 'g'), item[key])}     
+
+        div.innerHTML += nextString
+    });
+}
+
+/**
+Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill. Auto_Fill_Batch processes the data in batches per second
+ */
+function Auto_Fill_Batch(listOfDictionaries, elementId, configOptions) {
+    const input_norm = _Auto_Fill_Harmonize(listOfDictionaries, elementId, configOptions)
+    if (input_norm === null) return
+    const {
+        container: div,
+        data: listOfDicts,
+        opts: options
+    } = input_norm;
+
+    // stop existing batch loader for this container
+    if (Registry_AutoFillBatchTimers[elementId]) {
+        clearInterval(Registry_AutoFillBatchTimers[elementId]);
+        delete Registry_AutoFillBatchTimers[elementId];
+    }
+
+    let index = 0;
+
+    const timer = setInterval(() => {
+        const batch = listOfDicts.slice(index, index + options.batchSize);
+
+        if (batch.length === 0) {
+            clearInterval(timer);
+            delete Registry_AutoFillBatchTimers[elementId];
+            return;}
+
+        Auto_Fill(batch, elementId, { append: true });
+
+        index += options.batchSize;
+    }, options.intervalMs);
+
+    // register timer
+    Registry_AutoFillBatchTimers[elementId] = timer;
+}
+
+function Auto_Fill_Function(functionToCall, elementId) {
+        let container = _Auto_Fill_Harmonize_Container(elementId)
+
+        const matches = container.innerHTML.match(/\{\{(.+?)\}\}/g); // matches = ['{{3|6}}', '{{2|5}}', '{{12|7}}']
+        if (!matches) return null;
+        for (let match of matches) {
+            let key = match.slice('{{'.length, -1*'{{'.length);
+            let value = functionToCall(key);
+            container.innerHTML = container.innerHTML.replace(match, value);
+        }
+}
+
+function _Auto_Fill_Harmonize(data, elementId, opts) {
+    if (opts === undefined) opts = {}
+    if (opts.append === undefined) opts.append = false
+    if (opts.batchSize === undefined) opts.batchSize = 20
+    if (opts.intervalMs === undefined) opts.intervalMs = 100
+
+    // get the container div
+    let container = _Auto_Fill_Harmonize_Container(elementId)
+
+    // Harmonize input data to be always a list
+    if (!['list', 'dict'].includes(typOf(data))) return
+    if (typOf(data) == 'dict') data = [data]
+
+    return {
+        container,
+        data,
+        opts
+    };
+}
+
+function _Auto_Fill_Harmonize_Container(elementId) {
+    if (elementId === undefined) elementId = ""
+    let container = null
+    if (elementId === "") container = document.body
+    else container = document.getElementById(elementId);
+    if (!container) return null
+    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+    return container}
+
+
+/**
+Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown
+*/
+function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = false, textAreaClassName = "") {
+    if (!(divToExpose instanceof HTMLElement)) return
+    if (!(divToAppend instanceof HTMLElement)) return
+
+    let textarea = clsDivBuilder.BuildTextArea({
+        id: 'htmlSource', className: textAreaClassName, spellcheck: false, 
+        width: '100%', height: '100%'});
+
+    let htmlSource = undefined
+    htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
+    if (htmlSource == undefined) 
+        return
+    if (divToExpose.tagName.toLowerCase() === 'script')
+        textarea.classList.add('script') 
+
+    if (pretty) {
+        let flatHTML = htmlSource.replace(/[\n\t\r]/g, "").replace(/\s+/g, " ").trim();
+        htmlSource = formatHTML(flatHTML);
+    }
+    
+    
+    textarea.value = _filteredLines(htmlSource, '#IGNORE')
+    if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+    divToAppend.appendChild(textarea);   
+    return textarea                                                                                                                                        
+}
+
+
+function ExposeHTML(config) {
+    let SCHEMA = {
+        divToExpose: {typOf: 'div', required: true},
+        stringToExpose: {typOf: 'str', required: false},
+        divToAppend: {typOf: 'div', required: true},
+        id: {typOf: 'str', required: false},
+        outer: {typOf: 'bool', required: false},
+        pretty: {typOf: 'bool', required: false},
+        textAreaClassName: {typOf: 'str', required: false},
+        synchWithTarget: {typOf: 'bool', required: false},
+        lineNumbers: {typOf: 'bool', required: false}
+    };
+    if (ValidateSCHEMA(config, SCHEMA) == false) return;
+
+    let divToExpose = config.divToExpose;
+    let divToAppend = config.divToAppend;
+    let stringToExpose = config.stringToExpose || "";
+    let id = config.id || "";
+    let outer = config.outer || false;
+    let pretty = config.pretty || false;
+    let textAreaClassName = config.textAreaClassName || "";
+    let synchWithTarget = config.synchWithTarget || false;
+    let lineNumbers = config.lineNumbers || false;
+
+    let textarea = clsDivBuilder.BuildTextArea({
+        id: id, className: textAreaClassName, spellcheck: false, 
+        width: '100%', height: '100%'});
+
+    let htmlSource = undefined
+    if (stringToExpose != "") {
+        htmlSource = config.stringToExpose;
+    } else {
+        if (outer) {
+            htmlSource = divToExpose.outerHTML;
+        } else {
+            htmlSource = divToExpose.innerHTML;}
+    }
+    if (htmlSource == undefined) 
+        return
+    if (divToExpose.tagName.toLowerCase() === 'script')
+        textarea.classList.add('script') 
+
+    if (pretty) {
+        let flatHTML = htmlSource.replace(/[\n\t\r]/g, "").replace(/\s+/g, " ").trim();
+        htmlSource = formatHTML(flatHTML);
+    }
+    if (synchWithTarget) {
+        textarea.addEventListener('input', () => {
+            divToExpose.innerHTML = textarea.value;
+        });
+    } else {
+        textarea.readOnly = true
+    }
+    
+    textarea.value = _filteredLines(htmlSource, '#IGNORE')
+    if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
+    
+    if (lineNumbers) {
+        let lineNumbersDiv = document.createElement('div');
+
+        lineNumbersDiv.classList.add('line-numbers-for-textarea');
+        let linesArr = Array.from({ length: textarea.value.split("\n").length}, (_, i) => i + 1);
+        lineNumbersDiv.innerHTML = linesArr.join("<br>");
+        divToAppend.classList.add('flex');
+        divToAppend.appendChild(lineNumbersDiv);
+    }
+    
+    let DescendantTextAreas = divToAppend.querySelector('textarea')
+    if (DescendantTextAreas) {
+        DescendantTextAreas.remove();
+    }
+
+    divToAppend.appendChild(textarea);   
+    return textarea                                                                                                                                        
+}
+
+
+/**
+ * AI: Helper to add indentation and newlines to raw HTML strings
+ */
+function formatHTML(html) {
+    let tab = '    '; // 4 spaces
+    let result = '';
+    let indent = '';
+
+    // Split by tags
+    html.split(/>\s*</).forEach(function(element) {
+        if (element.match(/^\/\w/) || element.startsWith("meta") || element.startsWith("link") ) {
+            // Closing tag: decrease indent
+            indent = indent.substring(tab.length);
+        }
+
+        result += indent + '<' + element + '>\n';
+
+        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("br")) {
+            // Opening tag (and not self-closing): increase indent
+            indent += tab;
+        }
+    });
+
+    result = result.substring(1, result.length - 2); // Clean up extra brackets/newlines
+    result = result.replaceAll(">>", "").replaceAll("<<", "");
+    return result
+}
+
+function _filteredLines(text, filterWord) {
+    let lines = text.split('\n')
+                    .filter(line => !isBlank(line) && !line.includes(filterWord));
+
+    let Indent = Math.min(...lines.map(line => line.match(/^\s*/)[0].length));
+
+    return lines.map(line => line.slice(Indent).trimEnd()).join('\n');
+}
+
+
+
+function isBlank(str) {
+    return !/[^\t\r\n\v\f ]/.test(str);
+  }
 // ####################################################################################################
 // region class_divHandler                                                                                #
 // ####################################################################################################
@@ -332,25 +606,13 @@ class clsDivHandler {
 }
    //MOHI: replaces protoDivTable and protoDOMTable functions
 // ####################################################################################################
-// region class_Files                                                                                     #
+// region clsBasis_Files                                                                                  #
 // ####################################################################################################
 
-class clsFiles {
-
-        /** 
-    clsFiles
-    clsFiles is a class with static methods to download and upload files.
-    It is not necessary to create an instance of clsFiles. All methods are static and can be called directly from the class.
-    */
-    aboutMe() {
-        // i do nothing
-    }
-
-    /**
-    clsFiles
-    triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.
-    */
-    static download(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {
+/**
+triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.
+*/
+clsBasis.download= function(fileContent, filename, mimeType = 'text/plain;charset=utf-8') {
         // fileContent can be string, ArrayBuffer, Uint8Array or Blob
         const blob = fileContent instanceof Blob
             ? fileContent
@@ -370,7 +632,7 @@ class clsFiles {
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
-    static _readFiles(files) {
+clsBasis._readFiles = function(files) {
         const readers = Array.from(files).map(file => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -378,38 +640,22 @@ class clsFiles {
                 reader.onerror = () => resolve(null);
                 reader.readAsText(file);
             });
-        });
+        }); 
+    return Promise.all(readers);
+}
 
-        return Promise.all(readers);
-    }
-
-    /**
-    clsFiles
-    triggers a read (upload to browser) of a file or multiple files.
-    The method returns a promise that resolves to an array of objects, each containing the file and its content.
-    If no files are selected, it resolves to an empty array.
-    Application Example 1:
-       async function UploadFile() {
-            let ret = await clsFiles.upload()
-            if (!ret) return
-            let {file, content} = ret[0]
-        }
-    Application Example:
-        async function UploadFiles() {
-            let ret = await clsFiles.upload(true)
-            if (!ret) return
-            for (let i=0; i < ret.length; i++) {
-                let {file, content} = ret[i]
-            }
-        }
-    */
-    static upload(multiple=false) {
+/**
+triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.
+*/ 
+clsBasis.upload = function(multiple=false) {
         return new Promise(function (resolve) {
+            // Create a hidden file input element
             var input = document.createElement('input');
             input.type = 'file';
             if (multiple) input.multiple = true
             input.style.display = 'none';
 
+            // Add an event listener to handle file selection
             input.addEventListener('change', async function (e) {
                 if (!input.files || input.files.length === 0) {
                     input.remove(); resolve([]); return;}
@@ -417,15 +663,15 @@ class clsFiles {
                 let files = input.files;
                 input.remove();
 
-                let result = await clsFiles._readFiles(files);
+                let result = await clsBasis._readFiles(files);
                 resolve(result);
-            }, { once: true });
+            }, { once: true }); // Use { once: true } to ensure the event listener is removed after it' is called once
 
+            // Trigger the file input dialog
             document.body.appendChild(input);
             input.click();
             });
     }
-}
 // ####################################################################################################
 // region clsBasis_helpers                                                                                #
 // ####################################################################################################
@@ -492,269 +738,132 @@ clsBasis.popup = function(header, message) {
         document.addEventListener("keydown", handleEscKey);
     }
 // ####################################################################################################
-// region document_htmlManipulation                                                                       #
+// region clsDOM_AutoFill                                                                                 #
 // ####################################################################################################
 
-// Auto_Fill batch timers registry
-const Registry_AutoFillBatchTimers = {};
-
 /**
-Modifies your html page by filling in the values of the provided list of dictionaries. <br>
+Modifies your HTML page by filling in the values of the provided list of dictionaries.<br>
 1) Reads div(elementId).innerHTML as template <br>
 2) Clears div(elementId).innerHTML = '' <br>
-3) Fills everything in one pass by repalcing {{key}} with the corresponding value from each dictionary in listOfDictionaries <br>
-Available options: <br>
-- append: boolean, if true, appends to existing content instead of clearing it first <br>
-*/
-function Auto_Fill(listOfDictionaries, elementId, configOptions) {
-    const input_norm = _Auto_Fill_Harmonize(listOfDictionaries, elementId, configOptions)
-    if (input_norm === null) return
-    const {
-        container: div,
-        data: listOfDicts,
-        opts: options
-    } = input_norm;
-
-    // store template as div-container attribute and clear innerHTML
-    if (!div._autoFillTemplate) div._autoFillTemplate = div.innerHTML;
-    const template = div._autoFillTemplate; // local immutable reference
-    if (!options.append || div.innerHTML == div._autoFillTemplate) div.innerHTML = ""; // clear only if not appending and if content is different from template, i.e. not the first time here
-
-    // do the magic
-    listOfDicts.forEach(item => {
-        let nextString = template
-    
-        for (let key in item) {
-            const safeKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // AI hint: replace regex chars in key as they may break the regex below
-            nextString = nextString.replace(new RegExp(`{{${safeKey}}}`, 'g'), item[key])}     
-
-        div.innerHTML += nextString
-    });
-}
-
-/**
-Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill. Auto_Fill_Batch processes the data in batches per second
+3) Fills everything in one pass by replacing {{key}} with the corresponding value from each dictionary<br>
+Options:<br>
+  - append: boolean, if true, appends to existing content instead of clearing it first<br>
  */
-function Auto_Fill_Batch(listOfDictionaries, elementId, configOptions) {
-    const input_norm = _Auto_Fill_Harmonize(listOfDictionaries, elementId, configOptions)
-    if (input_norm === null) return
+clsDOM.AutoFill = function(listOfDictionaries, elementId, config) {
+    const input_norm = clsDOM._Auto_Fill_Harmonize(listOfDictionaries, elementId, config);
+    if (input_norm === null) 
+        return;
+    
     const {
         container: div,
         data: listOfDicts,
         opts: options
     } = input_norm;
 
-    // stop existing batch loader for this container
-    if (Registry_AutoFillBatchTimers[elementId]) {
-        clearInterval(Registry_AutoFillBatchTimers[elementId]);
-        delete Registry_AutoFillBatchTimers[elementId];
+    // Store template as div-container attribute
+    if (!div._autoFillTemplate) div._autoFillTemplate = div.innerHTML;
+    const template = div._autoFillTemplate; 
+    
+    // Clear only if not appending and if content is different from template
+    if (!options.append || div.innerHTML == div._autoFillTemplate) {
+        div.innerHTML = ""; 
     }
 
-    let index = 0;
+    // PERFORMANCE FIX: Accumulate strings in memory
+    let accumulatedHTML = "";
 
-    const timer = setInterval(() => {
-        const batch = listOfDicts.slice(index, index + options.batchSize);
+    listOfDicts.forEach(item => {
+        let nextString = template;
+    
+        for (let key in item) {
+            const safeKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
+            nextString = nextString.replace(new RegExp(`{{${safeKey}}}`, 'g'), item[key]);
+        }     
 
-        if (batch.length === 0) {
-            clearInterval(timer);
-            delete Registry_AutoFillBatchTimers[elementId];
-            return;}
+        accumulatedHTML += nextString;
+    });
 
-        Auto_Fill(batch, elementId, { append: true });
+    // Commit to the DOM exactly once
+    div.innerHTML += accumulatedHTML;
+};
 
-        index += options.batchSize;
-    }, options.intervalMs);
 
-    // register timer
-    Registry_AutoFillBatchTimers[elementId] = timer;
-}
+// ==========================================
+// HIDDEN/INTERNAL METHODS ON CLSDOM
+// ==========================================
 
-function Auto_Fill_Function(functionToCall, elementId) {
-        let container = _Auto_Fill_Harmonize_Container(elementId)
+clsDOM._Auto_Fill_Harmonize = function(data, elementId, opts) {
+    if (opts === undefined) opts = {};
+    if (opts.append === undefined) opts.append = false;
 
-        const matches = container.innerHTML.match(/\{\{(.+?)\}\}/g); // matches = ['{{3|6}}', '{{2|5}}', '{{12|7}}']
-        if (!matches) return null;
-        for (let match of matches) {
-            let key = match.slice('{{'.length, -1*'{{'.length);
-            let value = functionToCall(key);
-            container.innerHTML = container.innerHTML.replace(match, value);
-        }
-}
-
-function _Auto_Fill_Harmonize(data, elementId, opts) {
-    if (opts === undefined) opts = {}
-    if (opts.append === undefined) opts.append = false
-    if (opts.batchSize === undefined) opts.batchSize = 20
-    if (opts.intervalMs === undefined) opts.intervalMs = 100
-
-    // get the container div
-    let container = _Auto_Fill_Harmonize_Container(elementId)
+    // Get the container div using the hidden method
+    let container = clsDOM._Auto_Fill_Harmonize_Container(elementId);
+    if (!container) return null;
 
     // Harmonize input data to be always a list
-    if (!['list', 'dict'].includes(typOf(data))) return
-    if (typOf(data) == 'dict') data = [data]
+    if (!['list', 'dict'].includes(typOf(data))) return null;
+    if (typOf(data) == 'dict') data = [data];
 
     return {
         container,
         data,
         opts
     };
-}
+};
 
-function _Auto_Fill_Harmonize_Container(elementId) {
-    if (elementId === undefined) elementId = ""
-    let container = null
-    if (elementId === "") container = document.body
+clsDOM._Auto_Fill_Harmonize_Container = function(elementId) {
+    if (elementId === undefined) elementId = "";
+    let container = null;
+    
+    if (elementId === "") container = document.body;
     else container = document.getElementById(elementId);
-    if (!container) return null
-    if (!container.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
-    return container}
-
+    
+    if (!container) return null;
+    if (!container.classList.contains('js-fill')) {
+        console.log('WARNING! The target div does not have the class "js-fill"');
+    }
+    return container;
+};
+// ####################################################################################################
+// region clsDOM_Get                                                                                      #
+// ####################################################################################################
 
 /**
-Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown
-*/
-function ShowHTMLinTextArea(divToExpose, divToAppend, outer = false, pretty = false, textAreaClassName = "") {
-    if (!(divToExpose instanceof HTMLElement)) return
-    if (!(divToAppend instanceof HTMLElement)) return
-
-    let textarea = clsDivBuilder.BuildTextArea({
-        id: 'htmlSource', className: textAreaClassName, spellcheck: false, 
-        width: '100%', height: '100%'});
-
-    let htmlSource = undefined
-    htmlSource = wenn(outer, divToExpose.outerHTML, divToExpose.innerHTML);
-    if (htmlSource == undefined) 
-        return
-    if (divToExpose.tagName.toLowerCase() === 'script')
-        textarea.classList.add('script') 
-
-    if (pretty) {
-        let flatHTML = htmlSource.replace(/[\n\t\r]/g, "").replace(/\s+/g, " ").trim();
-        htmlSource = formatHTML(flatHTML);
-    }
-    
-    
-    textarea.value = _filteredLines(htmlSource, '#IGNORE')
-    if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
-    divToAppend.appendChild(textarea);   
-    return textarea                                                                                                                                        
-}
-
-
-function ExposeHTML(config) {
-    let SCHEMA = {
-        divToExpose: {typOf: 'div', required: true},
-        stringToExpose: {typOf: 'str', required: false},
-        divToAppend: {typOf: 'div', required: true},
-        id: {typOf: 'str', required: false},
-        outer: {typOf: 'bool', required: false},
-        pretty: {typOf: 'bool', required: false},
-        textAreaClassName: {typOf: 'str', required: false},
-        synchWithTarget: {typOf: 'bool', required: false},
-        lineNumbers: {typOf: 'bool', required: false}
-    };
-    if (ValidateSCHEMA(config, SCHEMA) == false) return;
-
-    let divToExpose = config.divToExpose;
-    let divToAppend = config.divToAppend;
-    let stringToExpose = config.stringToExpose || "";
-    let id = config.id || "";
-    let outer = config.outer || false;
-    let pretty = config.pretty || false;
-    let textAreaClassName = config.textAreaClassName || "";
-    let synchWithTarget = config.synchWithTarget || false;
-    let lineNumbers = config.lineNumbers || false;
-
-    let textarea = clsDivBuilder.BuildTextArea({
-        id: id, className: textAreaClassName, spellcheck: false, 
-        width: '100%', height: '100%'});
-
-    let htmlSource = undefined
-    if (stringToExpose != "") {
-        htmlSource = config.stringToExpose;
-    } else {
-        if (outer) {
-            htmlSource = divToExpose.outerHTML;
-        } else {
-            htmlSource = divToExpose.innerHTML;}
-    }
-    if (htmlSource == undefined) 
-        return
-    if (divToExpose.tagName.toLowerCase() === 'script')
-        textarea.classList.add('script') 
-
-    if (pretty) {
-        let flatHTML = htmlSource.replace(/[\n\t\r]/g, "").replace(/\s+/g, " ").trim();
-        htmlSource = formatHTML(flatHTML);
-    }
-    if (synchWithTarget) {
-        textarea.addEventListener('input', () => {
-            divToExpose.innerHTML = textarea.value;
-        });
-    } else {
-        textarea.readOnly = true
-    }
-    
-    textarea.value = _filteredLines(htmlSource, '#IGNORE')
-    if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
-    
-    if (lineNumbers) {
-        let lineNumbersDiv = document.createElement('div');
-
-        lineNumbersDiv.classList.add('line-numbers-for-textarea');
-        let linesArr = Array.from({ length: textarea.value.split("\n").length}, (_, i) => i + 1);
-        lineNumbersDiv.innerHTML = linesArr.join("<br>");
-        divToAppend.classList.add('flex');
-        divToAppend.appendChild(lineNumbersDiv);
-    }
-    divToAppend.appendChild(textarea);   
-    return textarea                                                                                                                                        
-}
-
-
-/**
- * AI: Helper to add indentation and newlines to raw HTML strings
+Downloads the current HTML document as a file with the specified filename.
  */
-function formatHTML(html) {
-    let tab = '    '; // 4 spaces
-    let result = '';
-    let indent = '';
 
-    // Split by tags
-    html.split(/>\s*</).forEach(function(element) {
-        if (element.match(/^\/\w/) || element.startsWith("meta") || element.startsWith("link") ) {
-            // Closing tag: decrease indent
-            indent = indent.substring(tab.length);
-        }
+clsDOM.DownloadHTML = function(filename = 'document.html') {
+    const html = document.documentElement.outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const element = document.createElement('a');
+    element.style.display = 'none';
+    element.href = url;
+    element.download = filename;
 
-        result += indent + '<' + element + '>\n';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 
-        if (element.match(/^<?\w[^>]*[^\/]$/) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("br")) {
-            // Opening tag (and not self-closing): increase indent
-            indent += tab;
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+// ####################################################################################################
+// region clsDOM_Remove                                                                                   #
+// ####################################################################################################
+
+/**
+Removes all elements from the DOM that have the specified class name.
+*/
+clsDOM.RemoveWithClass = function(className) {
+    const elements = Array.from(document.querySelectorAll('*'));
+    const targetClass = className.trim();
+
+    elements.forEach(element => {
+        if (element.classList && element.classList.contains(targetClass)) {
+            element.remove();
         }
     });
-
-    result = result.substring(1, result.length - 2); // Clean up extra brackets/newlines
-    result = result.replaceAll(">>", "").replaceAll("<<", "");
-    return result
 }
-
-function _filteredLines(text, filterWord) {
-    let lines = text.split('\n')
-                    .filter(line => !isBlank(line) && !line.includes(filterWord));
-
-    let Indent = Math.min(...lines.map(line => line.match(/^\s*/)[0].length));
-
-    return lines.map(line => line.slice(Indent).trimEnd()).join('\n');
-}
-
-
-
-function isBlank(str) {
-    return !/[^\t\r\n\v\f ]/.test(str);
-  }
 // ####################################################################################################
 // region dom_basis                                                                                       #
 // ####################################################################################################

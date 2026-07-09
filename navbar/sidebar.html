@@ -175,7 +175,7 @@
     </script>
     <script id = "id-js-optional">
     function fconsoleLog(event) {
-        let divElement = DOM_ElementFromJSEvent(event, true)
+        let divElement =  ElementFromJSEvent(event)
         console.log("clicked: " + divElement.innerHTML)
     }
     NAV_AddGenericClickFunction("id-sidebar-ul", fconsoleLog)

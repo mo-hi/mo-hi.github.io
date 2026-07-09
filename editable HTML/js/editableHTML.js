@@ -76,7 +76,7 @@ class cls_editableHTML_EditGroup {
     }
 
     FromClickEvent(event) {
-        let divElement = DOM_ElementFromJSEvent(event)
+        let divElement = ElementFromJSEvent(event)
         
         if (this._clickOnEditableDiv(divElement)) {
             this._constructor(divElement)
@@ -347,7 +347,7 @@ class clsEDIT {
     }
 
     static ToogleButtons(event) {
-        let egoButton = DOM_ElementFromJSEvent(event)
+        let egoButton = ElementFromJSEvent(event)
         let EditGroup = new cls_editableHTML_EditGroup()
         EditGroup.InitFromButton(egoButton)
         let buttons = EditGroup.Buttons()
@@ -374,12 +374,12 @@ class clsEDIT {
 
     }
     static _IsTextEvent(event) {
-        let divElement = DOM_ElementFromJSEvent(event)
+        let divElement = ElementFromJSEvent(event)
         if (divElement.classList.contains('js-edit') || divElement.classList.contains('js-edit-child') ) return true
     }
 
     static _Buttonevent(event, types) {
-        let divElement = DOM_ElementFromJSEvent(event)
+        let divElement = ElementFromJSEvent(event)
         let buttonType = divElement.dataset.buttonType
         return types.includes(buttonType)
     }

@@ -1,135 +1,369 @@
-<!doctype html>
-<html lang="en">
-    <head>
+<html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>b.JS</title>
     <link rel="stylesheet" href="css/b.css">
+    <link rel="stylesheet" href="../navbar/css/nav.css">
         <style> :root, body.dark {
-            --color-text: var(--color-zinc-100);
+            --color-a: var(--color-sky-400);
+
             --color-bg-body: var(--color-zinc-950);
             --color-bg-main: var(--color-zinc-900);
-         }
+            --color-text: var(--color-zinc-100);
+
+            --color-pill-bg: var(--color-gray-50);
+            --color-pill-font: var(--color-gray-500);
+
+            --color-pill-bg-checked: var(--color-cyan-100);
+            --color-pill-font-checked: var(--color-cyan-900);
+
+            --color-textarea-code-bg: var(--color-zinc-800);
+            --color-textarea-code-text: var(--color-zinc-300);
+            --color-textarea-code-border: var(--color-zinc-400);         
+            --color-textarea-code-accent: var(--color-blue-500);
+            --color-textarea-code-accent-glow: var(--color-blue-800);
+            --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+            --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+            
+            --color-c-bg: color-mix(in oklch, var(--color-cyan-500) 10%, transparent);
+            --color-c-font: var(--color-cyan-400);
+        }
+        
          body.light {
+            --color-a: var(--color-blue-600);
+
             --color-text: var(--color-zinc-900);
             --color-bg-body: var(--color-zinc-200);
             --color-bg-main: var(--color-zinc-50);
 
             --color-textarea-code-bg: var(--color-zinc-100);  
-            --color-textarea-code-text: var(--color-zinc-700);    
+            --color-textarea-code-text: var(--color-zinc-600);    
             --color-textarea-code-border:var(--color-zinc-300);    
-  
+            
+            --color-c-bg: var(--color-cyan-100);
+            --color-c-font: var(--color-cyan-900);
             }
+            
+        body.dark {
+            --color-nav-bg: var(--color-gray-800); 
+            --color-nav-down-bg: var(--color-gray-700); 
+            --color-nav-font: var(--color-zinc-200);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+        }
+
+        body.light {
+            --color-nav-bg: var(--color-slate-300); 
+            --color-nav-down-bg: var(--color-slate-300); 
+            --color-nav-font: var(--color-zinc-900);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+        }
          </style>
     </head>
-    <body class="light font-os">
-        <main class="w-responsive-l">
-            <section>
-                <h2 class="m-0 inline-block">About b.js</h2>
+    <body class="font-os light">
+        <main class="w-responsive-l slim-headers">
+            <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
+                <nav>
+                    <a href="#id-h2-about-bjs">Home</a>
+                    
+                    
+                </nav>
+                <nav class="nav-right">
+                    <a class="nav-btn" onclick="toggleTheme(this)">dark theme</a>
+                </nav>
+            </div>
+            <section class="mt-40i">
+                <h2 id="id-h2-about-bjs" class="m-0 underline sticky-50" style="background-color: var(--color-bg-main);">About b.js</h2>
                 <p>
                    b.JS provides additional functions and prototypes for javascript To use b.JS in your project, 
                    just add the following script reference to your project: 
-                   <div id="id-bjs-script-show" class="h-40 w-80 js-fill mt-5i mb-60i"></div>  
-                </p>
-                <h2> <a href="#id-h2-autifill-basis">basis functions</a></h2>
-                <div id = "id-bjs-basis-list" class="flex-wrap gap-5i w-90">
-                    <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
+                   </p><div class="h-30 w-80 js-fill mt-5i mb-60i">
+                    <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="1">&lt;script src="https://mo-hi.github.io/basis/js/b.js"&gt;&lt;/script&gt;</textarea></div>
+                <p></p>
+                <h3> basis functions<a href="#id-h2-autifill-basis" class="no-underline"> # </a></h3>
+                <div id="id-bjs-basis-list" class="flex-wrap gap-5i w-90">
+                    <a href="#id-h3-typ" class="">typ</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-wenn" class="">wenn</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-assert" class="">assert</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-allEqual" class="">allEqual</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-byVal" class="">byVal</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-Auto_Fill" class="">Auto_Fill</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-Auto_Fill_Batch" class="">Auto_Fill_Batch</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-ShowHTMLinTextArea" class="">ShowHTMLinTextArea</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-formatHTML" class="">formatHTML</a>&nbsp;|&nbsp;
                 </div>
-                <h2> <a href="#id-h2-autifill-clsBasis">clsBasis functions</a></h2>
-                <div id = "id-bjs-clsBasis-list" class="flex-wrap gap-5i w-90">
-                    <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
+                <h3> clsBasis functions<a href="#id-h2-autifill-clsBasis" class="no-underline"> # </a></h3>
+                <div id="id-bjs-clsBasis-list" class="flex-wrap gap-5i w-90">
+                    <a href="#id-h3-download" class="">download</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-upload" class="">upload</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-debounce" class="">debounce</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-popup" class="">popup</a>&nbsp;|&nbsp;
                 </div>
-                <h2> <a href="#id-h2-autofill">remaining Functions</a></h2>
-                <div id = "id-bjs-notConsolidated-list" class="flex-wrap gap-5i w-90">
-                    <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
+                <h3 class="inline-block"> see clsDOM functions<a href="#id-h2-autifill-clsDOM" class="no-underline"> # </a></h3> 
+                
+               
+                <div id="id-bjs-clsDOM-list" class="flex-wrap gap-5i w-90 mt-10">
+                    <a href="#id-h3-AutoFill" class="">AutoFill</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-DownloadHTML" class="">DownloadHTML</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-RemoveWithClass" class="">RemoveWithClass</a>&nbsp;|&nbsp;
                 </div>
+
+                
+                
             </section>
                 <section>
 
-        <h2 id = "id-h2-autifill-basis" class="underline sticky" style="background-color: white;">basis functions</h2>
+        <h2 id="id-h2-autifill-basis" class="underline sticky-50" style="background-color: var(--color-bg-main);">basis functions</h2>
         <p>
             functions that enhance the functionality of javascript for easier development and are not directly related to the user experience.
         </p>
         <div id="id-autofill-basis" class="auto-fill">
-            <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
+            <h3 id="id-h3-typ" class="m-0 inline-block">typ ()</h3>
+             
             
-            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+            
+            <p class="mt-10"><c>typ (variable)</c> returns the type of a variable as a string. The following types are recognized:
+ list, div, dict, str, int, float, bool, null, undefined and functions</p>
             <div class="w-80 mt-5i mb-60i">
-                <textarea spellcheck="false" class="code" style="width: 100%; height: 100%;" rows="{{codeLines}}">
-{{code}}</textarea>
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="9">typ(1) == "int"
+typ(1.5) == "float"
+typ("abc") == "str"
+typ(true) == "bool"
+typ([]) == "list"
+typ({}) == "dict"
+typ(null) == "null"
+typ(undefined) == "undefined"
+typ(function() {}) == "function"</textarea>
+            </div>
+        
+            <h3 id="id-h3-wenn" class="m-0 inline-block">wenn ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>wenn (condition, trueValue, falseValue)</c> is a short hand notation / better readability for 'return condition ? trueValue : falseValue';</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="2">wenn(1 &lt; a, "yes", "no") == "yes"
+wenn(1 &gt; a, "yes", "no") == "no"</textarea>
+            </div>
+        
+            <h3 id="id-h3-assert" class="m-0 inline-block">assert ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>assert (condition, message)</c> throws an error if the condition is false</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="2">assert(2 + 2 == 4, "should not throw")     // will do nothing
+assert(2 + 2 == 5, "should throw")         // will write "should throw" to console log</textarea>
+            </div>
+        
+            <h3 id="id-h3-allEqual" class="m-0 inline-block">allEqual ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>allEqual (...values)</c> returns true if all values are equal</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="4">allEqual(1, 1, 1) == true
+allEqual(1, 1, 2) == false
+allEqual("a", "a", "a") == true
+allEqual("a", "a", "b") == false</textarea>
+            </div>
+        
+            <h3 id="id-h3-byVal" class="m-0 inline-block">byVal ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>byVal (data)</c> creates a hard copy of a variable (instead of just creating a reference in case of list and dictionaries). 
+It is equivalent to structuredClone and mimics the 'byVal' operater in VBA, hence the name</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="10">let original = [1, 2, 3];
+let copy = original;
+let byValCopy = byVal(original);
+
+original[0] = 99;
+copy[1] = 88;
+byValCopy[2] = 77;
+original == [99, 88, 3];
+copy == [99, 88, 3];
+byValCopy == [1, 2, 77];</textarea>
+            </div>
+        
+            <h3 id="id-h3-Auto_Fill" class="m-0 inline-block">Auto_Fill ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>Auto_Fill (listOfDictionaries, elementId, configOptions)</c> Modifies your html page by filling in the values of the provided list of dictionaries. <br>
+1) Reads div(elementId).innerHTML as template <br>
+2) Clears div(elementId).innerHTML = '' <br>
+3) Fills everything in one pass by repalcing {{key}} with the corresponding value from each dictionary in listOfDictionaries <br>
+Available options: <br>
+- append: boolean, if true, appends to existing content instead of clearing it first <br></p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">{{code}}</textarea>
+            </div>
+        
+            <h3 id="id-h3-Auto_Fill_Batch" class="m-0 inline-block">Auto_Fill_Batch ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>Auto_Fill_Batch (listOfDictionaries, elementId, configOptions)</c> Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill. Auto_Fill_Batch processes the data in batches per second</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">{{code}}</textarea>
+            </div>
+        
+            <h3 id="id-h3-ShowHTMLinTextArea" class="m-0 inline-block">ShowHTMLinTextArea ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>ShowHTMLinTextArea (divToExpose, divToAppend, outer = false, pretty = false, textAreaClassName = "")</c> Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">{{code}}</textarea>
+            </div>
+        
+            <h3 id="id-h3-formatHTML" class="m-0 inline-block">formatHTML ()</h3>
+             
+            
+            
+            <p class="mt-10"><c>formatHTML (html)</c> * AI: Helper to add indentation and newlines to raw HTML strings</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">{{code}}</textarea>
             </div>
         </div>
 
-        <h2 id = "id-h2-autifill-clsBasis" class="underline sticky" style="background-color: white;">clsBasis</h2>
+        <h2 id="id-h2-autifill-clsBasis" class="underline sticky-50" style="background-color: var(--color-bg-main);">clsBasis</h2>
         <p>
             function that will in general directly affect the user experience.
         </p>
         <div id="id-autofill-clsBasis" class="auto-fill">
-            <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
+            <h3 id="id-h3-download" class="m-0 inline-block">download ()</h3>
             
-            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+            <p class="mt-10"><c>download (fileContent, filename, mimeType = 'text/plain;charset=utf-8')</c> triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.</p>
             <div class="w-80 mt-5i mb-60i">
-                <textarea spellcheck="false" class="code" style="width: 100%; height: 100%;" rows="{{codeLines}}">
-{{code}}</textarea>
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">clsBasis.download("Hello, World!", "hello.txt", "text/plain")</textarea>
             </div>
-        </div>
-                    
-        <h2 id = "id-h2-autofill" class="underline sticky" style="background-color: white;">Functions</h2>
-        <div id="id-autofill" class="auto-fill">
-            <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
+        
+            <h3 id="id-h3-upload" class="m-0 inline-block">upload ()</h3>
+            
+            <p class="mt-10"><c>upload (multiple=false)</c> triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="13">let uploadFiles = await clsBasis.upload()
+if (uploadFiles.length &gt; 0) {
+    let {file, content} = uploadFiles[0];
+    console.log("Uploaded file:", file.name);
+}
 
-            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+let uploadMultipleFiles = await clsBasis.upload(true)
+if (uploadMultipleFiles.length &gt; 0) {
+    for (let i = 0; i &lt; uploadMultipleFiles.length; i++) {
+        let {file, content} = uploadMultipleFiles[i];
+        console.log("Uploaded file:", file.name);
+    }
+}</textarea>
+            </div>
+        
+            <h3 id="id-h3-debounce" class="m-0 inline-block">debounce ()</h3>
+            
+            <p class="mt-10"><c>debounce (func, delay)</c> delays a function call.</p>
             <div class="w-80 mt-5i mb-60i">
-                <textarea spellcheck="false" class="code" style="width: 100%; height: 100%;" rows="{{codeLines}}">
-{{code}}</textarea>
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="2">function myFunctionToDemonstrateDebounce() { console.log("Hello after 2 seconds"); }
+clsBasis.debounce(myFunctionToDemonstrateDebounce, 2000)()</textarea>
+            </div>
+        
+            <h3 id="id-h3-popup" class="m-0 inline-block">popup ()</h3>
+            
+            <p class="mt-10"><c>popup (header, message)</c> creates a pop-up window with a header and message. The pop-up can be closed by clicking the close button, clicking outside the pop-up, or pressing the Escape key.</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">clsBasis.popup("Hello World", "This is a popup message.")</textarea>
             </div>
         </div>
+
+        <h2 id="id-h2-autifill-clsDOM" class="underline sticky-50" style="background-color: var(--color-bg-main);">clsDOM</h2>
+        <p>
+            functions that will in general directly affect the user experience. See&nbsp;<a href="../dom/dom.html" target="_blank">clsDOM</a> &nbsp;for more details
+        </p>
+        <div id="id-autofill-clsDOM" class="auto-fill">
+            <h3 id="id-h3-AutoFill" class="m-0 inline-block">AutoFill ()</h3>
+            
+            <p class="mt-10"><c>AutoFill (listOfDictionaries, elementId, config)</c> Modifies your HTML page by filling in the values of the provided list of dictionaries.<br>
+1) Reads div(elementId).innerHTML as template <br>
+2) Clears div(elementId).innerHTML = '' <br>
+3) Fills everything in one pass by replacing {{key}} with the corresponding value from each dictionary<br>
+Options:<br>
+  - append: boolean, if true, appends to existing content instead of clearing it first<br></p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">clsDOM.AutoFill([{ text: "World" }, { text: "Universe" }, { text: "Everyone" }], "id-multiple-entries");</textarea>
+            </div>
+        
+            <h3 id="id-h3-DownloadHTML" class="m-0 inline-block">DownloadHTML ()</h3>
+            
+            <p class="mt-10"><c>DownloadHTML (filename = 'document.html')</c> Downloads the current HTML document as a file with the specified filename.</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">clsDOM.DownloadHTML("my-document.html");</textarea>
+            </div>
+        
+            <h3 id="id-h3-RemoveWithClass" class="m-0 inline-block">RemoveWithClass ()</h3>
+            
+            <p class="mt-10"><c>RemoveWithClass (className)</c> Removes all elements from the DOM that have the specified class name.</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">clsDOM.RemoveWithClass("remove-me");</textarea>
+            </div>
+        </div>
+
+
+        
     </section>
         </main>
-    </body>
+    
     
 
 
-    <footer-js></footer-js>
+    <footer>
+            <br>
+            <hr>
+            <section>
+                <p>
+                    Back to <a href="../index.html" class="mr-20"> mo-hi </a>  |  
+                    Link to <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a>
+                </p>
+            </section>
+            <div class="h-30"></div>
+        </footer>
 
-</body>
+
 
 <script src="js/b.js"></script>
-<script src="../htmlElements.js"></script>
-<script src="FunctionsInfo.js"></script>
-<script src="FunctionsCodeExamples.js"></script>
-<script src="pageLogic.js"></script>
-<!-- <script src="auto-fill.js"></script> -->
-<script>
-    post_FromFile_FunctionsCodeExamples()
-    let mergedFunctionsInfo = mergeListsByName (FromFile_FunctionsInfo_JS, FromFile_FunctionsCodeExamples)
 
-    // Fill individual function sections with code and docstring
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-autofill-basis')
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-autofill-clsBasis')
+
+
+ 
+
+
+ <script>
+    function toggleTheme(element) {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
     
-    restOfFunctionsInfo = mergedFunctionsInfo.filter(
-        item => item.source !== "basis" && 
-        item.source !== "clsBasis"
-    )
-    Auto_Fill(restOfFunctionsInfo, 'id-autofill')
+    // Swap the link text based on the current state
+    element.innerHTML = element.innerHTML === 'light theme' ? 'dark theme' : 'light theme';
+}
+ </script>
 
-    // the wrapped links in the top of the page
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-bjs-basis-list')
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-bjs-clsBasis-list')
-    Auto_Fill(restOfFunctionsInfo, 'id-bjs-notConsolidated-list')
 
-    // Section "About b.js": Expose the script reference to b.js in a code block in 
-    let refToBJS = '<script src="https://mo-hi.github.io/basis/js/b.js"><\/script>'
-    ExposeHTML({
-        divToExpose: document.createElement('div'), // dummmy element
-        stringToExpose: refToBJS,
-        divToAppend: document.getElementById("id-bjs-script-show"),
-        outer: true,
-        pretty: false, 
-        textAreaClassName: "code",
-        synchWithTarget: false
-    })
-</script>
-</html>
 
+</body></html>

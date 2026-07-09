@@ -33,25 +33,37 @@ const FromFile_FunctionsInfo_JS = [
         "name": "Auto_Fill",
         "docstring": "Modifies your html page by filling in the values of the provided list of dictionaries. <br>\n1) Reads div(elementId).innerHTML as template <br>\n2) Clears div(elementId).innerHTML = '' <br>\n3) Fills everything in one pass by repalcing {{key}} with the corresponding value from each dictionary in listOfDictionaries <br>\nAvailable options: <br>\n- append: boolean, if true, appends to existing content instead of clearing it first <br>",
         "parameters": "listOfDictionaries, elementId, configOptions",
-        "source": "document"
+        "source": "basis"
     },
     {
         "name": "Auto_Fill_Batch",
         "docstring": "Auto_Fill_Batch is an extension of Auto_Fill to handle large data sets with better performance. The usage is similar to Auto_Fill. Auto_Fill_Batch processes the data in batches per second",
         "parameters": "listOfDictionaries, elementId, configOptions",
-        "source": "document"
+        "source": "basis"
     },
     {
         "name": "ShowHTMLinTextArea",
         "docstring": "Modifies your html page by adding a textarea with a div's innerHTML. If outer is set to true, then the outerHTML is shown",
         "parameters": "divToExpose, divToAppend, outer = false, pretty = false, textAreaClassName = \"\"",
-        "source": "document"
+        "source": "basis"
     },
     {
         "name": "formatHTML",
         "docstring": "* AI: Helper to add indentation and newlines to raw HTML strings",
         "parameters": "html",
-        "source": "document"
+        "source": "basis"
+    },
+    {
+        "name": "download",
+        "docstring": "triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.",
+        "parameters": "fileContent, filename, mimeType = 'text/plain;charset=utf-8'",
+        "source": "clsBasis"
+    },
+    {
+        "name": "upload",
+        "docstring": "triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.",
+        "parameters": "multiple=false",
+        "source": "clsBasis"
     },
     {
         "name": "debounce",
@@ -64,6 +76,24 @@ const FromFile_FunctionsInfo_JS = [
         "docstring": "creates a pop-up window with a header and message. The pop-up can be closed by clicking the close button, clicking outside the pop-up, or pressing the Escape key.",
         "parameters": "header, message",
         "source": "clsBasis"
+    },
+    {
+        "name": "AutoFill",
+        "docstring": "Modifies your HTML page by filling in the values of the provided list of dictionaries.<br>\n1) Reads div(elementId).innerHTML as template <br>\n2) Clears div(elementId).innerHTML = '' <br>\n3) Fills everything in one pass by replacing {{key}} with the corresponding value from each dictionary<br>\nOptions:<br>\n  - append: boolean, if true, appends to existing content instead of clearing it first<br>",
+        "parameters": "listOfDictionaries, elementId, config",
+        "source": "clsDOM"
+    },
+    {
+        "name": "DownloadHTML",
+        "docstring": "Downloads the current HTML document as a file with the specified filename.",
+        "parameters": "filename = 'document.html'",
+        "source": "clsDOM"
+    },
+    {
+        "name": "RemoveWithClass",
+        "docstring": "Removes all elements from the DOM that have the specified class name.",
+        "parameters": "className",
+        "source": "clsDOM"
     },
     {
         "name": ".depth",

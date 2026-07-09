@@ -1,36 +1,34 @@
-  
-// Example sidebar data
 const sidebarData = [
-    { name: "America" },
+    { name: "America", url: "#" },
     {
         name: "Europe",
-  
+        url: "",
         children: [
             {
-            name: "Germany",
-            children: [
-                {
-                name: "Bavaria",
+                name: "Germany",
+                url: "#",
                 children: [
                     {
-                    name: "Munich",
-                    children: [
-                        { name: "Schwabing" },
-                        { name: "Neuhausen" },
-                        { name: "Feldmoching" },
-                    ],
-                    },
-                    { name: "Regensburg" },
-                    { name: "Rosenheim" },
-                ],
-                },
-                { name: "Saxony" },
-                { name: "NRW" },
-            ],
+                        name: "Bavaria",
+                        url: "#",
+                        children: [
+                            {
+                                name: "Munich",
+                                url: "#",
+                                children: [
+                                    { name: "Schwabing", url: "#" },
+                                    { name: "Neuhausen", url: "#" }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             },
-            { name: "France" },
-            { name: "Italy" },
-        ],
-        },
-        { name: "Asia" },
-  ];
+            { name: "France", url: "#" },
+            { name: "Italy", url: "#" },
+            { name: "Spain", url: "#" }
+        ]
+    },
+    { name: "Asia", url: "#"   },
+    { name: "Africa", url: "#" },
+];

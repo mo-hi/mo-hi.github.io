@@ -7,18 +7,15 @@
     <link rel="stylesheet" href="../basis/css/b.css">
     <link rel="stylesheet" href="../navbar/css/nav.css">
     <style>
+        a, a:visited {
+            color: inherit; /* Takes the color of its parent element */
+            text-decoration: none; /* Keeps your current design choice */
+        }
         /* b.css override colors */
         :root, body.dark {
             --color-bg-body: var(--color-zinc-950);
             --color-bg-main: var(--color-zinc-900);
             --color-text: var(--color-zinc-100);
-
-            --color-nav-bg: var(--color-gray-800); 
-            --color-nav-down-bg: var(--color-gray-700); 
-            --color-nav-font: var(--color-zinc-200);
-    
-            --color-nav-btn-bg:var(--color-blue-600);
-            --color-nav-btn-font: white;
 
             --color-pill-bg: var(--color-gray-50);
             --color-pill-font: var(--color-gray-500);
@@ -33,12 +30,31 @@
             --color-textarea-code-accent-glow: var(--color-blue-800);
             --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
             --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+            
+            --color-c-bg: color-mix(in oklch, var(--color-cyan-500) 10%, transparent);
+            --color-c-font: var(--color-cyan-400);
+        }
+
+        nav {
+            --color-nav-bg: var(--color-gray-800); 
+            --color-nav-down-bg: var(--color-gray-700); 
+            --color-nav-font: var(--color-zinc-200);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+        }
+
+        nav.sidebar {
+            --color-nav-bg: #343a40;
+            --color-nav-down-bg: #374151;
+
+            --color-nav-font: white;
         }
     </style>
 </head>
 <!-- <body class="bulma-has-background-light bulma-container">   -->
-<body class="dark">
-    <main class="w-responsive-xl js-fill mt-0i">
+<body class="dark font-os">
+    <main class="w-responsive-l js-fill mt-0i">
         <!-- this navbar will be ovewritten by script (only for back up) -->
         <section id = "id-show">
             <div id="id-nav" class="">
@@ -156,26 +172,38 @@
     <h2>Sidebar</h2>
     <div class="btn" onclick="ToogleSidebar(event)">Show Sidebar</div>
     <p>
-        Next the sidebar is demonstrated. The sidebar uses the same functionality as the navbar, so you can basically use the same html code from the navbar.
+        Next the sidebar is demonstrated. The sidebar uses the same functionality as the navbar (same css and js code), so you can basically use the same html code from the navbar.
         Core differences:<br>
-        <ul>
+        <ul class="ul-pro">
             <li>
-                The <c>nav</c> element needs the class <c>sidebar</c>. That is the only manadtory difference.
+                The <c>nav</c> element must have the class <c>sidebar</c>.
             </li>
             <li>
-                The sidebar's parent element should always have the class <c>nav-fixed</c> and a defiend maximum width (e.g. 15rem). A not fiexed sidebar makes almost no sense.
+                The sidebar's parent element should always have the class <c>nav-fixed</c> and a defiend maximum width (e.g. 15rem). A not fixed sidebar makes no sense in most use cases.
             </li>
             <li>
                 There are no button elements in the sidebar.
             </li>
             <li>
-                THe sidebar currently only supports two hierarchy levels (as the navbar).
+                The <c>nav</c> element should have the class <c>nav-style-arrow-*</c> or <c>nav-style-arrow-W</c> to style the arrow for hidden items.
             </li>
-
+            <li>
+                The sidebar supports up to four levels of indentation.
+            </li>
+            <li>
+                To add a collapse button to the sidebar, it is recommended to start the first two items of the sidebar with 
+                <ul>
+                    <li><c> &lt;a onclick="clsNav.ToogleSidebar(event)">☰ &lt;/a></c> and</li> 
+                    <li><c> &lt;hr class="nav-spacer"></c></li>
+                </ul>
+                This will add a collapse button to the sidebar on top, which will call the <c>clsNav.ToogleSidebar</c> function.
+            </li>
         </ul>
     </p>
+    HTML of THIS sidebar
+    <div id="id-sidebar-show" class="h-440 w-80 js-fill mt-5i mb-20i"></div>
     <div id="id-sidebar" class="nav-fixed w-10 hidden">
-        <nav class="sidebar">
+        <nav class="sidebar nav-style-arrow-E">
             <a onclick="clsNav.ToogleSidebar(event)">&#x2630;</a>
             <hr class="nav-spacer">
             <a href="https://mo-hi.github.io/">MoHi</a>
@@ -183,25 +211,45 @@
             <a onclick="Reset(); Update()">Reset</a>
             <a> other</a>
             <div class="drop click-toggle">
-                <a>DropDown</a>
+                <a>DropDown 1</a>
                 <div class="down">
-                    <a>Link 1</a>
+                    <div class="drop click-toggle">
+                        <a>DropDown 2</a>
+                        <div class="down">
+                            <a>Link A</a>
+                            <a>Link B</a>
+                            <a>Link C</a>
+                        </div>
+                    </div>
                     <a>Link 2</a>
                     <a>Link 3</a>
                 </div>
             </div>
-            <hr class="nav-divider">
-            <a class="">Australia</a>
-            <div class="drop click-toggle">
-                <a>Europe</a>
-                <div class="down">
-                    <a>Germany</a>
-                    <a>France</a>
-                    <a>Italy</a>
-                </div>
-            </div>
         </nav>
     </div>
+
+    <h2>Dynamic Sidebar</h2>
+    <p>
+        Next a sidebar with dynamic content is shown. It is based on the sidebar above, but the content is generated by the <c>clsNav.InitDynamicSidebar</c> function.
+    </p>
+    <table class="w-100 h-400">
+        <tr class="">
+            <td class="w-20">
+                <div class="btn" onclick="FillDynamicSidebar(event)">Fill Sidebar</div>
+                <div id="id-sidebar-dynamic" class="absolute" >
+                    <nav class="sidebar h-400 nav-style-arrow-E" >
+                    </nav>
+                </div>
+            </td>
+            <td class="w-80 right">
+                <div id="id-textarea-sidebar-dynamic-show" class="w-80">
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    </div>
+
     <footer-js></footer-js>
 
     </main>  
@@ -218,6 +266,7 @@
     </script>
     <script src="../htmlElements.js"></script>
     <script src="js/pageLogic.js"></script>
+    <script src="js/sideDataMunich.js"></script>
     <script>
         Reset()
         // this ovverrides the html navbar above
@@ -231,6 +280,50 @@
             event.target.innerHTML = event.target.innerHTML == "Show Sidebar" ? "Hide Sidebar" : "Show Sidebar"
             document.getElementById("id-sidebar").classList.toggle("hidden")
         }
+
+        function createSidebarMenu(items, depth = 0) {
+            const fragment = document.createDocumentFragment();
+
+            items.forEach(item => {
+
+                if (item.children && item.children.length > 0) {
+                    // It's a DROPDOWN group container
+                    const dropDiv = document.createElement('div');
+                    dropDiv.className = 'drop click-toggle'; // using your hover-toggle selector
+
+                    // Dropdown Main Label Link
+                    const triggerLink = document.createElement('a');
+                    triggerLink.href = item.url || '#';
+                    triggerLink.textContent = item.name;
+                    dropDiv.appendChild(triggerLink);
+
+                    // Inner wrapper for the hidden children items
+                    const downDiv = document.createElement('div');
+                    downDiv.className = 'down';
+                    
+                    // RECURSIVE CALL: Go deeper into children array, increment depth
+                    const nestedContent = createSidebarMenu(item.children, depth + 1);
+                    downDiv.appendChild(nestedContent);
+                    
+                    dropDiv.appendChild(downDiv);
+                    fragment.appendChild(dropDiv);
+                } else {
+                    // It's a SOLID standalone leaf link
+                    const singleLink = document.createElement('a');
+                    singleLink.href = item.url || '#';
+                    singleLink.textContent = item.name;
+                    fragment.appendChild(singleLink);
+                }
+    });
+
+    return fragment;
+}
+
+function FillDynamicSidebar() {
+    document.getElementById('id-sidebar-dynamic').firstElementChild.innerHTML = "";
+    document.getElementById('id-sidebar-dynamic').firstElementChild.appendChild(createSidebarMenu(sidebarData));
+    clsNav.Init()
+}
     </script>
 
     <script>
@@ -262,5 +355,22 @@
             document.getElementById(idDivShow).firstElementChild.value = 
             document.getElementById(idDivShow).firstElementChild.value.replaceAll("../", "https://mo-hi.github.io/")
         }
+
+        ExposeHTML({
+            divToExpose: document.getElementById("id-sidebar"), 
+            divToAppend: document.getElementById("id-sidebar-show"),
+            pretty: true, 
+            textAreaClassName: "code",
+            outer: true
+        })
+
+        ExposeHTML({
+            divToExpose: document.createElement('div'), // dummmy element
+            stringToExpose: JSON.stringify(sidebarData, null, 2),
+            divToAppend: document.getElementById("id-textarea-sidebar-dynamic-show"),
+            pretty: false, 
+            textAreaClassName: "code",
+            outer: true
+        })
     </script>
 </html>   

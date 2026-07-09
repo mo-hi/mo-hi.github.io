@@ -35,11 +35,11 @@ class clsNav {
         // stop default browser behavior after clicking on href, etc...
         if (event instanceof Event) event.preventDefault();
 
-        let divElement = DOM_ElementFromJSEvent(event, true)
+        let divElement =  ElementFromJSEvent(event)
         let isAlreadyActive = divElement.parentElement.classList.contains('nav-js-active');
         let navActiveState = false;
 
-        //Navbar: close all other open dropdowns after click
+        //Navbar: close all other open dropdowns after click (only the laste clicked is open)
         if (clsNav._isNavbar(divElement)) {
             clsNav._event_removeAllActive(divElement) // don't use 'this' here (event)
             if (!isAlreadyActive) {
@@ -47,18 +47,20 @@ class clsNav {
                 navActiveState = true;
             }
         }
-        //Sidebar: True toggle after click
-        if (!clsNav._isNavbar(divElement)) {
+        //Sidebar: True toggle after click (what is open stays open)
+        if (clsNav._isSidebar(divElement)) {
             divElement.parentElement.classList.toggle('nav-js-active');
             // navActiveState = divElement.parentElement.classList.contains('nav-js-active');
         }
 
-        
-
     }
 
     static _isNavbar(divElement) {
-        return divElement.closest('nav');
+        return (divElement.closest('nav') && !divElement.closest('nav').classList.contains('sidebar'));
+    }
+
+    static _isSidebar(divElement) {
+        return (divElement.closest('nav') && divElement.closest('nav').classList.contains('sidebar'));
     }
 
     static ToogleSidebar(event) {
@@ -118,7 +120,7 @@ function _nav_toggleDown(event) {
     // stop default browser behavior after clicking on href, etc...
     if (event instanceof Event) event.preventDefault();
     // get clicked element
-    let divElement = DOM_ElementFromJSEvent(event, true)
+    let divElement =  ElementFromJSEvent(event)
 
     //close other open dropdowns
     _nav_CloseAllDropdowns(divElement)

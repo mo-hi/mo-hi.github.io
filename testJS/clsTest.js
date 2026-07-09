@@ -49,13 +49,13 @@ class clsTest {
         if (this.mode == "silent" && this.silentCounter >0) {
             this._pushTestResult(String(this.silentCounter) + ' tests passed executed in silent mode and passed', 'passed','')}
         this.mode = "test"
-        this._pushTestResult('<div class="navy font-w600"> Normal Test Mode activated</div>', 'passed','')
+        this._pushTestResult('<div class="navy font-w600"> Normal Test Mode activated</div>', '', 'passed','')
     }
 
     SetSilentMode() {
         this.mode = "silent"
         this.silentCounter = 0
-        this._pushTestResult('<div class="navy font-w600"> Silent Mode activated</div>', 'passed','')
+        this._pushTestResult('<div class="navy font-w600"> Silent Mode activated</div>', '', 'passed','')
     }
 
     // This will pause the program when a test failes. your dev tools must be open.
@@ -68,40 +68,40 @@ class clsTest {
     // ##################################################################################
 
     Info(msg) {
-        this._pushTestResult(msg, 'information','')
+        this._pushTestResult(msg, '', 'information','')
     }
 
     Action(msg) {
-        this._pushTestResult('[ACTION] ' + msg, 'acion','')
+        this._pushTestResult('[ACTION] ' + msg, '', 'acion','')
     }
 
     TestHeadline(testName) {
-        this._pushTestResult('<b>' + testName + ' - Start</b>', '-','')
+        this._pushTestResult('<b>' + testName + ' - Start</b>', '', '-','')
     }
 
     NewLine() {
-        this._pushTestResult(' ', '-','')
+        this._pushTestResult(' ', '', '-','')
     }
 
-    _pushTestResult(fname, result, msg) {
-        this.cases.push([fname, result, msg])
+    _pushTestResult(fname, testName, result, msg) {
+        this.cases.push([fname, testName, result, msg])
     }
 
-    _passed(name, msg) {
+    _passed(fname, testName, msg) {
         if (msg == undefined) msg = ''
         if (this.mode == "test") {
-            this._pushTestResult(name, 'passed', msg)}
+            this._pushTestResult(fname, testName, 'passed', msg)}
         if (this.mode == "silent") {
             this.silentCounter += 1}
         
     }
 
-    _failed(name, msg) {
+    _failed(fname, testName, msg) {
         if (msg == undefined) msg = ''
         if (this.halt) {
             debugger;
         }
-        this._pushTestResult(name, 'failed', msg)
+        this._pushTestResult(fname, testName, 'failed', msg)
     }
 
 
@@ -111,16 +111,16 @@ class clsTest {
 // # Checker                                                                        #
 // ##################################################################################
 
-    Equal(a,b, name) {
+    Equal(a, b, fName, testName) {
         if (this._IsEqual(a,b)) {
-            return this._passed(name)}
+            return this._passed(fName, testName)}
         else {
-            return this._failed(name, " " + a + " not equal to " + b + ". ")}
+            return this._failed(fName, testName, " " + a + " not equal to " + b + ". ")}
     }
 
-    IsTrue(a, name) {
-        if(a) return this._passed(name);
-        return this._failed(name, "failed");
+    IsTrue(a, fName, testName) {
+        if(a) return this._passed(fName, testName);
+        return this._failed(fName, testName, "failed");
     }
 
     ErrorSeen(foo_or_obj, p, fooName) {
@@ -199,6 +199,21 @@ class clsTest {
         targetDiv.append(this._table(tableID));
     }
 
+    CasesAsJSON() {
+        let out = [];
+        if (!Array.isArray(this.cases)) return out;
+        for (let c of this.cases) {
+            // expect c to be an array: [functionName, testName, result, message]
+            let obj = {
+                fName: c[0] !== undefined ? c[0] : null,
+                tName: c[1] !== undefined ? c[1] : null,
+                result: c[2] !== undefined ? c[2] : null,
+                message: c[3] !== undefined ? c[3] : null
+            };
+            out.push(obj);
+        }
+        return out;
+    }
 
         
     _style() {
@@ -230,7 +245,7 @@ class clsTest {
         let thead = document.createElement('thead')
         let tbody = document.createElement('tbody');
 
-        thead.append(this._tableRow('th', ['no.', 'name', 'result', 'message']))
+        thead.append(this._tableRow('th', ['no.', 'Function Name', 'Test Name', 'result', 'message']))
 
         for (let i = 0; i< this.cases.length; i++) {
             tbody.append(this._tableRow('td', [i+1].concat(this.cases[i])))}

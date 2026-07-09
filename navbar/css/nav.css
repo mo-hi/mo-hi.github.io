@@ -8,6 +8,14 @@
     --color-nav-btn-font: white;
 }
 
+nav.sidebar {
+    --color-nav-bg: #343a40;
+    --color-nav-down-bg: #374151;
+
+    --color-nav-font: white;
+}
+
+
 /* Color of the nav */
 :has(> nav),
 nav, 
@@ -120,33 +128,50 @@ nav a, .sidebar a {
     text-decoration: none;
   }
 
-nav.nav-style-arrow-C > div.drop > a::after {
+nav.nav-style-arrow-C  div.drop > a::after {
     content: " \25BC";
   }
 
-nav.nav-style-arrow-D > div.drop > a::after {
+nav.nav-style-arrow-D  div.drop > a::after {
     content: " \25BD";
   }
 
-nav.nav-style-arrow-E > div.drop > a::after {
+nav.nav-style-arrow-E  div.drop > a::after {
     content: "\25BE";
   }
 
-nav > div.drop > div.down {
+/* a is flex containter, space between "text" and "arrow" */
+.sidebar.nav-style-arrow-C  div.drop > a,
+.sidebar.nav-style-arrow-D  div.drop > a,
+.sidebar.nav-style-arrow-E  div.drop > a
+ {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes the text left, arrow right */
+    width: 100%; /* Ensures the link takes up the full sidebar width */
+}
+ /* Pushes the arrow to the far right */
+.sidebar.nav-style-arrow-C  div.drop > a::after,
+.sidebar.nav-style-arrow-D  div.drop > a::after,
+.sidebar.nav-style-arrow-E  div.drop > a::after {
+    margin-left: auto;
+}
+
+nav  div.drop > div.down {
     display: none;
     position: absolute;
     min-width: 160px;
     z-index: 1;
   }
   
-nav > div.drop > div.down a  {
+nav  div.drop > div.down a  {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
   }
   
-nav > div.drop.hover-toggle:hover div.down {
+nav  div.drop.hover-toggle:hover div.down {
     display: block;
   }
 
@@ -219,7 +244,7 @@ nav hr.nav-spacer { width: 60px; }
 
 
 /* ==========================================
-   SIDEBAR OverRides
+   SIDEBAR Overrides
    ========================================== */
 
 .nav-fixed:has(nav.sidebar) {
@@ -248,8 +273,8 @@ div:has(nav.sidebar) {
 }
 
 /* 2. Item Layout Resets */
-nav.sidebar > a, 
-nav.sidebar > div.drop {
+nav.sidebar  a, 
+nav.sidebar  div.drop {
     float: none;                  /* Destroy the top navbar's float behavior */
     width: 100%;                  /* Guarantee full block coverage */
 
@@ -263,7 +288,7 @@ nav.sidebar a {
 }
 
 /* 3. Accordion Dropdown Adaptation */
-nav.sidebar > div.drop > div.down {
+nav.sidebar  div.drop > div.down {
     position: relative;           /* Instead of absolute floating, slide inline */
     width: 100%;
     min-width: 100%;
@@ -272,11 +297,22 @@ nav.sidebar > div.drop > div.down {
 }
 
 /* Visual indentation for nested sidebar drop items */
-nav.sidebar > div.drop > div.down a {
-    padding-left: 28px;           /* Push sub-links inward for clear hierarchy */
+nav.sidebar  div.drop > div.down a {
+    padding-left: 28px; 
     text-align: left;
 }
-
+nav.sidebar  div.drop > div.down > div.drop > div.down a {
+    padding-left: 40px;
+    text-align: left;
+}
+nav.sidebar  div.drop > div.down > div.drop > div.down > div.drop > div.down a {
+    padding-left: 52px;
+    text-align: left;
+}
+nav.sidebar  div.drop > div.down > div.drop > div.down > div.drop > div.down > div.drop > div.down a {
+    padding-left: 64px;
+    text-align: left;
+}
 
 
 
