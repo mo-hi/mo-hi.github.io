@@ -91,16 +91,19 @@
                 <div id = "id-bjs-basis-list" class="flex-wrap gap-5i w-90">
                     <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
                 </div>
+
                 <h3> clsBasis functions<a href="#id-h2-autifill-clsBasis" class="no-underline"> # </a></h3>
                 <div id = "id-bjs-clsBasis-list" class="flex-wrap gap-5i w-90">
                     <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
                 </div>
-                <h3 class="inline-block"> see clsDOM functions<a href="#id-h2-autifill-clsDOM" class="no-underline"> # </a></h3> 
-                <div class="inline-block remove-me" style="padding: 25px;">
-                     (see <a href="../dom/dom.html" target="_blank" >clsDOM.html</a> &nbsp;for more details)
-                </div>
-               
+
+                <h3 >clsDOM functions<a href="#id-h2-autifill-clsDOM" class="no-underline"> # </a></h3> 
                 <div id = "id-bjs-clsDOM-list" class="flex-wrap gap-5i w-90 mt-10">
+                    <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
+                </div>
+
+                <h3> custom Elements<a href="#id-h2-autifill-customElements" class="no-underline"> # </a></h3>
+                <div id = "id-bjs-customElements-list" class="flex-wrap gap-5i w-90">
                     <a href="#id-h3-{{name}}" class="">{{name}}</a>&nbsp;|&nbsp;
                 </div>
 
@@ -146,6 +149,20 @@
             functions that will in general directly affect the user experience. See&nbsp;<a href="../dom/dom.html" target="_blank">clsDOM</a> &nbsp;for more details
         </p>
         <div id="id-autofill-clsDOM" class="auto-fill">
+            <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
+            
+            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="{{codeLines}}">
+{{code}}</textarea>
+            </div>
+        </div>
+
+        <h2 id = "id-h2-autifill-customElements" class="underline sticky-50" style="background-color: var(--color-bg-main);">Custom Elements</h2>
+        <p>
+            custom HTML elements that can be used in your project.
+        </p>
+        <div id="id-autofill-customElements" class="auto-fill">
             <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
             
             <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
@@ -203,23 +220,26 @@
     mergedFunctionsInfo = addTestResultstoList(mergedFunctionsInfo , FromFile_FunctionsTestResults) // Delete for bJS.html
 
     // Fill individual function sections with code and docstring
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-autofill-basis')
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-autofill-clsBasis')
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsDOM"), 'id-autofill-clsDOM')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-autofill-basis')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-autofill-clsBasis')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "clsDOM"), 'id-autofill-clsDOM')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "customElements"), 'id-autofill-customElements')
 
 
     // the wrapped links in the top of the page
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-bjs-basis-list')
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-bjs-clsBasis-list')
-    Auto_Fill(mergedFunctionsInfo.filter(item => item.source === "clsDOM"), 'id-bjs-clsDOM-list')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-bjs-basis-list')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-bjs-clsBasis-list')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "clsDOM"), 'id-bjs-clsDOM-list')
+    clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "customElements"), 'id-bjs-customElements-list')
 
     restOfFunctionsInfo = mergedFunctionsInfo.filter(
         item => item.source !== "basis" && 
         item.source !== "clsBasis" && 
-        item.source !== "clsDOM"
+        item.source !== "clsDOM" && 
+        item.source !== "customElements"
     )
-    Auto_Fill(restOfFunctionsInfo, 'id-autofill')
-    Auto_Fill(restOfFunctionsInfo, 'id-bjs-notConsolidated-list')
+    clsDOM.AutoFill(restOfFunctionsInfo, 'id-autofill')
+    clsDOM.AutoFill(restOfFunctionsInfo, 'id-bjs-notConsolidated-list')
 </script>
 </html>
 

@@ -436,5 +436,11 @@ const FromFile_FunctionsInfo_JS = [
         "docstring": "returns a shrinked string representation. If the string length is less than or equal to maxLength, it returns the original string.\nIf the string length exceeds maxLength, it truncates the string to fit within maxLength by preserving the start and end segments and inserting '...' in between.\nThe minimum value for maxLength is 10.",
         "parameters": "maxLength",
         "source": "proto"
+    },
+    {
+        "name": "SelectionPill",
+        "docstring": "erstellt eine Auswahl von Optionen in Form von \"Pills\" (Schaltfl\u00e4chen).",
+        "parameters": "",
+        "source": "customElements"
     }
 ]

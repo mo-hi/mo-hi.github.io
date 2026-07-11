@@ -129,7 +129,22 @@ let FromFile_FunctionsCodeExamples = [
         code: [
             'clsDOM.DownloadHTML("my-document.html");',
         ]
-    }
+    },
+{
+    name: "SelectionPill",
+    code: [
+        "HTML:",
+        `<selection-pill name="my-selection" type="radio" checked="Option 2" options='["Option 1", "Option 2", "Option 3"]'></selection-pill>`,
+        "",
+        "JavaScript:",
+        '// select the custom element',
+        `let selectionPill = document.querySelector('selection-pill[name="my-selection"]'); `,
+        `// attach an event listener directly to the custom element`,
+        `selectionPill.addEventListener('change', (event) => {`,
+        `    console.log("Selected value:", event.target.value);`,
+        `});`
+    ]
+}
 ]
 
 function post_FromFile_FunctionsCodeExamples() {

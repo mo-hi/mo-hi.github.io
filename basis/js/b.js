@@ -865,6 +865,79 @@ clsDOM.RemoveWithClass = function(className) {
     });
 }
 // ####################################################################################################
+// region customElements_SelectionPill                                                                    #
+// ####################################################################################################
+
+/**
+erstellt eine Auswahl von Optionen in Form von "Pills" (Schaltflächen).
+ */
+class SelectionPill extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        // 1. Attribute aus html tag auslesen und Standardwerte festlegen
+        const name = this.getAttribute('name') || 'pill-input';
+        const type = this.getAttribute('type') || 'checkbox'; // 'radio' oder 'checkbox'
+        const checkedValue = this.getAttribute('checked') || null; 
+        let options = this.getAttribute('options') || '[]'; // JSON-String, z.B. '["Option 1", "Option 2"]'
+        
+        // JSON-String aus dem 'options'-Attribut in ein echtes Array umwandeln
+        let optionsJSON;
+        try {
+            optionsJSON = JSON.parse(options);
+        } catch (e) {
+            console.error(`Fehler beim Parsen der Optionen für ${name}:`, e);
+            return;
+        }
+
+        // 2. Das umschließende Form-Element erstellen
+        const form = document.createElement('form');
+        form.id = `id-form-${name}`;
+        form.className = 'selection-pill mr-30';  // css for style in b.css
+        
+
+        // 3. HTML für jede Option generieren
+        optionsJSON.forEach((optionText, index) => {
+            // Eindeutige ID für das Label-Mapping (z.B. id-slimMode-1)
+            const inputId = `id-${name}-${index}`;
+            
+            // Input-Element erstellen
+            const input = document.createElement('input');
+            input.type = type;
+            input.name = name;
+            input.id = inputId;
+            input.value = optionText.toLowerCase(); // Wert oft klein geschrieben
+
+            // Prüfen, ob dieses Element standardmäßig ausgewählt sein soll
+            // Entweder durch das 'checked'-Attribut oder standardmäßig das erste Element bei Radios
+            if (checkedValue) {
+                if (optionText.toLowerCase() === checkedValue.toLowerCase()) {
+                    input.checked = true;
+                }
+            } else if (type === 'radio' && index === 0) {
+                input.checked = true;
+            }
+
+            // Label-Element erstellen
+            const label = document.createElement('label');
+            label.setAttribute('for', inputId);
+            label.innerHTML = optionText; // Erlaubt auch HTML-Entities wie &#x25BC;
+
+            // Input und Label in das Formular einfügen
+            form.appendChild(input);
+            form.appendChild(label);
+        });
+
+        // 4. Das generierte Formular in das Custom Element einhängen
+        this.appendChild(form);
+    }
+}
+
+// Das Element im Browser registrieren
+customElements.define('selection-pill', SelectionPill);
+// ####################################################################################################
 // region dom_basis                                                                                       #
 // ####################################################################################################
 
