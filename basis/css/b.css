@@ -2488,6 +2488,10 @@ div.brown > svg {
 // #                                              table                                               #
 // ####################################################################################################
 */
+table.border-collapse {
+    border-collapse: collapse;
+}
+
 table.border {
     border-collapse: collapse;
     border: 1px solid #aaa;
@@ -2515,6 +2519,10 @@ table.border-box td > div{
 
 table td.top {
     vertical-align: top;
+}
+
+table td.text-center {
+    text-align: center;
 }
 
 table.padding-0 td, table.padding-0 td > .p-td {padding: 0px;}

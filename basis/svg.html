@@ -1,0 +1,255 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>svg JS</title>
+    <link rel="stylesheet" href="css/b.css">
+    <link rel="stylesheet" href="../navbar/css/nav.css">
+    <style>
+        :root,
+        body.dark {
+            --color-a: var(--color-sky-400);
+
+            --color-bg-body: var(--color-zinc-950);
+            --color-bg-main: var(--color-zinc-900);
+            --color-text: var(--color-zinc-100);
+
+            --color-pill-bg: var(--color-gray-50);
+            --color-pill-font: var(--color-gray-500);
+
+            --color-pill-bg-checked: var(--color-cyan-100);
+            --color-pill-font-checked: var(--color-cyan-900);
+
+            --color-textarea-code-bg: var(--color-zinc-800);
+            --color-textarea-code-text: var(--color-zinc-300);
+            --color-textarea-code-border: var(--color-zinc-400);
+            --color-textarea-code-accent: var(--color-blue-500);
+            --color-textarea-code-accent-glow: var(--color-blue-800);
+            --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+            --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+
+            --color-c-bg: color-mix(in oklch, var(--color-cyan-500) 10%, transparent);
+            --color-c-font: var(--color-cyan-400);
+        }
+
+        body.light {
+            --color-a: var(--color-blue-600);
+
+            --color-text: var(--color-zinc-900);
+            --color-bg-body: var(--color-zinc-200);
+            --color-bg-main: var(--color-zinc-50);
+
+            --color-textarea-code-bg: var(--color-zinc-100);
+            --color-textarea-code-text: var(--color-zinc-600);
+            --color-textarea-code-border: var(--color-zinc-300);
+
+            --color-c-bg: var(--color-cyan-100);
+            --color-c-font: var(--color-cyan-900);
+        }
+
+        body.dark {
+            --color-nav-bg: var(--color-gray-800);
+            --color-nav-down-bg: var(--color-gray-700);
+            --color-nav-font: var(--color-zinc-200);
+
+            --color-nav-btn-bg: var(--color-blue-600);
+            --color-nav-btn-font: white;
+        }
+
+        body.light {
+            --color-nav-bg: var(--color-slate-300);
+            --color-nav-down-bg: var(--color-slate-300);
+            --color-nav-font: var(--color-zinc-900);
+
+            --color-nav-btn-bg: var(--color-blue-600);
+            --color-nav-btn-font: white;
+        }
+    </style>
+</head>
+
+<body class="font-os light">
+    <main class="w-responsive-l slim-headers">
+        <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
+            <nav>
+                <a href="#id-h2-about-bjs">Home</a>
+            </nav>
+            <nav class="nav-right">
+                <a class="nav-btn" onclick="toggleTheme(this)">dark theme</a>
+            </nav>
+        </div>
+        <section class="mt-40i">
+            <h2 id="id-h2-about-svgjs" class="underline" style="background-color: var(--color-bg-main);">
+                About svg.js</h2>
+            <p>
+                svg.JS provides ready to use svgs for your personal projects. Just add the following script reference to
+                your project:
+            </p>
+            <div class="h-30 w-80 js-fill mt-5i mb-60i">
+                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
+                    rows="1">&lt;script src="https://mo-hi.github.io/basis/js/svg.js"&gt;&lt;/script&gt;</textarea>
+            </div>
+            <p>
+                and then put in this line in your script code:
+            </p>
+            <div class="h-30 w-80 js-fill mt-5i mb-60i">
+                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
+                    rows="1">clsSVG.ReplaceAll()</textarea>
+            </div>
+            <p>
+                The svg.JS script will automatically replace all svg elements with the corresponding svg code. For
+                examples:
+            </p>
+            <table class="w-80 border-collapse border-rows padding-5 mt-10">
+                <thead>
+                    <tr>
+                        <th class="text-left w-70">HTML</th>
+                        <th class="text-left w-30">SVG result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="h-30 w-80 js-fill mt-5i mb-60i">
+                                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
+                                    rows="3">&lt;svg&gt;
+    &lt;use href="#icon-heart"/&gt;
+&lt;/svg&gt;</textarea>
+                            </div>
+                        </td>
+                        <td> <svg>
+                                <use href="#icon-heart" />
+                            </svg>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="h-30 w-80 js-fill mt-5i mb-60i">
+                                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
+                                    rows="3">&lt;svg&gt;
+    &lt;use href="#icon-star"/&gt;
+&lt;/svg&gt;</textarea>
+                            </div>
+                        </td>
+                        <td> <svg>
+                                <use href="#icon-star" />
+                            </svg>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </p>
+            Now these svg might be fit in size or color to your project. You you can set the following attributes on the svg element to customize
+            the svg:
+            <table class="w-80 border-collapse border-rows padding-5 mt-10">
+                <thead>
+                    <tr>
+                        <th class="text-left">Attribute</th>
+                        <th class="text-left">Description</th>
+                        <th class="text-left">Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>width</td>
+                        <td>set the width of the svg</td>
+                        <td>&lt;svg width="24"&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>height</td>
+                        <td>set the height of the svg</td>
+                        <td>&lt;svg height="24"&gt;</td>
+                    </tr>
+                    <tr>
+                        <td>style</td>
+                        <td>set the style of the svg, especailly the fill color and stroke color of the svg</td>
+                        <td>&lt;svg style="color: blue;fill: yellow"&gt;</td>
+                    </tr>
+            </table>
+        </section>
+        <section class="mt-40i">
+            <h2 id="id-h2-usage" class="underline" style="background-color: var(--color-bg-main);">
+                Live Examples</h2>
+            <p>
+            Here's a compelte list of all the svgs that are available in the svg.JS script with live examples. 
+            You can direclty write into the svg code column and see the result in the svg result column. 
+            You can also set the width, height and style of the svg element to customize the svg.
+            <div class="h-30 w-100"></div>
+            <table class="w-100 border-collapse border-rows padding-5 mt-10">
+                <thead>
+                    <th class="w-70">svg code</th>
+                    <th class="w-30">svg result</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div id="id-svg-code"></div>
+                        </td>
+                        <td id="id-td-svg-code" class="text-center"><svg width="24" height="24"
+                                style="color: blue;fill: blue">
+                                <use href="#icon-star" />
+                            </svg></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- </p>
+                Rate this 5
+                <svg width="10" height="10" style="color: blue;fill: yellow">
+                    <use href="#icon-star" />
+                </svg>
+                stars.
+            </p> -->
+        </section>
+    </main>
+
+
+
+
+    <footer>
+        <br>
+        <hr>
+        <section>
+            <p>
+                Back to <a href="../index.html" class="mr-20"> mo-hi </a> |
+                Link to <a href="https://github.com/mo-hi/mo-hi.github.io">github repo</a>
+            </p>
+        </section>
+        <div class="h-30"></div>
+    </footer>
+
+
+
+    <script src="js/b.js"></script>
+    <script src="svg/svg.js"></script>
+    <script>
+        clsSVG.ReplaceAll();
+    </script>
+
+    <script>
+        function toggleTheme(element) {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+
+            // Swap the link text based on the current state
+            element.innerHTML = element.innerHTML === 'light theme' ? 'dark theme' : 'light theme';
+        }
+    </script>
+    <script>
+        ExposeHTML({
+            divToExpose: document.getElementById("id-td-svg-code"),
+            divToAppend: document.getElementById("id-svg-code"),
+            outer: false,
+            pretty: true,
+            textAreaClassName: "code",
+            lineNumbers: false,
+            synchWithTarget: true,
+            defineRows: true
+        });
+    </script>
+
+
+
+</body>
+
+</html>

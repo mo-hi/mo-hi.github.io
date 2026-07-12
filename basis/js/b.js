@@ -265,7 +265,8 @@ function ExposeHTML(config) {
         pretty: {typOf: 'bool', required: false},
         textAreaClassName: {typOf: 'str', required: false},
         synchWithTarget: {typOf: 'bool', required: false},
-        lineNumbers: {typOf: 'bool', required: false}
+        lineNumbers: {typOf: 'bool', required: false}, 
+        defineRows: {typOf: 'bool', required: false}
     };
     if (ValidateSCHEMA(config, SCHEMA) == false) return;
 
@@ -278,6 +279,7 @@ function ExposeHTML(config) {
     let textAreaClassName = config.textAreaClassName || "";
     let synchWithTarget = config.synchWithTarget || false;
     let lineNumbers = config.lineNumbers || false;
+    let defineRows = config.defineRows || false;
 
     let textarea = clsDivBuilder.BuildTextArea({
         id: id, className: textAreaClassName, spellcheck: false, 
@@ -325,6 +327,11 @@ function ExposeHTML(config) {
     let DescendantTextAreas = divToAppend.querySelector('textarea')
     if (DescendantTextAreas) {
         DescendantTextAreas.remove();
+    }
+
+    if (defineRows) {
+        let lineCount = (textarea.value.match(/\n/g) || []).length;
+        textarea.rows = lineCount + 1;
     }
 
     divToAppend.appendChild(textarea);   
@@ -879,7 +886,7 @@ class SelectionPill extends HTMLElement {
     connectedCallback() {
         // 1. Attribute aus html tag auslesen und Standardwerte festlegen
         const name = this.getAttribute('name') || 'pill-input';
-        const type = this.getAttribute('type') || 'checkbox'; // 'radio' oder 'checkbox'
+        const type = this.getAttribute('type') || 'radio'; // 'radio' oder 'checkbox'
         const checkedValue = this.getAttribute('checked') || null; 
         let options = this.getAttribute('options') || '[]'; // JSON-String, z.B. '["Option 1", "Option 2"]'
         
