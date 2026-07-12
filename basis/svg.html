@@ -140,7 +140,7 @@
                 </tbody>
             </table>
             </p>
-            Now these svg might be fit in size or color to your project. You you can set the following attributes on the svg element to customize
+            These svgs will likely not fit in size or color to your project. You you can set the following attributes on the svg element to customize
             the svg:
             <table class="w-80 border-collapse border-rows padding-5 mt-10">
                 <thead>
@@ -172,24 +172,29 @@
             <h2 id="id-h2-usage" class="underline" style="background-color: var(--color-bg-main);">
                 Live Examples</h2>
             <p>
-            Here's a compelte list of all the svgs that are available in the svg.JS script with live examples. 
-            You can direclty write into the svg code column and see the result in the svg result column. 
+            Here's a complete list of all the svgs that are available in the svg.JS script with live examples. 
+            You can directly write into the svg code column and see the result in the svg result column. 
             You can also set the width, height and style of the svg element to customize the svg.
             <div class="h-30 w-100"></div>
             <table class="w-100 border-collapse border-rows padding-5 mt-10">
                 <thead>
-                    <th class="w-70">svg code</th>
-                    <th class="w-30">svg result</th>
+                    <th class="w-20">svg name</th>
+                    <th class="w-60">svg code</th>
+                    <th class="w-20">svg result</th>
                 </thead>
-                <tbody>
+                <tbody  id ="id-td-svg-entries">
                     <tr>
                         <td>
-                            <div id="id-svg-code"></div>
+                            {{name}}
                         </td>
-                        <td id="id-td-svg-code" class="text-center"><svg width="24" height="24"
+                        <td>
+                            <div id="id-svg-code-{{name}}"></div>
+                        </td>
+                        <td id="id-td-svg-code-{{name}}" class="text-center"><svg width="24" height="24"
                                 style="color: blue;fill: blue">
-                                <use href="#icon-star" />
-                            </svg></td>
+                                <use href="#{{name}}" />
+                            </svg>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -236,17 +241,27 @@
         }
     </script>
     <script>
-        ExposeHTML({
-            divToExpose: document.getElementById("id-td-svg-code"),
-            divToAppend: document.getElementById("id-svg-code"),
-            outer: false,
-            pretty: true,
-            textAreaClassName: "code",
-            lineNumbers: false,
-            synchWithTarget: true,
-            defineRows: true
-        });
+        let svgList = clsSVG.getIconList();
+        let svgDict= svgList.map(item => ({ name: item }));
+
+        clsDOM.AutoFill(svgDict, "id-td-svg-entries");
     </script>
+    <script>
+        for (let svgName of svgList) {
+            ExposeHTML({
+                divToExpose: document.getElementById(`id-td-svg-code-${svgName}`),
+                divToAppend: document.getElementById(`id-svg-code-${svgName}`),
+                outer: false,
+                pretty: true,
+                textAreaClassName: "code",
+                lineNumbers: false,
+                synchWithTarget: true,
+                defineRows: true
+            });
+        }
+
+    </script>
+
 
 
 
