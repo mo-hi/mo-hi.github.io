@@ -77,6 +77,11 @@ class clsSVG {
         <path d="M6 6 l12 12" />
         <path d="M6 18 l12 -12" />
     </symbol>
+    `,
+    'icon-check': `
+    <symbol id="icon-check" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M5 13 l4 4 l10 -10" />
+    </symbol>
     `
   };
 
