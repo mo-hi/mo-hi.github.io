@@ -85,8 +85,17 @@ class clsSVG {
    * @param {string} name - The key of the icon (e.g., 'icon-heart')
    * @returns {string} The SVG symbol string or empty string if not found
    */
-  static getCode(name) {
-    return this.#library[name] || '';
+  static getCode(name, width = 24, height = 24, style = '') {
+    let symbolString = this.#library[name];
+    
+    if (!symbolString) return '';
+
+    const customAttributes = `width="${width}" height="${height}"${style ? ` style="${style}"` : ''}`;
+    let ret = symbolString
+      .replace('<symbol', `<svg ${customAttributes}`)
+      .replace('</symbol>', '</svg>');
+    
+    return ret;
   }
 
   static getIconList() {
