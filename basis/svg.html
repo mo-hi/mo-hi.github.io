@@ -1,9 +1,8 @@
-<html lang="en">
-
-<head>
+<html lang="en"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    
     <title>svg JS</title>
     <link rel="stylesheet" href="css/b.css">
     <link rel="stylesheet" href="../navbar/css/nav.css">
@@ -69,7 +68,75 @@
     </style>
 </head>
 
-<body class="font-os light">
+<body class="font-os light"><div id="cls-sprite-master" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-heart" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+    </symbol>
+<symbol id="icon-star" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+<symbol id="icon-edit" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 2 l3 3 l-3 3 l-3 -3 z"></path>  
+            <path d="M4 14 v3 h3 l7.5-7.5 l -3 -3 z"></path>
+            <path d="M4 22h16" stroke-width="2"></path>   
+        </symbol>
+
+        <symbol id="icon-grid" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="8" height="8" rx="1" ry="1"></rect>
+            <rect x="13" y="3" width="8" height="8" rx="1" ry="1"></rect>
+            <rect x="3" y="13" width="8" height="8" rx="1" ry="1"></rect>
+            <rect x="13" y="13" width="8" height="8" rx="1" ry="1"></rect>
+        </symbol>
+    
+
+    <symbol id="icon-menu" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path d="M3 6h18"></path>
+        <path d="M3 12h18"></path>
+        <path d="M3 18h18"></path>
+    </symbol>
+    
+
+        <symbol id="icon-search" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="10" cy="10" r="6" fill="none"></circle>
+            <path d="M16 16 l5 5" stroke-linecap="round"></path>
+        </symbol>
+    
+
+        <symbol id="icon-filter" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 6h18"></path>
+            <path d="M6 12h12"></path>
+            <path d="M9 18h6"></path>
+        </symbol>
+    
+
+        <symbol id="icon-download" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M12 5 v10"></path>
+            <path d="M6 12 l6 4 l6 -4" fill="none"></path>
+            <path d="M3 20 h18"></path>
+        </symbol>
+    
+
+        <symbol id="icon-upload" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M12 5 v12"></path>
+            <path d="M6 10 l6 -4 l6 4" fill="none"></path>
+            <path d="M3 20 h18"></path>
+        </symbol>
+    
+
+        <symbol id="icon-save" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M8 2 L4 2 L2 4 L2 20 L4 22 L20 22 L22 20 L22 4 L20 2 L12 2 L12 16"></path>
+            <path d="M6 12L 12 16L 18 12"></path>
+        </symbol>
+    
+
+    <symbol id="icon-discard" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M6 6 l12 12"></path>
+        <path d="M6 18 l12 -12"></path>
+    </symbol>
+    
+
+    <symbol id="icon-check" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+        <path d="M5 13 l4 4 l10 -10"></path>
+    </symbol>
+    </svg></div>
     <main class="w-responsive-l slim-headers">
         <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
             <nav>
@@ -87,15 +154,13 @@
                 your project:
             </p>
             <div class="h-30 w-80 js-fill mt-5i mb-60i">
-                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
-                    rows="1">&lt;script src="https://mo-hi.github.io/basis/js/svg.js"&gt;&lt;/script&gt;</textarea>
+                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="1">&lt;script src="https://mo-hi.github.io/basis/js/svg.js"&gt;&lt;/script&gt;</textarea>
             </div>
             <p>
                 and then put in this line in your script code:
             </p>
             <div class="h-30 w-80 js-fill mt-5i mb-60i">
-                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
-                    rows="1">clsSVG.ReplaceAll()</textarea>
+                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="1">clsSVG.ReplaceAll()</textarea>
             </div>
             <p>
                 The svg.JS script will automatically replace all svg elements with the corresponding svg code. For
@@ -112,34 +177,32 @@
                     <tr>
                         <td>
                             <div class="h-30 w-80 js-fill mt-5i mb-60i">
-                                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
-                                    rows="3">&lt;svg&gt;
+                                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="3">&lt;svg&gt;
     &lt;use href="#icon-heart"/&gt;
 &lt;/svg&gt;</textarea>
                             </div>
                         </td>
                         <td> <svg>
-                                <use href="#icon-heart" />
+                                <use href="#icon-heart"></use>
                             </svg>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="h-30 w-80 js-fill mt-5i mb-60i">
-                                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
-                                    rows="3">&lt;svg&gt;
+                                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="3">&lt;svg&gt;
     &lt;use href="#icon-star"/&gt;
 &lt;/svg&gt;</textarea>
                             </div>
                         </td>
                         <td> <svg>
-                                <use href="#icon-star" />
+                                <use href="#icon-star"></use>
                             </svg>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            </p>
+            <p></p>
             These svgs will likely not fit in size or color to your project. You you can set the following attributes on the svg element to customize
             the svg:
             <table class="w-80 border-collapse border-rows padding-5 mt-10">
@@ -166,12 +229,11 @@
                         <td>set the style of the svg, especailly the fill color and stroke color of the svg</td>
                         <td>&lt;svg style="color: blue;fill: yellow"&gt;</td>
                     </tr>
-            </table>
+            </tbody></table>
             <div class="h-20 w-100"></div>
             You can get the svg code for a specific svg by using the following code:
             <div class="h-30 w-80 js-fill mt-5i mb-60i">
-                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;"
-                    rows="1">clsSVG.getCode("icon-heart", 24, 24, "color: blue; fill: yellow")</textarea>
+                <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="1">clsSVG.getCode("icon-heart", 24, 24, "color: blue; fill: yellow")</textarea>
             </div>
         </section>
         <section class="mt-40i">
@@ -181,24 +243,166 @@
             Here's a complete list of all the svgs that are available in the svg.JS script with live examples. 
             You can directly write into the svg code column and see the result in the svg result column. 
             You can also set the width, height and style of the svg element to customize the svg.
-            <div class="h-30 w-100"></div>
+            </p><div class="h-30 w-100"></div>
             <table class="w-100 border-collapse border-rows padding-5 mt-10">
                 <thead>
-                    <th class="w-20">svg name</th>
+                    <tr><th class="w-20">svg name</th>
                     <th class="w-60">svg code</th>
                     <th class="w-20">svg result</th>
-                </thead>
-                <tbody  id ="id-td-svg-entries">
+                </tr></thead>
+                <tbody id="id-td-svg-entries">
                     <tr>
                         <td>
-                            {{name}}
+                            icon-heart
                         </td>
                         <td>
-                            <div id="id-svg-code-{{name}}"></div>
+                            <div id="id-svg-code-icon-heart"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
                         </td>
-                        <td id="id-td-svg-code-{{name}}" class="text-center"><svg width="24" height="24"
-                                style="color: blue;fill: blue">
-                                <use href="#{{name}}" />
+                        <td id="id-td-svg-code-icon-heart" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-heart"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-star
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-star"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-star" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-star"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-edit
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-edit"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-edit" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-edit"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-grid
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-grid"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-grid" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-grid"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-menu
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-menu"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-menu" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-menu"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-search
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-search"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-search" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-search"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-filter
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-filter"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-filter" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-filter"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-download
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-download"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-download" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-download"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-upload
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-upload"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-upload" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-upload"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-save
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-save"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-save" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-save"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-discard
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-discard"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-discard" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-discard"></use>
+                            </svg>
+                        </td>
+                    </tr>
+                
+                    <tr>
+                        <td>
+                            icon-check
+                        </td>
+                        <td>
+                            <div id="id-svg-code-icon-check"><textarea id="" class="code" spellcheck="false" rows="4" style="width: 100%; height: 100%;"></textarea></div>
+                        </td>
+                        <td id="id-td-svg-code-icon-check" class="text-center"><svg width="24" height="24" style="color: blue;fill: blue">
+                                <use href="#icon-check"></use>
                             </svg>
                         </td>
                     </tr>
@@ -226,6 +430,8 @@
     <script src="svg/svg.js"></script>
     <script>
         clsSVG.ReplaceAll();
+
+        let svgList = clsSVG.getIconList();
     </script>
 
     <script>
@@ -237,12 +443,7 @@
             element.innerHTML = element.innerHTML === 'light theme' ? 'dark theme' : 'light theme';
         }
     </script>
-    <script>
-        let svgList = clsSVG.getIconList();
-        let svgDict= svgList.map(item => ({ name: item }));
-
-        clsDOM.AutoFill(svgDict, "id-td-svg-entries");
-    </script>
+    
     <script>
         for (let svgName of svgList) {
             ExposeHTML({
@@ -262,6 +463,6 @@
 
 
 
-</body>
 
-</html>
+
+</body></html>
