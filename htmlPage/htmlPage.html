@@ -6,6 +6,7 @@
     <meta name="author" content="Mo Hi">
     <title>html Page</title>
     <link rel="stylesheet" href="../basis/css/b.css">
+    <link rel="stylesheet" href="../navbar/css/nav.css">
     <style>
         /* b.css override colors */
         :root, body.dark {
@@ -65,14 +66,29 @@
         }
     </style>
 </head>
-<body class="dark">
-    <main class="w-responsive-xl">
-        <h1>HTML</h1>
-        <h2>html starting template</h2>
-        <p>
-            This is a starter template for html pages based on the basis framework b.css and b.js.
-        </p>
-        <div id="id-html-starter-show" class="h-600 w-94 mt-20 mb-80"></div>
+<body class="dark font-os">
+    <main class="w-responsive-l">
+        <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
+            <nav>
+                <a href="#id-h2-about-bjs">Home</a>
+                
+            </nav>
+            <nav class="nav-right">
+                <a class="nav-btn" onclick="toggleTheme(this)">light theme</a>
+            </nav>
+        </div>
+        <h1 class="mt-40i">HTML</h1>
+        <section>
+            <h2>html starting template</h2>
+            <p>
+                This is a starter template for html pages based on the basis framework b.css and b.js.
+            </p>
+            <div class="collapse " style="background-color: var(--color-zinc-600)">
+                <div onclick="toggleCollapse(this)" class="w-100 h-30" style="cursor: pointer;background-color: var(--color-zinc-800)">+ Expand Code</div>
+                <div id="id-html-starter-show" class="w-94 mb-80 p-10" style="display: none"></div>
+            </div>
+            
+        </section>
         <h2>Colors</h2> 
         <p>
             
@@ -124,7 +140,7 @@
             <label for="id-mainWidth-5">FULL</label>
         </form>
 
-        <div id="id-html-code-show" class="h-80 w-94 mt-20 mb-80"></div>
+        <div id="id-html-code-show" class=" w-94 mt-20 mb-80"></div>
 
         <h1>Selection Pills</h1>
         <p>
@@ -143,7 +159,7 @@
             </form>
         </div>
 
-        <div id="id-single-pill-show" class="h-100 w-94 mb-100"></div>
+        <div id="id-single-pill-show" class="w-94 mb-100"></div>
 
         <div id="id-multi-pill-html" class="mt-20 mb-20">
             <form id = 'id-multi-pill-form' class="selection-pill" onchange="foo(event)">
@@ -158,7 +174,7 @@
             </form>
         </div>
 
-        <div id="id-multi-pill-show" class="h-180 w-94 mb-80"></div>
+        <div id="id-multi-pill-show" class="w-94 mb-80"></div>
         
         <p class="pt-30">
             To get the values of the pills you can use the <c>getFormValueSimple</c> and <c>getFormValue</c> functions or
@@ -182,7 +198,7 @@
             
         </p>
 
-        <div id="id-script-getFormValue-show" class="h-320 w-94 mb-80"></div>
+        <div id="id-script-getFormValue-show" class="w-94 mb-80"></div>
 
         <footer-js></footer-js>
     </main>
@@ -210,76 +226,184 @@
 </div>
 
 <script>
-    const starterTemplate = `   <!doctype html>
+    const starterTemplate = `
     <html lang="en">
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>template</title>
             <link rel="stylesheet" href="b.css">
+            <link rel="stylesheet" href="nav.css">
             <style>
-            :root, body.dark {>><<
-                --color-text: var(--color-zinc-100);>><<
-                --color-bg-body: var(--color-zinc-950);>><<
-                --color-bg-main: var(--color-zinc-900);>><<
-            }>><<
-            body.light {>><<
-                --color-text: var(--color-zinc-900);>><<
-                --color-bg-body: var(--color-zinc-200);>><<
-                --color-bg-main: var(--color-zinc-50);>><<
-            }>><<
+        :root, body.dark {
+            --color-text: var(--color-zinc-100);
+
+            --color-bg-body: var(--color-zinc-950);
+            --color-bg-main: var(--color-zinc-900);
+
+            --color-nav-bg: var(--color-gray-800); 
+            --color-nav-down-bg: var(--color-gray-700); 
+            --color-nav-font: var(--color-zinc-200);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+
+            --color-pill-bg: var(--color-gray-50);
+            --color-pill-font: var(--color-gray-500);
+
+            --color-pill-bg-checked: var(--color-cyan-100);
+            --color-pill-font-checked: var(--color-cyan-900);
+
+            --color-c-bg: var(--color-zinc-700);
+            --color-c-font: var(--color-cyan-300);
+
+            --color-textarea-code-bg: var(--color-zinc-800);
+            --color-textarea-code-text: var(--color-zinc-300);
+            --color-textarea-code-border: var(--color-zinc-400);         
+            --color-textarea-code-accent: var(--color-blue-500);
+            --color-textarea-code-accent-glow: var(--color-blue-800);
+            --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+            --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+        }
+
+        body.light {
+            --color-text: var(--color-zinc-900);
+
+            --color-bg-body: var(--color-zinc-200);
+            --color-bg-main: var(--color-zinc-50);
+
+            --color-nav-bg: var(--color-gray-50); 
+            --color-nav-down-bg: var(--color-gray-100); 
+            --color-nav-font: var(--color-zinc-900);
+    
+            --color-nav-btn-bg:var(--color-blue-600);
+            --color-nav-btn-font: white;
+
+            --color-c-bg: var(--color-zinc-300);
+            --color-c-font: var(--color-red-700);
+
+            --color-textarea-code-bg: var(--color-zinc-100);
+            --color-textarea-code-text: var(--color-zinc-800);
+            --color-textarea-code-border: var(--color-zinc-400);         
+            --color-textarea-code-accent: var(--color-blue-500);
+            --color-textarea-code-accent-glow: var(--color-blue-800);
+            --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+            --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+        }
             </style>
         </head>
         <body class="dark">
-            <main class="w-responsive-xl">
+            <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
+                <nav>
+                    <a href="#id-h2-about-bjs">Home</a>
+                    
+                </nav>
+                <nav class="nav-right">
+                    <a class="nav-btn" onclick="toggleTheme(this)">light theme</a>
+                </nav>
+            </div>
+            <main class="w-responsive-l">
                 <h1>Hello, world!</h1>
+                <section>
+                    <h2>...</h2>
+                    <p>
+                        ...
+                    </p>
+                </section>
             </main>
         </body>
         <script src="b.js"><` + `/script>
+         <script>
+            function toggleTheme(element) {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+            element.innerHTML = element.innerHTML === 'light theme' ? 'dark theme' : 'light theme';
+        }
+        <` + `/script>
     </html>`;
 
     const emptylDiv = document.createElement("div");
+    
+    // let starterTemplateFine = starterTemplate.split("\n").map(line => line.trim()).join("\n");
+    // starterTemplateFine = clsBasis.formatBracketText(starterTemplateFine, { indentStr: "    ",  newlineAfter: ["{", "}", ";"]});
+    // starterTemplateFine = clsBasis.formatTagText(starterTemplateFine, { indentStr: "    " });
+    starterTemplateFine = starterTemplate.after("\n").split("\n").map(line => line.after("    ")).join("\n");
 
-    ExposeHTML({
+
+    clsDOM.ExposeHTML({
         divToExpose: emptylDiv,
-        stringToExpose: starterTemplate,
+        stringToExpose: starterTemplateFine,
         divToAppend: document.getElementById("id-html-starter-show"),
         outer: true,
-        pretty: true, 
         textAreaClassName: "code",
-        lineNumbers: true})
+        defineRows: true
+    })
 
-    ExposeHTML({
+    clsDOM.ExposeHTML({
         divToExpose: getTruncatedHTML(document.body, 1), 
         divToAppend: document.getElementById("id-html-code-show"),
         outer: true,
         pretty: true, 
         textAreaClassName: "code",
-        lineNumbers: false})
+        lineNumbers: false,
+        defineRows: true
+    })
 
-    ExposeHTML({
+    clsDOM.ExposeHTML({
         divToExpose: document.getElementById("id-single-pill-html"), 
         divToAppend: document.getElementById("id-single-pill-show"),
         outer: false,
         pretty: true, 
         textAreaClassName: "code",
-        synchWithTarget: false})
+        synchWithTarget: false,
+        defineRows: true
+})
 
-    ExposeHTML({
+    clsDOM.ExposeHTML({
         divToExpose: document.getElementById("id-multi-pill-html"), 
         divToAppend: document.getElementById("id-multi-pill-show"),
         outer: false,
         pretty: true, 
         textAreaClassName: "code",
-        synchWithTarget: false})
+        synchWithTarget: false,
+        defineRows: true
+    })
 
 
-    ExposeHTML({
+    clsDOM.ExposeHTML({
         divToExpose: document.getElementById("id-script-getFormValue"), 
         divToAppend: document.getElementById("id-script-getFormValue-show"),
         outer: false,
         pretty: false, 
         textAreaClassName: "code",
-        synchWithTarget: false})
+        synchWithTarget: false,
+        defineRows: true
+        })
 </script>
+ <script>
+    function toggleTheme(element) {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+    
+    // Swap the link text based on the current state
+    element.innerHTML = element.innerHTML === 'light theme' ? 'dark theme' : 'light theme';
+}
+ </script>
+ <script>
+    function toggleCollapse(toggleElement) {
+    // Find the next sibling element in the DOM
+    const content = toggleElement.nextElementSibling;
+    
+    if (!content) return; // Safety check
+
+    // Toggle a 'hidden' class or manipulate display style directly
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        toggleElement.textContent = "- Collapse Code"; // Change icon to minus when open
+    } else {
+        content.style.display = "none";
+        toggleElement.textContent = "+ Expand Code"; // Change icon to plus when closed
+    }
+}
+ </script>
 </html>
