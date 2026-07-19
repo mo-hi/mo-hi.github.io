@@ -113,6 +113,20 @@ let FromFile_FunctionsCodeExamples = [
         ]
     },
     {
+        name: "formatBracketText",
+        code: [
+            'let input = \'function example() { if (true) { console.log("Hello"); } else { console.log("Goodbye"); } }\'',
+            'console.log(clsBasis.formatBracketText(input, { indentStr: "    ", newlineAfter: ["{", "}", ";"] }))'
+        ]
+    },
+    {
+        name: "formatTagText",
+        code: [
+            'let input = \'<div><p>Hello</p><p>World</p></div>\'',
+            'console.log(clsBasis.formatTagText(input, { indentStr: "    " }))'
+        ]
+    },
+    {
         name: "AutoFill",
         code: [
             'clsDOM.AutoFill([{ text: "World" }, { text: "Universe" }, { text: "Everyone" }], "id-multiple-entries");',

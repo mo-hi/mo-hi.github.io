@@ -75,6 +75,7 @@
                     <a onclick="clsDOM.RemoveWithClass('remove-download');clsDOM.DownloadHTML()" class="remove-download hidden">Download</a>
                 </nav>
                 <nav class="nav-right">
+                    <a href="test/testBJS.html" target="_blank" class="remove-me">Test Cases</a>
                     <a class="nav-btn" onclick="toggleTheme(this)">dark theme</a>
                 </nav>
             </div>
@@ -136,7 +137,9 @@
         </p>
         <div id="id-autofill-clsBasis" class="auto-fill">
             <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
-            
+            <div id= "id-test-passed-{{name}}" class="float-right bg-color-{{testStatus}}-500 remove-me">Tests passed: {{testsPassed}}</div> 
+            <div id= "id-test-failed-{{name}}" class="float-right bg-color-{{testStatus}}-500 remove-me">Tests failed: {{testsFailed}}</div>
+
             <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="{{codeLines}}">

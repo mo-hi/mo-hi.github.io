@@ -48,6 +48,18 @@ const FromFile_FunctionsInfo_JS = [
         "source": "clsBasis"
     },
     {
+        "name": "formatBracketText",
+        "docstring": "Formats text with proper bracket indentation.",
+        "parameters": "text, options = {}",
+        "source": "clsBasis"
+    },
+    {
+        "name": "formatTagText",
+        "docstring": "Formats text with proper HTML tag indentation.",
+        "parameters": "text, options = {}",
+        "source": "clsBasis"
+    },
+    {
         "name": "popup",
         "docstring": "creates a pop-up window with a header and message. The pop-up can be closed by clicking the close button, clicking outside the pop-up, or pressing the Escape key.",
         "parameters": "header, message",

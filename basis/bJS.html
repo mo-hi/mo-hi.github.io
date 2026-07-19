@@ -70,9 +70,10 @@
                 <nav>
                     <a href="#id-h2-about-bjs">Home</a>
                     
-                    <a onclick="clsDOM.RemoveWithClass('remove-download');clsDOM.DownloadHTML()" class="remove-download hidden">Download</a>
+                    
                 </nav>
                 <nav class="nav-right">
+                    
                     <a class="nav-btn" onclick="toggleTheme(this)">dark theme</a>
                 </nav>
             </div>
@@ -104,6 +105,10 @@
                     <a href="#id-h3-upload" class="">upload</a>&nbsp;|&nbsp;
                 
                     <a href="#id-h3-debounce" class="">debounce</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-formatBracketText" class="">formatBracketText</a>&nbsp;|&nbsp;
+                
+                    <a href="#id-h3-formatTagText" class="">formatTagText</a>&nbsp;|&nbsp;
                 
                     <a href="#id-h3-popup" class="">popup</a>&nbsp;|&nbsp;
                 </div>
@@ -210,14 +215,18 @@ byValCopy == [1, 2, 77];</textarea>
         </p>
         <div id="id-autofill-clsBasis" class="auto-fill">
             <h3 id="id-h3-download" class="m-0 inline-block">download ()</h3>
+             
             
+
             <p class="mt-10"><c>download (fileContent, filename, mimeType = 'text/plain;charset=utf-8')</c> triggers a download of a file with the specified content and filename. The mimeType can be specified, default is 'text/plain;charset=utf-8'.</p>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">clsBasis.download("Hello, World!", "hello.txt", "text/plain")</textarea>
             </div>
         
             <h3 id="id-h3-upload" class="m-0 inline-block">upload ()</h3>
+             
             
+
             <p class="mt-10"><c>upload (multiple=false)</c> triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.</p>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="13">let uploadFiles = await clsBasis.upload()
@@ -236,15 +245,39 @@ if (uploadMultipleFiles.length &gt; 0) {
             </div>
         
             <h3 id="id-h3-debounce" class="m-0 inline-block">debounce ()</h3>
+             
             
+
             <p class="mt-10"><c>debounce (func, delay)</c> delays a function call.</p>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="2">function myFunctionToDemonstrateDebounce() { console.log("Hello after 2 seconds"); }
 clsBasis.debounce(myFunctionToDemonstrateDebounce, 2000)()</textarea>
             </div>
         
-            <h3 id="id-h3-popup" class="m-0 inline-block">popup ()</h3>
+            <h3 id="id-h3-formatBracketText" class="m-0 inline-block">formatBracketText ()</h3>
+             
             
+
+            <p class="mt-10"><c>formatBracketText (text, options = {})</c> Formats text with proper bracket indentation.</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="2">let input = 'function example() { if (true) { console.log("Hello"); } else { console.log("Goodbye"); } }'
+console.log(clsBasis.formatBracketText(input, { indentStr: "    ", newlineAfter: ["{", "}", ";"] }))</textarea>
+            </div>
+        
+            <h3 id="id-h3-formatTagText" class="m-0 inline-block">formatTagText ()</h3>
+             
+            
+
+            <p class="mt-10"><c>formatTagText (text, options = {})</c> Formats text with proper HTML tag indentation.</p>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="2">let input = '&lt;div&gt;&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;&lt;/div&gt;'
+console.log(clsBasis.formatTagText(input, { indentStr: "    " }))</textarea>
+            </div>
+        
+            <h3 id="id-h3-popup" class="m-0 inline-block">popup ()</h3>
+             
+            
+
             <p class="mt-10"><c>popup (header, message)</c> creates a pop-up window with a header and message. The pop-up can be closed by clicking the close button, clicking outside the pop-up, or pressing the Escape key.</p>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="1">clsBasis.popup("Hello World", "This is a popup message.")</textarea>

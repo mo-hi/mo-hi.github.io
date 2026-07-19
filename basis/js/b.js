@@ -417,7 +417,109 @@ clsBasis.debounce = function(func, delay) {
     };
 }
 
+/**
+Formats text with proper bracket indentation.
+*/
+clsBasis.formatBracketText = function(text, options = {}) {
+    const config = {
+        indentStr: options.indentStr || '    ', // 4 spaces default
+        // Tokens that increase indent on the NEXT line
+        increaseTokens: options.increaseTokens || ['{', '[', '(',], 
+        // Tokens that decrease indent on the CURRENT line
+        decreaseTokens: options.decreaseTokens || ['}', ']', ')'],
+        // Tokens that force a newline immediately after them
+        newlineAfter: options.newlineAfter || [';', ',', '{', '}', '[', ']', '(', ')']
+    };
 
+    let result = '';
+    let currentIndent = '';
+    
+    // 1. Clean up existing erratic whitespace/newlines to normalize the string
+    let normalized = text
+        .replace(/\s+/g, ' ') 
+        .trim();
+
+    // 2. Inject markers where newlines *should* happen based on rules
+    config.newlineAfter.forEach(token => {
+        // Escape special regex characters safely
+        let escapedToken = token.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        let regex = new RegExp(`(${escapedToken})\\s*`, 'g');
+        normalized = normalized.replace(regex, '$1\n');
+    });
+
+    // 3. Process line by line to calculate indentation
+    const lines = normalized.split('\n');
+    
+    lines.forEach((line) => {
+        let trimmedLine = line.trim();
+        if (!trimmedLine) return; // Skip empty segments
+
+        // Check if the current line starts with a token that reduces indent
+        let startsWithDecrease = config.decreaseTokens.some(token => trimmedLine.startsWith(token));
+        
+        if (startsWithDecrease) {
+            currentIndent = currentIndent.substring(config.indentStr.length);
+        }
+
+        // Add the indented line to the final output
+        result += currentIndent + trimmedLine + '\n';
+
+        // Check if this line ends with a token that increases the indent for the next line
+        let endsWithIncrease = config.increaseTokens.some(token => trimmedLine.endsWith(token));
+        
+        if (endsWithIncrease) {
+            currentIndent += config.indentStr;
+        }
+    });
+
+    return result.trim();
+}
+
+/**
+Formats text with proper HTML tag indentation.
+*/
+clsBasis.formatTagText = function(text, options = {}) {
+    const indentStr = options.indentStr || '    '; // 4 spaces default
+    let result = '';
+    let currentIndent = '';
+
+    // Void/self-closing elements that should never indent the next line
+    const voidElements = ['img', 'input', 'br', 'meta', 'link', 'hr', 'source', 'col', 'embed'];
+
+    // 1. Split string by HTML tags while keeping the tags in the array
+    const tokens = text
+        .split(/(<[^>]+>)/g)
+        .map(token => token.trim())
+        .filter(token => token.length > 0);
+
+    // 2. Loop through elements and compute indentations
+    tokens.forEach(token => {
+        // Check if the token is an HTML tag
+        if (token.startsWith('<') && token.endsWith('>')) {
+            const isClosing = token.startsWith('</');
+            const isSelfClosing = token.endsWith('/>') || 
+                voidElements.some(el => new RegExp(`^<${el}\\b`, 'i').test(token));
+
+            if (isClosing) {
+                // Closing tag: drop the indent immediately before writing the tag
+                currentIndent = currentIndent.substring(indentStr.length);
+                result += currentIndent + token + '\n';
+            } else if (isSelfClosing) {
+                // Self-closing: write it at current level, don't change indent
+                result += currentIndent + token + '\n';
+            } else {
+                // Opening tag: write it at current level, then increase indent for children
+                result += currentIndent + token + '\n';
+                currentIndent += indentStr;
+            }
+        } else {
+            // It's a plain text node between tags
+            result += currentIndent + token + '\n';
+        }
+    });
+
+    return result.trim();
+}
 // ####################################################################################################
 // region clsBasis_popup                                                                                  #
 // ####################################################################################################
@@ -631,7 +733,8 @@ clsDOM.ExposeHTML = function(config) {
 
     if (pretty) {
         let flatHTML = htmlSource.replace(/[\n\t\r]/g, "").replace(/\s+/g, " ").trim();
-        htmlSource = formatHTML(flatHTML);
+        // htmlSource = formatHTML(flatHTML);
+        htmlSource = clsBasis.formatTagText(flatHTML, { indentStr: "    " })
     }
     if (synchWithTarget) {
         textarea.addEventListener('input', () => {
@@ -641,7 +744,7 @@ clsDOM.ExposeHTML = function(config) {
         textarea.readOnly = true
     }
     
-    textarea.value = _filteredLines(htmlSource, '#IGNORE')
+    textarea.value = htmlSource
     if (!divToAppend.classList.contains('js-fill')) console.log('WARNING! The target div does not have the class "js-fill"')
     
     if (lineNumbers) {
