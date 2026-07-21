@@ -38,7 +38,7 @@ const FromFile_FunctionsInfo_JS = [
     {
         "name": "upload",
         "docstring": "triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.",
-        "parameters": "multiple=false",
+        "parameters": "multiple=false, readAs = 'text'",
         "source": "clsBasis"
     },
     {

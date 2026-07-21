@@ -362,13 +362,18 @@ clsBasis.download= function(fileContent, filename, mimeType = 'text/plain;charse
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
-clsBasis._readFiles = function(files) {
+clsBasis._readFiles = function(files, readAs = 'text') {
         const readers = Array.from(files).map(file => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = e => resolve({ file: file, content: e.target.result }); // ev.target === this === reader
                 reader.onerror = () => resolve(null);
-                reader.readAsText(file);
+                if (readAs === 'arrayBuffer') {
+                    reader.readAsArrayBuffer(file);
+                }
+                else {
+                    reader.readAsText(file);
+                }
             });
         }); 
     return Promise.all(readers);
@@ -377,7 +382,7 @@ clsBasis._readFiles = function(files) {
 /**
 triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.
 */ 
-clsBasis.upload = function(multiple=false) {
+clsBasis.upload = function(multiple=false, readAs = 'text') {
         return new Promise(function (resolve) {
             // Create a hidden file input element
             var input = document.createElement('input');
@@ -393,7 +398,7 @@ clsBasis.upload = function(multiple=false) {
                 let files = input.files;
                 input.remove();
 
-                let result = await clsBasis._readFiles(files);
+                let result = await clsBasis._readFiles(files, readAs);
                 resolve(result);
             }, { once: true }); // Use { once: true } to ensure the event listener is removed after it' is called once
 
