@@ -227,7 +227,7 @@ byValCopy == [1, 2, 77];</textarea>
              
             
 
-            <p class="mt-10"><c>upload (multiple=false)</c> triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.</p>
+            <p class="mt-10"><c>upload (multiple=false, readAs = 'text')</c> triggers a file upload dialog and returns a Promise of a listof dictionaries [{file, content}, {...}, .... ]. If multiple is true, multiple files can be selected.</p>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="13">let uploadFiles = await clsBasis.upload()
 if (uploadFiles.length &gt; 0) {
@@ -341,17 +341,30 @@ The function takes a configuration object that specifies the div to expose, the 
             <h3 id="id-h3-SelectionPill" class="m-0 inline-block">SelectionPill ()</h3>
             
             <p class="mt-10"><c>SelectionPill ()</c> erstellt eine Auswahl von Optionen in Form von "Pills" (Schaltflächen).</p>
-            <div class="w-80 mt-5i mb-60i">
-                <textarea spellcheck="false" class="code" style="width: 100%;" rows="10">HTML:
-&lt;selection-pill name="my-selection" type="radio" checked="Option 2" options='["Option 1", "Option 2", "Option 3"]'&gt;&lt;/selection-pill&gt;
+            <div id="id-custom-element-container"><selection-pill name="my-selection" class-name="selection-pill mr-80" type="radio" checked="Option 2" options="[&quot;Option 1&quot;, &quot;Option 2&quot;, &quot;Option 3&quot;]" change-handler="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"></selection-pill>
 
-JavaScript:
-// select the custom element
-let selectionPill = document.querySelector('selection-pill[name="my-selection"]'); 
-// attach an event listener directly to the custom element
-selectionPill.addEventListener('change', (event) =&gt; {
-    console.log("Selected value:", event.target.value);
-});</textarea>
+<selection-pill name="my-selection2" class-name="selection-pill" type="checkbox" options="[&quot;Option&quot;]" change-handler="const input = event.target; clsBasis.popup('Switch changed!', input.checked);" style_="--bg:var(--color-orange-50);--color: var(--color-orange-700); 
+        --active-bg: var(--color-orange-600); --active-color: white;"></selection-pill></div>
+            <div class="w-80 mt-5i mb-60i">
+                <textarea spellcheck="false" class="code" style="width: 100%;" rows="19">&lt;selection-pill 
+        name="my-selection" 
+        class-name="selection-pill mr-80"
+        type="radio" 
+        checked="Option 2" 
+        options='["Option 1", "Option 2", "Option 3"]'
+        change-handler="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"
+&gt;&lt;/selection-pill&gt;
+
+&lt;selection-pill 
+        name="my-selection2" 
+        class-name="selection-pill"
+        type="checkbox" 
+        options='["Option"]'
+        change-handler="const input = event.target; clsBasis.popup('Switch changed!', input.checked);"
+        style_="--bg:var(--color-orange-50);--color: var(--color-orange-700); 
+        --active-bg: var(--color-orange-600); --active-color: white;"
+    "
+&gt;&lt;/selection-pill&gt;</textarea>
             </div>
         </div>
 

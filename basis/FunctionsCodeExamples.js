@@ -162,17 +162,26 @@ let FromFile_FunctionsCodeExamples = [
     {
         name: "SelectionPill",
         code: [
-            "HTML:",
-            `<selection-pill name="my-selection" type="radio" checked="Option 2" options='["Option 1", "Option 2", "Option 3"]'></selection-pill>`,
-            "",
-            "JavaScript:",
-            '// select the custom element',
-            `let selectionPill = document.querySelector('selection-pill[name="my-selection"]'); `,
-            `// attach an event listener directly to the custom element`,
-            `selectionPill.addEventListener('change', (event) => {`,
-            `    console.log("Selected value:", event.target.value);`,
-            `});`
-        ]
+            `<selection-pill 
+        name="my-selection" 
+        class-name="selection-pill mr-80"
+        type="radio" 
+        checked="Option 2" 
+        options='["Option 1", "Option 2", "Option 3"]'
+        change-handler="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"
+></selection-pill>
+
+<selection-pill 
+        name="my-selection2" 
+        class-name="selection-pill"
+        type="checkbox" 
+        options='["Option"]'
+        change-handler="const input = event.target; clsBasis.popup('Switch changed!', input.checked);"
+        style_="--bg:var(--color-orange-50);--color: var(--color-orange-700); 
+        --active-bg: var(--color-orange-600); --active-color: white;"
+    "
+></selection-pill>`,
+        ],
     },
 ]
 

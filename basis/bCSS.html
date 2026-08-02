@@ -23,76 +23,19 @@
             <section>
                 <h2 class="underline">Fonts</h2>
                 <p>
-                    b.css provides a variety of basic fonts, that can by applied by the classes, e. g.  <c>.font-os</c> or <c>.serif</c>.
+                    b.css provides a variety of basic fonts. Just put in the correpsonding className into you html element
                 </p>
-                <h2 class="font-os">Font-OS (use whatever font the OS uses for its own system menus)</h2>
-                <p class="font-os">
-                    {{text}}
-                </p>
-                <c>.font-os</c>
-                <h2 class="serif">Serif (Chrome default)</h2>
-                <p class="serif">
-                    {{text}}
-                </p>
-                <c>.serif</c>
-                <h2 class="arial">Arial</h2>
-                <p class="arial">
-                    {{text}}
-                </p>
-                <c>.arial</c>
-                <h2 class="verdana">Verdana</h2>
-                <p class="verdana">
-                    {{text}}
-                </p>
-                <c>.verdana</c>
-                <h2 class="tahoma">Tahoma</h2>
-                <p class="tahoma">
-                    {{text}}
-                </p>
-                <c>.tahoma</c>
-                <h2 class="trebuchet">Trebuchet</h2>
-                <p class="trebuchet">
-                    {{text}}
-                </p>
-                <c>.trebuchet</c>
-                <h2 class="times-new-roman">Times New Roman</h2>
-                <p class="times-new-roman">
-                    {{text}}
-                </p>
-                <c>.times-new-roman</c>
-                <h2 class="georgia">Georgia</h2>
-                <p class="georgia">
-                    {{text}}
-                </p>
-                <c>.georgia</c>
-                <h2 class="garamond">Garamond</h2>
-                <p class="garamond">
-                    {{text}}
-                </p>
-                <c>.garamond</c>
-                <h2 class="monospace">Monospace</h2>
-                <p class="monospace">
-                    {{text}}
-                </p>
-                <c>.monospace </c>
-                <h2 class="courier">Courier</h2>
-                <p class="courier">
-                    {{text}}
-                </p>
-                <c>.courier</c>
-                <h2 class="sans-serif">Sans-Serif</h2>
-                <p class="sans-serif">
-                    {{text}}
-                </p>
-                <c>.sans-serif</c>
-                <h2 class="brush-script">Brush-Script</h2>
-                <p class="brush-script">
-                    {{text}}
-                </p>
-                <c>.brush-script</c>
-            </section>
-            <section>
-                <h2>Buttons</h2> 
+                <div id="id-font-show" class="h-160 w-94 mb-80">
+
+                </div>
+                <div id = "id-font-tempalate">
+                    <c>{{name}}</c>
+                    <p class="{{name}}">
+                        {{text}}
+                    </p>
+                </div>
+
+                <h2 class="underline">Buttons</h2> 
                 <p>
                     b.css provides basic button styles, that can by applied by the classes, e. g.  <c>.btn</c> or <c>.btn green</c>. You can directly modify the buttons in the script below.
                 </p>
@@ -117,16 +60,48 @@
     <script src="../basis/js/b.js"></script>
     <script src="../htmlElements.js"></script>
     <script>
-        let textDict = {
-            text: "Left Munich at 8:35 P. M., on 1st May, arriving at Vienna early next morning; should have arrived at 6:46, but train was an hour late. Buda-Pesth seems a wonderful place, from the glimpse which I got of it from the train and the little I could walk through the streets. I feared to go very far from the station, as we had arrived late and would start as near the correct time as possible. The impression I had was that we were leaving the West and entering the East; the most western of splendid bridges over the Danube, which is here of noble width and depth, took us among the traditions of Turkish rule."
-        }
-        Auto_Fill(textDict)
+        let fonts = [
+            {name: "font-os"},
+            {name: "serif"},
+            {name: "arial"},
+            {name: "verdana"},
+            {name: "tahoma"},
+            {name: "trebuchet"},
+            {name: "times-new-roman"},
+            {name: "georgia"},
+            {name: "garamond"},
+            {name: "monospace"},
+            {name: "courier"},
+            {name: "sans-serif"},
+            {name: "brush-script"},
+        ]
+        let textString = "Left Munich at 8:35 P. M., on 1st May, arriving at Vienna early next morning; should have arrived at 6:46, but train was an hour late. Buda-Pesth seems a wonderful place, from the glimpse which I got of it from the train and the little I could walk through the streets. I feared to go very far from the station, as we had arrived late and would start as near the correct time as possible. The impression I had was that we were leaving the West and entering the East; the most western of splendid bridges over the Danube, which is here of noble width and depth, took us among the traditions of Turkish rule."
+       
+        // duplicate the template for each font
+        clsDOM.AutoFill(fonts, "id-font-tempalate")
 
-        ExposeHTML({
-            divToExpose: document.getElementById("id-button"), 
-            divToAppend: document.getElementById("id-button-show"),
-            textAreaClassName: "code",
-            synchWithTarget: true
-        })
+        // replace anywhere on this page, each occurance to "{{text}}" with the text string
+        clsDOM.AutoFill({text:textString})
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let firstFontDiv = document.getElementsByClassName(fonts[0].name)[0]
+            clsDOM.ExposeHTML({
+                divToExpose: firstFontDiv, 
+                divToAppend: document.getElementById("id-font-show"),
+                textAreaClassName: "code",
+                synchWithTarget: true,
+                defineRows: true,
+                outer: true
+            })
+
+            clsDOM.ExposeHTML({
+                divToExpose: document.getElementById("id-button"), 
+                divToAppend: document.getElementById("id-button-show"),
+                textAreaClassName: "code",
+                synchWithTarget: true
+            })
+        });
+
+        
     </script>
 </html>

@@ -79,6 +79,9 @@
 
     <section class="p-10">
         <div id = 'id-status1' class="selection-pill-bar mt-30i">
+            <selection-pill name="my-selection" type="checkbox" options='["fixed"]'>
+
+            </selection-pill>
             <form id = 'id-form-position' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="checkbox" name="position" id="id-fixed" value="fixed">
                 <label for="id-fixed">fixed</label>
@@ -332,7 +335,7 @@ function FillDynamicSidebar() {
         let combinedHTML = "";
         links.forEach(link => {combinedHTML += link.outerHTML + "\n";});
 
-        ExposeHTML({
+        clsDOM.ExposeHTML({
             divToExpose: document.createElement('div'), // dummmy element
             stringToExpose: combinedHTML,
             divToAppend: document.getElementById("id-css-nav-show"),
@@ -342,7 +345,7 @@ function FillDynamicSidebar() {
             synchWithTarget: false
         })
 
-        ExposeHTML({
+        clsDOM.ExposeHTML({
             divToExpose: document.getElementById("id-scripts-nav"), 
             divToAppend: document.getElementById("id-scripts-nav-show"),
             pretty: false, 
@@ -356,7 +359,7 @@ function FillDynamicSidebar() {
             document.getElementById(idDivShow).firstElementChild.value.replaceAll("../", "https://mo-hi.github.io/")
         }
 
-        ExposeHTML({
+        clsDOM.ExposeHTML({
             divToExpose: document.getElementById("id-sidebar"), 
             divToAppend: document.getElementById("id-sidebar-show"),
             pretty: true, 
@@ -364,7 +367,7 @@ function FillDynamicSidebar() {
             outer: true
         })
 
-        ExposeHTML({
+        clsDOM.ExposeHTML({
             divToExpose: document.createElement('div'), // dummmy element
             stringToExpose: JSON.stringify(sidebarData, null, 2),
             divToAppend: document.getElementById("id-textarea-sidebar-dynamic-show"),

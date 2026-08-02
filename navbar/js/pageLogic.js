@@ -139,7 +139,7 @@ function _UpdateNavBlock() {
 function _UpdateHTMLBlock() {
     document.getElementById("id-show-out").innerHTML = ""
     // ShowHTMLinTextArea(document.getElementById("id-show"), document.getElementById("id-show-out"), false, true,  "code")
-    ExposeHTML({
+    clsDOM.ExposeHTML({
         divToExpose: document.getElementById("id-show"), 
         divToAppend: document.getElementById("id-show-out"),
         pretty: true, 
