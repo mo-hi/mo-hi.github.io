@@ -433,7 +433,7 @@ const FromFile_FunctionsInfo_JS = [
     },
     {
         "name": "SelectionPill",
-        "docstring": "erstellt eine Auswahl von Optionen in Form von \"Pills\" (Schaltfl\u00e4chen).",
+        "docstring": "creates a selection of options in the form of \"pills\" (buttons).",
         "parameters": "",
         "source": "customElements"
     }

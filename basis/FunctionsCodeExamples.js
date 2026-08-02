@@ -161,6 +161,7 @@ let FromFile_FunctionsCodeExamples = [
     },
     {
         name: "SelectionPill",
+        docStringPlus: "The color of the selection-pill can be customized using CSS variables. You can also use your custom colors",
         code: [
             `<selection-pill 
         name="my-selection" 
@@ -169,6 +170,8 @@ let FromFile_FunctionsCodeExamples = [
         checked="Option 2" 
         options='["Option 1", "Option 2", "Option 3"]'
         change-handler="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"
+        style_="--bg: var(--color-gray-50); --color: var(--color-gray-500);
+        --active-bg: var(--color-cyan-100); --active-color: var(--color-cyan-800);"
 ></selection-pill>
 
 <selection-pill 
@@ -176,12 +179,66 @@ let FromFile_FunctionsCodeExamples = [
         class-name="selection-pill"
         type="checkbox" 
         options='["Option"]'
-        change-handler="const input = event.target; clsBasis.popup('Switch changed!', input.checked);"
-        style_="--bg:var(--color-orange-50);--color: var(--color-orange-700); 
-        --active-bg: var(--color-orange-600); --active-color: white;"
+        style_="--bg:var(--color-cyan-50);--color: var(--color-cyan-600); 
+        --active-bg: var(--color-cyan-600); --active-color: white;"
     "
 ></selection-pill>`,
         ],
+        codePlus: [
+            `<!-- 1. Grey White -->
+            <selection-pill 
+                name="pill-gray" 
+                class-name="selection-pill"
+                type="checkbox" 
+                options='["Gray"]'
+                style_="--bg: var(--color-gray-50); --color: var(--color-gray-600); --active-bg: var(--color-gray-600); --active-color: white;"
+            ></selection-pill>
+            
+            <!-- 2. Emerald / Green (Aktiv / Erfolgreich) -->
+            <selection-pill 
+                name="pill-emerald" 
+                class-name="selection-pill"
+                type="checkbox" 
+                options='["Emerald"]'
+                style_="--bg: var(--color-emerald-50); --color: var(--color-emerald-600); --active-bg: var(--color-emerald-600); --active-color: white;"
+            ></selection-pill>
+
+            <!-- 3. Indigo / Blue-Purple (Modern / Tech) -->
+            <selection-pill 
+                name="pill-indigo" 
+                class-name="selection-pill"
+                type="checkbox" 
+                options='["Indigo"]'
+                style_="--bg: var(--color-indigo-50); --color: var(--color-indigo-600); --active-bg: var(--color-indigo-600); --active-color: white;"
+            ></selection-pill>
+
+            <!-- 4. Rose / Pink (Frisch / Eye-Catcher) -->
+            <selection-pill 
+                name="pill-rose" 
+                class-name="selection-pill"
+                type="checkbox" 
+                options='["Rose"]'
+                style_="--bg: var(--color-rose-50); --color: var(--color-rose-600); --active-bg: var(--color-rose-600); --active-color: white;"
+            ></selection-pill>
+
+            <!-- 5. Amber / Gold (Warm / Premium) -->
+            <selection-pill 
+                name="pill-amber" 
+                class-name="selection-pill"
+                type="checkbox" 
+                options='["Amber"]'
+                style_="--bg: var(--color-amber-50); --color: var(--color-amber-600); --active-bg: var(--color-amber-500); --active-color: white;"
+            ></selection-pill>
+
+            <!-- 6. Cyan / Teal (Kühl / Clean) -->
+            <selection-pill 
+                name="pill-cyan" 
+                class-name="selection-pill"
+                type="checkbox" 
+                options='["Cyan"]'
+                style_="--bg: var(--color-cyan-50); --color: var(--color-cyan-600); --active-bg: var(--color-cyan-600); --active-color: white;"
+            ></selection-pill>`
+        ]
     },
 ]
 

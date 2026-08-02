@@ -797,8 +797,7 @@ clsDOM.RemoveWithClass = function(className) {
 // ####################################################################################################
 
 /**
-erstellt eine Auswahl von Optionen in Form von "Pills" (Schaltflächen).
-
+creates a selection of options in the form of "pills" (buttons).
 */
 class SelectionPill extends HTMLElement {
 // <form id = "" class="" onchange="">
@@ -845,8 +844,6 @@ class SelectionPill extends HTMLElement {
         const form = document.createElement('form'); 
         form.id = `id-form-${name}`; 
         form.className = className
-
-        form.style = styleString; 
 
         if (onChangeString) {
             form.setAttribute('onchange', onChangeString);

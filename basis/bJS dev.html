@@ -72,7 +72,7 @@
                 <nav>
                     <a href="#id-h2-about-bjs">Home</a>
                     <a onclick="clsDOM.RemoveWithClass('remove-me');document.querySelector('.remove-download').classList.remove('hidden');" class="remove-me">Minimize</a>
-                    <a onclick="clsDOM.RemoveWithClass('remove-download');clsDOM.DownloadHTML()" class="remove-download hidden">Download</a>
+                    <a onclick="SelectionPillsRemoveInnerHTML();clsDOM.RemoveWithClass('remove-download');clsDOM.DownloadHTML()" class="remove-download hidden">Download</a>
                 </nav>
                 <nav class="nav-right">
                     <a href="test/testBJS.html" target="_blank" class="remove-me">Test Cases</a>
@@ -168,8 +168,8 @@
         <div id="id-autofill-customElements" class="auto-fill">
             <h3 id = "id-h3-{{name}}" class="m-0 inline-block">{{name}} ()</h3>
             
-            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}}</p>
-            <div id="id-custom-element-container">{{code}}</div>
+            <p class="mt-10"><c>{{name}} ({{parameters}})</c> {{docstring}} {{docStringPlus}}</p>
+            <div id="id-custom-element-container">{{code}} {{codePlus}}</div>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="{{codeLines}}">
 {{code}}</textarea>
@@ -230,12 +230,14 @@
     clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "customElements"), 'id-autofill-customElements')
 
 
-    // the wrapped links in the top of the page
+    // Fill the wrapped links in the top of the page
     clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "basis"), 'id-bjs-basis-list')
     clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "clsBasis"), 'id-bjs-clsBasis-list')
     clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "clsDOM"), 'id-bjs-clsDOM-list')
     clsDOM.AutoFill(mergedFunctionsInfo.filter(item => item.source === "customElements"), 'id-bjs-customElements-list')
+    
 
+    // remove not consolidated functions
     restOfFunctionsInfo = mergedFunctionsInfo.filter(
         item => item.source !== "basis" && 
         item.source !== "clsBasis" && 
@@ -244,6 +246,13 @@
     )
     clsDOM.AutoFill(restOfFunctionsInfo, 'id-autofill')
     clsDOM.AutoFill(restOfFunctionsInfo, 'id-bjs-notConsolidated-list')
+
+    // nach dem Laden der Seite alle selection-pill Elemente deaktivieren, um zu verhindern dass sie in der Ausleitung gedoppelt werden
+    function SelectionPillsRemoveInnerHTML() {
+        document.querySelectorAll('selection-pill').forEach(pill => {
+            pill.innerHTML = '';
+        });
+    }
 </script>
 </html>
 
