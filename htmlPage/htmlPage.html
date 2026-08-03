@@ -38,6 +38,9 @@
             --color-textarea-code-accent-glow: var(--color-blue-800);
             --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
             --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+
+            --color-collapse-bg: var(--color-zinc-600);
+            --color-collapse-down-bg: var(--color-zinc-700);
         }
 
         body.light {
@@ -46,8 +49,8 @@
             --color-bg-body: var(--color-zinc-200);
             --color-bg-main: var(--color-zinc-50);
 
-            --color-nav-bg: var(--color-gray-50); 
-            --color-nav-down-bg: var(--color-gray-100); 
+            --color-nav-bg: var(--color-slate-300); 
+            --color-nav-down-bg: var(--color-slate-300); 
             --color-nav-font: var(--color-zinc-900);
     
             --color-nav-btn-bg:var(--color-blue-600);
@@ -63,6 +66,8 @@
             --color-textarea-code-accent-glow: var(--color-blue-800);
             --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
             --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+
+            --color-collapse-bg: var(--color-zinc-600);
         }
     </style>
 </head>
@@ -83,8 +88,8 @@
             <p>
                 This is a starter template for html pages based on the basis framework b.css and b.js.
             </p>
-            <div class="collapse " style="background-color: var(--color-zinc-600)">
-                <div onclick="toggleCollapse(this)" class="w-100 h-30" style="cursor: pointer;background-color: var(--color-zinc-800)">+ Expand Code</div>
+            <div class="collapse " style="background-color: var(--color-collapse-bg);">
+                <div onclick="toggleCollapse(this)" class="w-100 h-30" style="cursor: pointer;background-color: var(--color-collapse-down-bg)">+ Expand Code</div>
                 <div id="id-html-starter-show" class="w-94 mb-80 p-10" style="display: none"></div>
             </div>
             
@@ -115,14 +120,6 @@
             You can click on the options below to change the theme or the main width of THIS page, not how the HTML code updates.
         </p>
 
-        <form id = 'id-form-1' class="selection-pill mr-30" onchange="Update(event)">
-            <input type="radio" name="theme" id="id-theme-1" value="dark" checked>
-            <label for="id-theme-1">dark</label>
-
-            <input type="radio" name="theme" id="id-theme-2" value="light">
-            <label for="id-theme-2">light</label>
-        </form>
-
         <form id = 'id-form-2' class="selection-pill mr-30" onchange="Update(event)">
             <input type="radio" name="mainWidth" id="id-mainWidth-1" value="s" >
             <label for="id-mainWidth-1">S</label>
@@ -130,75 +127,18 @@
             <input type="radio" name="mainWidth" id="id-mainWidth-2" value="m">
             <label for="id-mainWidth-2">M</label>
 
-            <input type="radio" name="mainWidth" id="id-mainWidth-3" value="l">
+            <input type="radio" name="mainWidth" id="id-mainWidth-3" value="l"  checked>
             <label for="id-mainWidth-3">L</label>
 
-            <input type="radio" name="mainWidth" id="id-mainWidth-4" value="xl" checked>
+            <input type="radio" name="mainWidth" id="id-mainWidth-4" value="xl">
             <label for="id-mainWidth-4">XL</label>
 
             <input type="radio" name="mainWidth" id="id-mainWidth-5" value="full">
             <label for="id-mainWidth-5">FULL</label>
         </form>
 
-        <div id="id-html-code-show" class=" w-94 mt-20 mb-80"></div>
+        <div id="id-html-body-show" class=" w-94 mt-20 mb-80"></div>
 
-        <h1>Selection Pills</h1>
-        <p>
-            Selection Pills are used to select a value from a list. 
-            There are two types of selection pills supported <c>radio</c> and <c>checkbox</c>. 
-            They were already used in the form to select the theme and main width above.
-        </p>
-        <p>
-            You can click on the single pill (technically a html checkbox) or multi pill (technically a html radio).
-            The color change is pure css. You can attach your own javascript on change event (here: dummy_I_DO_NOTHING)
-        </p>
-        <div id="id-single-pill-html" class="mt-20 mb-20">
-            <form id = 'id-single-pill-form' class="selection-pill" onchange="foo(event)">
-                <input type="checkbox" name="name-single-pill" id="id-single-pill" value="single">
-                <label for="id-single-pill">Single Pill</label>
-            </form>
-        </div>
-
-        <div id="id-single-pill-show" class="w-94 mb-100"></div>
-
-        <div id="id-multi-pill-html" class="mt-20 mb-20">
-            <form id = 'id-multi-pill-form' class="selection-pill" onchange="foo(event)">
-                <input type="radio" name="name-multi-pill" id="id-multi-pill-1" value="1" checked>
-                <label for="id-multi-pill-1">Multi</label>
-
-                <input type="radio" name="name-multi-pill" id="id-multi-pill-n" value="n">
-                <label for="id-multi-pill-n">Multi</label>
-
-                <input type="radio" name="name-multi-pill" id="id-multi-pill-last" value="last">
-                <label for="id-multi-pill-last">Pill</label>
-            </form>
-        </div>
-
-        <div id="id-multi-pill-show" class="w-94 mb-80"></div>
-        
-        <p class="pt-30">
-            To get the values of the pills you can use the <c>getFormValueSimple</c> and <c>getFormValue</c> functions or
-            use the corresponding javascript code. Note, that <c>getFormValue</c> needs the form id and returns an object whereas <c>getFormValueSimple</c> needs the input name and returns a string.
-            <br><br>
-            Try it!. Click on the pills in this section, call one of the following functions and see how the result changes.
-            <ul>
-                <li>
-                    <c>getFormValueSimple('name-multi-pill')</c> (works only if at least one pill is checked, i e. on mulit pills)
-                </li>
-                <li>
-                    <c>getFormValueSimple()</c> (equivalent to above)
-                </li>
-                <li>
-                    <c>getFormValue('id-multi-pill-form')</c>
-                </li>
-                <li>
-                    <c>getFormValue('id-single-pill-form')</c>
-                </li>
-            </ul> 
-            
-        </p>
-
-        <div id="id-script-getFormValue-show" class="w-94 mb-80"></div>
 
         <footer-js></footer-js>
     </main>
@@ -341,44 +281,13 @@
 
     clsDOM.ExposeHTML({
         divToExpose: getTruncatedHTML(document.body, 1), 
-        divToAppend: document.getElementById("id-html-code-show"),
+        divToAppend: document.getElementById("id-html-body-show"),
         outer: true,
         pretty: true, 
         textAreaClassName: "code",
         lineNumbers: false,
         defineRows: true
     })
-
-    clsDOM.ExposeHTML({
-        divToExpose: document.getElementById("id-single-pill-html"), 
-        divToAppend: document.getElementById("id-single-pill-show"),
-        outer: false,
-        pretty: true, 
-        textAreaClassName: "code",
-        synchWithTarget: false,
-        defineRows: true
-})
-
-    clsDOM.ExposeHTML({
-        divToExpose: document.getElementById("id-multi-pill-html"), 
-        divToAppend: document.getElementById("id-multi-pill-show"),
-        outer: false,
-        pretty: true, 
-        textAreaClassName: "code",
-        synchWithTarget: false,
-        defineRows: true
-    })
-
-
-    clsDOM.ExposeHTML({
-        divToExpose: document.getElementById("id-script-getFormValue"), 
-        divToAppend: document.getElementById("id-script-getFormValue-show"),
-        outer: false,
-        pretty: false, 
-        textAreaClassName: "code",
-        synchWithTarget: false,
-        defineRows: true
-        })
 </script>
  <script>
     function toggleTheme(element) {
@@ -394,16 +303,16 @@
     // Find the next sibling element in the DOM
     const content = toggleElement.nextElementSibling;
     
-    if (!content) return; // Safety check
+        if (!content) return; // Safety check
 
-    // Toggle a 'hidden' class or manipulate display style directly
-    if (content.style.display === "none") {
-        content.style.display = "block";
-        toggleElement.textContent = "- Collapse Code"; // Change icon to minus when open
-    } else {
-        content.style.display = "none";
-        toggleElement.textContent = "+ Expand Code"; // Change icon to plus when closed
-    }
+        // Toggle a 'hidden' class or manipulate display style directly
+        if (content.style.display === "none") {
+            content.style.display = "block";
+            toggleElement.textContent = "- Collapse Code"; // Change icon to minus when open
+        } else {
+            content.style.display = "none";
+            toggleElement.textContent = "+ Expand Code"; // Change icon to plus when closed
+        }
 }
  </script>
 </html>

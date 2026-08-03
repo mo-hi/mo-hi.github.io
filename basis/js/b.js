@@ -814,9 +814,9 @@ class SelectionPill extends HTMLElement {
         const type = this.getAttribute('type') || ['radio', 'checkbox'][0];
         const checkedValue = this.getAttribute('checked') || null; 
         const optionsString = this.getAttribute('options') || '[]'; // JSON-String, z.B. '["Option 1", "Option 2"]'
-        const onChangeString = this.getAttribute('change-handler');
+        const onChangeString = this.getAttribute('on-change') || null;
         const className = this.getAttribute('class-name') || 'selection-pill';
-        const styleString = this.getAttribute('style_') || '';
+        const styleString = this.getAttribute('in-style') || '';
 
         // style css anfügen wenn es nicht leer ist
         if (styleString) {
@@ -860,17 +860,23 @@ class SelectionPill extends HTMLElement {
             // augewähltes Element markieren
             const isChecked = checkedValue && optionX.toLowerCase() === checkedValue.toLowerCase();
             if (type === 'checkbox') {
-                if (isChecked) 
-                    input.checked = true;
+                if (isChecked) {
+                    input.checked = true;  // interne checked property
+                    input.setAttribute('checked', '');   // HTML checked attribute
+                }
+
             }
 
             if (type === 'radio') {
                 const isFirstOption = !checkedValue && index === 0;
-                if (isChecked || isFirstOption) 
-                    input.checked = true;
+                if (isChecked || isFirstOption) {
+                    // input.checked = true;
+                    input.setAttribute('checked', '');
+                }
+
             }
 
-            // Label-Element erstellen
+            // Label
             const label = document.createElement('label');
             label.setAttribute('for', `id-${name}-${index}`);
             label.innerHTML = optionX;

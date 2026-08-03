@@ -164,25 +164,34 @@ let FromFile_FunctionsCodeExamples = [
         docStringPlus: "The color of the selection-pill can be customized using CSS variables. You can also use your custom colors",
         code: [
             `<selection-pill 
-        name="my-selection" 
-        class-name="selection-pill mr-80"
+        name="selection-radio" 
+        class-name="selection-pill mr-40"
         type="radio" 
         checked="Option 2" 
         options='["Option 1", "Option 2", "Option 3"]'
-        change-handler="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"
-        style_="--bg: var(--color-gray-50); --color: var(--color-gray-500);
+        on-change="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"
+        in-style="--bg: var(--color-gray-50); --color: var(--color-gray-500);
         --active-bg: var(--color-cyan-100); --active-color: var(--color-cyan-800);"
 ></selection-pill>
 
 <selection-pill 
-        name="my-selection2" 
-        class-name="selection-pill"
+        name="selection-check" 
+        class-name="selection-pill mr-80"
         type="checkbox" 
         options='["Option"]'
-        style_="--bg:var(--color-cyan-50);--color: var(--color-cyan-600); 
+        in-style="--bg:var(--color-cyan-50);--color: var(--color-cyan-600); 
         --active-bg: var(--color-cyan-600); --active-color: white;"
     "
-></selection-pill>`,
+></selection-pill>
+
+<script>
+// How to access radio selection value:
+document.querySelector('input[name="selection-radio"]:checked').value
+// How to access checkbox selection value:
+document.getElementById('id-selection-check-0').checked
+</script>
+`
+,
         ],
         codePlus: [
             `<!-- 1. Grey White -->
@@ -191,7 +200,7 @@ let FromFile_FunctionsCodeExamples = [
                 class-name="selection-pill"
                 type="checkbox" 
                 options='["Gray"]'
-                style_="--bg: var(--color-gray-50); --color: var(--color-gray-600); --active-bg: var(--color-gray-600); --active-color: white;"
+                in-style="--bg: var(--color-gray-50); --color: var(--color-gray-600); --active-bg: var(--color-gray-600); --active-color: white;"
             ></selection-pill>
             
             <!-- 2. Emerald / Green (Aktiv / Erfolgreich) -->
@@ -200,7 +209,7 @@ let FromFile_FunctionsCodeExamples = [
                 class-name="selection-pill"
                 type="checkbox" 
                 options='["Emerald"]'
-                style_="--bg: var(--color-emerald-50); --color: var(--color-emerald-600); --active-bg: var(--color-emerald-600); --active-color: white;"
+                in-style="--bg: var(--color-emerald-50); --color: var(--color-emerald-600); --active-bg: var(--color-emerald-600); --active-color: white;"
             ></selection-pill>
 
             <!-- 3. Indigo / Blue-Purple (Modern / Tech) -->
@@ -209,7 +218,7 @@ let FromFile_FunctionsCodeExamples = [
                 class-name="selection-pill"
                 type="checkbox" 
                 options='["Indigo"]'
-                style_="--bg: var(--color-indigo-50); --color: var(--color-indigo-600); --active-bg: var(--color-indigo-600); --active-color: white;"
+                in-style="--bg: var(--color-indigo-50); --color: var(--color-indigo-600); --active-bg: var(--color-indigo-600); --active-color: white;"
             ></selection-pill>
 
             <!-- 4. Rose / Pink (Frisch / Eye-Catcher) -->
@@ -218,7 +227,7 @@ let FromFile_FunctionsCodeExamples = [
                 class-name="selection-pill"
                 type="checkbox" 
                 options='["Rose"]'
-                style_="--bg: var(--color-rose-50); --color: var(--color-rose-600); --active-bg: var(--color-rose-600); --active-color: white;"
+                in-style="--bg: var(--color-rose-50); --color: var(--color-rose-600); --active-bg: var(--color-rose-600); --active-color: white;"
             ></selection-pill>
 
             <!-- 5. Amber / Gold (Warm / Premium) -->
@@ -227,7 +236,7 @@ let FromFile_FunctionsCodeExamples = [
                 class-name="selection-pill"
                 type="checkbox" 
                 options='["Amber"]'
-                style_="--bg: var(--color-amber-50); --color: var(--color-amber-600); --active-bg: var(--color-amber-500); --active-color: white;"
+                in-style="--bg: var(--color-amber-50); --color: var(--color-amber-600); --active-bg: var(--color-amber-500); --active-color: white;"
             ></selection-pill>
 
             <!-- 6. Cyan / Teal (Kühl / Clean) -->
@@ -236,7 +245,7 @@ let FromFile_FunctionsCodeExamples = [
                 class-name="selection-pill"
                 type="checkbox" 
                 options='["Cyan"]'
-                style_="--bg: var(--color-cyan-50); --color: var(--color-cyan-600); --active-bg: var(--color-cyan-600); --active-color: white;"
+                in-style="--bg: var(--color-cyan-50); --color: var(--color-cyan-600); --active-bg: var(--color-cyan-600); --active-color: white;"
             ></selection-pill>`
         ]
     },

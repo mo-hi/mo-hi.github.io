@@ -2371,9 +2371,6 @@ ul.ul-pro li:has(code) {
 
     --color-pill-bg-checked: #2563eb;
     --color-pill-font-checked: white;
-
-    --color-pill-info-bg-checked: #2563eb;
-    --color-pill-info-font-checked: white;
 }
 
 /* form default override */

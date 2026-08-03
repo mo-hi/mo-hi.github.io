@@ -1,5 +1,5 @@
 const config = {
-    fixed: document.getElementById('id-fixed').checked,
+    fixed: document.getElementById('id-position-0').checked,
     arrowDown: document.querySelector('input[name="arrowDown"]:checked').value,
     interaction: document.querySelector('input[name="interaction"]:checked').value,
     navNum: document.querySelector('input[name="navNum"]:checked').value,
@@ -19,7 +19,7 @@ function Reset() {
 }
 
 function _UpdateConfig() {
-    config["fixed"] = document.getElementById('id-fixed').checked
+    config["fixed"] = document.getElementById('id-position-0').checked
     config["arrowDown"] = document.querySelector('input[name="arrowDown"]:checked').value,
     config["interaction"] = document.querySelector('input[name="interaction"]:checked').value
     config["navNum"] = parseInt(document.querySelector('input[name="navNum"]:checked').value)
@@ -93,7 +93,7 @@ function _UpdateNavBlock() {
   
     }
 
-    if (config["interaction"] == "close") {
+    if (config["interaction"] == "click-close") {
         drops.forEach(drop => drop.classList.add("click-toggle"))
         drops.forEach(drop => drop.classList.add("auto-close"))
         clsNav.Init()
@@ -120,18 +120,16 @@ function _UpdateNavBlock() {
 
     // arrow down. can only be added after the nav is build up
     let nav = parentNav.querySelector(':scope > nav');
-    if (config["arrowDown"] == "0") {
-        nav.classList.remove("nav-style-arrow-C")
-        nav.classList.remove("nav-style-arrow-D")
-        nav.classList.remove("nav-style-arrow-E")
-    }
-    if (config["arrowDown"] == "C") 
+    nav.classList.remove("nav-style-arrow-C")
+    nav.classList.remove("nav-style-arrow-D")
+    nav.classList.remove("nav-style-arrow-E")
+    if (config["arrowDown"] == "&#x25BC" || config["arrowDown"] == "▼") 
         nav.classList.add("nav-style-arrow-C")
     
-    if (config["arrowDown"] == "D") 
+    if (config["arrowDown"] == "&#x25BD" || config["arrowDown"] == "▽") 
         nav.classList.add("nav-style-arrow-D")
     
-    if (config["arrowDown"] == "E") 
+    if (config["arrowDown"] == "&#x25BE" || config["arrowDown"] == "▾") 
         nav.classList.add("nav-style-arrow-E")
     
 }

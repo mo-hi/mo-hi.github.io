@@ -341,27 +341,27 @@ The function takes a configuration object that specifies the div to expose, the 
             <h3 id="id-h3-SelectionPill" class="m-0 inline-block">SelectionPill ()</h3>
             
             <p class="mt-10"><c>SelectionPill ()</c> creates a selection of options in the form of "pills" (buttons). The color of the selection-pill can be customized using CSS variables. You can also use your custom colors</p>
-            <div id="id-custom-element-container"><selection-pill name="my-selection" class-name="selection-pill mr-80" type="radio" checked="Option 2" options="[&quot;Option 1&quot;, &quot;Option 2&quot;, &quot;Option 3&quot;]" change-handler="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);" style_="--bg: var(--color-gray-50); --color: var(--color-gray-500);
+            <div id="id-custom-element-container"><selection-pill name="my-selection" class-name="selection-pill mr-80" type="radio" checked="Option 2" options="[&quot;Option 1&quot;, &quot;Option 2&quot;, &quot;Option 3&quot;]" on-change="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);" in-style="--bg: var(--color-gray-50); --color: var(--color-gray-500);
         --active-bg: var(--color-cyan-100); --active-color: var(--color-cyan-800);"></selection-pill>
 
-<selection-pill name="my-selection2" class-name="selection-pill" type="checkbox" options="[&quot;Option&quot;]" style_="--bg:var(--color-cyan-50);--color: var(--color-cyan-600); 
+<selection-pill name="my-selection2" class-name="selection-pill" type="checkbox" options="[&quot;Option&quot;]" in-style="--bg:var(--color-cyan-50);--color: var(--color-cyan-600); 
         --active-bg: var(--color-cyan-600); --active-color: white;" "=""></selection-pill> <!-- 1. Grey White -->
-            <selection-pill name="pill-gray" class-name="selection-pill" type="checkbox" options="[&quot;Gray&quot;]" style_="--bg: var(--color-gray-50); --color: var(--color-gray-600); --active-bg: var(--color-gray-600); --active-color: white;"></selection-pill>
+            <selection-pill name="pill-gray" class-name="selection-pill" type="checkbox" options="[&quot;Gray&quot;]" in-style="--bg: var(--color-gray-50); --color: var(--color-gray-600); --active-bg: var(--color-gray-600); --active-color: white;"></selection-pill>
             
             <!-- 2. Emerald / Green (Aktiv / Erfolgreich) -->
-            <selection-pill name="pill-emerald" class-name="selection-pill" type="checkbox" options="[&quot;Emerald&quot;]" style_="--bg: var(--color-emerald-50); --color: var(--color-emerald-600); --active-bg: var(--color-emerald-600); --active-color: white;"></selection-pill>
+            <selection-pill name="pill-emerald" class-name="selection-pill" type="checkbox" options="[&quot;Emerald&quot;]" in-style="--bg: var(--color-emerald-50); --color: var(--color-emerald-600); --active-bg: var(--color-emerald-600); --active-color: white;"></selection-pill>
 
             <!-- 3. Indigo / Blue-Purple (Modern / Tech) -->
-            <selection-pill name="pill-indigo" class-name="selection-pill" type="checkbox" options="[&quot;Indigo&quot;]" style_="--bg: var(--color-indigo-50); --color: var(--color-indigo-600); --active-bg: var(--color-indigo-600); --active-color: white;"></selection-pill>
+            <selection-pill name="pill-indigo" class-name="selection-pill" type="checkbox" options="[&quot;Indigo&quot;]" in-style="--bg: var(--color-indigo-50); --color: var(--color-indigo-600); --active-bg: var(--color-indigo-600); --active-color: white;"></selection-pill>
 
             <!-- 4. Rose / Pink (Frisch / Eye-Catcher) -->
-            <selection-pill name="pill-rose" class-name="selection-pill" type="checkbox" options="[&quot;Rose&quot;]" style_="--bg: var(--color-rose-50); --color: var(--color-rose-600); --active-bg: var(--color-rose-600); --active-color: white;"></selection-pill>
+            <selection-pill name="pill-rose" class-name="selection-pill" type="checkbox" options="[&quot;Rose&quot;]" in-style="--bg: var(--color-rose-50); --color: var(--color-rose-600); --active-bg: var(--color-rose-600); --active-color: white;"></selection-pill>
 
             <!-- 5. Amber / Gold (Warm / Premium) -->
-            <selection-pill name="pill-amber" class-name="selection-pill" type="checkbox" options="[&quot;Amber&quot;]" style_="--bg: var(--color-amber-50); --color: var(--color-amber-600); --active-bg: var(--color-amber-500); --active-color: white;"></selection-pill>
+            <selection-pill name="pill-amber" class-name="selection-pill" type="checkbox" options="[&quot;Amber&quot;]" in-style="--bg: var(--color-amber-50); --color: var(--color-amber-600); --active-bg: var(--color-amber-500); --active-color: white;"></selection-pill>
 
             <!-- 6. Cyan / Teal (Kühl / Clean) -->
-            <selection-pill name="pill-cyan" class-name="selection-pill" type="checkbox" options="[&quot;Cyan&quot;]" style_="--bg: var(--color-cyan-50); --color: var(--color-cyan-600); --active-bg: var(--color-cyan-600); --active-color: white;"></selection-pill></div>
+            <selection-pill name="pill-cyan" class-name="selection-pill" type="checkbox" options="[&quot;Cyan&quot;]" in-style="--bg: var(--color-cyan-50); --color: var(--color-cyan-600); --active-bg: var(--color-cyan-600); --active-color: white;"></selection-pill></div>
             <div class="w-80 mt-5i mb-60i">
                 <textarea spellcheck="false" class="code" style="width: 100%;" rows="20">&lt;selection-pill 
         name="my-selection" 
@@ -369,8 +369,8 @@ The function takes a configuration object that specifies the div to expose, the 
         type="radio" 
         checked="Option 2" 
         options='["Option 1", "Option 2", "Option 3"]'
-        change-handler="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"
-        style_="--bg: var(--color-gray-50); --color: var(--color-gray-500);
+        on-change="const val = new FormData(this).get('my-selection');clsBasis.popup('Selection changed!', 'You selected ' + val);"
+        in-style="--bg: var(--color-gray-50); --color: var(--color-gray-500);
         --active-bg: var(--color-cyan-100); --active-color: var(--color-cyan-800);"
 &gt;&lt;/selection-pill&gt;
 
@@ -379,7 +379,7 @@ The function takes a configuration object that specifies the div to expose, the 
         class-name="selection-pill"
         type="checkbox" 
         options='["Option"]'
-        style_="--bg:var(--color-cyan-50);--color: var(--color-cyan-600); 
+        in-style="--bg:var(--color-cyan-50);--color: var(--color-cyan-600); 
         --active-bg: var(--color-cyan-600); --active-color: white;"
     "
 &gt;&lt;/selection-pill&gt;</textarea>

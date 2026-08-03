@@ -79,36 +79,21 @@
 
     <section class="p-10">
         <div id = 'id-status1' class="selection-pill-bar mt-30i">
-            <selection-pill name="my-selection" type="checkbox" options='["fixed"]'>
-            </selection-pill>
+            <selection-pill name="position" type="checkbox" options='["fixed"]' 
+                class-name="selection-pill mr-30"
+                on-change="Update(event)"
+                ></selection-pill>
             
-            <form id = 'id-form-position' class="selection-pill mr-30" onchange="Update(event)">
-                <input type="checkbox" name="position" id="id-fixed" value="fixed">
-                <label for="id-fixed">fixed</label>
-            </form>
-            <form id = 'id-form-arrowDown' class="selection-pill mr-30" onchange="Update(event)">
-                <input type="radio" name="arrowDown" id="id-arrowDown-0" value="0" checked>
-                <label for="id-arrowDown-0">-</label>
-                
-                <input type="radio" name="arrowDown" id="id-arrowDown-C" value="C">
-                <label for="id-arrowDown-C">&#x25BC</label>
+            <selection-pill name="arrowDown" type="radio" options='["-","&#x25BC","&#x25BD","&#x25BE"]' 
+                class-name="selection-pill mr-30"
+                on-change="Update(event)"
+                ></selection-pill>
 
-                <input type="radio" name="arrowDown" id="arrowDown-D" value="D">
-                <label for="arrowDown-D">&#x25BD</label>
+            <selection-pill name="interaction" type="radio" options='["hover","click","click-close"]' 
+                class-name="selection-pill mr-30"
+                on-change="Update(event)"
+                ></selection-pill>
 
-                <input type="radio" name="arrowDown" id="arrowDown-E" value="E">
-                <label for="arrowDown-E">&#x25BE</label>
-            </form>
-            <form id = 'id-form-interaction' class="selection-pill mr-30" onchange="Update(event)">
-                <input type="radio" name="interaction" id="id-hover" value="hover" checked>
-                <label for="id-hover">hover</label>
-
-                <input type="radio" name="interaction" id="id-click" value="click">
-                <label for="id-click">click</label>
-
-                <input type="radio" name="interaction" id="id-autoclose" value="close">
-                <label for="id-autoclose">click close</label>
-            </form>
             <form id = 'id-form-navNum' class="selection-pill mr-30" onchange="Update(event)">
                 <input type="radio" name="navNum" id="id-1" value="1" checked>
                 <label for="id-1">1</label>
@@ -271,7 +256,7 @@
     <script src="js/pageLogic.js"></script>
     <script src="js/sideDataMunich.js"></script>
     <script>
-        Reset()
+        // Reset()
         // this ovverrides the html navbar above
         Update()
         // use this, when you manually change the nav html (for test purposes)

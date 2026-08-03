@@ -1,5 +1,4 @@
 const config = {
-    theme: document.querySelector('input[name="theme"]:checked').value,
     mainWidth: document.querySelector('input[name="mainWidth"]:checked').value,
 }
 
@@ -13,7 +12,6 @@ function Reset() {
 }
 
 function _UpdateConfig() {
-    config["theme"] = document.querySelector('input[name="theme"]:checked').value,
     config["mainWidth"] = document.querySelector('input[name="mainWidth"]:checked').value
 }
 
@@ -23,12 +21,13 @@ function Update() {
     document.body.className = config["theme"]
     document.querySelector('main').className = "w-responsive-" + config["mainWidth"]
 
-    document.getElementById("id-html-code-show").innerHTML = ""
-    ExposeHTML({
+    document.getElementById("id-html-body-show").innerHTML = ""
+    clsDOM.ExposeHTML({
         divToExpose: getTruncatedHTML(document.body, 1), 
-        divToAppend: document.getElementById("id-html-code-show"),
+        divToAppend: document.getElementById("id-html-body-show"),
         outer: true,
         pretty: true, 
-        textAreaClassName: "code",})
+        textAreaClassName: "code",
+        defineRows: true})
 }
 
