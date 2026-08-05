@@ -1,151 +1,252 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Mo Hi">
-    <title>Test JS</title>
-    <!-- <link rel="stylesheet" href="../css/paper.css"> -->
-    <link rel="stylesheet" href="../basis/css/b.css">
-    <style>
-        :root       {--color-background: #f0f0f0;--color-text: #444;}
-        body        {background-color: var(--color-background); color: var(--color-text);}
-        #id-end     {background-color: var(--color-background); color: var(--color-text);}
-        h2.sticky   {background-color: var(--color-background); color: var(--color-text);}
-    </style>
-</head>
-<body class="academic wr-800-400">
-    <section>
-        <h2 class="underline">About test.js</h2>
-        <p>
-            This is Test JS, perfect for testing your html and javascript code. Link the <c>b.js</c> and
-            the <c>clsTest.js</c> filesto your html file, where you want to run the tests. 
-            <br>
-            The test report is either created in a pop up (new html page) or as a child element of your page.
-        </p>
-        <p>
-            Insert the following files in your html file:
-        </p>
-        <div id = "id-script-files-show" class = "js-fill h-60">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test JS</title>
+        <link rel="stylesheet" href="../basis/css/b.css">
+        <link rel="stylesheet" href="../navbar/css/nav.css">
+        <style>
+    :root, body.dark {
+        --color-text: var(--color-zinc-100);
 
-        </div>
-        <p>
-            Add the following script:
-        </p>
-        <div id = "id-test-starter-script-show" class = "js-fill h-120">
+        --color-bg-body: var(--color-zinc-950);
+        --color-bg-main: var(--color-zinc-900);
 
-        </div>
-        <p>
-            Done. <br><br>
-            Now when you call 'test()' in our console (or another way), the tests will be excecuted and the results shown.
-        </p>
-    </section>
-    <section>
-        <h2 class="underline">Start</h2>
-        <p>
-            See the following template
-        </p>
-        <pre><code>
-            <div id="id-template"> </div>
-        </code></pre>
-        <p>
-            The script section starts with referencing the needed js files <c>b.js</c> and
-            the <c>clsTest.js</c>. Then comes the explicit part, where first a new test object is created. This test object 
-            is our test manager that is passed to the test cases function. 
-            Wihtin the testcases function, the test object is passed to every test case, like an operator/manager
-            that executes every test case by itself. The test object saves information about the excecuted tests within itself. 
-        </p>
-        <p>
-            The testcases itself are defined in a separate JavaScript file, typically named <c>testCases.js</c>. 
-            This file contains the test cases function, which receives the test manager object and executes all your individual test cases. 
-            By keeping your test cases in a dedicated file, you maintain a clean separation between your test logic and your main application code.
-        </p>
-        <p>
-            Once the test cases have been performed the results can be printed. Sine T.js is pure javascript, 
-            there's no html file created on your file system. Everything happens in your browser
-        </p>
-        <p>
-            In this version, the tests run automatically when the page loads. 
-            You don't need to manually call the `test()` function from the console. 
-            The script at the bottom of the page initializes the test manager, executes the test cases, 
-            and displays the results as soon as the page is ready.
-        </p>
-    </section>
-    <section>
-        <h2 class="underline">test cases</h2>
-        <p>
-            Next we have to write the test cases. You can set up the structure as you want. The only thing that needs to be considered is
-            that the test varibale 'myTest' must be passed to each test. 
-        </p>
-        <pre><code>
-            <div id="id-testcases"> </div>
-        </code></pre>
-    </section>
-</body>
+        --color-nav-bg: var(--color-gray-800); 
+        --color-nav-down-bg: var(--color-gray-700); 
+        --color-nav-font: var(--color-zinc-200);
 
+        --color-nav-btn-bg:var(--color-blue-600);
+        --color-nav-btn-font: white;
 
-<div id = "id-script-files">
-    <script src = "../basis/js/b.js"></script>
-    <script src = "clsTest.js"></script>
-</div>
+        --color-pill-bg: var(--color-gray-50);
+        --color-pill-font: var(--color-gray-500);
 
-<script id = "id-test-starter-script">
-    function test() {
-            let myTest = new clsTest()
-            testCases(myTest)
-            myTest.PrintResult() 
+        --color-pill-bg-checked: var(--color-cyan-100);
+        --color-pill-font-checked: var(--color-cyan-900);
+
+        --color-c-bg: var(--color-zinc-700);
+        --color-c-font: var(--color-cyan-300);
+
+        --color-textarea-code-bg: var(--color-zinc-800);
+        --color-textarea-code-text: var(--color-zinc-300);
+        --color-textarea-code-border: var(--color-zinc-400);         
+        --color-textarea-code-accent: var(--color-blue-500);
+        --color-textarea-code-accent-glow: var(--color-blue-800);
+        --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+        --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
     }
 
-</script>
+    body.light {
+        --color-text: var(--color-zinc-900);
 
+        --color-bg-body: var(--color-zinc-200);
+        --color-bg-main: var(--color-zinc-50);
 
-<script>
-    ShowHTMLinTextArea(document.getElementById("id-script-files"), document.getElementById("id-script-files-show"))
-    ShowHTMLinTextArea(document.getElementById("id-test-starter-script"), document.getElementById("id-test-starter-script-show"))
-    document.getElementById("id-template").innerText = 
-`    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>test title</title>
+        --color-nav-bg: var(--color-slate-300); 
+        --color-nav-down-bg: var(--color-slate-300); 
+        --color-nav-font: var(--color-zinc-900);
+
+        --color-nav-btn-bg:var(--color-blue-600);
+        --color-nav-btn-font: white;
+
+        --color-c-bg: var(--color-zinc-300);
+        --color-c-font: var(--color-red-700);
+
+        --color-textarea-code-bg: var(--color-zinc-100);
+        --color-textarea-code-text: var(--color-zinc-800);
+        --color-textarea-code-border: var(--color-zinc-400);         
+        --color-textarea-code-accent: var(--color-blue-500);
+        --color-textarea-code-accent-glow: var(--color-blue-800);
+        --color-textarea-code-scrollbar-thumb: var(--color-neutral-400);
+        --color-textarea-code-scrollbar-thumb-hover: var(--color-neutral-600);
+    }
+        </style>
     </head>
-    <body>
-        <div id="id-main" class="js-fill"></div>
-        ... html that you want to test ...
+    <body class="dark">
+        <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
+            <nav>
+                <a href="#id-h2-about-bjs">Home</a>
+                
+            </nav>
+            <nav class="nav-right">
+                <a class="nav-btn" onclick="toggleTheme(this)">light theme</a>
+            </nav>
+        </div>
+        <main class="w-responsive-l mt-40">
+            <h1>Test JS</h1>
+            <section>
+                <h2>About Test JS</h2>
+                <p>
+                    This is a test class for JavaScript with simple use. You insert the <c>clsTest.js</c> files into your html file, where you want to run the tests.
+                </p>
+                                   <div class="h-30 w-80 js-fill mt-5i mb-60i">
+                    <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="1">
+&lt;script src="https://mo-hi.github.io/testJS/clsTest.js"&gt;&lt;/script&gt;</textarea></div>
+                <p>
+                    Create a new instance of the <c>clsTest</c> class and call the <c>Init()</c> function to initialize the test cases.
+                    All your test cases are automatically identified in your project by their function name prefix. 
+                    So make sure to use a unique prefix for your test cases to avoid conflicts. 
+                    <br><br>
+                    The default prefix is <c>testCases_</c> but you can change it to any other prefix you want.
+                    The test cases can be anywhere in your project but must be defined at a global scope. 
+                    Best practice is to have them in a separate JavaScript file typically named <c>testCases_*.js</c>.
+                </p>
+                <div class="h-30 w-80 js-fill mt-5i" style="margin-bottom: 200px;">
+                    <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="7">
+let myTests = new clsTest()
+clsTest.Init({prefix: 'testCase_'})
+// or shorter
+let myTests = clsTest.Init({prefix: 'testCase_'})
 
+//check if it worked
+console.log(myTests.testFunctions);</textarea>
+                </div> 
+
+                <p>
+                    <c>Run()</c> the tests.
+                </p>
+                <div class="w-80 js-fill mt-5i" style="margin-bottom: 18px;">
+                    <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="4">
+myTests.Run()
+
+//check the results
+console.log(myTests.testResults)</textarea>
+                </div>
+                <p>
+                    <c>ShowTestResult()</c> to show the results in the console or in a separate popup window. The default is 'console' but you can also use 'popup' to show the results in a popup window.
+                </p>
+                <div class="w-80 js-fill mt-5i" style="margin-bottom: 18px;">
+                    <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="4">
+myTests.ShowTestResult() 
+
+// or show the results in a popup window
+myTests.ShowTestResult('popup')</textarea>
+                </div>
+                <p>
+                    Special Feature for <c>ShowTestResult('popup')</c>: <br>
+                    You can add your custom css,html and script to the popup window 
+                    by setting the <c>customCSS</c>, <c>customHTML_BeforeTable</c>, <c>customHTML_AfterTable</c>, and <c>customScript</c> properties of the <c>clsTest.popup</c> instance.
+                </p>
+                <div class="w-80 js-fill mt-5i" style="margin-bottom: 18px;">
+                    <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="4">
+myTests.popup.customCSS = 'body { background-color: lightblue; }'
+myTests.popup.customHTML_BeforeTable = '&lt;h1&gt;My Test Results&lt;/h1&gt;'
+myTests.popup.customHTML_AfterTable = '&lt;p&gt;This is a custom message after the table.&lt;/p&gt;'
+myTests.popup.customScript = 'console.log("This is a custom script in the popup window");'</textarea>
+                </div>
+                <p>
+                    <c>DownloadTestResult()</c> to save the results to a file with a different file name.
+                </p>
+                <div class="w-80 js-fill mt-5i" style="margin-bottom: 18px;">
+                    <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="4">
+myTests.DownloadTestResult() 
+
+// or specify a different file name
+myTests.DownloadTestResult('my-test-results.json')</textarea>
+                </div>
+            </section>
+
+            <section>
+                <h2>Unit Tests</h2>
+                <p>
+                    Unit tests are a way to test individual functions or methods in your code. Unit test are for functions that:
+                    <ul>
+                        <li>don't require any external dependencies and can be run in isolation.</li>
+                        <li>don't require or simulate any user interaction.</li>
+                        <li>They are usually small and focused on a single piece of functionality.</li>
+                    </ul>
+                    For example for the followingfunctions:
+                </p>
+                <div id="id-script-simple-functions-show" class="w-80 js-fill mt-5i ">
+                </div>
+                <p>
+                    you can create the following <b>unit tests</b>. The reuqimrents must be met:
+                    <div style="font-family: system-ui, -apple-system, sans-serif; color: #e2e8f0; line-height: 1.6; padding: 12px 0;">
+                        <ul>
+                            <li>the test case name has to start with your defined prefix (here 'testCase_')</li>
+                            <li>the test case function must take the test instance as its only parameter (here: 'myTest')</li>
+                            <li>test methods must be called with the following parameters:</li>
+                            <ul>
+                                <li>actual value: you can directly pass here the function incl. parameters you want to test</li>
+                                <li>expected value: what the expected result should be</li>
+                                <li>function name: the name of the function being tested</li>
+                                <li>test case name: the name of the test or a comment for the test. This is different from the test case name, which is the name of the whole test function (here 'testCase_addition')</li>
+                            </ul>
+                        </ul>
+                    </div>
+
+                </p>
+                <div id="id-script-unit-test-show" class="w-80 js-fill mt-5i ">
+
+                </div>
+                <p>
+
+                </p>
+            </section>
+
+        </main>
     </body>
-
-    <script src="../basis/js/b.js"><\/script>
-    <script src="clsTest.js"><\/script>
-    <script src="testCases.js"><\/script>
-    ... script files that you want to test ...
+    <script src="../basis/js/b.js"></script>
+    <script src="../testJS/clsTest.js"></script>
 
     <script>
-        ... script that you want to test ...
+        function toggleTheme(element) {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+            element.innerHTML = element.innerHTML === 'light theme' ? 'dark theme' : 'light theme';
+        }
+    </script>
 
-        (function () {
-            let myTest = new clsTest()
-            RunTestCases(myTest)
-            // -> This will append the test report as a child element to the 
-            //    div 'id-main'  on your page
-            myTest.PrintResult('id-main') 
-            // -> This will create a popup with your test resutls
-            myTest.PrintResult() 
-        })();
-    <\/script>
-    </html>`
-    document.getElementById("id-testcases").innerText = 
-`    function RunTestCases(myTest) {
-        textCase1(myTest)
-        testCase2(myTest)
-    }
-    
-    testCase1(myTest) {
-        myTest.IsTrue(1==1, "message in case of test fails")
-    }
+    <script id = "id-script-simple-functions">
+        function addFunction(a, b) {
+            return a + b;
+        }
+        function subtractFunction(a, b) {
+            return a - b;
+        }
+        function multiplyFunction(a, b) {
+            return a * b;
+        }
+        function divideFunction(a, b) {
+            if (b === 0) {
+                throw new Error("Division by zero is not allowed.");
+            }
+            return a / b;
+        }</script>
 
-    testCase2(myTest) {
-        let a = [1,2]
-        myTest.IsEqual([1,2], a, "message in case of test fails")
-    }`
-</script>
+    <script id = "id-script-unit-test">
+        function testCase_addition(myTest) {
+            let fName = addFunction.name;
 
+            myTest.Equal2(addFunction(2,3), 5, fName, 'Test addition of 2 and 3');
+            myTest.Equal2(addFunction(-1,1), 0, fName, 'Test addition of -1 and 1');
+            myTest.Equal2(addFunction(0,0), 0, fName, 'Test addition of 0 and 0');
+            myTest.Equal2(addFunction(-5,-5), -10, fName, 'Test addition of -5 and -5');
+
+            //intentionally failing test
+            myTest.Equal2(addFunction(2,2), 5, fName, 'Test addition of 2 and 2 (should fail)');
+        }</script>
+
+    <script>
+        clsDOM.ExposeHTML({
+            divToExpose: document.getElementById(`id-script-simple-functions`),
+            divToAppend: document.getElementById(`id-script-simple-functions-show`),
+            outer: false,
+            // pretty: true,
+            textAreaClassName: "code",
+            lineNumbers: false,
+            defineRows: true
+        });
+
+        clsDOM.ExposeHTML({
+            divToExpose: document.getElementById(`id-script-unit-test`),
+            divToAppend: document.getElementById(`id-script-unit-test-show`),
+            outer: false,
+            // pretty: true,
+            textAreaClassName: "code",
+            lineNumbers: false,
+            defineRows: true
+        });
+    </script>
 </html>
