@@ -210,9 +210,9 @@ class clsDivBuilder {
         textarea.id = config.id || "";
         textarea.className = config.className || "";
         textarea.spellcheck = config.spellcheck || false;
-        textarea.style.width = config.width || "100%";
-        textarea.style.height = config.height || "100%";
         textarea.value = config.value || "";
+        if (config.width) textarea.style.width = config.width;
+        if (config.height) textarea.style.height = config.height;
         return textarea;
     }
 }
@@ -719,8 +719,13 @@ clsDOM.ExposeHTML = function(config) {
     let defineRows = config.defineRows || false;
 
     let textarea = clsDivBuilder.BuildTextArea({
-        id: id, className: textAreaClassName, spellcheck: false, 
-        width: '100%', height: '100%'});
+        id: id, 
+        className: textAreaClassName, 
+        spellcheck: false, 
+        width: '100%', 
+        ...(!defineRows && { height: '100%' })
+    });
+
 
     let htmlSource = undefined
     if (stringToExpose != "") {
@@ -861,7 +866,7 @@ class SelectionPill extends HTMLElement {
             const isChecked = checkedValue && optionX.toLowerCase() === checkedValue.toLowerCase();
             if (type === 'checkbox') {
                 if (isChecked) {
-                    input.checked = true;  // interne checked property
+                    input.checked = true;  // interne checked property (i think this is not needed, but i keep it for safety)
                     input.setAttribute('checked', '');   // HTML checked attribute
                 }
 
@@ -870,7 +875,7 @@ class SelectionPill extends HTMLElement {
             if (type === 'radio') {
                 const isFirstOption = !checkedValue && index === 0;
                 if (isChecked || isFirstOption) {
-                    // input.checked = true;
+                    input.checked = true;
                     input.setAttribute('checked', '');
                 }
 

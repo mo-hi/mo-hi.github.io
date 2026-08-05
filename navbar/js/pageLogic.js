@@ -142,7 +142,8 @@ function _UpdateHTMLBlock() {
         divToAppend: document.getElementById("id-show-out"),
         pretty: true, 
         textAreaClassName: "code",
-        synchWithTarget: true})
+        synchWithTarget: true,
+    })
 }
 
 

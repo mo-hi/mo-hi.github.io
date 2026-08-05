@@ -327,7 +327,7 @@ function FillDynamicSidebar() {
             outer: true,
             pretty: false, 
             textAreaClassName: "code",
-            synchWithTarget: false
+            synchWithTarget: false,
         })
 
         clsDOM.ExposeHTML({
@@ -335,7 +335,7 @@ function FillDynamicSidebar() {
             divToAppend: document.getElementById("id-scripts-nav-show"),
             pretty: false, 
             textAreaClassName: "code",
-            synchWithTarget: false
+            synchWithTarget: false,
         })
 
         for (let idDivShow of ["id-css-nav-show", "id-scripts-nav-show"]) {
@@ -349,7 +349,7 @@ function FillDynamicSidebar() {
             divToAppend: document.getElementById("id-sidebar-show"),
             pretty: true, 
             textAreaClassName: "code",
-            outer: true
+            outer: true,
         })
 
         clsDOM.ExposeHTML({

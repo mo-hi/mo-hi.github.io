@@ -148,14 +148,14 @@ let FromFile_FunctionsCodeExamples = [
         name: "ExposeHTML",
         code: [
             'clsDOM.ExposeHTML({',
-            '   divToExpose: document.getElementById(`id-1`)',
-            '   divToAppend: document.getElementById(`id-1-show`)',
-            '   outer: false',
-            '   pretty: true',
-            '   textAreaClassName: "code"',
-            '   lineNumbers: false',
-            '   synchWithTarget: true',
-            '   defineRows: true',
+            '   divToExpose: document.getElementById(`id-1`),',
+            '   divToAppend: document.getElementById(`id-1-show`),',
+            '   outer: false,',
+            '   pretty: true,',
+            '   textAreaClassName: "code",',
+            '   lineNumbers: false,',
+            '   synchWithTarget: true,',
+            '   defineRows: true,',
             '});'
         ]
     },
