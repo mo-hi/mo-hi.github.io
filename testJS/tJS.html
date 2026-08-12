@@ -67,8 +67,10 @@
         <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
             <nav>
                 <a href="#id-h2-about-bjs">Home</a>
-                <a onclick="temp_button()">Run Tests</a>
-                
+                <a onclick="button_RunTests()">Run Tests</a>
+                <a onclick="button_ShowInConsole()">Show in Console</a>
+                <a onclick="button_ShowInPopUp()">Show in Pop-up</a>
+                <a onclick="button_Download()">Download Results</a>
             </nav>
             <nav class="nav-right">
                 <a class="nav-btn" onclick="toggleTheme(this)">light theme</a>
@@ -223,13 +225,24 @@ myTests.DownloadTestResult('my-test-results.json')</textarea>
         function testCase_addition(myTest) {
             let fName = addFunction.name;
 
-            myTest.Equal2(addFunction(2,3), 5, fName, 'Test addition of 2 and 3');
-            myTest.Equal2(addFunction(-1,1), 0, fName, 'Test addition of -1 and 1');
-            myTest.Equal2(addFunction(0,0), 0, fName, 'Test addition of 0 and 0');
-            myTest.Equal2(addFunction(-5,-5), -10, fName, 'Test addition of -5 and -5');
+            myTest.Equal(addFunction(2,3), 5, fName, 'Test addition of 2 and 3');
+            myTest.Equal(addFunction(-1,1), 0, fName, 'Test addition of -1 and 1');
+            myTest.Equal(addFunction(0,0), 0, fName, 'Test addition of 0 and 0');
+            myTest.Equal(addFunction(-5,-5), -10, fName, 'Test addition of -5 and -5');
 
             //intentionally failing test
-            myTest.Equal2(addFunction(2,2), 5, fName, 'Test addition of 2 and 2 (should fail)');
+            myTest.Equal(addFunction(2,2), 5, fName, 'Test addition of 2 and 2 (should fail)');
+        }
+
+        function testCase_division(myTest) {
+            let fName = divideFunction.name;
+            
+            myTest.Equal(divideFunction(6,3), 2, fName, 'Test division of 6 by 3');
+            myTest.Equal(divideFunction(0,1), 0, fName, 'Test division of 0 by 1');
+            myTest.ThrowError(divideFunction, [10, 0], fName, 'Test division by zero');
+            myTest.ThrowError(divideFunction, [10, 0], fName, 'Test division by zero', "Division by zero is not allowed.");
+            myTest.ThrowError(divideFunction, [10, 0], fName, 'Test division by zero', "Division by 0 is not allowed.");
+            myTest.ThrowError(divideFunction, [], fName, 'Test division by zero', "Division by 0 is not allowed.");
         }
     </script>
 
@@ -256,11 +269,22 @@ myTests.DownloadTestResult('my-test-results.json')</textarea>
     </script>
 
     <script>
-        function temp_button() {
-            let myTests = new clsTest()
+        let myTests = new clsTest()
+        function button_RunTests() {
             myTests = clsTest.Init({prefix: 'testCase_', saveToFile: "testReport.js"})
             myTests.Run()
+        }
+
+        function button_ShowInPopUp() {
             myTests.ShowTestResult('popup')
+        }
+
+        function button_ShowInConsole() {
+            myTests.ShowTestResult('console')
+        }
+
+        function button_Download() {
+            myTests.DownloadTestResult()
         }
     </script>
 </html>

@@ -1,9 +1,5 @@
 class clsTest {
     constructor(testFunctions) {
-        this.cases = [];
-        this.mode = "test"
-        this.halt = false
-        this.silentCounter = 0
         // list of actual test cases to run, if null, all testCase_* functions will be auto-discovered
         this.testFunctions = testFunctions;
         this.testResults = [];
@@ -11,10 +7,6 @@ class clsTest {
         this.currentTestCaseName = null;
 
         this.popup = {
-            customCSS: null,
-            customHTML_BeforeTable: null,
-            customHTML_AfterTable: null,
-            customScript: null,
             saveToFile: ""
         };
     }
@@ -40,16 +32,8 @@ class clsTest {
         }
     }
 
-    _pushTestResult2(result, msg = '') {
-
-    }
-
-
-// ##################################################################################
-// # Operations                                                                     #
-// ##################################################################################
     PrintToPopUp() {
-        let popup = window.open("", "myPopup", "width=800,height=600");
+        let popup = window.open("", "_blank"); 
         let doc = popup.document;
 
         // structure
@@ -59,51 +43,10 @@ class clsTest {
         let body = doc.createElement("body");
 
         head.appendChild(this._style());
+        body.appendChild(this._nav()); 
+        body.appendChild(this._divHeader()); 
         body.appendChild(this._table())
-
-        // build
-        html.appendChild(head);
-        html.appendChild(body);
-        doc.appendChild(html);
-        doc.close();
-    }
-
-    PrintToPopUp2() {
-        let popup = window.open("", "myPopup", "width=1200,height=800");
-        let doc = popup.document;
-
-        // structure
-        doc.open();
-        let html = doc.createElement("html");
-        let head = doc.createElement("head");
-        let body = doc.createElement("body");
-
-        head.appendChild(this._style());
-        if (this.popup?.customCSS) {
-            let styleTag = doc.createElement("style");
-            styleTag.textContent = this.popup.customCSS;
-            head.appendChild(styleTag);
-        }
-
-        body.appendChild(this._nav());  
-        if (this.popup?.customHTML_BeforeTable) {
-            let customContainer = doc.createElement("div");
-            customContainer.innerHTML = this.popup.customHTML_BeforeTable;
-            body.appendChild(customContainer);
-        }
-        body.appendChild(this._table2())
-        if (this.popup?.customHTML_AfterTable) {
-            let customContainer = doc.createElement("div");
-            customContainer.innerHTML = this.popup.customHTML_AfterTable;
-            body.appendChild(customContainer);
-        }
-
         body.appendChild(this._popup_script());
-        if (this.popup?.customScript) {
-            let scriptTag = doc.createElement("script");
-            scriptTag.textContent = this.popup.customScript;
-            body.appendChild(scriptTag);
-        }
 
         // build
         html.appendChild(head);
@@ -125,81 +68,18 @@ class clsTest {
     }
 
 
-// ##################################################################################
-// # Modes                                                                          #
-// ##################################################################################
-    SetTestMode() {
-        if (this.mode == "silent" && this.silentCounter >0) {
-            this._pushTestResult(String(this.silentCounter) + ' tests passed executed in silent mode and passed', 'passed','')}
-        this.mode = "test"
-        this._pushTestResult('<div class="navy font-w600"> Normal Test Mode activated</div>', '', 'passed','')
-    }
-
-    SetSilentMode() {
-        this.mode = "silent"
-        this.silentCounter = 0
-        this._pushTestResult('<div class="navy font-w600"> Silent Mode activated</div>', '', 'passed','')
-    }
-
-    // This will pause the program when a test failes. your dev tools must be open.
-    SetHaltOnFail() {
-        this.halt = true
-    }
-
-    // ##################################################################################
-    // # Dummy Lines                                                                    #
-    // ##################################################################################
-
-    Info(msg) {
-        this._pushTestResult(msg, '', 'information','')
-    }
-
-    Action(msg) {
-        this._pushTestResult('[ACTION] ' + msg, '', 'acion','')
-    }
-
-    TestHeadline(testName) {
-        this._pushTestResult('<b>' + testName + ' - Start</b>', '', '-','')
-    }
-
-    NewLine() {
-        this._pushTestResult(' ', '', '-','')
-    }
-
-    _pushTestResult(fname, testName, result, msg) {
-        this.cases.push([fname, testName, result, msg])
-    }
-
-    _passed(fname, testName, msg) {
-        if (msg == undefined) msg = ''
-        if (this.mode == "test") {
-            this._pushTestResult(fname, testName, 'passed', msg)}
-        if (this.mode == "silent") {
-            this.silentCounter += 1}
-        
-    }
-
-    _failed(fname, testName, msg) {
-        if (msg == undefined) msg = ''
-        if (this.halt) {
-            debugger;
-        }
-        this._pushTestResult(fname, testName, 'failed', msg)
-    }
-
-
-    _passed2(fname, testName) {
+    _passed(fname, testName, msg = '') {
         this.testResults.push({
             result: 'passed',
             functionName: fname,
             testCaseName: this.currentTestName,
             testName: testName,
-            msg: ''
+            msg: msg
         });
         
     }
 
-    _failed2(fname, testName, msg) {
+    _failed(fname, testName, msg) {
         this.testResults.push({
             result: 'failed',
             functionName: fname,
@@ -208,26 +88,18 @@ class clsTest {
             msg: msg
         });
     }
-
-
+    
 
 
 // ##################################################################################
 // # Checker                                                                        #
 // ##################################################################################
 
-    Equal(a, b, fName, testCaseName) {
+    Equal(a, b, fName, testName) {
         if (this._IsEqual(a,b)) {
-            return this._passed(fName, testCaseName)}
+            return this._passed(fName, testName)}
         else {
-            return this._failed(fName, testCaseName, " " + a + " not equal to " + b + ". ")}
-    }
-
-    Equal2(a, b, fName, testName) {
-        if (this._IsEqual(a,b)) {
-            return this._passed2(fName, testName)}
-        else {
-            return this._failed2(fName, testName, " " + a + " not equal to " + b + ". ")}
+            return this._failed(fName, testName, " " + a + " not equal to " + b + ". ")}
     }
 
     IsTrue(a, fName, testName) {
@@ -235,19 +107,27 @@ class clsTest {
         return this._failed(fName, testName, "failed");
     }
 
-    ErrorSeen(foo_or_obj, p, fooName) {
-        if (typeof foo_or_obj == 'object') return this._Assertion_Object(ffoo_or_obj, p , fooName); 
-
-        if (typeof foo_or_obj == 'function') return this._Assertion_Function(foo_or_obj, p , fooName); 
-
-        throw new Error(":you should not be here. ErrorThrown")
+    ThrowError(fn, args = [], fName = "", testName = "", msg = "") {
+        try {
+            fn(...args); 
+        } catch (error) {
+            const errorMsg = error?.message || String(error);
+            if (msg == "") {
+                return this._passed(fName, testName + " (Error Test)", "Error was thrown: " + errorMsg);
+            }
+            if (errorMsg == msg) {
+                return this._passed(fName, testName + " (Error Test)", "Error was thrown as expected: " + errorMsg);
+            }
+            return this._failed(fName, testName + " (Error Test)", "Error was thrown, but unexpected error message: " + errorMsg);
+        }
+        return this._failed(fName, testName + " (Error Test)", "Expected error, but function ran without throwing an error.");
     }
 
 // ##################################################################################
 // # Checker helper                                                                 #
 // ##################################################################################
 
-    _t(variable) {
+    _typ(variable) {
         if (Array.isArray(variable)) return 'list'
         if (typeof variable === 'object' && variable !== null) return 'dict'
         if (typeof variable === 'string') return 'str'
@@ -260,16 +140,16 @@ class clsTest {
     _IsEqual(a,b, max_iterations = 10) {
         if (max_iterations<1) return false
         
-        if (this._t(a)!=this._t(b)) return false
+        if (this._typ(a)!=this._typ(b)) return false
     
-        if (['bool', 'int', 'str', 'null', 'undefined'].includes(this._t(a)) && (a == b)) return true
+        if (['bool', 'int', 'str', 'null', 'undefined'].includes(this._typ(a)) && (a == b)) return true
 
-        if (['list'].includes(this._t(a)) && (a.length == b.length)) {
+        if (['list'].includes(this._typ(a)) && (a.length == b.length)) {
             for (let i = 0; i< a.length; i++) {
                 if (this._IsEqual(a[i], b[i], max_iterations-1) == false) return false}
             return true}
 
-        if (['dict'].includes(this._t(a)) && (Object.keys(a).length == Object.keys(b).length)) {
+        if (['dict'].includes(this._typ(a)) && (Object.keys(a).length == Object.keys(b).length)) {
             for (let key of Object.keys(a)) {
                 if (!b.hasOwnProperty(key)) return false}
 
@@ -280,25 +160,6 @@ class clsTest {
         return false
         }
 
-    _Assertion_Function(foo, p , fname) {
-        try {
-            foo(p["a"], p["b"], p["c"], p["d"])
-        } catch (error) {
-            return this._passed(fname, "Error was thrown")
-        } 
-        return this._failed(fname, "Error was not thrown")
-        
-    }
-    
-    _Assertion_Object(obj, p , fname) {
-        try {
-            new obj.constructor(p["a"], p["b"], p["c"], p["d"])
-        } catch (error) {
-            return this._passed(fname, "Error was thrown")
-        } 
-        return this._failed(fname, "Error was not thrown")
-        
-    }
 
 // ##################################################################################
 // # Print                                                                          #
@@ -313,7 +174,7 @@ class clsTest {
 
     ShowTestResult(target = 'console') {
         if (target == 'popup') {
-            this.PrintToPopUp2();
+            this.PrintToPopUp();
             return
         }
 
@@ -338,38 +199,31 @@ class clsTest {
         console.groupEnd();
     }
 
-    CasesAsJSON() {
-        let out = [];
-        if (!Array.isArray(this.cases)) return out;
-        for (let c of this.cases) {
-            // expect c to be an array: [functionName, testName, result, message]
-            let obj = {
-                fName: c[0] !== undefined ? c[0] : null,
-                tName: c[1] !== undefined ? c[1] : null,
-                result: c[2] !== undefined ? c[2] : null,
-                message: c[3] !== undefined ? c[3] : null
-            };
-            out.push(obj);
-        }
-        return out;
-    }
-
-
 
     // region popup
 
     _nav() {
         let nav = document.createElement('nav');
         nav.innerHTML = `
-            <span class="nav-text">Test Results</span>
-            <span class="nav-text">Total Tests: ${this.testResults.length}</span>
-            <span class="nav-text">Failed: ${this.testResults.filter(r => r.result === 'failed').length}</span>
+            <span class="nav-text">To save test results: </span>
             
-            <a class="nav-btn-blue" onclick="SelectFile()" style="margin-left: 40px;">Select JSON</a>
-            <a id="id-save" class="nav-btn-red hidden"  onclick="SaveToFile()" style="margin-left: 20px;" disabled>Save Test Results to JSON</a>
-            <span class="nav-text" id="id-status"></span>
+            <a class="nav-btn-blue" onclick="SelectFile()" style="margin-left: 40px;">Select File</a>
+            <span class="nav-text hidden" id="id-status-warning">DANGER: File content will be overwritten</span>
+            <a id="id-save" class="nav-btn-red hidden"  onclick="SaveToFile()" style="margin-left: 20px;" disabled>Save test results to selected file</a>
+            <span class="nav-text" id="id-status-save"></span>
+            <a id="id-open" class="nav-btn-blue hidden"  onclick="OpenFile()" style="margin-left: 20px;" disabled>show saved content</a>
         `;
         return nav;
+    }
+
+    _divHeader() {
+        let div = document.createElement('div');
+        div.innerHTML = `
+            <h1>Test Results</h1>
+            <p>
+            Total Tests: ${this.testResults.length} | Failed: ${this.testResults.filter(r => r.result === 'failed').length}</p>
+        `;
+        return div;
     }
 
         
@@ -381,18 +235,14 @@ class clsTest {
                 --color-nav-down-bg: #374151;
 
                 --color-nav-font: white;
-                
-                --color-nav-btn-bg:#007bff;
-                --color-nav-btn-font: white;
+            
             }
             body {
                 background-color: #222;
                 color: #ddd;
             }
 
-            .hidden {
-                display: none;
-            }
+
             table, th, td {
                 border: 1px solid #444;
                 border-collapse: collapse;
@@ -405,6 +255,17 @@ class clsTest {
             color: #e2d6d6;
             }
 
+
+            /* Any element with the .nav-fixed class that is also the direct parent of a nav */
+            .nav-fixed:has(nav) {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
             nav {
                 display: block;
                 padding: 0;
@@ -415,15 +276,15 @@ class clsTest {
                 float: left;
             }
             
-            /* nav > a, nav > div.drop a { */
-            nav a, nav span.nav-text, .sidebar a {
+            nav a, nav span.nav-text{
                 display: inline-block;
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
             }
 
-            /* Color of the nav */
+            /* COLORS OF THE NAV */
+            /* First level of nav items */
             :has(> nav),
             nav, 
             nav > a,
@@ -432,69 +293,46 @@ class clsTest {
                 background-color: var(--color-nav-bg);
             }
 
+            /* Second level of nav items */
             nav > div.drop > div.down > a { 
                 color: var(--color-nav-font); 
                 background-color: var(--color-nav-down-bg); 
             }
 
+            /* Hover effect for nav items */
             nav > a:hover, 
             nav > div.drop > a:hover, 
             nav > div.drop > div.down > a:hover { 
                 filter: brightness(1.6);
             }
 
-            nav > a[class^="nav-btn"] {
-                transition: filter 0.2s, transform 0.1s;
-                background-color: var(--color-nav-btn-bg);
-                color: var(--color-nav-btn-font);
-            } 
-
-            nav > a[class^="nav-btn"]:hover {
-                background-color: color-mix(in srgb, var(--color-nav-btn-bg, #000), white 15%);
-            }
-
+            /* Button colors */
             .nav-btn-blue {
-                background-color: var(--color-nav-btn-bg, #007bff);
+                color: white;
+                background-color: #007bff;
             }
 
             .nav-btn-red {
-                background-color: #dc3545
+                color: white;
+                background-color: #dc3545;
             }
 
-            /* Any element with the .nav-fixed class that is also the direct parent of a nav 
-            */
-            .nav-fixed:has(nav) {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                margin-left: auto;
-                margin-right: auto;
+            nav > a[class^="nav-btn"] {
+                transition: filter 0.2s, transform 0.1s;
+            } 
+
+            .hidden {
+                display: none !important;
             }
+
+
             `;
 
         style.appendChild(document.createTextNode(css));
         return style
     }
 
-    _table(tableID) {
-        let table = document.createElement('table')
-        let thead = document.createElement('thead')
-        let tbody = document.createElement('tbody');
-
-        thead.append(this._tableRow('th', ['no.', 'Function Name', 'Test Name', 'result', 'message']))
-
-        for (let i = 0; i< this.cases.length; i++) {
-            tbody.append(this._tableRow('td', [i+1].concat(this.cases[i])))}
-
-        table.append(thead)
-        table.append(tbody)
-
-        if (tableID != undefined) table.id = tableID
-        return table
-    }
-
-    _table2() {
+    _table() {
         let table = document.createElement('table')
         let thead = document.createElement('thead')
         let tbody = document.createElement('tbody');
@@ -541,21 +379,22 @@ class clsTest {
             let expectedFileName = ${JSON.stringify(this.saveToFile || "")};
             async function SelectFile () {
                 [filePointer] = await window.showOpenFilePicker();
-                document.getElementById('id-status').textContent = "File selected: " + filePointer.name + " - Wrong file. Please select " + expectedFileName;
+                document.getElementById('id-status-save').textContent = "File selected: " + filePointer.name + " - Wrong file. Please select " + expectedFileName;
                 console.log("Expected file: " + expectedFileName);
 
-                if (document.getElementById('id-status').textContent.includes("File selected: " + expectedFileName)) {
-                    document.getElementById('id-status').textContent = "File selected: " + filePointer.name;
+                if (document.getElementById('id-status-save').textContent.includes("File selected: " + expectedFileName)) {
+                    document.getElementById('id-status-save').textContent = "File selected: " + filePointer.name;
+                    document.getElementById('id-status-warning').classList.remove('hidden');
                     document.getElementById('id-save').classList.remove('hidden');
                 }
             }
 
             async function SaveToFile() {
-                if (!document.getElementById('id-status').textContent.includes(expectedFileName))
+                if (expectedFileName != '' && !document.getElementById('id-status-save').textContent.includes(expectedFileName))
                     return
 
                 if (!filePointer) {
-                    document.getElementById('id-status').textContent = "Please select a file first.";
+                    document.getElementById('id-status-save').textContent = "Please select a file first.";
                 }
                 // Create a Writeable stream to the file
                 let writable = await filePointer.createWritable();
@@ -565,8 +404,42 @@ class clsTest {
                 await writable.close();
                 //Indicate sucess
                 document.getElementById('id-save').classList.add('hidden');
-                document.getElementById('id-status').innerText = "Successfully written to " + filePointer.name;
+                document.getElementById('id-status-warning').classList.add('hidden');
+                document.getElementById('id-open').classList.remove('hidden');
+                document.getElementById('id-status-save').innerText = "Successfully written to " + filePointer.name;
             }
+
+            async function OpenFile() {
+                        if (!filePointer) {
+                            document.getElementById('id-status-save').textContent = "Please select a file first.";
+                            return;
+                        }
+
+                        const file = await filePointer.getFile();
+                        const content = await file.text();
+
+                        const newWin = window.open('', '_blank');
+                        if (newWin) {
+                            newWin.document.write(\`
+                                <!DOCTYPE html>
+                                <html>
+                                <head>
+                                    <title>\${file.name}</title>
+                                    <style>
+                                        body { font-family: system-ui, sans-serif; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+                                        pre { font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; word-break: break-all; margin: 0; }
+                                    </style>
+                                </head>
+                                <body>
+                                    <h3>\${file.name}</h3>
+                                    <pre>\${content.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+                                </body>
+                                </html>
+                            \`);
+                            newWin.document.close();
+                        }
+                    }
+
         `;
         return script;
     }
