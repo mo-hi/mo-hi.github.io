@@ -14,18 +14,23 @@ class clsTest {
             customCSS: null,
             customHTML_BeforeTable: null,
             customHTML_AfterTable: null,
-            customScript: null
+            customScript: null,
+            saveToFile: ""
         };
     }
 
     // Auto-discovers testCase_* functions from global scope
-    static Init({listoftests = null, prefix = 'testCase_'} = {}) {
-        if (!listoftests) {
+    static Init({listoftests = null, prefix = null, saveToFile = null} = {}) {
+        if (prefix !== null && !listoftests) {
         listoftests = Object.keys(window)
             .filter(key => key.startsWith(prefix) && typeof window[key] === 'function')
             .map(key => window[key]);
         }
-        return new clsTest(listoftests);
+        let instance = new clsTest(listoftests);
+        if (saveToFile) {
+            instance.popup.saveToFile = saveToFile;
+        }
+        return instance;
     }
 
     Run () {
@@ -53,7 +58,7 @@ class clsTest {
         let head = doc.createElement("head");
         let body = doc.createElement("body");
 
-        head.appendChild(this._style());  
+        head.appendChild(this._style());
         body.appendChild(this._table())
 
         // build
@@ -64,7 +69,7 @@ class clsTest {
     }
 
     PrintToPopUp2() {
-        let popup = window.open("", "myPopup", "width=800,height=600");
+        let popup = window.open("", "myPopup", "width=1200,height=800");
         let doc = popup.document;
 
         // structure
@@ -80,6 +85,7 @@ class clsTest {
             head.appendChild(styleTag);
         }
 
+        body.appendChild(this._nav());  
         if (this.popup?.customHTML_BeforeTable) {
             let customContainer = doc.createElement("div");
             customContainer.innerHTML = this.popup.customHTML_BeforeTable;
@@ -92,6 +98,7 @@ class clsTest {
             body.appendChild(customContainer);
         }
 
+        body.appendChild(this._popup_script());
         if (this.popup?.customScript) {
             let scriptTag = doc.createElement("script");
             scriptTag.textContent = this.popup.customScript;
@@ -347,13 +354,44 @@ class clsTest {
         return out;
     }
 
+
+
+    // region popup
+
+    _nav() {
+        let nav = document.createElement('nav');
+        nav.innerHTML = `
+            <span class="nav-text">Test Results</span>
+            <span class="nav-text">Total Tests: ${this.testResults.length}</span>
+            <span class="nav-text">Failed: ${this.testResults.filter(r => r.result === 'failed').length}</span>
+            
+            <a class="nav-btn-blue" onclick="SelectFile()" style="margin-left: 40px;">Select JSON</a>
+            <a id="id-save" class="nav-btn-red hidden"  onclick="SaveToFile()" style="margin-left: 20px;" disabled>Save Test Results to JSON</a>
+            <span class="nav-text" id="id-status"></span>
+        `;
+        return nav;
+    }
+
         
     _style() {
         let style = document.createElement('style');
         let css = `
+            :root {
+                --color-nav-bg: #343a40;
+                --color-nav-down-bg: #374151;
+
+                --color-nav-font: white;
+                
+                --color-nav-btn-bg:#007bff;
+                --color-nav-btn-font: white;
+            }
             body {
                 background-color: #222;
                 color: #ddd;
+            }
+
+            .hidden {
+                display: none;
             }
             table, th, td {
                 border: 1px solid #444;
@@ -365,6 +403,73 @@ class clsTest {
             td.failed {
             background-color: #CC0000;
             color: #e2d6d6;
+            }
+
+            nav {
+                display: block;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            nav > a, nav > div.drop, nav span.nav-text {
+                float: left;
+            }
+            
+            /* nav > a, nav > div.drop a { */
+            nav a, nav span.nav-text, .sidebar a {
+                display: inline-block;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            /* Color of the nav */
+            :has(> nav),
+            nav, 
+            nav > a,
+            nav > div.drop > a { 
+                color: var(--color-nav-font);
+                background-color: var(--color-nav-bg);
+            }
+
+            nav > div.drop > div.down > a { 
+                color: var(--color-nav-font); 
+                background-color: var(--color-nav-down-bg); 
+            }
+
+            nav > a:hover, 
+            nav > div.drop > a:hover, 
+            nav > div.drop > div.down > a:hover { 
+                filter: brightness(1.6);
+            }
+
+            nav > a[class^="nav-btn"] {
+                transition: filter 0.2s, transform 0.1s;
+                background-color: var(--color-nav-btn-bg);
+                color: var(--color-nav-btn-font);
+            } 
+
+            nav > a[class^="nav-btn"]:hover {
+                background-color: color-mix(in srgb, var(--color-nav-btn-bg, #000), white 15%);
+            }
+
+            .nav-btn-blue {
+                background-color: var(--color-nav-btn-bg, #007bff);
+            }
+
+            .nav-btn-red {
+                background-color: #dc3545
+            }
+
+            /* Any element with the .nav-fixed class that is also the direct parent of a nav 
+            */
+            .nav-fixed:has(nav) {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
             }
             `;
 
@@ -428,6 +533,44 @@ class clsTest {
         return row
     }
 
+    _popup_script() {
+        let script = document.createElement('script');
+        script.innerHTML = `
+            let data = ${JSON.stringify(this.testResults)};
+            let filePointer = null;
+            let expectedFileName = ${JSON.stringify(this.saveToFile || "")};
+            async function SelectFile () {
+                [filePointer] = await window.showOpenFilePicker();
+                document.getElementById('id-status').textContent = "File selected: " + filePointer.name + " - Wrong file. Please select " + expectedFileName;
+                console.log("Expected file: " + expectedFileName);
+
+                if (document.getElementById('id-status').textContent.includes("File selected: " + expectedFileName)) {
+                    document.getElementById('id-status').textContent = "File selected: " + filePointer.name;
+                    document.getElementById('id-save').classList.remove('hidden');
+                }
+            }
+
+            async function SaveToFile() {
+                if (!document.getElementById('id-status').textContent.includes(expectedFileName))
+                    return
+
+                if (!filePointer) {
+                    document.getElementById('id-status').textContent = "Please select a file first.";
+                }
+                // Create a Writeable stream to the file
+                let writable = await filePointer.createWritable();
+                // Write to file
+                writable.write("let FromFile_FunctionsTestResults = " + JSON.stringify(data, null, 4));
+                // Close the file
+                await writable.close();
+                //Indicate sucess
+                document.getElementById('id-save').classList.add('hidden');
+                document.getElementById('id-status').innerText = "Successfully written to " + filePointer.name;
+            }
+        `;
+        return script;
+    }
+
     DownloadTestResult(filename = 'test-results.json') {
         if (this.testResults.length === 0) 
         return;
@@ -463,4 +606,5 @@ class clsTest {
         // Release ObjectURL after short time
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
+
 }

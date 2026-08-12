@@ -9,12 +9,27 @@
 }
 
 nav.sidebar {
-    --color-nav-bg: #343a40;
-    --color-nav-down-bg: #374151;
-
-    --color-nav-font: white;
+    /* colors of the sidebar */
 }
 
+
+nav {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+  }
+
+nav > a, nav > div.drop, nav span.nav-text {
+    float: left;
+  }
+  
+/* nav > a, nav > div.drop a { */
+nav a, nav span.nav-text, .sidebar a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
 
 /* Color of the nav */
 :has(> nav),
@@ -99,12 +114,6 @@ nav > a[class^="nav-btn"]:hover {
     margin-left: auto;
 }
 
-nav {
-    display: block;
-    list-style-type: none;
-    padding: 0;
-    overflow: hidden;
-  }
 
 /* override when parent has class multi-nav */
 .nav-multi nav {
@@ -113,20 +122,6 @@ nav {
     overflow: visible; /* Required so dropdowns don't get cut off! */
     height: 100%;      /* Ensure it fills the parent bar height */
 }
-  
-nav > a, nav > div.drop {
-    float: left;
-    position: static;
-  }
-  
-/* nav > a, nav > div.drop a { */
-nav a, .sidebar a {
-    position: static;
-    display: inline-block;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
 
 nav.nav-style-arrow-C  div.drop > a::after {
     content: " \25BC";

@@ -67,6 +67,7 @@
         <div id="id-nav" class="nav-multi w-responsive-l nav-fixed z-1">
             <nav>
                 <a href="#id-h2-about-bjs">Home</a>
+                <a onclick="temp_button()">Run Tests</a>
                 
             </nav>
             <nav class="nav-right">
@@ -95,7 +96,7 @@
                 <div class="h-30 w-80 js-fill mt-5i" style="margin-bottom: 200px;">
                     <textarea id="" class="code" spellcheck="false" readonly="" style="width: 100%;" rows="7">
 let myTests = new clsTest()
-clsTest.Init({prefix: 'testCase_'})
+myTests = clsTest.Init({prefix: 'testCase_'})
 // or shorter
 let myTests = clsTest.Init({prefix: 'testCase_'})
 
@@ -185,11 +186,14 @@ myTests.DownloadTestResult('my-test-results.json')</textarea>
                 </p>
             </section>
 
+            <footer-js></footer-js>
         </main>
+
+        
     </body>
     <script src="../basis/js/b.js"></script>
     <script src="../testJS/clsTest.js"></script>
-
+    <script src="../htmlElements.js"></script>
     <script>
         function toggleTheme(element) {
             document.body.classList.toggle('dark');
@@ -226,7 +230,8 @@ myTests.DownloadTestResult('my-test-results.json')</textarea>
 
             //intentionally failing test
             myTest.Equal2(addFunction(2,2), 5, fName, 'Test addition of 2 and 2 (should fail)');
-        }</script>
+        }
+    </script>
 
     <script>
         clsDOM.ExposeHTML({
@@ -248,5 +253,14 @@ myTests.DownloadTestResult('my-test-results.json')</textarea>
             lineNumbers: false,
             defineRows: true
         });
+    </script>
+
+    <script>
+        function temp_button() {
+            let myTests = new clsTest()
+            myTests = clsTest.Init({prefix: 'testCase_', saveToFile: "testReport.js"})
+            myTests.Run()
+            myTests.ShowTestResult('popup')
+        }
     </script>
 </html>
